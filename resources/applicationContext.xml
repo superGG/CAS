@@ -96,7 +96,7 @@
 		<property name="maxPoolSize" value="25"/>
 
 		<property name="user" value="root" />
-		<property name="password" value="root" />
+		<property name="password" value="123456" />
 	</bean>
 
 </beans>
