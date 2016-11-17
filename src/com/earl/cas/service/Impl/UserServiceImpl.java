@@ -15,8 +15,7 @@ import com.earl.cas.service.UserService;
 
 @Service("userService")
 @Transactional
-public class UserServiceImpl extends BaseServiceImpl<User, User> implements
-		UserService {
+public class UserServiceImpl extends BaseServiceImpl<User, User> implements UserService{
 
 	private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
