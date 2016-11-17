@@ -85,7 +85,8 @@
 	<!-- 数据库设置 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/clubsystem" />
+		<!-- <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/clubsystem" /> -->
+		<property name="jdbcUrl" value="jdbc:mysql://119.29.209.29:3306/clubsystem" />
 		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
 		<property name="acquireIncrement" value="5"/>
 		<!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
@@ -101,7 +102,7 @@
 		<property name="maxPoolSize" value="25"/>
 
 		<property name="user" value="root" />
-		<property name="password" value="123456" />
+		<property name="password" value="1234" />
 	</bean>
 
 </beans>
