@@ -13,7 +13,7 @@ public interface BaseDao<T> {
 
 	void update(T t);
 
-	void deleteById(Long id);
+	void deleteById(Integer id);
 
 	/**
 	 * findById 功能跟get(int )一样
@@ -21,7 +21,7 @@ public interface BaseDao<T> {
 	 * @param id
 	 * @return
 	 */
-	T get(Long id);
+	T get(Integer id);
 
 	List<T> findAll();
 

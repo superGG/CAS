@@ -27,4 +27,5 @@ public class UserServiceImpl extends BaseServiceImpl<User, User> implements User
 		return userDao;
 	}
 
+
 }
