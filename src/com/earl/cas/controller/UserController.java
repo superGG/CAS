@@ -62,7 +62,7 @@ public class UserController extends BaseController {
 		logger.debug("REST request to delete Users");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		userService.deleteById(2);
+		userService.deleteById(id);
 		result.setResultInfo("删除成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 
