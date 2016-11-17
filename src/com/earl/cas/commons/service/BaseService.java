@@ -6,7 +6,8 @@ import com.earl.cas.vo.PageInfo;
 
 
 public interface BaseService<T, E> {
-
+    
+	
 	void save(T model);
 
 	Boolean update(T t);
@@ -17,13 +18,13 @@ public interface BaseService<T, E> {
 	 */
 	void updateWithNotNullProperties(T t);
 
-	void deleteById(Long id);
+	void deleteById(Integer id);
 
 	List<T> findAll();
 	
 	List<T> findAll(PageInfo pageInfo);
 
-	T get(Long id);
+	T get(Integer id);
 	
 	List<T> findByGivenCreteria(T object);
 

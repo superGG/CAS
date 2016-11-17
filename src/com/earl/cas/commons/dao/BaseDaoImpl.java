@@ -73,14 +73,14 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
 	// 根据ID删除对象
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Integer id) {
 		logger.debug("delete " + entityClazz.getName() + " instance");
 		delete(get(id));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public T get(Long id) {
+	public T get(Integer id) {
 		T object = (T) getCurrentSession().get(entityClazz, id);
 		return object;
 	}
@@ -223,9 +223,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			for (Field field : fields) {
 				// 判断该属性是否标注着idAnnotation
 				if (field.isAnnotationPresent(IdAnnotatioin.class)) {
-					Long id;
+					Integer id;
 					// 得到po的id
-					id = (Long) beanMap.get(field.getName());
+					id = (Integer) beanMap.get(field.getName());
 					// 通过hibernate的id查询出对象
 					t = get(id);
 					break;
