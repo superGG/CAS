@@ -45,12 +45,12 @@ public abstract class BaseServiceImpl<T , E>
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Integer id) {
 		getDao().deleteById(id);
 	}
 
 	@Override
-	public T get(Long id) {
+	public T get(Integer id) {
 		return (T) getDao().get(id);
 	}
 

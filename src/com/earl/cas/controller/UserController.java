@@ -54,6 +54,20 @@ public class UserController extends BaseController {
 		result.setResultInfo("添加成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
+	
+	
+
+	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> delete(Integer id) {
+		logger.debug("REST request to delete Users");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		userService.deleteById(2);
+		result.setResultInfo("删除成功");
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+
+	
+	}
 
 //	/**
 //	 * 根据id删除用户
