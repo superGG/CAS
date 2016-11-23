@@ -17,7 +17,11 @@ import com.earl.cas.entity.User;
 import com.earl.cas.service.UserService;
 import com.earl.cas.vo.ResultMessage;
 
-
+/**
+ * user的controller.
+ *@author 宋
+ *@date 2016-11-23
+ */
 @RestController
 @RequestMapping(value = "/users")
 public class UserController extends BaseController {

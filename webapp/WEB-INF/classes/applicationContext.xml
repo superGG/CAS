@@ -15,8 +15,9 @@
 		
 	<!-- 添加注解扫描功能,启动的时候哪些包要检查是否有注解 -->
 	<context:component-scan base-package="com.earl.." />
+	
 	<!-- AOP配置 -->
-	<aop:aspectj-autoproxy />
+	<aop:aspectj-autoproxy expose-proxy="true"/>
 
 	<!-- jsp页面跳转配置 -->
 	<bean id="jspViewResolver"
@@ -36,7 +37,8 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-
+	
+	<!-- hibernate4必须配置为开启事务 否则 getCurrentSession()获取不到 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="save*" propagation="REQUIRES_NEW" /> <!-- 支持当前事务，如果执行到save开头的任何方法时没有事务则开启一个事务 这是最常见的方式 -->
@@ -51,11 +53,13 @@
 			<tx:method name="*" />
 		</tx:attributes>
 	</tx:advice>
-	<!-- <aop:config>
+	<aop:config>
 		<aop:pointcut id="interceptorPointCuts"
 			expression="execution(* com.earl.cas.*.*DaoImpl.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="interceptorPointCuts" />
-	</aop:config> -->
+	</aop:config>
+	
+	<!-- 配置注解实现管理事务（cglib：proxy-target-class="true"） -->
 	<tx:annotation-driven transaction-manager="txManager" />
 
 	<!-- enable autowire -->
@@ -68,12 +72,12 @@
 		<property name="hibernateProperties">
             <props>
                 <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.connection.autocommit">true</prop>
             </props>
         </property>
-		<property name="annotatedClasses">
-			<list>
-				<value>com.earl.cas.entity.User</value>
-			</list>
+		<!-- <property name="annotatedClasses">  该属性标致扫描类的路径-->
+		<property name="packagesToScan"><!-- 该属性标致扫描包的路径 -->
+			<value>com.earl.cas.*</value>
 		</property>
 	</bean>
 	
@@ -85,8 +89,8 @@
 	<!-- 数据库设置 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<!-- <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/clubsystem" /> -->
-		<property name="jdbcUrl" value="jdbc:mysql://119.29.209.29:3306/clubsystem" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/clubsystem" />
+		<!-- <property name="jdbcUrl" value="jdbc:mysql://119.29.209.29:3306/clubsystem" /> -->
 		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
 		<property name="acquireIncrement" value="5"/>
 		<!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
@@ -102,7 +106,8 @@
 		<property name="maxPoolSize" value="25"/>
 
 		<property name="user" value="root" />
-		<property name="password" value="1234" />
+		<property name="password" value="root" />
+<!-- 		<property name="password" value="1234" /> -->
 	</bean>
 
 </beans>

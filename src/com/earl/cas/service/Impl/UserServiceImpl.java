@@ -13,9 +13,14 @@ import com.earl.cas.dao.UserDao;
 import com.earl.cas.entity.User;
 import com.earl.cas.service.UserService;
 
+/**
+ * User的service层实现类.
+ *@author 宋
+ *@date 2016-11-23
+ */
 @Service("userService")
 @Transactional
-public class UserServiceImpl extends BaseServiceImpl<User, User> implements
+public class UserServiceImpl extends BaseServiceImpl<User> implements
 		UserService {
 
 	private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);

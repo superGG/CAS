@@ -9,7 +9,7 @@ import com.earl.cas.entity.User;
 /**
  * userDao的实现类
  *@author 宋
- *@date 2016-8-15
+ *@date 2016-11-23
  */
 @Repository("userDao")
 public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
