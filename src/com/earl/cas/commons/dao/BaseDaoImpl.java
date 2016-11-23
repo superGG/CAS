@@ -24,7 +24,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.earl.cas.commons.domain.IdAnnotatioin;
-import com.earl.cas.entity.User;
 import com.earl.cas.vo.PageInfo;
 
 
@@ -62,6 +61,8 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	public Integer save(T t) {
 		System.out.println(t.toString());
 		// logger.debug("saving " + clazz.getName() + " instance");
+//		Integer id =  (Integer) getCurrentSession().save(t);
+//		System.out.println(id);
 		return (Integer) getCurrentSession().save(t);
 	}
 
@@ -76,8 +77,10 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	@Override
 	public void deleteById(Integer id) {
 		logger.debug("delete " + entityClazz.getName() + " instance");
-		String hql = "delete from " + entityClazz.getSimpleName() + " where id = ?";
-		getCurrentSession().createQuery(hql).setInteger(0, id).executeUpdate();		
+//		String hql = "delete from " + entityClazz.getSimpleName() + " where id = ?";
+//		getCurrentSession().createQuery(hql).setInteger(0, id).executeUpdate();		
+		getCurrentSession().delete(get(id));
+		
 	}
 
 	@SuppressWarnings("unchecked")

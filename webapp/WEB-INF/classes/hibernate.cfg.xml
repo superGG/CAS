@@ -5,8 +5,9 @@
 <hibernate-configuration>
     <session-factory name="test">
         <property name="hibernate.connection.driver_class">org.gjt.mm.mysql.Driver</property>
-        <property name="hibernate.connection.password">1234</property>
-        <property name="hibernate.connection.url">jdbc:mysql://119.29.209.29:3306/clubsystem</property>
+        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/clubsystem</property>
+<!--         <property name="hibernate.connection.url">jdbc:mysql://119.29.209.29:3306/clubsystem</property> -->
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
     </session-factory>

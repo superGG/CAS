@@ -11,21 +11,21 @@ import com.earl.cas.vo.PageInfo;
 
 
 @Transactional
-public abstract class BaseServiceImpl<T , E>
-		implements BaseService<T, E> {
+public abstract class BaseServiceImpl<T>
+		implements BaseService<T> {
 
 	protected abstract BaseDao<T> getDao();
 
 	protected Class<T> entityClazz;
 
-	protected Class<E> criteriaClazz;
+//	protected Class<E> criteriaClazz;
 
 	@SuppressWarnings("unchecked")
 	public BaseServiceImpl() {
 		Type genType = getClass().getGenericSuperclass();
 		Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
 		entityClazz = (Class<T>) params[0];
-		criteriaClazz = (Class<E>) params[1];
+//		criteriaClazz = (Class<E>) params[1];
 	}
 	
 	@Override
