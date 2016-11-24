@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-11-22 09:56:35
+Date: 2016-11-24 21:51:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -62,7 +62,7 @@ CREATE TABLE `apply` (
   `user_id` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `sex` bit(1) DEFAULT NULL,
+  `sex` bit(1) DEFAULT NULL COMMENT '1男 0 女',
   `age` int(11) DEFAULT NULL,
   `nation` varchar(255) DEFAULT NULL,
   `hobby` varchar(255) DEFAULT NULL,
@@ -92,7 +92,7 @@ CREATE TABLE `club` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `school_id` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `captain` varchar(255) DEFAULT NULL,
+  `leader` varchar(255) DEFAULT NULL COMMENT '社长',
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `introduce` text,
   `phone` varchar(255) DEFAULT NULL,
@@ -233,21 +233,11 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   KEY `FK_usertodetails` (`details_id`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`details_id`) REFERENCES `user_details` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'Kellan', '132465', null, null);
-INSERT INTO `user` VALUES ('2', 'Kellan', '132465', null, null);
-INSERT INTO `user` VALUES ('3', 'Kellan', '132465', null, null);
-INSERT INTO `user` VALUES ('4', 'Kellan', '132465', null, null);
-INSERT INTO `user` VALUES ('5', 'Kellan', '132465', null, null);
-INSERT INTO `user` VALUES ('6', 'Kellan', '132465', null, '2016-11-22 08:59:19');
-INSERT INTO `user` VALUES ('7', 'Kellan', '132465', null, null);
-INSERT INTO `user` VALUES ('8', 'Kellan', '132465', null, '2016-11-22 09:13:30');
-INSERT INTO `user` VALUES ('9', 'Kellan', '132465', null, '2016-11-22 09:19:17');
-INSERT INTO `user` VALUES ('10', 'Kellan', '132465', null, '2016-11-22 09:22:11');
 
 -- ----------------------------
 -- Table structure for userclub
@@ -279,16 +269,16 @@ DROP TABLE IF EXISTS `user_details`;
 CREATE TABLE `user_details` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
-  `sex` bit(1) DEFAULT NULL,
+  `sex` bit(1) DEFAULT b'1' COMMENT '1 男  0 女',
   `phone` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `hobby` varchar(255) DEFAULT NULL,
   `singnation` varchar(255) DEFAULT NULL,
   `head_path` varchar(255) DEFAULT NULL,
-  `role_id` int(11) DEFAULT NULL,
-  `createtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `role_id` int(11) DEFAULT '0',
+  `createtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_details
