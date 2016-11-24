@@ -6,5 +6,5 @@ import com.earl.cas.entity.User;
 
 public interface UserDao extends BaseDao<User>{
 
-    
+
 }
