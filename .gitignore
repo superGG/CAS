@@ -1,5 +1,4 @@
-/target/
-/.idea/
+/resources/
 /.settings/
 /.project
 /*.iml
@@ -9,3 +8,4 @@
 /.mymetadata
 /.myumldata
 /webapp/
+/resources/applicationContext.xml
