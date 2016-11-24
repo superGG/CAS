@@ -1,4 +1,4 @@
-package com.earl.cas.service.Impl;
+﻿package com.earl.cas.service.Impl;
 
 import javax.annotation.Resource;
 
@@ -20,6 +20,7 @@ import com.earl.cas.service.UserService;
  */
 @Service("userService")
 @Transactional
+
 public class UserServiceImpl extends BaseServiceImpl<User> implements
 		UserService {
 
