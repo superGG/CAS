@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.User;
+import com.earl.cas.entity.UserDetails;
+import com.earl.cas.service.UserDetailsService;
 import com.earl.cas.service.UserService;
 import com.earl.cas.vo.ResultMessage;
 
@@ -30,6 +32,9 @@ public class UserController extends BaseController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
 
 	private ResultMessage result = null;
 
@@ -54,6 +59,13 @@ public class UserController extends BaseController {
 		logger.debug("REST request to save Users");
 		result = new ResultMessage();
 		result.setServiceResult(true);
+		UserDetails userDetail = new UserDetails();
+//		userDetail.getUsers().add(user);
+		userDetail.setName("test2");
+		userDetail.setEmail("wergsdf@qq.com");
+		Integer detailId = userDetailsService.save(userDetail);
+		userDetail = userDetailsService.get(detailId);
+		user.setUserDetalis(userDetail);
 		userService.save(user);
 		result.setResultInfo("添加成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
