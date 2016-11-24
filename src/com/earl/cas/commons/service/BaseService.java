@@ -5,7 +5,7 @@ import java.util.List;
 import com.earl.cas.vo.PageInfo;
 
 
-public interface BaseService<T, E> {
+public interface BaseService<T> {
     
 	
 	void save(T model);

@@ -2,5 +2,20 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
+	<table-filter match-name="activity" match-catalog="clubsystem"></table-filter>
+	<table-filter match-name="album" match-catalog="clubsystem"></table-filter>
+	<table-filter match-name="apply" match-catalog="clubsystem"></table-filter>
+	<table-filter match-name="club" match-catalog="clubsystem"></table-filter>
+	<table-filter match-name="club_type" match-catalog="clubsystem"></table-filter>
+	<table-filter match-name="clubcreate" match-catalog="clubsystem"></table-filter>
+	<table-filter match-name="message" match-catalog="clubsystem"></table-filter>
+	<table-filter match-name="photo" match-catalog="clubsystem"></table-filter>
+	<table-filter match-name="position" match-catalog="clubsystem"></table-filter>
+	<table-filter match-name="school" match-catalog="clubsystem"></table-filter>
 	<table-filter match-name="user" match-catalog="clubsystem"></table-filter>
+	<table-filter match-name="user_detail" match-catalog="clubsystem"></table-filter>
+	<table-filter match-name="user_detalis"
+		match-catalog="clubsystem">
+	</table-filter>
+	<table-filter match-name="userclub" match-catalog="clubsystem"></table-filter>
 </hibernate-reverse-engineering>
