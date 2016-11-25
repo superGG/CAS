@@ -28,17 +28,34 @@ public class UserDetails implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
+	
+	//真实姓名
 	private String name;
 	
-	
+	//性别
 	private Boolean sex;
+	
+	//电话
 	private String phone;
+	
+	//邮箱
 	private String email;
+	
+	//爱好
 	private String hobby;
+	
+	//个性签名
 	private String singnation;
+	
+	//头像路径
 	private String headPath;
+	
+	//角色
 	private Integer roleId;
+	
+	//创建时间
 	private Date createtime;
+	
 	private Set<User> users = new HashSet<User>(0);
 
 	public UserDetails() {

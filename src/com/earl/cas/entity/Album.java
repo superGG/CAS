@@ -28,10 +28,20 @@ public class Album implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
+	
+	//社团
 	private Club club;
+	
+	//相册名称
 	private String name;
+	
+	//创建时间
 	private Date createtime;
+	
+	//相册封面路径
 	private String path;
+	
+
 	private Set<Photo> photos = new HashSet<Photo>(0);
 
 	public Album() {

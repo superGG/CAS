@@ -24,10 +24,19 @@ public class Userclub implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
+	//关联项编号
 	private int id;
+	
+	//入社申请表
 	private Apply apply;
+	
+	//社团
 	private Club club;
+	
+	//职位
 	private Position position;
+	
+	//创建时间
 	private Date createtime;
 
 	public Userclub() {

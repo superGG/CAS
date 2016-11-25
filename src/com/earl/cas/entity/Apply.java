@@ -25,23 +25,54 @@ import javax.persistence.Transient;
 @Table(name = "apply", catalog = "clubsystem")
 public class Apply implements Serializable
 {
+	//表明类的不同版本间的兼容性
 	private static final long serialVersionUID = 1L;
 	
+	//申请表编号
 	private int id;
+	
+	//社团
 	private Club club;
+	
+	//用户
 	private User user;
+	
+	//真实姓名
 	private String name;
+	
+	//邮箱
 	private String email;
+	
+	//性别
 	private Boolean sex;
+	
+	//年龄
 	private Integer age;
+	
+	//民族
 	private String nation;
+	
+	//爱好
 	private String hobby;
+	
+	//电话
 	private String phone;
+	
+	//专业班级
 	private String majorClass;
+	
+	//个人简介
 	private String introduce;
+	
+	//申请时间
 	private Date createtime;
+	
+	//申请理由
 	private String reason;
+	
+	//状态
 	private Integer statue;
+
 	private Set<Userclub> userclubs = new HashSet<Userclub>(0);
 
 	public Apply() {

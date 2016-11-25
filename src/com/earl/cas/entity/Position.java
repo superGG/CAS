@@ -28,9 +28,16 @@ public class Position implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
+	
+	//社团
 	private Club club;
+	
+	//创建时间
 	private Date createtime;
+	
+	//职位名称
 	private String name;
+	
 	private Set<Userclub> userclubs = new HashSet<Userclub>(0);
 
 	public Position() {

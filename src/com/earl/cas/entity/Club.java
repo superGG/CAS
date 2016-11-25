@@ -28,14 +28,31 @@ public class Club implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
+	
+	//社团类型
 	private ClubType clubType;
+	
+	//学校
 	private School school;
+	
+	//社团名称
 	private String name;
+	
+	//社长名称
 	private String leader;
+	
+	//创建日期
 	private Date createtime;
+	
+	//社团简介
 	private String introduce;
+	
+	//社团电话
 	private String phone;
+	
+	//社团邮箱
 	private String email;
+	
 	private Set<Activity> activities = new HashSet<Activity>(0);
 	private Set<Position> positions = new HashSet<Position>(0);
 	private Set<Apply> applies = new HashSet<Apply>(0);

@@ -29,10 +29,19 @@ public class User implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
+	
+	//用户详情
 	private UserDetails userDetalis;
+	
+	//用户账号
 	private String account;
+	
+	//用户密码
 	private String password;
+	
+	//创建时间
 	private Date createtime;
+	
 	private Set<Clubcreate> clubcreates = new HashSet<Clubcreate>(0);
 	private Set<Message> messages = new HashSet<Message>(0);
 	private Set<Apply> applies = new HashSet<Apply>(0);
