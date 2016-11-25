@@ -46,5 +46,16 @@ public class MessageController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> deleteMessage(Integer id) {
+		logger.debug("REST request to get all message");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		messageService.deleteById(id);
+		result.setResultInfo("删除成功");
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+		
+	}
+	
 
 }
