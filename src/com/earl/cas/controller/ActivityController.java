@@ -56,5 +56,5 @@ public class ActivityController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
-
+//  @RequestMapping(value = "/modifyActivity")
 }

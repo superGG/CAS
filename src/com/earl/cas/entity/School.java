@@ -26,8 +26,13 @@ public class School implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
+	
+	//学校名称
 	private String name;
+	
+	//创建时间
 	private Date createtime;
+	
 	private Set<Club> clubs = new HashSet<Club>(0);
 
 	public School() {

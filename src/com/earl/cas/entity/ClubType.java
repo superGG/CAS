@@ -25,9 +25,15 @@ public class ClubType implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
+	//类型编号
 	private int id;
+	
+	//类型名称
 	private String name;
+	
+	//创建时间
 	private Date createtime;
+	
 	private Set<Club> clubs = new HashSet<Club>(0);
 
 	public ClubType() {

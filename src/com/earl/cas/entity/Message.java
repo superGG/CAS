@@ -27,13 +27,27 @@ public class Message implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
+	//留言编号
 	private int id;
+	
+	//留言
 	private Message message;
+	
+	//用户
 	private User user;
+	
+	//留言内容
 	private String content;
+	
+	//创建时间
 	private Date createtime;
+	
+	//点赞次数
 	private Integer good;
+	
+	//点踩次数
 	private Integer bad;
+	
 	private Set<Message> messages = new HashSet<Message>(0);
 
 	public Message() {

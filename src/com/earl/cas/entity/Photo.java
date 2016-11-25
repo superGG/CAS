@@ -25,9 +25,17 @@ public class Photo implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
+	
+	//相册
 	private Album album;
+	
+	//图片备注
 	private String content;
+	
+	//图片路径
 	private String path;
+	
+	//创建时间
 	private Date createtime;
 
 	public Photo() {
