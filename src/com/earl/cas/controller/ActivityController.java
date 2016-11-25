@@ -46,15 +46,4 @@ public class ActivityController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/deleteById",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> deleteById(){
-		logger.debug("REST request to all activity");
-		result = new ResultMessage();
-		result.setServiceResult(true);
-		List<Activity> activityList = activityService.findAll();
-		result.getResultParm().put("activity",activityList);
-		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
-	}
-	
-//  @RequestMapping(value = "/modifyActivity")
 }
