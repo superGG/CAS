@@ -29,8 +29,8 @@ public abstract class BaseServiceImpl<T>
 	}
 	
 	@Override
-	public void save(T model) {
-		getDao().save(model);
+	public Integer save(T model) {
+		return getDao().save(model);
 	}
 
 	@Override

@@ -1,5 +1,4 @@
-/target/
-/.idea/
+/resources/
 /.settings/
 /.project
 /*.iml
@@ -8,4 +7,5 @@
 /.classpath
 /.mymetadata
 /.myumldata
-/webapp/
+/webapp/WEB-INF/classes/
+/resources/applicationContext.xml

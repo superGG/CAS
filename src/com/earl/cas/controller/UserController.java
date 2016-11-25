@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.User;
+import com.earl.cas.entity.UserDetails;
+import com.earl.cas.service.UserDetailsService;
 import com.earl.cas.service.UserService;
 import com.earl.cas.vo.ResultMessage;
 
@@ -30,6 +32,9 @@ public class UserController extends BaseController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
 
 	private ResultMessage result = null;
 
@@ -54,6 +59,13 @@ public class UserController extends BaseController {
 		logger.debug("REST request to save Users");
 		result = new ResultMessage();
 		result.setServiceResult(true);
+		UserDetails userDetail = new UserDetails();
+//		userDetail.getUsers().add(user);
+		userDetail.setName("test2");
+		userDetail.setEmail("wergsdf@qq.com");
+		Integer detailId = userDetailsService.save(userDetail);
+		userDetail = userDetailsService.get(detailId);
+		user.setUserDetalis(userDetail);
 		userService.save(user);
 		result.setResultInfo("添加成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
@@ -69,25 +81,8 @@ public class UserController extends BaseController {
 		userService.deleteById(id);
 		result.setResultInfo("删除成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
-
-	
 	}
 
-
-//	/**
-//	 * 根据id删除用户
-//	 * 
-//	 * @param id
-//	 * @return
-//	 */
-////	@ApiOperation(value = "删除一个用户", notes = "DELETE ONE USER", httpMethod = "DELETE", response = String.class)
-//	@RequestMapping(value = "/deleteById", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public String deleteById(@NotEmpty(message = "id不能为空") Long id) {
-//		log.debug("REST request to  delete a user ");
-//		String result = userService.delete(id) ? "success" : "error";
-//		log.info("------------------------result: " + result);
-//		return result;
-//	}
 //
 //	/**
 //	 * POST /change -> changes the current user's password
