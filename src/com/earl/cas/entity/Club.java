@@ -9,6 +9,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,14 +28,31 @@ public class Club implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
+	
+	//社团类型
 	private ClubType clubType;
+	
+	//学校
 	private School school;
+	
+	//社团名称
 	private String name;
-	private String captain;
+	
+	//社长名称
+	private String leader;
+	
+	//创建日期
 	private Date createtime;
+	
+	//社团简介
 	private String introduce;
+	
+	//社团电话
 	private String phone;
+	
+	//社团邮箱
 	private String email;
+	
 	private Set<Activity> activities = new HashSet<Activity>(0);
 	private Set<Position> positions = new HashSet<Position>(0);
 	private Set<Apply> applies = new HashSet<Apply>(0);
@@ -49,14 +68,14 @@ public class Club implements Serializable
 	}
 
 	public Club(int id, ClubType clubType, School school, String name,
-			String captain, Date createtime, String introduce, String phone,
+			String leader, Date createtime, String introduce, String phone,
 			String email, Set<Activity> activities, Set<Position> positions,
 			Set<Apply> applies, Set<Userclub> userclubs, Set<Album> albums) {
 		this.id = id;
 		this.clubType = clubType;
 		this.school = school;
 		this.name = name;
-		this.captain = captain;
+		this.leader = leader;
 		this.createtime = createtime;
 		this.introduce = introduce;
 		this.phone = phone;
@@ -69,7 +88,7 @@ public class Club implements Serializable
 	}
 
 	@Id
-
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
@@ -108,13 +127,13 @@ public class Club implements Serializable
 		this.name = name;
 	}
 
-	@Column(name = "captain")
-	public String getCaptain() {
-		return this.captain;
+	@Column(name = "leader")
+	public String getLeader() {
+		return this.leader;
 	}
 
-	public void setCaptain(String captain) {
-		this.captain = captain;
+	public void setLeader(String leader) {
+		this.leader = leader;
 	}
 
 	@Transient   //设置该属性后标致该属性不持久化数据库，由数据库自己管理
@@ -201,7 +220,7 @@ public class Club implements Serializable
 	@Override
 	public String toString() {
 		return "Club [id=" + id + ", clubType=" + clubType + ", school="
-				+ school + ", name=" + name + ", captain=" + captain
+				+ school + ", name=" + name + ", leader=" + leader
 				+ ", createtime=" + createtime + ", introduce=" + introduce
 				+ ", phone=" + phone + ", email=" + email + ", activities="
 				+ activities + ", positions=" + positions + ", applies="
@@ -213,7 +232,7 @@ public class Club implements Serializable
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((captain == null) ? 0 : captain.hashCode());
+		result = prime * result + ((leader == null) ? 0 : leader.hashCode());
 		result = prime * result
 				+ ((clubType == null) ? 0 : clubType.hashCode());
 		result = prime * result
@@ -236,10 +255,10 @@ public class Club implements Serializable
 		if (getClass() != obj.getClass())
 			return false;
 		Club other = (Club) obj;
-		if (captain == null) {
-			if (other.captain != null)
+		if (leader == null) {
+			if (other.leader != null)
 				return false;
-		} else if (!captain.equals(other.captain))
+		} else if (!leader.equals(other.leader))
 			return false;
 		if (clubType == null) {
 			if (other.clubType != null)

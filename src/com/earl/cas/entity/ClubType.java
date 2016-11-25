@@ -9,6 +9,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -23,9 +25,15 @@ public class ClubType implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
+	//类型编号
 	private int id;
+	
+	//类型名称
 	private String name;
+	
+	//创建时间
 	private Date createtime;
+	
 	private Set<Club> clubs = new HashSet<Club>(0);
 
 	public ClubType() {
@@ -44,7 +52,7 @@ public class ClubType implements Serializable
 	}
 
 	@Id
-
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;

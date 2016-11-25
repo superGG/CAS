@@ -36,7 +36,7 @@ public class ActivityController extends BaseController {
 	/**
 	 * GET /activity -> get all the activity
 	 */
-	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)//返回结果是jason类型
 	public  ResponseEntity<ResultMessage> getAll() {
 		logger.debug("REST request to get all activity");
 		result = new ResultMessage();
@@ -46,5 +46,15 @@ public class ActivityController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
-
+	@RequestMapping(value = "/deleteById",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> deleteById(){
+		logger.debug("REST request to all activity");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Activity> activityList = activityService.findAll();
+		result.getResultParm().put("activity",activityList);
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+//  @RequestMapping(value = "/modifyActivity")
 }

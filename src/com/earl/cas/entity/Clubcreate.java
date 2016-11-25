@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,13 +24,28 @@ public class Clubcreate implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
+	//申请表编号
 	private int id;
+	
+	//申请用户
 	private User user;
+	
+	//社团名称
 	private String name;
+	
+	//申请理由
 	private String reason;
+	
+	//联系电话
 	private String phone;
+	
+	//申请时间
 	private Date createtime;
+	
+	//社徽
 	private String badge;
+	
+	//申请状态   默认1（1申请中 2成功 3失败）
 	private Integer statue;
 
 	public Clubcreate() {
@@ -52,7 +69,7 @@ public class Clubcreate implements Serializable
 	}
 
 	@Id
-
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;

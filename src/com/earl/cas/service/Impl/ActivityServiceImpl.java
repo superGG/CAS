@@ -26,7 +26,7 @@ ActivityService {
 	private static Logger logger = LoggerFactory.getLogger(ActivityServiceImpl.class);
 
 	@Resource
-	private ActivityDao activityDao;
+	private ActivityDao activityDao;//spring自动注入，不需要去实例化就可以引用
 
 	@Override
 	protected BaseDao<Activity> getDao() {

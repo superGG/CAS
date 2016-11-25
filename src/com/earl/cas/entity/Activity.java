@@ -23,9 +23,17 @@ public class Activity implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
+	
+	//社团
 	private Club club;
+	
+	//活动主题
 	private String title;
+	
+	//活动内容
 	private String content;
+	
+	//创建时间
 	private Date createtime;
 
 	public Activity() {

@@ -8,7 +8,7 @@ import com.earl.cas.vo.PageInfo;
 public interface BaseService<T> {
     
 	
-	void save(T model);
+	Integer save(T model);
 
 	Boolean update(T t);
 	

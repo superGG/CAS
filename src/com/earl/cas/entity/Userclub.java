@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,10 +24,19 @@ public class Userclub implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
+	//关联项编号
 	private int id;
+	
+	//入社申请表
 	private Apply apply;
+	
+	//社团
 	private Club club;
+	
+	//职位
 	private Position position;
+	
+	//创建时间
 	private Date createtime;
 
 	public Userclub() {
@@ -46,7 +57,7 @@ public class Userclub implements Serializable
 	}
 
 	@Id
-
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;

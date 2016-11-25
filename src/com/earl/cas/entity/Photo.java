@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,9 +25,17 @@ public class Photo implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
+	
+	//相册
 	private Album album;
+	
+	//图片备注
 	private String content;
+	
+	//图片路径
 	private String path;
+	
+	//创建时间
 	private Date createtime;
 
 	public Photo() {
@@ -46,7 +56,7 @@ public class Photo implements Serializable
 	}
 
 	@Id
-
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;

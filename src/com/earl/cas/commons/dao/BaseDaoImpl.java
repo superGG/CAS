@@ -62,7 +62,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		System.out.println(t.toString());
 		// logger.debug("saving " + clazz.getName() + " instance");
 //		Integer id =  (Integer) getCurrentSession().save(t);
-//		System.out.println(id);
 		return (Integer) getCurrentSession().save(t);
 	}
 
