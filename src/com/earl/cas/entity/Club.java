@@ -31,7 +31,7 @@ public class Club implements Serializable
 	private ClubType clubType;
 	private School school;
 	private String name;
-	private String captain;
+	private String leader;
 	private Date createtime;
 	private String introduce;
 	private String phone;
@@ -51,14 +51,14 @@ public class Club implements Serializable
 	}
 
 	public Club(int id, ClubType clubType, School school, String name,
-			String captain, Date createtime, String introduce, String phone,
+			String leader, Date createtime, String introduce, String phone,
 			String email, Set<Activity> activities, Set<Position> positions,
 			Set<Apply> applies, Set<Userclub> userclubs, Set<Album> albums) {
 		this.id = id;
 		this.clubType = clubType;
 		this.school = school;
 		this.name = name;
-		this.captain = captain;
+		this.leader = leader;
 		this.createtime = createtime;
 		this.introduce = introduce;
 		this.phone = phone;
@@ -110,13 +110,13 @@ public class Club implements Serializable
 		this.name = name;
 	}
 
-	@Column(name = "captain")
-	public String getCaptain() {
-		return this.captain;
+	@Column(name = "leader")
+	public String getLeader() {
+		return this.leader;
 	}
 
-	public void setCaptain(String captain) {
-		this.captain = captain;
+	public void setLeader(String leader) {
+		this.leader = leader;
 	}
 
 	@Transient   //设置该属性后标致该属性不持久化数据库，由数据库自己管理
@@ -203,7 +203,7 @@ public class Club implements Serializable
 	@Override
 	public String toString() {
 		return "Club [id=" + id + ", clubType=" + clubType + ", school="
-				+ school + ", name=" + name + ", captain=" + captain
+				+ school + ", name=" + name + ", leader=" + leader
 				+ ", createtime=" + createtime + ", introduce=" + introduce
 				+ ", phone=" + phone + ", email=" + email + ", activities="
 				+ activities + ", positions=" + positions + ", applies="
@@ -215,7 +215,7 @@ public class Club implements Serializable
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((captain == null) ? 0 : captain.hashCode());
+		result = prime * result + ((leader == null) ? 0 : leader.hashCode());
 		result = prime * result
 				+ ((clubType == null) ? 0 : clubType.hashCode());
 		result = prime * result
@@ -238,10 +238,10 @@ public class Club implements Serializable
 		if (getClass() != obj.getClass())
 			return false;
 		Club other = (Club) obj;
-		if (captain == null) {
-			if (other.captain != null)
+		if (leader == null) {
+			if (other.leader != null)
 				return false;
-		} else if (!captain.equals(other.captain))
+		} else if (!leader.equals(other.leader))
 			return false;
 		if (clubType == null) {
 			if (other.clubType != null)
