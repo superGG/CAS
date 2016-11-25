@@ -103,7 +103,7 @@ public class UserDetails implements Serializable
 	}
 
 	@Generated(GenerationTime.INSERT)
-	@Column(name = "sex")
+	@Column(name = "sex" ,columnDefinition="bit(1) default b'1'")
 	public Boolean getSex() {
 		return this.sex;
 	}
