@@ -5,6 +5,9 @@ import com.earl.cas.entity.School;
 
 
 public interface SchoolDao extends BaseDao<School>{
-
-    
+	/**
+	 * 通过id删除学校
+	 */
+	@Override
+	public void deleteById(Integer id);
 }

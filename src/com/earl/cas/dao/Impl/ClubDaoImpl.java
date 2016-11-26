@@ -1,10 +1,13 @@
 package com.earl.cas.dao.Impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.earl.cas.commons.dao.BaseDaoImpl;
 import com.earl.cas.dao.ClubDao;
 import com.earl.cas.entity.Club;
+import com.earl.cas.entity.Position;
 
 /**
  * clubDao的实现类
@@ -14,5 +17,11 @@ import com.earl.cas.entity.Club;
 @Repository("clubDao")
 public class ClubDaoImpl extends BaseDaoImpl<Club> implements ClubDao {
 
-
+	@SuppressWarnings("unchecked")
+	public List<Club> getByName(String name){
+		String hql = "from Club where name ="+name;
+		List<Club> list = getCurrentSession().createQuery(hql).list();
+		//	logger.info(list.toString());
+		return list;
+	}
 }

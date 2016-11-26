@@ -1,9 +1,12 @@
 package com.earl.cas.dao.Impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.earl.cas.commons.dao.BaseDaoImpl;
 import com.earl.cas.dao.PositionDao;
+import com.earl.cas.entity.Club;
 import com.earl.cas.entity.Position;
 
 /**
@@ -13,6 +16,15 @@ import com.earl.cas.entity.Position;
  */
 @Repository("positionDao")
 public class PositionDaoImpl extends BaseDaoImpl<Position> implements PositionDao {
-
+	/*
+	 * 获取该社团职位
+	 */
+		@SuppressWarnings("unchecked")
+		public List<Position> findByClubId(int id){
+			String hql = "from Position where club_id ="+id;
+			List<Position> list = getCurrentSession().createQuery(hql).list();
+		//	logger.info(list.toString());
+			return list;	
+		}
 
 }

@@ -33,7 +33,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     private static Logger logger = LoggerFactory.getLogger(BaseDaoImpl.class);
 
     @SuppressWarnings("rawtypes")
-    private Class entityClazz;
+	private Class entityClazz;
 
     @SuppressWarnings("unchecked")
     public BaseDaoImpl() {
