@@ -115,7 +115,7 @@ public class User implements Serializable
 		this.createtime = createtime;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
 	public Set<Clubcreate> getClubcreates() {
 		return this.clubcreates;
 	}

@@ -94,6 +94,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	@Override
 	public List<T> findAll() {
 		String hql = "from " + entityClazz.getSimpleName();
+		System.out.println("hql:" + hql);
 		List<T> list = getCurrentSession().createQuery(hql).list();
 		logger.info(list.toString());
 		return list;
