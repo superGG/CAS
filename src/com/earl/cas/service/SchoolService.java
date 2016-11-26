@@ -8,7 +8,6 @@ public interface SchoolService extends BaseService<School> {
 	/**
 	 * 删除学校
 	 */
-	@Override
-	public void deleteById(Integer id);
+	int deleteById(Integer id);
 
 }

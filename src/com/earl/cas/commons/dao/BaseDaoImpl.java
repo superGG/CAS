@@ -74,12 +74,10 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
 	// 根据ID删除对象
 	@Override
-	public void deleteById(Integer id) {
+	public int deleteById(Integer id) {
 		logger.debug("delete " + entityClazz.getName() + " instance");
-//		String hql = "delete from " + entityClazz.getSimpleName() + " where id = ?";
-//		getCurrentSession().createQuery(hql).setInteger(0, id).executeUpdate();		
-		getCurrentSession().delete(get(id));
-		
+		String hql = "delete from " + entityClazz.getSimpleName() + " where id = ?";
+		return getCurrentSession().createQuery(hql).setInteger(0, id).executeUpdate();		
 	}
 
 	@SuppressWarnings("unchecked")

@@ -59,14 +59,12 @@ public class UserController extends BaseController {
 		logger.debug("REST request to save Users");
 		result = new ResultMessage();
 		result.setServiceResult(true);
+		Integer userId = userService.save(user);
 		UserDetails userDetail = new UserDetails();
 		userDetail.setName("test2");
 		userDetail.setEmail("wergsdf@qq.com");
-//		Integer detailId = userDetailsService.save(userDetail);
-//		userDetail = userDetailsService.get(detailId);
-		user.setUserDetalis(userDetail);
-//		userDetailsService.save(userDetail);
-		userService.save(user);
+		userDetail.setUserId(userId);
+		userDetailsService.save(userDetail);
 		result.setResultInfo("添加成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}

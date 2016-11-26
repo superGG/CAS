@@ -2,21 +2,16 @@ package com.earl.cas.entity;
 // Generated 2016-11-21 9:28:51 by Hibernate Tools 5.2.0.Beta1
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 
 /**
@@ -30,9 +25,6 @@ public class User implements Serializable
 	
 	private int id;
 	
-	//用户详情
-	private UserDetails userDetalis;
-	
 	//用户账号
 	private String account;
 	
@@ -40,31 +32,22 @@ public class User implements Serializable
 	private String password;
 	
 	//创建时间
-	private Date createtime;
-	
-	private Set<Clubcreate> clubcreates = new HashSet<Clubcreate>(0);
-	private Set<Message> messages = new HashSet<Message>(0);
-	private Set<Apply> applies = new HashSet<Apply>(0);
+	private String createtime;
 
 	public User() {
 	}
 
-	public User(int id, Date createtime) {
+	public User(int id, String createtime) {
 		this.id = id;
 		this.createtime = createtime;
 	}
 
-	public User(int id, UserDetails userDetalis, String account,
-			String password, Date createtime, Set<Clubcreate> clubcreates,
-			Set<Message> messages, Set<Apply> applies) {
+	public User(int id, String account,
+			String password, String createtime) {
 		this.id = id;
-		this.userDetalis = userDetalis;
 		this.account = account;
 		this.password = password;
 		this.createtime = createtime;
-		this.clubcreates = clubcreates;
-		this.messages = messages;
-		this.applies = applies;
 	}
 
 	@Id
@@ -78,15 +61,6 @@ public class User implements Serializable
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "details_id")
-	public UserDetails getUserDetalis() {
-		return this.userDetalis;
-	}
-
-	public void setUserDetalis(UserDetails userDetalis) {
-		this.userDetalis = userDetalis;
-	}
 
 	@Column(name = "account")
 	public String getAccount() {
@@ -106,48 +80,20 @@ public class User implements Serializable
 		this.password = password;
 	}
 
-	@Transient   //设置该属性后标致该属性不持久化数据库，由数据库自己管理
-	public Date getCreatetime() {
+	@Generated(GenerationTime.INSERT)
+	@Column(name = "createtime")
+	public String getCreatetime() {
 		return this.createtime;
 	}
 
-	public void setCreatetime(Date createtime) {
+	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
-	public Set<Clubcreate> getClubcreates() {
-		return this.clubcreates;
-	}
-
-	public void setClubcreates(Set<Clubcreate> clubcreates) {
-		this.clubcreates = clubcreates;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	public Set<Message> getMessages() {
-		return this.messages;
-	}
-
-	public void setMessages(Set<Message> messages) {
-		this.messages = messages;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	public Set<Apply> getApplies() {
-		return this.applies;
-	}
-
-	public void setApplies(Set<Apply> applies) {
-		this.applies = applies;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userDetalis=" + userDetalis + ", account="
-				+ account + ", password=" + password + ", createtime="
-				+ createtime + ", clubcreates=" + clubcreates + ", messages="
-				+ messages + ", applies=" + applies + "]";
+		return "User [id=" + id + ", account=" + account + ", password="
+				+ password + ", createtime=" + createtime + "]";
 	}
 
 	@Override
@@ -155,18 +101,11 @@ public class User implements Serializable
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((account == null) ? 0 : account.hashCode());
-		result = prime * result + ((applies == null) ? 0 : applies.hashCode());
-		result = prime * result
-				+ ((clubcreates == null) ? 0 : clubcreates.hashCode());
 		result = prime * result
 				+ ((createtime == null) ? 0 : createtime.hashCode());
 		result = prime * result + id;
 		result = prime * result
-				+ ((messages == null) ? 0 : messages.hashCode());
-		result = prime * result
 				+ ((password == null) ? 0 : password.hashCode());
-		result = prime * result
-				+ ((userDetalis == null) ? 0 : userDetalis.hashCode());
 		return result;
 	}
 
@@ -184,16 +123,6 @@ public class User implements Serializable
 				return false;
 		} else if (!account.equals(other.account))
 			return false;
-		if (applies == null) {
-			if (other.applies != null)
-				return false;
-		} else if (!applies.equals(other.applies))
-			return false;
-		if (clubcreates == null) {
-			if (other.clubcreates != null)
-				return false;
-		} else if (!clubcreates.equals(other.clubcreates))
-			return false;
 		if (createtime == null) {
 			if (other.createtime != null)
 				return false;
@@ -201,22 +130,11 @@ public class User implements Serializable
 			return false;
 		if (id != other.id)
 			return false;
-		if (messages == null) {
-			if (other.messages != null)
-				return false;
-		} else if (!messages.equals(other.messages))
-			return false;
 		if (password == null) {
 			if (other.password != null)
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (userDetalis == null) {
-			if (other.userDetalis != null)
-				return false;
-		} else if (!userDetalis.equals(other.userDetalis))
-			return false;
 		return true;
 	}
-	
 }

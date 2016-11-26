@@ -8,6 +8,5 @@ public interface SchoolDao extends BaseDao<School>{
 	/**
 	 * 通过id删除学校
 	 */
-	@Override
-	public void deleteById(Integer id);
+	int deleteById(Integer id);
 }

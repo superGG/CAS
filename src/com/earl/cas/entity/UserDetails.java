@@ -2,19 +2,13 @@ package com.earl.cas.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -57,30 +51,15 @@ public class UserDetails implements Serializable
 	//创建时间
 	private Date createtime;
 	
-	private Set<User> users = new HashSet<User>(0);
-
+	//用户登录id
+	private Integer userId;
+	
 	public UserDetails() {
 	}
 
 	public UserDetails(int id, Date createtime) {
 		this.id = id;
 		this.createtime = createtime;
-	}
-
-	public UserDetails(int id, String name, Boolean sex, String phone,
-			String email, String hobby, String singnation, String headPath,
-			Integer roleId, Date createtime, Set<User> users) {
-		this.id = id;
-		this.name = name;
-		this.sex = sex;
-		this.phone = phone;
-		this.email = email;
-		this.hobby = hobby;
-		this.singnation = singnation;
-		this.headPath = headPath;
-		this.roleId = roleId;
-		this.createtime = createtime;
-		this.users = users;
 	}
 
 	@Id
@@ -104,7 +83,7 @@ public class UserDetails implements Serializable
 	}
 
 	@Generated(GenerationTime.INSERT)
-	@Column(name = "sex" ,columnDefinition="bit(1) default b'1'")
+	@Column(name = "sex" ,columnDefinition="bit(1) default b'1' COMMENT '1男 0女'")
 	public Boolean getSex() {
 		return this.sex;
 	}
@@ -168,7 +147,8 @@ public class UserDetails implements Serializable
 		this.roleId = roleId;
 	}
 
-	@Transient   //设置该属性后标致该属性不持久化数据库，由数据库自己管理
+	@Generated(GenerationTime.INSERT)
+	@Column(name = "createtime")
 	public Date getCreatetime() {
 		return this.createtime;
 	}
@@ -177,22 +157,22 @@ public class UserDetails implements Serializable
 		this.createtime = createtime;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userDetalis",cascade={CascadeType.ALL})
-	public Set<User> getUsers() {
-		return this.users;
+	@Column(name = "user_id")
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	@Override
 	public String toString() {
-		return "UserDetalis [id=" + id + ", name=" + name + ", sex=" + sex
+		return "UserDetails [id=" + id + ", name=" + name + ", sex=" + sex
 				+ ", phone=" + phone + ", email=" + email + ", hobby=" + hobby
 				+ ", singnation=" + singnation + ", headPath=" + headPath
 				+ ", roleId=" + roleId + ", createtime=" + createtime
-				+ ", users=" + users + "]";
+				+ ", userId=" + userId + "]";
 	}
 
 	@Override
@@ -212,7 +192,7 @@ public class UserDetails implements Serializable
 		result = prime * result + ((sex == null) ? 0 : sex.hashCode());
 		result = prime * result
 				+ ((singnation == null) ? 0 : singnation.hashCode());
-		result = prime * result + ((users == null) ? 0 : users.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
 
@@ -272,12 +252,11 @@ public class UserDetails implements Serializable
 				return false;
 		} else if (!singnation.equals(other.singnation))
 			return false;
-		if (users == null) {
-			if (other.users != null)
+		if (userId == null) {
+			if (other.userId != null)
 				return false;
-		} else if (!users.equals(other.users))
+		} else if (!userId.equals(other.userId))
 			return false;
 		return true;
 	}
-	
 }

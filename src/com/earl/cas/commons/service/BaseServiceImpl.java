@@ -45,8 +45,8 @@ public abstract class BaseServiceImpl<T>
 	}
 
 	@Override
-	public void deleteById(Integer id) {
-		getDao().deleteById(id);
+	public int deleteById(Integer id) {
+		return getDao().deleteById(id);
 	}
 
 	@Override

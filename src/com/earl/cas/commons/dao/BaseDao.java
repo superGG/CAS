@@ -13,7 +13,7 @@ public interface BaseDao<T> {
 
 	void update(T t);
 
-	void deleteById(Integer id);
+	int deleteById(Integer id);
 
 	/**
 	 * findById 功能跟get(int )一样

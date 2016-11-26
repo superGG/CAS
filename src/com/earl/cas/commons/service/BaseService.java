@@ -18,7 +18,7 @@ public interface BaseService<T> {
 	 */
 	void updateWithNotNullProperties(T t);
 
-	void deleteById(Integer id);
+	int deleteById(Integer id);
 
 	List<T> findAll();
 	
