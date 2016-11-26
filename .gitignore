@@ -6,6 +6,6 @@
 /*.log
 /.classpath
 /.mymetadata
-/.myumldata
+/bin
 /webapp/WEB-INF/classes/
 /resources/applicationContext.xml

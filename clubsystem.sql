@@ -14,7 +14,7 @@ Date: 2016-11-25 08:38:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
+use clubsystem;albumactivity
 -- ----------------------------
 -- Table structure for activity
 -- ----------------------------
@@ -275,7 +275,7 @@ CREATE TABLE `user_details` (
   `hobby` varchar(255) DEFAULT NULL,
   `singnation` varchar(255) DEFAULT NULL,
   `head_path` varchar(255) DEFAULT NULL,
-  `role_id` int(11) DEFAULT '0',
+  `role_id` int(11) DEFAULT '0',club_typeclubcreate
   `createtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;

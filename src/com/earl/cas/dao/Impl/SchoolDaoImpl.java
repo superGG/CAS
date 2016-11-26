@@ -13,6 +13,11 @@ import com.earl.cas.entity.School;
  */
 @Repository("schoolDao")
 public class SchoolDaoImpl extends BaseDaoImpl<School> implements SchoolDao {
-
+	
+	@Override
+	public void deleteById(Integer id){
+		String hql = "delete from School where id = ?";
+		getCurrentSession().createQuery(hql).setInteger(0, id).executeUpdate();		
+	}
 
 }
