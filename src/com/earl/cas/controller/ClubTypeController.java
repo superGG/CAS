@@ -46,5 +46,31 @@ public class ClubTypeController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
-
+	/**
+	 * delete /clubType -> get all the clubType
+	 */
+	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> delete(int id) {
+		logger.debug("REST request to delete clubType");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		clubTypeService.deleteById(id);
+		result.setResultInfo("删除成功");
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	
+	
+	/**
+	 * save /clubType -> get all the clubType
+	 */
+	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> save(ClubType clubs) {
+		logger.debug("REST request to delete clubType");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		clubTypeService.save(clubs);
+		result.setResultInfo("增加成功");
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
 }
