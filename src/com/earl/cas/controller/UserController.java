@@ -1,4 +1,4 @@
-package com.earl.cas.controller;
+	package com.earl.cas.controller;
 
 import java.util.List;
 
@@ -60,12 +60,12 @@ public class UserController extends BaseController {
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		UserDetails userDetail = new UserDetails();
-//		userDetail.getUsers().add(user);
 		userDetail.setName("test2");
 		userDetail.setEmail("wergsdf@qq.com");
-		Integer detailId = userDetailsService.save(userDetail);
-		userDetail = userDetailsService.get(detailId);
+//		Integer detailId = userDetailsService.save(userDetail);
+//		userDetail = userDetailsService.get(detailId);
 		user.setUserDetalis(userDetail);
+//		userDetailsService.save(userDetail);
 		userService.save(user);
 		result.setResultInfo("添加成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);

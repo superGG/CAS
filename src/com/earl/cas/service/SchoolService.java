@@ -5,7 +5,10 @@ import com.earl.cas.entity.School;
 
 
 public interface SchoolService extends BaseService<School> {
-
-	
+	/**
+	 * 删除学校
+	 */
+	@Override
+	public void deleteById(Integer id);
 
 }

@@ -33,5 +33,9 @@ public class SchoolServiceImpl extends BaseServiceImpl<School> implements
 	protected BaseDao<School> getDao() {
 		return schoolDao;
 	}
-
+	
+	@Override
+	public void deleteById(Integer id){
+		schoolDao.deleteById(id);
+	}
 }
