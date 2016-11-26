@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-11-26 18:29:11
+Date: 2016-11-26 18:48:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -209,12 +209,12 @@ CREATE TABLE `user` (
   `password` varchar(255) DEFAULT NULL COMMENT '用户密码',
   `createtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'Kellan', '132465', '2016-11-26 18:28:30');
+INSERT INTO `user` VALUES ('2', 'Kellan', '132465', '2016-11-26 18:31:15');
 
 -- ----------------------------
 -- Table structure for userclub
@@ -250,9 +250,10 @@ CREATE TABLE `user_details` (
   `role_id` int(11) DEFAULT '0' COMMENT '角色',
   `createtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_details
 -- ----------------------------
 INSERT INTO `user_details` VALUES ('1', '1', 'test2', '', null, 'wergsdf@qq.com', null, null, null, null, '2016-11-26 18:28:30');
+INSERT INTO `user_details` VALUES ('2', '2', 'test2', '', null, 'wergsdf@qq.com', null, null, null, null, '2016-11-26 18:31:16');
