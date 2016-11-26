@@ -33,5 +33,10 @@ public class ClubTypeServiceImpl extends BaseServiceImpl<ClubType> implements
 	protected BaseDao<ClubType> getDao() {
 		return clubTypeDao;
 	}
+	
+	@Override
+	public void deleteById(int id) {
+		getDao().deleteById(id);
+	}
 
 }

@@ -74,7 +74,7 @@ public class UserController extends BaseController {
 	
 
 	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> delete(Integer id) {
+	public ResponseEntity<ResultMessage> delete(int id) {
 		logger.debug("REST request to delete Users");
 		result = new ResultMessage();
 		result.setServiceResult(true);

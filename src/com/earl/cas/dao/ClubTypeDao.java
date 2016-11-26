@@ -6,5 +6,5 @@ import com.earl.cas.entity.ClubType;
 
 public interface ClubTypeDao extends BaseDao<ClubType>{
 
-    
+	void deleteById(int id);
 }

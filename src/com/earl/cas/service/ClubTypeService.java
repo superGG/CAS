@@ -6,6 +6,6 @@ import com.earl.cas.entity.ClubType;
 
 public interface ClubTypeService extends BaseService<ClubType> {
 
-	
+	 void deleteById(int id);
 
 }
