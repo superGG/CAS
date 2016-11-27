@@ -2,6 +2,8 @@
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import com.earl.cas.entity.User;
 import com.earl.cas.entity.UserDetails;
 import com.earl.cas.service.UserDetailsService;
 import com.earl.cas.service.UserService;
+import com.earl.cas.util.ImgVerifyCodeUtil;
 import com.earl.cas.vo.ResultMessage;
 
 /**
@@ -78,6 +81,22 @@ public class UserController extends BaseController {
 		result.setServiceResult(true);
 		userService.deleteById(id);
 		result.setResultInfo("删除成功");
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	/**
+	 * 获取图片验证码.
+	 *@author 宋.
+	 * @return
+	 */
+	@RequestMapping(value = "/getImgVerifyCode",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> getQRCode(HttpServletRequest request) {
+		result = new ResultMessage();
+		ImgVerifyCodeUtil v = new ImgVerifyCodeUtil();
+		v.getVerifyCode(request);
+		request.getSession().setAttribute("ImgVerifyCode", v.getText());
+		result.setServiceResult(true);
+		result.setResultInfo("生成图片验证码成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 
