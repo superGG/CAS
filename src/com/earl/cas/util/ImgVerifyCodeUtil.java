@@ -32,7 +32,7 @@ public class ImgVerifyCodeUtil {
 	private Color bgColor = new Color(255, 255, 255);
 	private String text;
 
-	public void getVerifyCode(HttpServletRequest request) {
+	public String getVerifyCode(HttpServletRequest request) {
 		String path = request.getSession().getServletContext().getRealPath("/")
 				+ "verifyCode/" + getName() + ".jpg";
 		try {
@@ -41,6 +41,7 @@ public class ImgVerifyCodeUtil {
 			System.out.println("生成图片验证码失败");
 			e.printStackTrace();
 		}
+		return "verifyCode/" + getName() + ".jpg";
 	}
 
 	// 获取验证码字符
