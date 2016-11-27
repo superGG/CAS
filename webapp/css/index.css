@@ -1,0 +1,254 @@
+
+h2{
+	text-align: center;
+	margin: 0 auto;
+	padding: 10px 0 0 0 ;
+}
+
+.main{
+	width: 100%;
+	clear: both;
+	margin-top: 70px; 
+}
+
+.main #photoWall{
+	width: 100%;
+	margin: auto;
+	height: 400px;
+	overflow: hidden;
+	position: relative;
+}
+
+#photoWall>li{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	list-style: none;
+	z-index: 1;
+}
+#photoWall>li img{
+	width: 100%;
+	height: 100%;
+}
+
+#photoWall .photoBtn{
+	width: 100%;
+    text-align: center;
+    position: absolute;
+	bottom: 10px;
+	z-index: 99;
+}
+#photoWall .photoBtn li{
+	list-style: none;
+	display: inline-block;
+	margin: 4px;
+}
+#photoWall .photoBtn li a{
+	width: 15px;
+	height: 15px;
+	display: block;
+	border-radius: 15px;
+	background-color: #ffffff;
+	text-decoration: none;
+}
+#photoWall .photoBtn li .btnActive{
+	background-color: #82898e;
+}
+
+#lastestClub{
+	width: 100%;
+}
+
+.clubNav{
+	width: 80%;
+	margin: auto;
+	position: relative;
+}
+
+.clubNav a{
+	text-decoration: none;
+	font-size: 20px;
+	color: #ccc;
+}
+
+.clubNavBox a:hover{
+	color: #fff;
+}
+.clubNavBox .checked{
+	color: yellow;
+}
+.clubNav .prevBtn{
+	position: absolute;
+	display: block;
+	width: 40px;
+	height: 40px;
+	background:url("../images/Triangle_left.png") no-repeat center;
+	background-size: 80%;
+	top:10px;
+}
+.clubNav .nextBtn{
+	position: absolute;
+	display: block;
+	width: 40px;
+	height: 40px;
+	background:url("../images/Triangle_right.png") no-repeat center;
+	background-size: 80%;
+	right: 0;
+	top: 10px;
+}
+.clubNav .clubNavBox{
+	width: 90%;
+	margin: auto;
+	background-color: #82898e;
+	height: 60px;
+}
+.clubNavBox #all{
+	width: 8%;
+	display: block;
+	float: left;
+	text-align: center;
+	padding-top: 15px;
+	white-space:nowrap;
+}
+.clubNavBox #orgList{
+	width: 92%;
+	height: 100%;
+	float: left;
+	position: relative;
+	overflow: hidden;
+}
+.clubNavBox #orgList ul{
+	padding: 0;
+	list-style: none;
+	position: absolute;
+	white-space:nowrap;
+}
+.clubNavBox #orgList ul li{
+	display: inline-block;
+	padding-right:20px; 
+}
+
+#clubList{
+	width: 72%;
+	position: relative;
+	padding: 0;
+	margin: auto;
+	list-style: none;
+	overflow: hidden;
+}
+
+#clubList .clubBox{
+	float: left;
+	width: 31.3%;
+	margin: 1%;
+	transition: all 0.3s ease-out;
+}
+.clubBox:hover{
+	box-shadow: 0 0 12px;
+}
+.clubBox:hover .imgBox>img{
+	transform: scale(1.2);
+}
+.clubBox a{
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+	color: #333;
+}
+.clubBox .imgBox{
+	width: 94%;
+	margin: 3% auto;
+	overflow: hidden;
+}
+.imgBox img{
+	display: block;
+	width: 100%;
+	transition: all 0.3s ease-out;
+}
+
+.clubBox .info-area{
+	width: 94%;
+	margin: 3% auto;
+}
+.clubBox .info-area h3{
+	margin: 0;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.clubBox .info-area span{
+	margin-top: 5px;
+	color: #999;
+}
+.info-area .proprieter{
+	display: inline-block;
+	background:url("../images/proprieter.png")-9px -8px no-repeat;
+	background-size: 35px 33px;
+	padding-left: 18px; 
+}
+
+.info-area .associator{
+	display: inline-block;
+	float: right;
+	background:url("../images/associator.png")-9px -8px no-repeat;
+	background-size: 35px 33px;
+	padding-left: 18px; 
+}
+.info-area .position{
+	clear: both;
+	display: block;
+	background:url("../images/map.png")no-repeat;
+	background-size: 25px 18px;
+	padding-left: 25px; 
+}
+#activity{
+	width: 100%;
+	margin: auto;
+	padding-bottom: 20px; 
+}
+#activeList{
+	width: 65%;
+	margin: auto;
+	padding: 0 10px;
+	border-right: 1px solid #999;
+	border-left: 1px solid #999;
+}
+#activeList ul{
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	overflow: hidden;
+}
+#activeList ul li{
+	width: 100%;
+	overflow: hidden;
+}
+#activeList ul li:hover{
+	background-color: #ccc;
+}
+#activeList a{
+	text-decoration: none;
+}
+#activeList .activeList-head{
+	width: 100%;
+}
+#activeList span{
+	float: left;
+	border-bottom: 1px solid #999;
+	padding: 1% 1% 1% 0;
+	font-family: KaiTi;
+	overflow: hidden;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#activeList .active-title{
+	width: 67%;
+}
+#activeList .active-club{
+	width: 15%;
+}
+#activeList .active-time{
+	width: 15%;
+}

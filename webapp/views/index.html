@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8">
+		<title>社团网申</title>
+		<link rel='icon' href='../images/titile_logo.ico' type=‘image/x-ico’ />
+		<link rel="stylesheet" type="text/css" href="../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../css/index.css">
+		<script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+		<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="top">
+			<div class="logobox">
+				<img id="logo" src="../images/logo.png">
+			</div>
+			<div class="nav">
+				<ul>
+					<li><a class="active" href="index.html" >首页</a></li>
+					<li><a href="club/allClub.html">社团</a></li>
+					<li><a href="club/allActivity.html">活动</a></li>
+					<li><a href="massage/massage.html">留言板</a></li>
+				</ul>
+			</div>
+			<div class="login">
+				<a href="javascript:void(0)" onclick="showLoginFrame()">登录</a>
+				<a href="">注册</a>
+			</div>
+		</div>
+		<div class="main">
+			<div id="photoWall">
+				<div class="photoBtn"></div>
+			</div>
+			<div id="lastestClub">
+				<h2>最新社团</h2>
+				<div class="clubNav">
+					<a href="javascript:" class="prevBtn" onclick="prevBtn()"></a>
+					<div class="clubNavBox">
+						<div id="all">
+						<a href="javascript:" class="checked">全部</a>
+						</div>
+						<div id="orgList">
+							<ul></ul>
+						</div>
+					</div>
+					<a href="javascript:" class="nextBtn" onclick="nextBtn()"></a>
+				</div>
+				<ul id="clubList"></ul>
+				<hr style="width:80%;margin:0 auto;height:1px;border:none;border-top:1px solid #555555;" />
+			</div>
+			<div id="activity">
+				<h2>最新活动</h2>
+				<div id="activeList">
+					<div class="activeList-head">
+						<span class="active-title">活动标题</span>
+						<span class="active-club">社团</span>
+						<span class="active-time">发布时间</span>
+					</div>
+					<ul></ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<p>
+				Copyright © 2016 Powered by 社团网申_第12组版权所有
+			</p>
+			<p>
+				地址：广东海洋大学钟海楼04019 邮政编码：524000　电话：18344094195
+			</p>
+			<div xmlns:wb="http://open.weibo.com/wb">
+				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" src="../js/index.js"></script>
+	</body>
+</html>
