@@ -38,20 +38,8 @@ function showLoginFrame() {
 }
 
 function getCheckCode() {
-	var url ="http://192.168.1.101:8080/ClubSystem/users/getImgVerifyCode";
-	// $.getJSON(url,function (data) {
- //        	var data = eval('('+ data +')');
-	// 	 alert(data.resultInfo);
-	// 	$("checkCode").attr("src","http://192.168.1.101:8080/ClubSystem/"+data.resultPram.path);
- //        });
-	$.ajax({
-        url: "http://192.168.1.101:8080/ClubSystem/users/getImgVerifyCode?jsoncallback=?",
-        type: 'GET',
-        dataType: 'JSONP',//here
-        success: function (data) {
-        	var data = eval('('+ data +')');
-		 alert(data.resultInfo);
-		$("checkCode").attr("src","http://192.168.1.101:8080/ClubSystem/"+data.resultPram.path);
-        }
-    });
+	var url ="/ClubSystem/users/getImgVerifyCode";
+	 $.get(url,function (data) {
+	 	$("#checkCode").attr("src","/ClubSystem/"+data.resultParm.path);
+      });
 }
