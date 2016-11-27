@@ -1,0 +1,117 @@
+body{
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	background-color: #e7e7e7;
+	min-width: 911px;
+}
+.top{
+	width: 100%;
+	overflow:hidden;
+	margin: auto;
+	background-color: #82898e;
+	top:0;
+	z-index: 100;
+	min-width: 911px;
+	position: fixed;
+	/*解决fixed抖动*/
+	-webkit-transform: translateZ(0);
+}
+.top .logobox{
+	float: left;
+	width: 30%;
+	padding-top: 5px;
+	text-align: right;
+}
+
+#logo{
+	-webkit-animation:logoMove 3s 1;
+	position: relative;
+}
+@keyframes logoMove{
+	0% {left:-1000px;}
+	100% {left:0px;}
+}
+
+.top .nav{
+	width: 50%;
+	float: left;
+	padding: 0;
+}
+.top .nav ul{
+	margin: 0;
+	list-style: none;
+
+}
+.top .nav li{
+	float: left;
+	text-align: center;
+}
+
+.top .nav li a{
+	width: 70px;
+	height: 70px;
+	line-height: 70px;
+	color: #ccc;
+	text-decoration: none;
+	display: block;
+}
+.top .nav li .active,.top .nav li a:hover{
+	background-color: #292d37;
+	color: #ffffff;
+}
+.top .login{
+	width: 10%;
+	float: left;
+}
+.top .login a{
+	line-height: 70px;
+	color: #ccc;
+	text-decoration: none;
+	font-size: 15px;
+}
+.top .login a:hover{
+	color: #ffffff;
+}
+
+/*页脚*/
+.footer{
+	clear: both;
+	background: #82898e;
+	text-align: center;
+	padding: 20px;
+	margin-top:50px; 
+}
+
+/*登录框相关*/
+#mask{
+    position: absolute;
+    width: 100%;
+    background-color: #000;
+    opacity: 0.75;              /*透明度*/
+    filter: alpha(opacity=75);  /*兼容IE*/
+    left: 0;
+    top: 0;
+    z-index: 99;
+}
+#mForm{
+	position: fixed;
+	width: 40%;
+	padding: 10px;
+	background-color: #ffffff;
+	animation: formMove 2s 1;
+	z-index: 100;
+}
+@keyframes formMove {
+	0% {margin-top:-500px;}
+	100% {margin-top:0px;}
+}
+#close{
+	position: absolute;
+	width: 30px;
+	background-color: red;
+	top: 0px;
+	right: 0px;
+	cursor: pointer;
+	text-align: center;
+}
