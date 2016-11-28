@@ -50,7 +50,7 @@ function getCheckCode() {
         dataType: 'JSONP',//here
         success: function (data) {
         	var data = eval('('+ data +')');
-		 alert(data.resultInfo);
+		 console.log(data.resultInfo);
 		$("checkCode").attr("src","http://192.168.1.101:8080/ClubSystem/"+data.resultPram.path);
         }
     });
