@@ -1,5 +1,9 @@
+/**
+ * 
+ */
 package com.earl.cas.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -18,21 +22,21 @@ import com.earl.cas.service.ClubService;
 import com.earl.cas.vo.ResultMessage;
 
 /**
- * Club的controller.
- *@author 宋
- *@date 2016-11-23
+ * 新的Club的Controller
+ * @author Mr.Chen
+ *
  */
+
 @RestController
 @RequestMapping(value = "/club")
-public class ClubController extends BaseController {
-
+public class ClubController extends BaseController{
 	private final Logger logger = LoggerFactory.getLogger(ClubController.class);
 
 	@Autowired
 	private ClubService clubService;
 
 	private ResultMessage result = null;
-
+	
 	/**
 	 * GET /club -> get all the club
 	 */
@@ -45,9 +49,10 @@ public class ClubController extends BaseController {
 		result.getResultParm().put("club", clubList);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
-	
 	/**
-	 * 保存社团
+	 * 保存Club
+	 * @param club
+	 * @return
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> save(Club club){
@@ -58,13 +63,21 @@ public class ClubController extends BaseController {
 		result.setResultInfo("保存成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	} 
-	
 	/**
 	 * 通过名字获取社团
+	 * @param clubName
+	 * @return
 	 */
 	@RequestMapping(value = "/getByName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> getByName(String clubName) {
+	public  ResponseEntity<ResultMessage> getByName(String name) {
 		logger.debug("REST request to get a club by name");
+		String clubName = null;
+		try {
+			clubName = new String (name.getBytes("iso8859-1"),"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		List<Club> clubList = clubService.getByName(clubName);

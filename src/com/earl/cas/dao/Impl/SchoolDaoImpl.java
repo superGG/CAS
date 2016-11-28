@@ -20,9 +20,15 @@ public class SchoolDaoImpl extends BaseDaoImpl<School> implements SchoolDao {
 		return getCurrentSession().createQuery(hql).setInteger(0, id).executeUpdate();		
 	}
 	@Override
-	public void update(School school){
+	public boolean update(School school){
 		String hql = "update School set name = :name where id = :id";
-		getCurrentSession().createQuery(hql).setString("name",school.getName()).setInteger("id", school.getId()).executeUpdate();
+		int flag=getCurrentSession().createQuery(hql).setString("name",school.getName()).setInteger("id", school.getId()).executeUpdate();
+		if(flag!=0){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 }

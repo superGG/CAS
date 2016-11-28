@@ -56,7 +56,7 @@ public class Position implements Serializable
 		this.id = id;
 	}
 
-	@JoinColumn(name = "club_id")
+	@Column(name = "club_id")
 	public Integer getClubId() {
 		return clubId;
 	}
