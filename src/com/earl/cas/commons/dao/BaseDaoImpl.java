@@ -235,6 +235,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			}
 			// 更新
 			getCurrentSession().update(t);
+			System.out.println("getCurrentSession().getFlushMode():"+getCurrentSession().getFlushMode());
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
