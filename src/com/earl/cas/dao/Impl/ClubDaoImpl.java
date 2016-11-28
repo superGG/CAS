@@ -20,7 +20,7 @@ public class ClubDaoImpl extends BaseDaoImpl<Club> implements ClubDao {
 	@SuppressWarnings("unchecked")
 	public List<Club> getByName(String clubName){
 		String hql = "from Club where  name = :name";
-		List<Club> club = (List<Club>) getCurrentSession().createQuery(hql).setString("name",clubName);
+		List<Club> club = (List<Club>) getCurrentSession().createQuery(hql).setString("name",clubName).list();
 		//	logger.info(list.toString());
 		return club;
 	}

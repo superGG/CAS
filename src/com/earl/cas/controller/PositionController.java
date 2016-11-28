@@ -49,14 +49,26 @@ public class PositionController extends BaseController {
 	}
 
 	/**
-	 * GET /position -> 通过社团名字获得职位信息
+	 * POST /position -> 通过社团名字获得职位信息
 	 */
-	@RequestMapping(value = "/getByClubName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/getByClubName", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> getByClubName(String name) {
 		logger.debug("REST request to get club position");
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		List<Position> positionList = positionService.getByClubName(name);
+		result.getResultParm().put("position", positionList);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	/**
+	 * GET /position -> 通过社团ID获得职位信息
+	 */
+	@RequestMapping(value = "/getByClubId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> getByClubId(int id) {
+		logger.debug("REST request to get club position");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Position> positionList = positionService.getByClubId(id);
 		result.getResultParm().put("position", positionList);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}

@@ -12,5 +12,5 @@ public interface SchoolService extends BaseService<School> {
 	/**
 	 * 更新学校
 	 */
-	public Boolean update(School school);
+	public void update(School school);
 }

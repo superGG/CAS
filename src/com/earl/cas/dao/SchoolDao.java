@@ -12,5 +12,5 @@ public interface SchoolDao extends BaseDao<School>{
 	/**
 	 * 更新学校
 	 */
-	public void update(School school);
+	public boolean update(School school);
 }
