@@ -1,4 +1,4 @@
-package com.earl.cas.controller;
+﻿package com.earl.cas.controller;
 
 import java.util.List;
 
@@ -75,8 +75,9 @@ public class UserController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/deleteById", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> delete(int id) {
+
+	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> delete(Integer id) {
 		logger.debug("REST request to delete Users");
 		result = new ResultMessage();
 		result.setServiceResult(true);

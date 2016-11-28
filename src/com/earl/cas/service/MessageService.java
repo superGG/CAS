@@ -6,6 +6,5 @@ import com.earl.cas.entity.Message;
 
 public interface MessageService extends BaseService<Message> {
 
-	
 
 }

@@ -28,7 +28,7 @@ public class Message implements Serializable
 	@IdAnnotatioin //用于动态更新数据
 	private int id;
 	
-	//夫id
+	//父级id
 	private Integer fatherId;
 	
 	//用户id
