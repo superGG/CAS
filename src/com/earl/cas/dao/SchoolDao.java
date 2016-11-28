@@ -9,4 +9,8 @@ public interface SchoolDao extends BaseDao<School>{
 	 * 通过id删除学校
 	 */
 	int deleteById(Integer id);
+	/**
+	 * 更新学校
+	 */
+	public void update(School school);
 }

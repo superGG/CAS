@@ -19,5 +19,10 @@ public class SchoolDaoImpl extends BaseDaoImpl<School> implements SchoolDao {
 		String hql = "delete from School where id = ?";
 		return getCurrentSession().createQuery(hql).setInteger(0, id).executeUpdate();		
 	}
+	@Override
+	public void update(School school){
+		String hql = "update School set name = "+school.getName()+" where id = "+school.getId();
+		getCurrentSession().createQuery(hql).executeUpdate();
+	}
 
 }
