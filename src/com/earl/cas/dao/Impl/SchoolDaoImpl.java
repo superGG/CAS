@@ -21,8 +21,8 @@ public class SchoolDaoImpl extends BaseDaoImpl<School> implements SchoolDao {
 	}
 	@Override
 	public void update(School school){
-		String hql = "update School set name = "+school.getName()+" where id = "+school.getId();
-		getCurrentSession().createQuery(hql).executeUpdate();
+		String hql = "update School set name = :name where id = :id";
+		getCurrentSession().createQuery(hql).setString("name",school.getName()).setInteger("id", school.getId()).executeUpdate();
 	}
 
 }
