@@ -56,13 +56,13 @@ public class PositionController extends BaseController {
 		logger.debug("REST request to get club position");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Position> positionList = positionService.findByClubName(name);
+		List<Position> positionList = positionService.getByClubName(name);
 		result.getResultParm().put("position", positionList);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 
 	/**
-	 * GET /position -> 通过社团名字获得职位信息
+	 * 添加社团职位
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> save(Position position) {
