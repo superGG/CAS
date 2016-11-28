@@ -35,7 +35,7 @@ public class MessageController extends BaseController {
 	private ResultMessage result = null;
 
 	/**
-	 * GET /message -> get all the message
+	 *得到所有留言
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<ResultMessage> getAll() {
@@ -47,6 +47,9 @@ public class MessageController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
+	/**
+	 *根据id删除留言
+	 */
 	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> deleteMessage(Integer id) {
 		logger.debug("REST request to delete message");
@@ -58,6 +61,9 @@ public class MessageController extends BaseController {
 		
 	}
 	
+	/**
+	 *添加留言
+	 */
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> saveMessage(Message message){
 		logger.debug("REST request to save message");
@@ -69,7 +75,7 @@ public class MessageController extends BaseController {
 	}
 	
 	/**
-	 * POST /school -> update clubType
+	 * 更新留言
 	 */
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> update(Message message) {

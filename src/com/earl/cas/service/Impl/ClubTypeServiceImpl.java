@@ -38,4 +38,8 @@ public class ClubTypeServiceImpl extends BaseServiceImpl<ClubType> implements
 		return clubTypeDao.delete(id);
 	}
 
+	public Boolean update(ClubType clubs) {
+		 clubTypeDao.update(clubs);
+		 return true;
+	}
 }
