@@ -34,5 +34,12 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements
 		return userDao;
 	}
 
+	@Override
+	public User findByAccount(String account) {
+		logger.info("进入UserService层的findByAccount方法");
+		return userDao.findByAccount(account);
+	}
+
+
 
 }
