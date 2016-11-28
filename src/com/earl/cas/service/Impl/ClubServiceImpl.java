@@ -1,5 +1,7 @@
 package com.earl.cas.service.Impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -11,6 +13,7 @@ import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
 import com.earl.cas.dao.ClubDao;
 import com.earl.cas.entity.Club;
+import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ClubService;
 
 
@@ -33,6 +36,16 @@ ClubService {
 	protected BaseDao<Club> getDao() {
 		return clubDao;
 	}
+    
+	public List<Club> getByName(String clubName){
 
+		List<Club> clublist=clubDao.getByName(clubName);
+		if(clublist==null){
+			throw new DomainSecurityException("找不到该社团");
+		}
+		else{
+			return clublist;
+		}
+	}
 
 }
