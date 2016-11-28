@@ -34,4 +34,10 @@ public class UserDetailsServiceImpl extends BaseServiceImpl<UserDetails>
 		return userDetailsDao;
 	}
 
+	@Override
+	public UserDetails getByUserId(int id) {
+		logger.info("进入userDetailsService层的getByUserId方法");
+		return userDetailsDao.getByUserId(id);
+	}
+
 }
