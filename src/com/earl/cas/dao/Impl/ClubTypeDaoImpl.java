@@ -16,8 +16,8 @@ public class ClubTypeDaoImpl extends BaseDaoImpl<ClubType> implements ClubTypeDa
 
 	@Override
 	public int delete(Integer id){
-		String hql = "delete from ClubType where id = ?";
-		return getCurrentSession().createQuery(hql).setInteger(0, id).executeUpdate();		
+		String hql = "delete from ClubType where id = :id";
+		return getCurrentSession().createQuery(hql).setInteger("id", id).executeUpdate();
 	}
 
 }

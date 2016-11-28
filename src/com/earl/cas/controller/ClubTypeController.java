@@ -35,7 +35,7 @@ public class ClubTypeController extends BaseController {
 	private ResultMessage result = null;
 
 	/**
-	 * GET /clubType -> get all the clubType
+	 * 得到全部社团类型
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<ResultMessage> getAll() {
@@ -48,7 +48,7 @@ public class ClubTypeController extends BaseController {
 	}
 	
 	/**
-	 * delete /clubType -> delete clubType
+	 * 根据id删除社团类型
 	 */
 	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> delete(Integer id) {
@@ -63,7 +63,7 @@ public class ClubTypeController extends BaseController {
 	
 	
 	/**
-	 * save /clubType -> save clubType
+	 * 添加社团类型
 	 */
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> save(ClubType clubs) {
@@ -76,7 +76,7 @@ public class ClubTypeController extends BaseController {
 	}
 	
 	/**
-	 * POST /school -> update clubType
+	 * 更新社团类型
 	 */
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> update(ClubType clubs) {
