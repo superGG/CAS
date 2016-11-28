@@ -14,6 +14,6 @@ public interface PositionService extends BaseService<Position> {
 	 * @param name
 	 * @return list
 	 */
-	List<Position> findByClubName(String name);
+	List<Position> getByClubName(String name);
 
 }

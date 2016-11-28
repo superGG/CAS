@@ -11,6 +11,7 @@ import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
 import com.earl.cas.dao.ClubDao;
 import com.earl.cas.entity.Club;
+import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ClubService;
 
 
@@ -33,6 +34,16 @@ ClubService {
 	protected BaseDao<Club> getDao() {
 		return clubDao;
 	}
+    
+	public Club getByName(int schoolId, String clubName){
 
+		Club club=clubDao.getByName(schoolId,clubName);
+		if(club==null){
+			throw new DomainSecurityException("找不到该社团");
+		}
+		else{
+			return club;
+		}
+	}
 
 }

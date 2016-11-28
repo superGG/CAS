@@ -46,5 +46,29 @@ public class ClubController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
-
+	/**
+	 * 保存社团
+	 */
+	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> save(Club club){
+		logger.debug("REST request to save a club");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		clubService.save(club);
+		result.setResultInfo("保存成功");
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	} 
+	
+	/**
+	 * 通过学校和名字获取某个社团
+	 */
+	@RequestMapping(value = "/getByName", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getByName(int schoolId,String clubName) {
+		logger.debug("REST request to get a club by name");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		Club club = clubService.getByName(schoolId,clubName);
+		result.getResultParm().put("club", club);
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
 }
