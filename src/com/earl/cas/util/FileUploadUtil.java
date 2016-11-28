@@ -20,34 +20,6 @@ public class FileUploadUtil {
 
 	private static Logger logger = Logger.getLogger(FileUploadUtil.class);
 
-	public static String OldFileUpload(HttpServletRequest request,
-			MultipartFile file) {
-		logger.info("开始文件上传");
-		String filePath = null;
-		if (!file.isEmpty()) {
-			String path = request.getSession().getServletContext()
-					.getRealPath("/");
-			logger.info("--------path: " + path);
-			String fileName = file.getOriginalFilename();
-			File targetFile = new File(path + "/../reports", fileName);
-			while (targetFile.exists()) {
-				fileName = newFileName(fileName);
-				targetFile = new File(path + "/../reports", fileName);
-			}
-			targetFile.mkdirs();
-			// 保存
-			try {
-				file.transferTo(targetFile);
-			} catch (Exception e) {
-				logger.info("上传文件复制失败");
-				e.printStackTrace();
-			}
-			filePath = "../reports/" + fileName;
-		}
-		logger.info("上传文件结束，filePath:" + filePath);
-		return filePath;
-	}
-	
 	/**
 	 * 新的文件上传方法
 	 *@author 宋.
@@ -107,7 +79,7 @@ public class FileUploadUtil {
 	private static String newFileName(String fileName) {
 		StringBuffer newFileName = new StringBuffer();
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
 		String str = sdf.format(date);
 		newFileName.append(getRealName(fileName)).append("(").append(str).append(")").append(".")
 				.append(FilenameUtils.getExtension(fileName));
