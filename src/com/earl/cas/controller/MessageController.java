@@ -48,6 +48,19 @@ public class MessageController extends BaseController {
 	}
 	
 	/**
+	 *根据父留言id查到子留言
+	 */
+	@RequestMapping(value = "/getDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getDetail() {
+		logger.debug("REST request to get all message");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Message> messageList = messageService.findAll();
+		result.getResultParm().put("message", messageList);
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	/**
 	 *根据id删除留言
 	 */
 	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)

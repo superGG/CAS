@@ -33,5 +33,11 @@ MessageService {
 		return messageDao;
 	}
 
+	@Override
+	public Boolean update(Message message) {
+		messageDao.update(message);
+		return null;
+	}
+
 
 }
