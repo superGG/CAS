@@ -12,6 +12,6 @@ public interface ClubDao extends BaseDao<Club>{
 	 * @param name
 	 * @param clubName 
 	 */
-	public Club getByName(int SchoolId, String clubName);
+	public List<Club> getByName( String clubName);
  
 }

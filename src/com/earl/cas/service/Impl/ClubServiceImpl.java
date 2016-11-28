@@ -1,5 +1,7 @@
 package com.earl.cas.service.Impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -35,14 +37,14 @@ ClubService {
 		return clubDao;
 	}
     
-	public Club getByName(int schoolId, String clubName){
+	public List<Club> getByName(String clubName){
 
-		Club club=clubDao.getByName(schoolId,clubName);
-		if(club==null){
+		List<Club> clublist=clubDao.getByName(clubName);
+		if(clublist==null){
 			throw new DomainSecurityException("找不到该社团");
 		}
 		else{
-			return club;
+			return clublist;
 		}
 	}
 

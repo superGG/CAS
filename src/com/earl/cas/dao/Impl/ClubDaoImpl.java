@@ -18,9 +18,9 @@ import com.earl.cas.entity.Position;
 public class ClubDaoImpl extends BaseDaoImpl<Club> implements ClubDao {
 
 	@SuppressWarnings("unchecked")
-	public Club getByName(int SchoolId,String clubName){
-		String hql = "from Club where schoolId = :schoolId and name = :name";
-		Club club = (Club)getCurrentSession().createQuery(hql).setInteger("schoolId", SchoolId).setString("name",clubName).uniqueResult();
+	public List<Club> getByName(String clubName){
+		String hql = "from Club where  name = :name";
+		List<Club> club = (List<Club>) getCurrentSession().createQuery(hql).setString("name",clubName);
 		//	logger.info(list.toString());
 		return club;
 	}

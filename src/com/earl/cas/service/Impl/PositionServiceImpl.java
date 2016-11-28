@@ -48,8 +48,8 @@ public class PositionServiceImpl extends BaseServiceImpl<Position> implements
 	 * 
 	 * @return List<Position>
 	 */
-	public List<Position> getByClubName(String name) {
-		Club club = clubDao.getByName(name);
+	public List<Position> getByClubName(int schoolId,String clubName) {
+		Club club = clubDao.getByName(schoolId,clubName);
 		if(club==null){
 			throw new DomainSecurityException("没有这个社团");
 		}

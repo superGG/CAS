@@ -1,5 +1,7 @@
 package com.earl.cas.service;
 
+import java.util.List;
+
 import com.earl.cas.commons.service.BaseService;
 import com.earl.cas.entity.Club;
 
@@ -11,6 +13,6 @@ public interface ClubService extends BaseService<Club> {
 	 * @param clubName
 	 * @return
 	 */
-	public Club getByName(int schoolId, String clubName);
+	public List<Club> getByName(String clubName);
 
 }

@@ -60,15 +60,15 @@ public class ClubController extends BaseController {
 	} 
 	
 	/**
-	 * 通过学校和名字获取某个社团
+	 * 通过名字获取社团
 	 */
-	@RequestMapping(value = "/getByName", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> getByName(int schoolId,String clubName) {
+	@RequestMapping(value = "/getByName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getByName(String clubName) {
 		logger.debug("REST request to get a club by name");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		Club club = clubService.getByName(schoolId,clubName);
-		result.getResultParm().put("club", club);
+		List<Club> clubList = clubService.getByName(clubName);
+		result.getResultParm().put("club", clubList);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 }
