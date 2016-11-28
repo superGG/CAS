@@ -25,7 +25,7 @@ public class Message implements Serializable
 	//留言编号
 	private int id;
 	
-	//夫id
+	//父级id
 	private Integer fatherId;
 	
 	//用户id

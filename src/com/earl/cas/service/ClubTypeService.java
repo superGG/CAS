@@ -5,7 +5,9 @@ import com.earl.cas.entity.ClubType;
 
 
 public interface ClubTypeService extends BaseService<ClubType> {
-
-	 void deleteById(int id);
+	/**
+	 * 删除学校
+	 */
+	int deleteById(Integer id);
 
 }

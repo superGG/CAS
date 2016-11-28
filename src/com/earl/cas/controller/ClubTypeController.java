@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.ClubType;
+import com.earl.cas.entity.School;
 import com.earl.cas.service.ClubTypeService;
 import com.earl.cas.vo.ResultMessage;
 
@@ -47,10 +48,10 @@ public class ClubTypeController extends BaseController {
 	}
 	
 	/**
-	 * delete /clubType -> get all the clubType
+	 * delete /clubType -> delete clubType
 	 */
 	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> delete(int id) {
+	public ResponseEntity<ResultMessage> delete(Integer id) {
 		logger.debug("REST request to delete clubType");
 		result = new ResultMessage();
 		result.setServiceResult(true);
@@ -62,7 +63,7 @@ public class ClubTypeController extends BaseController {
 	
 	
 	/**
-	 * save /clubType -> get all the clubType
+	 * save /clubType -> save clubType
 	 */
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> save(ClubType clubs) {
@@ -71,6 +72,19 @@ public class ClubTypeController extends BaseController {
 		result.setServiceResult(true);
 		clubTypeService.save(clubs);
 		result.setResultInfo("增加成功");
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	/**
+	 * POST /school -> update clubType
+	 */
+	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> update(ClubType clubs) {
+		logger.debug("REST request to update ClubType");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		clubTypeService.update(clubs);
+		result.setResultInfo("更新成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 }

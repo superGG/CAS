@@ -34,9 +34,8 @@ public class ClubTypeServiceImpl extends BaseServiceImpl<ClubType> implements
 		return clubTypeDao;
 	}
 	
-	@Override
-	public void deleteById(int id) {
-		getDao().deleteById(id);
+	public int deleteById(Integer id) {
+		return clubTypeDao.delete(id);
 	}
 
 }

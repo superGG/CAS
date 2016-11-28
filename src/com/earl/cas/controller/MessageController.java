@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
+import com.earl.cas.entity.ClubType;
 import com.earl.cas.entity.Message;
 import com.earl.cas.service.MessageService;
 import com.earl.cas.vo.ResultMessage;
@@ -48,13 +49,36 @@ public class MessageController extends BaseController {
 	
 	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> deleteMessage(Integer id) {
-		logger.debug("REST request to get all message");
+		logger.debug("REST request to delete message");
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		messageService.deleteById(id);
 		result.setResultInfo("删除成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 		
+	}
+	
+	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> saveMessage(Message message){
+		logger.debug("REST request to save message");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		messageService.save(message);
+		result.setResultInfo("添加成功");
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	/**
+	 * POST /school -> update clubType
+	 */
+	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> update(Message message) {
+		logger.debug("REST request to update Message");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		messageService.update(message);
+		result.setResultInfo("更新成功");
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
 
