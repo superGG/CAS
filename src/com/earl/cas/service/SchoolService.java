@@ -9,5 +9,8 @@ public interface SchoolService extends BaseService<School> {
 	 * 删除学校
 	 */
 	int deleteById(Integer id);
-
+	/**
+	 * 更新学校
+	 */
+	public Boolean update(School school);
 }
