@@ -50,13 +50,13 @@ public class MessageController extends BaseController {
 	/**
 	 *根据父留言id查到子留言
 	 */
-	@RequestMapping(value = "/getDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> getDetail() {
+	@RequestMapping(value = "/getDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getDetail(int fatherId) {
 		logger.debug("REST request to get all message");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Message> messageList = messageService.findAll();
-		result.getResultParm().put("message", messageList);
+		List<Message> detailList = messageService.findDetail(fatherId);
+		result.getResultParm().put("message", detailList);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	

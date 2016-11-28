@@ -39,7 +39,7 @@ public class ClubTypeServiceImpl extends BaseServiceImpl<ClubType> implements
 	}
 
 	public Boolean update(ClubType clubs) {
-		 clubTypeDao.update(clubs);
+		 clubTypeDao.update(clubs); 
 		 return true;
 	}
 }
