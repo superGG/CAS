@@ -10,8 +10,6 @@ public interface BaseService<T> {
 	
 	Integer save(T model);
 
-	Boolean update(T t);
-	
 	/**
 	 * 前提，pojo id属性名上要有 IdAnnotatioin标签
 	 * @param t

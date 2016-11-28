@@ -34,17 +34,6 @@ public abstract class BaseServiceImpl<T>
 	}
 
 	@Override
-	public Boolean update(T t) {
-		try {
-			getDao().update(t);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	@Override
 	public int deleteById(Integer id) {
 		return getDao().deleteById(id);
 	}

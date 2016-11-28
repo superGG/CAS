@@ -5,7 +5,14 @@ import com.earl.cas.entity.ClubType;
 
 
 public interface ClubTypeService extends BaseService<ClubType> {
-
-	 void deleteById(int id);
+	/**
+	 * 删除社团类型
+	 */
+	int deleteById(Integer id);
+	
+	/**
+	 * 更新社团
+	 */
+	public Boolean update(ClubType clubs);
 
 }
