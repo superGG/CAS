@@ -16,11 +16,11 @@
 	<mvc:default-servlet-handler />
 	
    <!-- 静态资源映射 -->
-   	<mvc:resources mapping="/common/css/**" location="/static/css/" />
+   	<!-- <mvc:resources mapping="/common/css/**" location="/static/css/" />
    	<mvc:resources mapping="/common/js/**" location="/static/js/" />
    	<mvc:resources mapping="/common/images/**" location="/static/images/" />
    	<mvc:resources mapping="/common/jedate/**" location="/static/jedate/" />
-   	<mvc:resources mapping="/common/skins/**" location="/static/skins/" />
+   	<mvc:resources mapping="/common/skins/**" location="/static/skins/" /> -->
    
    
    <!-- 设置使用注解的类所在的jar包 -->

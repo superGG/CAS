@@ -93,10 +93,11 @@ public class UserController extends BaseController {
 	public ResponseEntity<ResultMessage> getQRCode(HttpServletRequest request) {
 		result = new ResultMessage();
 		ImgVerifyCodeUtil v = new ImgVerifyCodeUtil();
-		v.getVerifyCode(request);
+		String path = v.getVerifyCode(request);
 		request.getSession().setAttribute("ImgVerifyCode", v.getText());
 		result.setServiceResult(true);
 		result.setResultInfo("生成图片验证码成功");
+		result.getResultParm().put("path", path);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 
