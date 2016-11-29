@@ -22,7 +22,7 @@ public interface BaseDao<T> {
 	T get(Integer id);
 
 	List<T> findAll();
-
+	
 	List<T> findAll(PageInfo pageInfo);
 	
 	void deleteAll();
