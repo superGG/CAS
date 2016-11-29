@@ -58,8 +58,13 @@ ActivityService {
  */
 	@Override
 	public Boolean updateActivity(Activity activity) {
-		activityDao.update(activity);
-		return true;
+		if(activity.getContent()!=null) {
+			activityDao.update(activity);
+			return true;
+		}
+		else
+		return false;
+		
 	}
 
 }
