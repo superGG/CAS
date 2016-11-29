@@ -23,9 +23,15 @@ public class MessageDaoImpl extends BaseDaoImpl<Message> implements MessageDao {
  * @see com.earl.cas.dao.MessageDao#update(com.earl.cas.entity.Message)
  */
 	@Override
-	 public void update(Message message){
+	 public Boolean update(Message message){
 		String hql = "update from Message set content= :content where id= :id";
-		getCurrentSession().createQuery(hql).setString("content",message.getContent()).setInteger("id", message.getId()).executeUpdate();
+		int flag=getCurrentSession().createQuery(hql).setString("content",message.getContent()).setInteger("id", message.getId()).executeUpdate();
+		if(flag!=0){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 /*
