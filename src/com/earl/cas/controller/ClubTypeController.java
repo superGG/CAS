@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.ClubType;
-import com.earl.cas.entity.School;
 import com.earl.cas.service.ClubTypeService;
 import com.earl.cas.vo.ResultMessage;
 
