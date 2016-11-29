@@ -179,7 +179,7 @@ CREATE TABLE `userclub` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '成员编号',
   `club_id` int(11) DEFAULT NULL COMMENT '社团编号',
   `apply_id` int(11) DEFAULT NULL COMMENT '申请表编号',
-  `positon_id` int(11) DEFAULT NULL COMMENT '职位编号',
+  `position_id` int(11) DEFAULT NULL COMMENT '职位编号',
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
