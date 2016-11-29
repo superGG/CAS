@@ -43,7 +43,7 @@ public class ActivityController extends BaseController {
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> createActivity(Activity activity){
 		logger.debug("REST request to save activity");
-		if(StringUtils.isBlank(activity.getContent()) | StringUtils.isBlank(activity.getTitle())){
+		if(StringUtils.isBlank(activity.getContent()) | StringUtils.isBlank(activity.getTitle())){//判断活动标题和内容是否为空
 			throw new DomainSecurityException("标题和内容均不能为空");
 		}
 		result = new ResultMessage();
@@ -73,7 +73,7 @@ public class ActivityController extends BaseController {
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> updateActivity(Activity activity) {
 		logger.debug("REST request to update activity");
-		if (StringUtils.isBlank(activity.getContent()) | StringUtils.isBlank(activity.getTitle())) {
+		if (StringUtils.isBlank(activity.getContent()) | StringUtils.isBlank(activity.getTitle())) {//判断活动标题和内容是否为空
 			throw new DomainSecurityException("内容或标题均不能为空");
 		}
 		result = new ResultMessage();
