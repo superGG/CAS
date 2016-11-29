@@ -1,5 +1,7 @@
 package com.earl.cas.service.Impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -11,6 +13,7 @@ import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
 import com.earl.cas.dao.ActivityDao;
 import com.earl.cas.entity.Activity;
+import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ActivityService;
 
 /**
@@ -32,6 +35,30 @@ ActivityService {
 	protected BaseDao<Activity> getDao() {
 		return activityDao;
 	}
+/*
+ * 查看活动详情
+ * (non-Javadoc)
+ * @see com.earl.cas.service.ActivityService#findDetail(int)
+ */
+	@Override
+	public List<Activity> findDetail(int id) {
+		List<Activity> detaillist = activityDao.findDetail(id);
+		if(detaillist==null){
+			throw new DomainSecurityException("该活动已被删除 ");
+		} else{
+			return detaillist;
+		}
+	}
 
+/*
+ * 更新活动
+ * (non-Javadoc)
+ * @see com.earl.cas.service.ActivityService#updateActivity(com.earl.cas.entity.Activity)
+ */
+	@Override
+	public Boolean updateActivity(Activity activity) {
+			Boolean update = activityDao.update(activity);
+			return update;
+	}
 
 }

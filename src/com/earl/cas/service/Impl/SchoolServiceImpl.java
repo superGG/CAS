@@ -4,7 +4,6 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.UnsatisfiedDependencyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,8 +41,9 @@ public class SchoolServiceImpl extends BaseServiceImpl<School> implements
 	}
 	
 	@Override
-	public Boolean update(School school) {
-		schoolDao.update(school);
-		return true;
+	public void update(School school){
+		if(!schoolDao.update(school)){
+			throw new DomainSecurityException("更新失败");
+		}	
 	}
 }

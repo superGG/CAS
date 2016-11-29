@@ -23,8 +23,6 @@ public interface BaseDao<T> {
 
 	List<T> findAll();
 	
-	void update(T t);
-
 	List<T> findAll(PageInfo pageInfo);
 	
 	void deleteAll();

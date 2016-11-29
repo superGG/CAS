@@ -14,19 +14,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Apply;
+import com.earl.cas.entity.User;
 import com.earl.cas.service.ApplyService;
 import com.earl.cas.vo.ResultMessage;
 
 /**
  * Apply的controller.
- *@author 宋
- *@date 2016-11-23
+ * 
+ * @author 宋
+ * @date 2016-11-23
  */
 @RestController
 @RequestMapping(value = "/apply")
 public class ApplyController extends BaseController {
 
-	private final Logger logger = LoggerFactory.getLogger(ApplyController.class);
+	private final Logger logger = LoggerFactory
+			.getLogger(ApplyController.class);
 
 	@Autowired
 	private ApplyService applyService;
@@ -37,14 +40,40 @@ public class ApplyController extends BaseController {
 	 * GET /apply -> get all the apply
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> getAll() {
+	public ResponseEntity<ResultMessage> getAll() {
 		logger.debug("REST request to get all apply");
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		List<Apply> applyList = applyService.findAll();
 		result.getResultParm().put("apply", applyList);
-		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+
+	/**
+	 * 同意申请并添加成员
+	 */
+	@RequestMapping(value = "/agree", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> agree(Apply apply) {
+		logger.debug("REST request to agree a apply");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		applyService.update(apply);
+		result.setResultInfo("该成员已加入社团");
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 	
-
+	/**
+	 * 查看申请书
+	 */
+	@RequestMapping(value = "/displayApply", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> displayApply() {
+		logger.debug("REST request to display all apply");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Apply> applylist = applyService.findAll();
+		result.getResultParm().put("apply", applylist);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	
+	
 }

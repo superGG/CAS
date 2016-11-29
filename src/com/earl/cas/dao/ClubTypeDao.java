@@ -13,5 +13,5 @@ public interface ClubTypeDao extends BaseDao<ClubType>{
 	/**
 	 * 更新社团类型
 	 */
-	public void update(ClubType clubs);
+	public Boolean update(ClubType clubs);
 }

@@ -45,16 +45,22 @@ public class PositionServiceImpl extends BaseServiceImpl<Position> implements
 
 	/*
 	 * find position by club
-	 * 
+	 * t
 	 * @return List<Position>
 	 */
-	public List<Position> getByClubName(int schoolId,String clubName) {
-		Club club = clubDao.getByName(schoolId,clubName);
-		if(club==null){
+	public List<Position> getByClubName(String clubName) {
+		List<Club> clublist = clubDao.getByName(clubName);
+		if(clublist==null){
 			throw new DomainSecurityException("没有这个社团");
 		}
 		else{
+			Club club=clublist.get(0);
 			return positionDao.findByClubId(club.getId());
 		}
 	}
+	
+	public List<Position> getByClubId(int id) {
+			return positionDao.findByClubId(id);
+		}
+	
 }

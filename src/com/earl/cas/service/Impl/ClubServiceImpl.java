@@ -47,5 +47,15 @@ ClubService {
 			return clublist;
 		}
 	}
-
+	
+	public boolean update(Club club){
+		if(!clubDao.update(club)){
+			throw new DomainSecurityException("更新失败");
+		}
+		else{
+			return true;
+		}
+		
+	}
+	
 }

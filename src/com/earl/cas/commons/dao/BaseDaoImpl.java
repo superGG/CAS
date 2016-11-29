@@ -80,12 +80,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return object;
 	}
 	
-	@Override
-	public void update(T t) {
-		getCurrentSession().update(t);
-		getCurrentSession().flush();
-	}
-
 	// 查找该表中的所有记录，
 	@SuppressWarnings("unchecked")
 	@Override

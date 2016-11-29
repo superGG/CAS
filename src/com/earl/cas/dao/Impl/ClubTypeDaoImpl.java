@@ -21,9 +21,15 @@ public class ClubTypeDaoImpl extends BaseDaoImpl<ClubType> implements ClubTypeDa
 	}
 	
 	@Override
-	 public void update(ClubType clubs){
+	 public Boolean update(ClubType clubs){
 		String hql = "update from ClubType set name= :name where id= :id";
-		getCurrentSession().createQuery(hql).setString("name",clubs.getName()).setInteger("id", clubs.getId()).executeUpdate();
+		int flag=getCurrentSession().createQuery(hql).setString("name",clubs.getName()).setInteger("id", clubs.getId()).executeUpdate();
+		if(flag!=0){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 }
