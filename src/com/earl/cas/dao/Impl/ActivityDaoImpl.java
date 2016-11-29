@@ -40,8 +40,7 @@ public class ActivityDaoImpl extends BaseDaoImpl<Activity> implements ActivityDa
 		int flag=getCurrentSession().createQuery(hql).setString("title",activity.getTitle() ).setString("content",activity.getContent()).setInteger("id", activity.getId()).executeUpdate();
 		if(flag!=0){
 			return true;
-		}
-		else{
+		}else{
 			return false;
 		}
 	}

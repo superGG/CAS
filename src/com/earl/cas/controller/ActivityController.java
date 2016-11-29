@@ -2,6 +2,7 @@ package com.earl.cas.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Activity;
 import com.earl.cas.entity.Message;
+import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ActivityService;
 import com.earl.cas.vo.ResultMessage;
 
@@ -36,11 +38,14 @@ public class ActivityController extends BaseController {
 
 	
 	/**
-	 *PSOT /activity -> 创建活动
+	 *PSOT /activity -> 创建活动,标题和内容均不能为空
 	 */
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> createActivity(Activity activity){
-		logger.debug("REST request to save message");
+		logger.debug("REST request to save activity");
+		if(StringUtils.isBlank(activity.getContent()) | StringUtils.isBlank(activity.getTitle())){
+			throw new DomainSecurityException("标题和内容均不能为空");
+		}
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		activityService.save(activity);
@@ -63,11 +68,14 @@ public class ActivityController extends BaseController {
 	}
 	
 	/**
-	 *POST /activity ->  修改活动
+	 *POST /activity ->  修改活动，标题和内容均不能为空
 	 */
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> updateActivity(Activity activity) {
-		logger.debug("REST request to update Message");
+		logger.debug("REST request to update activity");
+		if (StringUtils.isBlank(activity.getContent()) | StringUtils.isBlank(activity.getTitle())) {
+			throw new DomainSecurityException("内容或标题均不能为空");
+		}
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		activityService.updateActivity(activity);
