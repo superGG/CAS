@@ -17,12 +17,12 @@ import com.earl.cas.entity.Position;
 @Repository("positionDao")
 public class PositionDaoImpl extends BaseDaoImpl<Position> implements PositionDao {
 	/*
-	 * 获取该社团职位
+	 * 通过Id获取该社团职位
 	 */
 		@SuppressWarnings("unchecked")
 		public List<Position> findByClubId(int id){
-			String hql = "from Position where club_id ="+id;
-			List<Position> list = getCurrentSession().createQuery(hql).list();
+			String hql = "from Position where clubId = :id";
+			List<Position> list = getCurrentSession().createQuery(hql).setInteger("id",id).list();
 		//	logger.info(list.toString());
 			return list;	
 		}

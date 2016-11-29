@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
+import com.earl.cas.entity.ClubType;
 import com.earl.cas.entity.Message;
 import com.earl.cas.service.MessageService;
 import com.earl.cas.vo.ResultMessage;
@@ -34,7 +35,7 @@ public class MessageController extends BaseController {
 	private ResultMessage result = null;
 
 	/**
-	 * GET /message -> get all the message
+	 *GET /message -> 得到所有留言
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<ResultMessage> getAll() {
@@ -46,15 +47,57 @@ public class MessageController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
+	/**
+	 *POST /message -> 根据父留言id查到子留言
+	 */
+	@RequestMapping(value = "/getDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getDetail(int fatherId) {
+		logger.debug("REST request to get all message");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Message> detailList = messageService.findDetail(fatherId);
+		result.getResultParm().put("message", detailList);
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	/**
+	 *POST /message -> 根据id删除留言
+	 */
 	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> deleteMessage(Integer id) {
-		logger.debug("REST request to get all message");
+		logger.debug("REST request to delete message");
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		messageService.deleteById(id);
 		result.setResultInfo("删除成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 		
+	}
+	
+	/**
+	 *POST /message -> 添加留言
+	 */
+	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> saveMessage(Message message){
+		logger.debug("REST request to save message");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		messageService.save(message);
+		result.setResultInfo("添加成功");
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	/**
+	 * POST /message -> 更新留言
+	 */
+	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> update(Message message) {
+		logger.debug("REST request to update Message");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		messageService.update(message);
+		result.setResultInfo("更新成功");
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
 

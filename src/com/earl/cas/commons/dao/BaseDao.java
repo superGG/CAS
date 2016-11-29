@@ -11,8 +11,6 @@ public interface BaseDao<T> {
 
 	Integer save(T t);
 
-	void update(T t);
-
 	int deleteById(Integer id);
 
 	/**

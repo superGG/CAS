@@ -14,5 +14,22 @@ import com.earl.cas.entity.ClubType;
 @Repository("clubTypeDao")
 public class ClubTypeDaoImpl extends BaseDaoImpl<ClubType> implements ClubTypeDao {
 
+	@Override
+	public int delete(Integer id){
+		String hql = "delete from ClubType where id = :id";
+		return getCurrentSession().createQuery(hql).setInteger("id", id).executeUpdate();
+	}
+	
+	@Override
+	 public Boolean update(ClubType clubs){
+		String hql = "update from ClubType set name= :name where id= :id";
+		int flag=getCurrentSession().createQuery(hql).setString("name",clubs.getName()).setInteger("id", clubs.getId()).executeUpdate();
+		if(flag!=0){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 
 }

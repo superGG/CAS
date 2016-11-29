@@ -17,6 +17,7 @@ import org.apache.commons.beanutils.BeanMap;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -25,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import com.earl.cas.commons.domain.IdAnnotatioin;
 import com.earl.cas.vo.PageInfo;
+import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
 
 
 
@@ -63,13 +65,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		// logger.debug("saving " + clazz.getName() + " instance");
 //		Integer id =  (Integer) getCurrentSession().save(t);
 		return (Integer) getCurrentSession().save(t);
-	}
-
-	// 更新对象
-	@Override
-	public void update(T t) {
-		logger.debug("update " + entityClazz.getName() + " instance");
-		getCurrentSession().update(t);
 	}
 
 	// 根据ID删除对象

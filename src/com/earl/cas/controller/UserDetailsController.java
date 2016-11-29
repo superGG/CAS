@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
+import com.earl.cas.entity.School;
 import com.earl.cas.entity.User;
 import com.earl.cas.entity.UserDetails;
 import com.earl.cas.service.UserDetailsService;
@@ -48,6 +49,19 @@ public class UserDetailsController extends BaseController {
 		result.setServiceResult(true);
 		List<UserDetails> userDetailsList = userDetailsService.findAll();
 		result.getResultParm().put("userDetails", userDetailsList);
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	/**
+	 * 修改用户详情.
+	 */
+	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> update(UserDetails userDetail) {
+		logger.debug("REST request to update userDetail");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		userDetailsService.updateWithNotNullProperties(userDetail);
+		result.setResultInfo("更新成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	

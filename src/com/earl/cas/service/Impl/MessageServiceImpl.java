@@ -1,6 +1,7 @@
 package com.earl.cas.service.Impl;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
 import com.earl.cas.dao.MessageDao;
 import com.earl.cas.entity.Message;
+import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.MessageService;
 
 /**
@@ -33,5 +35,20 @@ MessageService {
 		return messageDao;
 	}
 
+	@Override
+	public Boolean update(Message message) {
+		messageDao.update(message);
+		return true;
+	}
 
+	@Override
+	public List<Message> findDetail(int fatherId) {
+		List<Message> detaillist=messageDao.findDetail(fatherId);
+		if(detaillist==null){
+			throw new DomainSecurityException("该留言没有子留言 ");
+		}
+		else{
+			return detaillist;
+		}
+	}
 }

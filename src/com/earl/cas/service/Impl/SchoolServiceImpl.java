@@ -11,6 +11,7 @@ import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
 import com.earl.cas.dao.SchoolDao;
 import com.earl.cas.entity.School;
+import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.SchoolService;
 
 /**
@@ -37,5 +38,11 @@ public class SchoolServiceImpl extends BaseServiceImpl<School> implements
 	@Override
 	public int deleteById(Integer id){
 		return schoolDao.deleteById(id);
+	}
+	@Override
+	public void update(School school){
+		if(!schoolDao.update(school)){
+			throw new DomainSecurityException("更新失败");
+		}	
 	}
 }
