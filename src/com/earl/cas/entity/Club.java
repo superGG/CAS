@@ -54,6 +54,8 @@ public class Club implements Serializable
 	//社徽
 	private String badge;
 	
+	//申请用户详情
+	private Integer detailId;
 
 	public Club() {
 	}
@@ -155,7 +157,15 @@ public class Club implements Serializable
 	public void setBadge(String badge) {
 		this.badge = badge;
 	}
+	
+	@Column(name = "detail_id")
+	public Integer getDetailId() {
+		return detailId;
+	}
 
+	public void setDetailId(Integer detailId) {
+		this.detailId = detailId;
+	}
 	@Override
 	public String toString() {
 		return "Club [id=" + id + ", typeId=" + typeId + ", schoolId="

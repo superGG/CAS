@@ -61,7 +61,7 @@ public class ApplyController extends BaseController {
 		result.setResultInfo("该成员已加入社团");
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-
+	
 	/**
 	 * 查看申请书
 	 */
@@ -74,4 +74,6 @@ public class ApplyController extends BaseController {
 		result.getResultParm().put("apply", applylist);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	
+	
 }
