@@ -85,7 +85,7 @@ body{
 
 /*登录框相关*/
 #mask{
-    position: absolute;
+    position: fixed;
     width: 100%;
     background-color: #000;
     opacity: 0.75;              /*透明度*/
@@ -94,24 +94,132 @@ body{
     top: 0;
     z-index: 99;
 }
-#mForm{
+#loginFrame,#registerFrame{
 	position: fixed;
-	width: 40%;
-	padding: 10px;
+	width: 30%;
+	min-width: 350px;
 	background-color: #ffffff;
-	animation: formMove 2s 1;
-	z-index: 100;
+	z-index: 110;
 }
-@keyframes formMove {
-	0% {margin-top:-500px;}
-	100% {margin-top:0px;}
-}
-#close{
+.close{
 	position: absolute;
-	width: 30px;
+	width: 32px;
+	height: 24px;
 	background-color: red;
 	top: 0px;
 	right: 0px;
 	cursor: pointer;
 	text-align: center;
+	background: url("../images/close.png")no-repeat;
+}
+.close:hover{
+	background-position: 0px -24px;
+}
+
+#login-tab,#register-tab,#phone-tab,#common-tab{
+	float: left;
+	width: 50%;
+	height: 55px;
+	color: #fff;
+	background-color: #12b7f5;
+	text-align: center;
+	line-height: 55px;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+#loginFrame .tab-active , #registerFrame .tab-active{
+	color: #000;
+	background-color: #fff;
+}
+.hd{
+	width: 100%;
+	overflow: hidden;
+}
+#loginForm,#commonForm,#phoneForm{
+	position: relative;
+	width: 100%;
+	margin-top: 10px;
+}
+.form-input{
+	position: relative;
+	width: 50%;
+	margin: 5px auto;
+}
+.login-input-verifiCode{
+	overflow: hidden;
+	padding: 2px;
+}
+
+.input-icon{
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	background-image: url("../images/login.png");
+    background-repeat: no-repeat;
+    background-size: 30px;
+    top: 5px;
+    left: 1px;
+}
+
+.icon-account{
+    background-position: -2px -9px;
+}
+.icon-password{
+    background-position: -2px -38px;
+}
+
+.icon-verifiCode{
+    background-position: 0px -62px;
+}
+
+.input{
+	width: 80%;
+	padding: 4px 0px 4px 30px;
+	line-height: 25px;
+	border: 1px solid #ccc;
+    transition: box-shadow linear .2s;
+    font-size: 18px;
+}
+.input:focus{
+	box-shadow: none;
+	box-shadow: 0px 0px 10px #2f4fec;
+}
+.input-verifiCode{
+	float: left;
+	width: 30%;
+}
+#verifiImg , #rVerifiImg{
+	float: left;
+	width: 70px;
+	height: 29px;
+	margin-left: 5px;
+	cursor: pointer;
+}
+
+#login-btn ,#common-btn,#phone-btn{
+	width: 50%;
+    height: 31px;
+    margin: 10px auto;
+    color: #fff;
+    line-height: 31px;
+    text-align: center;
+    background-color: #12b7f5;
+    cursor: pointer;
+}
+
+/*注册页面*/
+.icon-name{
+	background-position: -2px -89px;
+}
+#getPhoneCode{
+	float: left;
+	width: 30%;
+	margin-left: 2px;
+	color:#fff;
+	border:none;
+	background-color: #12b7f5;
+	text-align:center;
+	line-height: 33px;
+	cursor: pointer;
 }
