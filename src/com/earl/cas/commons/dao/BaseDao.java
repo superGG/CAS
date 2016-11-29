@@ -22,6 +22,8 @@ public interface BaseDao<T> {
 	T get(Integer id);
 
 	List<T> findAll();
+	
+	void update(T t);
 
 	List<T> findAll(PageInfo pageInfo);
 	
