@@ -31,7 +31,6 @@ import com.earl.cas.vo.ResultMessage;
 @RequestMapping(value = "/club")
 public class ClubController extends BaseController{
 	private final Logger logger = LoggerFactory.getLogger(ClubController.class);
-
 	@Autowired
 	private ClubService clubService;
 
