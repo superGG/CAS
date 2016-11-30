@@ -13,6 +13,5 @@ public interface UserDetailsService extends BaseService<UserDetails> {
 	 */
 	UserDetails getByUserId(int id);
 
-	
 
 }
