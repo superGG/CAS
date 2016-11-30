@@ -14,6 +14,14 @@ public interface UserService extends BaseService<User> {
 	 */
 	User findByAccount(String account);
 
+	/**
+	 * 获取短信验证码.
+	 *@author 宋.
+	 * @param phone
+	 * @return
+	 */
+	String getSmsCode(String phone);
+
 	
 
 
