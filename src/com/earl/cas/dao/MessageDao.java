@@ -11,10 +11,10 @@ public interface MessageDao extends BaseDao<Message>{
 /*
  * 更新信息
  */
-    public Boolean update(Message message);
+     Boolean update(Message message);
     
 /*
  * 查找子留言  
  */
-    public List<Message> findDetail(int fatherid);
+     List<Message> findDetail(int fatherid);
 }

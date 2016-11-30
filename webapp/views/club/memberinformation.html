@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>社团管理-成员管理-成员信息</title>
+		<link href="../../css/mystyle.css" rel="stylesheet" type="text/css"> 
+		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+		<link rel='icon' href='../../images/titile_logo.ico' type='image/x-ico' />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+		
+	</head>
+	<body>
+		<div class="top">
+			<div class="logobox">
+				<img id="logo" src="../../images/logo_school.png">
+			</div>
+			<div class="nav">
+				<ul>
+					<li><a class="active" href="index.html" >首页</a></li>
+					<li><a href="club/allClub.html">社团</a></li>
+					<li><a href="club/allActivity.html">活动</a></li>
+					<li><a href="massage/massage.html">留言板</a></li>
+				</ul>
+			</div>
+			<div class="login">
+				<a href="">登录</a>
+				<a href="">注册</a>
+			</div>
+		</div>
+		<div class="lwd_main">
+			<div class="lwd_main_nav">
+				<div class="header_photo">
+					<img src="../../images/ccbg.jpg">
+					<p>梁伟栋</p>
+				</div>
+				<div class="sidebar_left">
+					<div class="sidebar_left_module">
+						<a href="../user/personalcenter.html">
+							<b><img src="../../images/man.png"></b>
+							个人信息
+						</a>
+						<a href="showjoinedclubs.html">
+							<b><img src="../../images/club.png"></b>
+							我加入的社团
+						</a>
+						<a href="memberapplydeal.html" class="curr">
+							<b><img src="../../images/club.png"></b>
+							我创建的社团
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="lwd_main_iframe">
+				<div class="cmm_head_nav">
+					<ul class="top_navs">
+						<li><a href="memberapplydeal.html">申请处理</a></li>
+						<li><a href="clubinformationmanage.html">社团信息</a></li>
+						<li><a href="albummanage.html">相册管理</a></li>
+						<li class="curr"><a href="membermanage.html">成员管理</a></li>
+						<li><a href="activitymanage.html">活动管理</a></li>
+						<li><a href="positionmanage.html">职位管理</a></li>
+					</ul>			
+				</div>
+		
+				
+					<form id="psinfo" action="#" method="#" style="margin-top:20px;">
+						<div class="psinfo_pic">
+							<img src="../../images/icon4.jpg" id="portrait" name="portrait"><br>
+							<button  onclick="del()">删除成员</button>
+							<button  onclick="set()">保存</button>
+							<button>返回</button>
+						</div>
+						<table style="padding-left:50px;float:right;">
+							<tr>
+								<td><label for="name">姓名</label></td>
+								<td><input type="text" name="name" id="name" placeholder="姓名" readonly></td>
+							</tr>	
+							<tr>
+								<td><label for="age">年龄</label></td>
+								<td><input type="text" name="age" id="age" placeholder="年龄" readonly></td>
+							</tr>	
+							<tr>
+								<td><label for="major_class">专业班级</label></td>
+								<td><input type="text" name="major_class" id="major_class" placeholder="专业班级" readonly></td>
+							</tr>
+							<tr>
+								<td><label for="">职位</label></td>
+								<td><select name="" id="" style="width:182px" >
+										<option>社员</option>
+										<option>社长</option>
+										<option>部长</option>
+										<option>副部长</option>
+								</select></td>
+							</tr>
+							<tr>
+								<td><label for="createtime">入社时间</label></td>
+								<td><input type="text" placeholder="入社时间" name="createtime" id="createtime" readonly></td>
+							</tr>							
+							<tr>
+								<td><label for="nation">民族</label></td>
+								<td><input type="text" placeholder="民族" name="nation" id="nation" readonly></td>
+							</tr>							
+							<tr>
+								<td><label for="phone">电话</label></td>
+								<td><input type="text" placeholder="电话" name="phone" id="phone" readonly></td>
+							</tr>							
+							<tr>
+								<td><label for="email">邮箱</label></td>
+								<td><input type="text" placeholder="email" name="email" id="email" readonly></td>
+							</tr>	
+							<tr>
+								<td><label for="hobby">爱好</label></td>
+								<td><textarea rows="5" cols="50" placeholder="爱好" name="hobby" id="hobby" readonly></textarea></td>
+							</tr>
+							<tr>
+								<td><label for="introduce">个人简介</label></td>
+								<td><textarea rows="5" cols="50" placeholder="个人简介" name="introduce" id="introduce" readonly></textarea></td>
+							</tr>
+			
+						</table>
+				</form>
+			</div>
+		</div>
+		<div class="footer">
+			<p>
+				Copyright © 2016 Powered by 社团网申_第12组版权所有
+			</p>
+			<p>
+				地址：广东海洋大学钟海楼04019 邮政编码：524000　电话：18344094195
+			</p>
+			<div xmlns:wb="http://open.weibo.com/wb">
+				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
+			</div>
+		</div>
+<script>
+function del(){
+confirm("确定要删除该成员？")
+}
+function set(){
+alert("保存成功。")
+}
+</script>		
+	</body>
+</html>

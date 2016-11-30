@@ -1,10 +1,14 @@
 package com.earl.cas.dao.Impl;
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.earl.cas.commons.dao.BaseDaoImpl;
 import com.earl.cas.dao.ClubTypeDao;
 import com.earl.cas.entity.ClubType;
+import com.earl.cas.entity.Position;
 
 /**
  * clubTypeDao的实现类
@@ -21,15 +25,21 @@ public class ClubTypeDaoImpl extends BaseDaoImpl<ClubType> implements ClubTypeDa
 	}
 	
 	@Override
-	 public Boolean update(ClubType clubs){
+	 public Boolean update(ClubType clubtype){
 		String hql = "update from ClubType set name= :name where id= :id";
-		int flag=getCurrentSession().createQuery(hql).setString("name",clubs.getName()).setInteger("id", clubs.getId()).executeUpdate();
+		int flag=getCurrentSession().createQuery(hql).setString("name",clubtype.getName()).setInteger("id", clubtype.getId()).executeUpdate();
 		if(flag!=0){
 			return true;
 		}
 		else{
 			return false;
 		}
+	}
+
+	public List<ClubType> getTypeName(ClubType clubtype) {
+		String hql = "from ClubType where name = :name ";
+		List<ClubType> typename= getCurrentSession().createQuery(hql).setString("name",clubtype.getName()).list();
+		return typename;
 	}
 
 }

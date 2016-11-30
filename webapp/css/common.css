@@ -228,3 +228,93 @@ body{
 	line-height: 33px;
 	cursor: pointer;
 }
+/*个人中心 加入的社团 社团管理common*/
+.lwd_main{
+	padding: 20px 0 20px 0;
+	width: 990px;
+	height:800px;
+	margin:80px auto 0 auto;
+}
+.lwd_main_nav{
+	width: 206px;
+	height:100%;
+	padding: 0 0 3px; 
+	margin-bottom: 10px;
+	float: left;
+	background:#fff;
+}
+.lwd_main_iframe{
+	float: right;
+	width: 756px;
+	min-height:780px;
+	background:#fff;
+	padding-bottom:20px;
+}
+.header_photo{
+	padding: 32px 0 20px;
+	font-size: 14px;
+	color: #999;
+	text-align: center;
+	border-bottom: 1px solid #e6e6eb;
+    margin-bottom: 16px;
+}
+.header_photo img{
+	width: 116px;
+	margin: 0 auto 8px;
+	height: 116px;
+	display: block;
+}
+.header_photo p{
+	line-height: 36px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	margin: 0 25px;
+	color: #999;
+	font-size: 14px;
+	width: 154px;
+}
+.sidebar_left{
+	padding: 0 10px;
+}
+.sidebar_left .sidebar_left_module{
+	padding-bottom: 10px;
+	border-bottom: 1px solid #ecedf2;
+	margin-bottom: 10px;
+}
+.sidebar_left .sidebar_left_module a{
+	padding-left: 34px;
+	background: none;
+	height: 34px;
+	line-height: 34px;
+	display: block;
+	font-size: 14px;
+	color: #333;
+	text-decoration:none;
+}
+
+.sidebar_left .sidebar_left_module a:hover{
+	background: #ecedf2;	
+	color: #0063af;
+}
+
+.sidebar_left .sidebar_left_module a.curr{
+	background: #0063af;	
+	color: #fff;
+}
+.sidebar_left .sidebar_left_module a b{
+	width: 16px;
+	height: 34px;
+	overflow: hidden;
+	float: left;
+	padding-right: 10px;
+}
+.sidebar_left .sidebar_left_module a:hover b img{
+	margin-top: -68px; 
+}
+
+.sidebar_left .sidebar_left_module a.curr b img{
+	 margin-top: -34px; 
+	
+}
+/*end*/

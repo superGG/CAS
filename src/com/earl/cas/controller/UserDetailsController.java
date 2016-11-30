@@ -2,6 +2,8 @@
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.UserDetails;
+import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.UserDetailsService;
-import com.earl.cas.service.UserService;
+import com.earl.cas.util.FileUploadUtil;
 import com.earl.cas.vo.ResultMessage;
 
 /**
@@ -29,8 +33,8 @@ public class UserDetailsController extends BaseController {
 
 	private final Logger logger = LoggerFactory.getLogger(UserDetailsController.class);
 
-	@Autowired
-	private UserService userService;
+//	@Autowired
+//	private UserService userService;
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -54,11 +58,19 @@ public class UserDetailsController extends BaseController {
 	 * 修改用户详情.
 	 */
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> update(UserDetails userDetail) {
-		logger.debug("REST request to update userDetail");
+	public ResponseEntity<ResultMessage> update(UserDetails userDetail, MultipartFile file, HttpServletRequest request) {
+		if (userDetail.getId() == 0) {
+			throw new DomainSecurityException("用户详情id不能为空");
+		}
 		result = new ResultMessage();
-		result.setServiceResult(true);
+		if (!file.isEmpty()) {
+			logger.info("file不为空，开始处理上传头像");
+			String headPath = FileUploadUtil.NewFileUpload(request, file);
+			logger.info("上传头像访问地址："+ headPath);
+			userDetail.setHeadPath(headPath);
+		} 
 		userDetailsService.updateWithNotNullProperties(userDetail);
+		result.setServiceResult(true);
 		result.setResultInfo("更新成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}

@@ -6,14 +6,18 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
 import com.earl.cas.dao.UserDao;
+import com.earl.cas.dao.UserDetailsDao;
 import com.earl.cas.entity.User;
+import com.earl.cas.entity.UserDetails;
 import com.earl.cas.service.UserService;
+import com.earl.cas.util.MD5Util;
 import com.earl.cas.util.SmsbaoHelper;
 
 /**
@@ -32,6 +36,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements
 
 	@Resource
 	private UserDao userDao;
+	
+	@Autowired
+	private UserDetailsDao userDetailDao;
 
 	@Override
 	protected BaseDao<User> getDao() {
@@ -63,6 +70,20 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements
 			e.printStackTrace();
 		} 
 		return result==0?verifyCode:null;
+	}
+
+	@Override
+	public UserDetails register(User user) {
+		//MD5加密
+		user.setPassword(MD5Util.md5(user.getPassword()));
+		int userId = userDao.save(user);
+		UserDetails userDetail = new UserDetails();
+		userDetail.setUserId(userId);
+		userDetail.setHeadPath("/headpath/aaa.jpg");
+		userDetail.setName("用户"+userId);
+		userDetail.setRoleId(1);
+		userDetailDao.save(userDetail);
+		return userDetail;
 	}
 
 }

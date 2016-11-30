@@ -2,6 +2,8 @@ package com.earl.cas.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import com.earl.cas.entity.UserDetails;
 import com.earl.cas.service.ApplyService;
 import com.earl.cas.service.ClubService;
 import com.earl.cas.service.UserDetailsService;
+import com.earl.cas.service.UserclubService;
 import com.earl.cas.vo.ResultMessage;
 
 /**
@@ -42,6 +45,9 @@ public class ApplyController extends BaseController {
 
 	@Autowired
 	private ClubService clubService;
+
+	@Autowired
+	private UserclubService userclubService;
 
 	private ResultMessage result = null;
 
@@ -115,5 +121,33 @@ public class ApplyController extends BaseController {
 		result.setResultInfo("该成员已加入社团");
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-
+	/**
+	 * 剔除成员->根据申请书Id
+	 */
+	@RequestMapping(value = "/deleteMember", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> deleteMember(int applyId) {
+		logger.debug("REST request to delete a member");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		userclubService.deleteByapplyId(applyId);
+		result.setResultInfo("该成员已从社团中剔除");
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	/**
+	 * 修改成员职位
+	 * 逻辑关系
+	 * session中有userDetailId ->clubId->list<position>
+	 * 传递参数是一个positionName->list<position>比较获得position->positionID
+	 * 要更新userclub必须要有userclubId或者是applyId，因此传递参数有一个是applyId
+	 */
+	@RequestMapping(value = "/updateposition", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> updatePosition(int detailId,int applyId,String positionName) {
+		logger.debug("REST request to update a menberPosition");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		userclubService.updatePosition(detailId,applyId,positionName);
+		result.setResultInfo("职位更新成功");
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	
+	}
 }

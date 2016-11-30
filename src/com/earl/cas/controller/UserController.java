@@ -21,6 +21,7 @@ import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.UserDetailsService;
 import com.earl.cas.service.UserService;
 import com.earl.cas.util.ImgVerifyCodeUtil;
+import com.earl.cas.util.MD5Util;
 import com.earl.cas.vo.ResultMessage;
 import com.mysql.jdbc.StringUtils;
 
@@ -75,8 +76,7 @@ public class UserController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 
-
-	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/deleteById", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> delete(Integer id) {
 		logger.debug("REST request to delete Users");
 		result = new ResultMessage();
@@ -86,7 +86,42 @@ public class UserController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 
-	
+	/**
+	 * 用户注册.
+	 * 
+	 * @author 宋.
+	 * @param account
+	 * @param password
+	 * @param verifyCode
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> register(User user, String verifyCode,
+			HttpServletRequest request) {
+		result = new ResultMessage();
+		if (StringUtils.isNullOrEmpty(user.getAccount())
+				| StringUtils.isNullOrEmpty(user.getPassword())
+				| StringUtils.isNullOrEmpty(verifyCode)) {
+			throw new DomainSecurityException("数据有误");
+		}
+		if (!checkVerifyCode(request, verifyCode)) {
+			throw new DomainSecurityException("验证码错误");
+		}
+		if (userService.findByAccount(user.getAccount()) != null) {
+			throw new DomainSecurityException("该用户已存在");
+		}
+		UserDetails userDetail = userService.register(user);
+		if (userDetail.getId() != 0) {
+			result.setServiceResult(true);
+			result.setResultInfo("注册成功");
+			result.getResultParm().put("userDetail", userDetail);
+		} else {
+			result.setServiceResult(false);
+			result.setResultInfo("注册失败");
+		}
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 
 	/**
 	 * 用户登录.
@@ -100,31 +135,31 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> login(HttpServletRequest request,
-			String account, String password, String VerifyCode) {
+			String account, String password, String verifyCode) {
 		result = new ResultMessage();
-		if (!checkVerifyCode(request, VerifyCode)) {
+		if (!checkVerifyCode(request, verifyCode)) {
 			throw new DomainSecurityException("验证码错误");
 		}
 		User user = userService.findByAccount(account);
 		if (user == null) {
 			throw new DomainSecurityException("没有该用户");
 		}
-		if (!password.equals(user.getPassword())) {
+		String password_md5 = MD5Util.md5(password);
+		if (!password_md5.equals(user.getPassword())) {
 			throw new DomainSecurityException("密码错误");
 		}
-		// String password_md5 = MD5Util.md5(password);
-		// if (!password_md5.equals(user.getPassword())) {
-		// throw new DomainSecurityException("密码错误");
-		// }
 		UserDetails userDetail = userDetailsService.getByUserId(user.getId());
 		if (userDetail == null) {
 			throw new DomainSecurityException("没有该用户详情");
 		}
+		//将用户详情存放在session中.
+		request.getSession().setAttribute("userDetail", userDetail);
 		result.setResultInfo("登录成功");
 		result.getResultParm().put("userDetail", userDetail);
+		request.getSession().setAttribute("userDetailId",userDetail.getId());
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * 获取图片验证码.
 	 * 
@@ -143,25 +178,27 @@ public class UserController extends BaseController {
 		result.getResultParm().put("path", path);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * 获取短信验证码.
-	 *@author 宋.
+	 * 
+	 * @author 宋.
 	 * @param phone
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/getSmsCode" , method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> getSmsCode(String phone, HttpServletRequest request){
+	@RequestMapping(value = "/getSmsCode", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> getSmsCode(String phone,
+			HttpServletRequest request) {
 		result = new ResultMessage();
 		String verifyCode = userService.getSmsCode(phone);
-		if(StringUtils.isNullOrEmpty(verifyCode)){
+		if (StringUtils.isNullOrEmpty(verifyCode)) {
 			throw new DomainSecurityException("获取验证码失败");
 		}
 		result.setResultInfo("获取验证码成功");
 		result.setServiceResult(true);
 		request.getSession().setAttribute("VerifyCode", verifyCode);
-		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 
 	/**
@@ -173,10 +210,12 @@ public class UserController extends BaseController {
 	 * @return
 	 */
 	private Boolean checkVerifyCode(HttpServletRequest request,
-			String VerifyCode) {
-		String ImgVerifyCode = (String) request.getSession().getAttribute(
-				"ImgVerifyCode");
-		return VerifyCode.equalsIgnoreCase(ImgVerifyCode);
+			String verifyCode) {
+		logger.info("verifyCode:" + verifyCode);
+		String VerifyCode = (String) request.getSession().getAttribute(
+				"VerifyCode");
+		logger.info("VerifyCode:" + VerifyCode);
+		return VerifyCode.equalsIgnoreCase(verifyCode);
 	}
 
 	//

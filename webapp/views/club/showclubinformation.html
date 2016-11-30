@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>我加入的社团-社团信息</title>
+		<link href="../../css/mystyle.css" rel="stylesheet" type="text/css"> 
+		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+		<link rel='icon' href='../../images/titile_logo.ico' type='image/x-ico' />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var $ul = $(".stxq_main_left ul.top_nav").children();
+				for (var i = 0, l = $ul.length; i < l; i++) {    
+					$ul[i].onclick= (function(e){ 
+						return function(){
+							$(this).addClass("curr").siblings("li").removeClass("curr").parents(".stxq_main_left").find(".club_info_box").eq(e).show().siblings(".club_info_box").hide();
+						}
+					})(i);
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<div class="top">
+			<div class="logobox">
+				<img id="logo" src="../../images/logo_school.png">
+			</div>
+			<div class="nav">
+				<ul>
+					<li><a class="active" href="index.html" >首页</a></li>
+					<li><a href="club/allClub.html">社团</a></li>
+					<li><a href="club/allActivity.html">活动</a></li>
+					<li><a href="massage/massage.html">留言板</a></li>
+				</ul>
+			</div>
+			<div class="login">
+				<a href="">登录</a>
+				<a href="">注册</a>
+			</div>
+		</div>
+		<div class="lwd_main">
+			<div class="lwd_main_nav">
+				<div class="header_photo">
+					<img src="../../images/ccbg.jpg">
+					<p>梁伟栋</p>
+				</div>
+				<div class="sidebar_left">
+					<div class="sidebar_left_module">
+						<a href="../user/personalcenter.html">
+							<b><img src="../../images/man.png"></b>
+							个人信息
+						</a>
+						<a href="showjoinedclubs.html" class="curr">
+							<b><img src="../../images/club.png"></b>
+							我加入的社团
+						</a>
+						<a href="memberapplydeal.html">
+							<b><img src="../../images/club.png"></b>
+							我创建的社团
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="lwd_main_iframe">
+				<div class="cmm_head_nav">
+					<ul class="top_navs">
+						<li class="curr"><a href="showclubinformation.html">社团详情</a></li>
+						<li><a href="showclubalbums.html">社团相册</a></li>
+						<li><a href="showclubactivity.html">相册活动</a></li>
+						<li><a href="#">社团留言板</a></li>
+					</ul>
+				</div>
+				<div class="stxq_box">
+					<div class="stxq_box_top">
+						<img src="../../images/clubbadge.jpg" width="200px" height="200px">
+						<div class="stxq_details">
+							<div class="stxq_details_header">
+								<h1 style="font-family:微软雅黑;margin:0;">吉他社</h1>
+								<span class="ccdate" style="margin-left:25px;margin-top:15px;">创建时间：1999-11-15<span>
+							</div>
+							<div class="stxq_details_mid">
+								<div class="stxq_details_item">
+									<p style="color:#999;">社长</p>
+									<p style="color:#666;">郑烁彬</p>
+								</div>
+								<div class="stxq_details_item">
+									<p style="color:#999;">社团类型</p>
+									<p style="color:#666;">音乐</p>
+								</div>
+								<div class="stxq_details_item" style="border-right:0;">
+									<p style="color:#999;">规模</p>
+									<p style="color:#666;">5500人</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="stxq_main">
+						<div class="stxq_main_left">
+							<ul class="top_nav">
+								<li class="curr" id="announcement"><a href="#">社团公告</a></li>
+								<li id="intro"><a href="#">社团简介</a></li>
+								<li id="member"><a href="#">社团干部</a></li>
+							</ul>
+							<div class="club_info_box" id="announcement_box" style="display:block;">
+								<p>&nbsp;&nbsp;&nbsp;&nbsp;吉他社创建于1999年，由当届校园最著名的情歌王子郑烁彬创立，创建伊始，立即引起校园轰动，吸引了大把大把的学生纷纷加入。更有甚者，许多高中毕业生都是为了情歌王子郑烁彬，慕名而来，所以造成了郑烁彬的那个时代，广东海洋大学的报读人数如火山爆发似得增长，增长的人数中90%是女同学，剩下的10%都是基佬。如今，虽然如今郑烁彬同学已经毕业离校，走进社会，但是他的影响力依然存在，社团未有衰退，反而日益壮大，成为广东海洋大学第一社团。</p>
+							</div>
+							<div class="club_info_box" id="intro_box" style="display:none;">
+								<p>&nbsp;&nbsp;&nbsp;&nbsp;由当届校园最著名的情歌王子郑烁彬创立，创建伊始，立即引起校园轰动，吸引了大把大把的学生纷纷加入。更有甚者，许多高中毕业生都是为了情歌王子郑烁彬，慕名而来，所以造成了郑烁彬的那个时代，广东海洋大学的报读人数如火山爆发似得增长，增长的人数中90%是女同学，剩下的10%都是基佬。如今，虽然如今郑烁彬同学已经毕业离校，走进社会，但是他的影响力依然存在，社团未有衰退，反而日益壮大，成为广东海洋大学第一社团。</p>
+							</div>
+							<div class="club_info_box" id="member_box" style="display:none;">
+								<p>&nbsp;&nbsp;&nbsp;&nbsp;吉他社创建于1999年，创建伊始，立即引起校园轰动，吸引了大把大把的学生纷纷加入。更有甚者，许多高中毕业生都是为了情歌王子郑烁彬，慕名而来，所以造成了郑烁彬的那个时代，广东海洋大学的报读人数如火山爆发似得增长，增长的人数中90%是女同学，剩下的10%都是基佬。如今，虽然如今郑烁彬同学已经毕业离校，走进社会，但是他的影响力依然存在，社团未有衰退，反而日益壮大，成为广东海洋大学第一社团。</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<p>
+				Copyright © 2016 Powered by 社团网申_第12组版权所有
+			</p>
+			<p>
+				地址：广东海洋大学钟海楼04019 邮政编码：524000　电话：18344094195
+			</p>
+			<div xmlns:wb="http://open.weibo.com/wb">
+				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
+			</div>
+		</div>
+	</body>
+</html>

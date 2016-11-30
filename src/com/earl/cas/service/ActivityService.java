@@ -12,10 +12,10 @@ public interface ActivityService extends BaseService<Activity> {
 /*
  * 修改活动	
  */
-	public Boolean updateActivity(Activity activity);
+	Boolean updateActivity(Activity activity);
 /*
  * 查看活动详情
  */
-	 public List<Activity> findDetail(int id);
+	List<Activity> findDetail(int id);
 
 }
