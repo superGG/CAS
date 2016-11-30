@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>我加入的社团-社团相册</title>
+		<link href="../../css/mystyle.css" rel="stylesheet" type="text/css"> 
+		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+		<link rel='icon' href='../../images/titile_logo.ico' type='image/x-ico' />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var timer;
+					var album;
+					$(".album_action").css("visibility","visible")
+					$(".album_action").hide();
+					$(".album").hover(function(){
+						clearTimeout(timer);
+						album = $(this).attr("id");
+						timer=setTimeout(function(){
+							$("#"+album+"_action").slideDown("fast");
+							$("#"+album+"_name").animate({height:'60px'},"fast");
+						},100);
+					},function(){
+						clearTimeout(timer);
+						$("#"+album+"_action").slideUp("fast");
+						$("#"+album+"_name").animate({height:'30px'},"fast");
+					});
+			});
+			function showMask(){
+				$("body").css("overflow-y","hidden");
+				$("#mask").css("height",$(document.body).height());     
+				$("#mask").css("width",$(document.body).outerWidth(true));     
+				$("#mask").show();
+				initalbum();//相册初始化
+				
+			} 
+			function hideMask(){         
+				$("#mask").hide();
+				$("body").css("overflow-y","visible");
+			}
+		</script>
+	</head>
+	<body>
+		<div class="top">
+			<div class="logobox">
+				<img id="logo" src="../../images/young.png" width="150px" height="70px">
+			</div>
+			<div class="nav">
+				<ul>
+					<li><a class="active" href="index.html" >首页</a></li>
+					<li><a href="club/allClub.html">社团</a></li>
+					<li><a href="club/allActivity.html">活动</a></li>
+					<li><a href="massage/massage.html">留言板</a></li>
+				</ul>
+			</div>
+			<div class="login">
+				<a href="">登录</a>
+				<a href="">注册</a>
+			</div>
+		</div>
+		<div class="lwd_main">
+			<div class="lwd_main_nav">
+				<div class="header_photo">
+					<img src="../../images/ccbg.jpg">
+					<p>梁伟栋</p>
+				</div>
+				<div class="sidebar_left">
+					<div class="sidebar_left_module">
+						<a href="../user/personalcenter.html">
+							<b><img src="../../images/man.png"></b>
+							个人信息
+						</a>
+						<a href="showjoinedclubs.html" class="curr">
+							<b><img src="../../images/club.png"></b>
+							我加入的社团
+						</a>
+						<a href="memberapplydeal.html">
+							<b><img src="../../images/club.png"></b>
+							我创建的社团
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="lwd_main_iframe">
+				<div class="cmm_head_nav">
+					<ul class="top_navs">
+						<li><a href="showclubinformation.html">社团详情</a></li>
+						<li class="curr"><a href="showclubalbums.html">社团相册</a></li>
+						<li><a href="showclubactivity.html">社团活动</a></li>
+						<li><a href="#">社团留言板</a></li>
+					</ul>
+				</div>
+				
+				<div class="album" id="album1">
+					<div class="album_pic">
+						<img src="../../images/ccbg.jpg" width="150px" height="100px">
+					</div>
+					<div class="album_name" id="album1_name">
+						<span style="font-size:15px;">鱼和海</span>
+						<span style="font-size:12px;position:absolute;right:5px;">2016-11-16</span>
+					</div>
+					<div id="album1_action" class="album_action">
+						<button onclick="showMask()">进入相册</button>
+						
+					</div>
+				</div>
+
+				<div class="album" id="album2">
+					<div class="album_pic">
+						<img src="../../images/ccbg.jpg" width="150px" height="100px">
+					</div>
+					<div class="album_name" id="album2_name">
+						<span style="font-size:15px;">鱼和海</span>
+						<span style="font-size:12px;position:absolute;right:5px;">2016-11-16</span>
+					</div>
+					<div id="album2_action" class="album_action">
+						<button onclick="showMask()">进入相册</button>
+						
+					</div>
+				</div>
+
+				<div class="album" id="album3">
+					<div class="album_pic">
+						<img src="../../images/ccbg.jpg" width="150px" height="100px">
+					</div>
+					<div class="album_name" id="album3_name">
+						<span style="font-size:15px;">鱼和海</span>
+						<span style="font-size:12px;position:absolute;right:5px;">2016-11-16</span>
+					</div>
+					<div id="album3_action" class="album_action">
+						<button action="#">进入相册</button>
+						
+					</div>
+				</div>
+
+				<div class="album" id="album4">
+					<div class="album_pic">
+						<img src="../../images/ccbg.jpg" width="150px" height="100px">
+					</div>
+					<div class="album_name" id="album4_name">
+						<span style="font-size:15px;">鱼和海</span>
+						<span style="font-size:12px;position:absolute;right:5px;">2016-11-16</span>
+					</div>
+					<div id="album4_action" class="album_action">
+						<button action="#">进入相册</button>
+						
+					</div>
+				</div>
+
+				<div class="album" id="album5">
+					<div class="album_pic">
+						<img src="../../images/ccbg.jpg" width="150px" height="100px">
+					</div>
+					<div class="album_name" id="album5_name">
+						<span style="font-size:15px;">鱼和海</span>
+						<span style="font-size:12px;position:absolute;right:5px;">2016-11-16</span>
+					</div>
+					<div id="album5_action" class="album_action">
+						<button action="#">进入相册</button>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<p>
+				Copyright © 2016 Powered by 社团网申_第12组版权所有
+			</p>
+			<p>
+				地址：广东海洋大学钟海楼04019 邮政编码：524000　电话：18344094195
+			</p>
+			<div xmlns:wb="http://open.weibo.com/wb">
+				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
+			</div>
+		</div>
+		<div id="mask" class="photo_mask">
+			<button onclick="hideMask()"><img src="../../images/close.png" width="30px" height="30px"></button>
+			<div class="photo_mask_main">
+				<div class="photo_mask_main_left">
+					<div id="large_pic" class="photo_mask_main_left_big">
+						
+						<a id="pre_pic" class="prephoto" href="#"></a>
+						<a id="next_pic" class="nextphoto" href="#"></a>
+					</div>
+					<div class="photo_mask_main_left_small">
+						<a href="#" id="pre_pic_group"><i class="prepage"></i></a>
+						<div class="smallpicbox">
+							<ul id="picList">
+								
+							</ul>
+						</div>
+						<a href="#" id="next_pic_group"><i class="nextpage"></i></a>
+					</div>
+				</div>
+				<div class="photo_mask_main_right">
+					<div class="photo_mask_main_right_top">
+						<img src="../../images/ccbg.jpg" width="50px" height="50px">
+						<div style="display:inline-block;position:absolute; top:12px;left:70px;">
+							<b style="font-size:14px;color:#0063af;font-famliy:微软雅黑;">昔日时光</b>
+						</div>
+						<div style="display:inline-block;position:absolute; top:26px;left:70px;">
+							<span style="font-size:8px;font-famliy:微软雅黑;color:#999;">吉他社</span>
+							<span style="font-size:8px;font-famliy:微软雅黑;color:#999;">创建时间:2016-11-26</span>
+						</div>
+						<div class="tool_box">
+							<ul>
+								<li><a href="#" class=""><i class="icon-m icon-praise-m"></i></a></li>
+								<li><a href="#" class=""><i class="icon-m icon-comment-m"></i></a></li>
+								<li><a href="#" class=""><i class="icon-m icon-reproduced-m"></i></a></li>
+								<li><a href="#" class=""><i class="icon-m icon-other-m"></i></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="photo_mask_main_right_main">
+						<div class="comment_item">
+							<img src="../../images/ccbg.jpg" width="30px" height="30px">
+							<div style="position:absolute;margin-top:-35px;left:50px;">
+								<b style="font-size:10px;color:#0063af;font-famliy:微软雅黑;">Dikuni</b>
+							</div>
+							<span style="font-size:10px;font-famliy:微软雅黑;color:#999;padding-left:5px;">2016-11-28</span>
+							<p style="font-size:10px;font-famliy:微软雅黑;">&nbsp;&nbsp;&nbsp;&nbsp;情歌王子郑烁彬啊！我是他的忠实粉丝啊！我激动了！不行了，我要晕倒了！</p>
+						</div>
+						<div class="comment_item">
+							<img src="../../images/ccbg.jpg" width="30px" height="30px">
+							<div style="position:absolute;margin-top:-35px;left:50px;">
+								<b style="font-size:10px;color:#0063af;font-famliy:微软雅黑;">Dikuni</b>
+							</div>
+							<span style="font-size:10px;font-famliy:微软雅黑;color:#999;padding-left:5px;">2016-11-28</span>
+							<p style="font-size:10px;font-famliy:微软雅黑;">&nbsp;&nbsp;&nbsp;&nbsp;情歌王子郑烁彬啊！我是他的忠实粉丝啊！我激动了！不行了，我要晕倒了！</p>
+						</div>
+						<div class="comment_item">
+							<img src="../../images/ccbg.jpg" width="30px" height="30px">
+							<div style="position:absolute;margin-top:-35px;left:50px;">
+								<b style="font-size:10px;color:#0063af;font-famliy:微软雅黑;">Dikuni</b>
+							</div>
+							<span style="font-size:10px;font-famliy:微软雅黑;color:#999;padding-left:5px;">2016-11-28</span>
+							<p style="font-size:10px;font-famliy:微软雅黑;">&nbsp;&nbsp;&nbsp;&nbsp;情歌王子郑烁彬啊！我是他的忠实粉丝啊！我激动了！不行了，我要晕倒了！</p>
+						</div><div class="comment_item">
+							<img src="../../images/ccbg.jpg" width="30px" height="30px">
+							<div style="position:absolute;margin-top:-35px;left:50px;">
+								<b style="font-size:10px;color:#0063af;font-famliy:微软雅黑;">Dikuni</b>
+							</div>
+							<span style="font-size:10px;font-famliy:微软雅黑;color:#999;padding-left:5px;">2016-11-28</span>
+							<p style="font-size:10px;font-famliy:微软雅黑;">&nbsp;&nbsp;&nbsp;&nbsp;情歌王子郑烁彬啊！我是他的忠实粉丝啊！我激动了！不行了，我要晕倒了！</p>
+						</div><div class="comment_item">
+							<img src="../../images/ccbg.jpg" width="30px" height="30px">
+							<div style="position:absolute;margin-top:-35px;left:50px;">
+								<b style="font-size:10px;color:#0063af;font-famliy:微软雅黑;">Dikuni</b>
+							</div>
+							<span style="font-size:10px;font-famliy:微软雅黑;color:#999;padding-left:5px;">2016-11-28</span>
+							<p style="font-size:10px;font-famliy:微软雅黑;">&nbsp;&nbsp;&nbsp;&nbsp;情歌王子郑烁彬啊！我是他的忠实粉丝啊！我激动了！不行了，我要晕倒了！</p>
+						</div><div class="comment_item">
+							<img src="../../images/ccbg.jpg" width="30px" height="30px">
+							<div style="position:absolute;margin-top:-35px;left:50px;">
+								<b style="font-size:10px;color:#0063af;font-famliy:微软雅黑;">Dikuni</b>
+							</div>
+							<span style="font-size:10px;font-famliy:微软雅黑;color:#999;padding-left:5px;">2016-11-28</span>
+							<p style="font-size:10px;font-famliy:微软雅黑;">&nbsp;&nbsp;&nbsp;&nbsp;情歌王子郑烁彬啊！我是他的忠实粉丝啊！我激动了！不行了，我要晕倒了！</p>
+						</div><div class="comment_item">
+							<img src="../../images/ccbg.jpg" width="30px" height="30px">
+							<div style="position:absolute;margin-top:-35px;left:50px;">
+								<b style="font-size:10px;color:#0063af;font-famliy:微软雅黑;">Dikuni</b>
+							</div>
+							<span style="font-size:10px;font-famliy:微软雅黑;color:#999;padding-left:5px;">2016-11-28</span>
+							<p style="font-size:10px;font-famliy:微软雅黑;">&nbsp;&nbsp;&nbsp;&nbsp;情歌王子郑烁彬啊！我是他的忠实粉丝啊！我激动了！不行了，我要晕倒了！</p>
+						</div><div class="comment_item">
+							<img src="../../images/ccbg.jpg" width="30px" height="30px">
+							<div style="position:absolute;margin-top:-35px;left:50px;">
+								<b style="font-size:10px;color:#0063af;font-famliy:微软雅黑;">Dikuni</b>
+							</div>
+							<span style="font-size:10px;font-famliy:微软雅黑;color:#999;padding-left:5px;">2016-11-28</span>
+							<p style="font-size:10px;font-famliy:微软雅黑;">&nbsp;&nbsp;&nbsp;&nbsp;情歌王子郑烁彬啊！我是他的忠实粉丝啊！我激动了！不行了，我要晕倒了！</p>
+						</div><div class="comment_item">
+							<img src="../../images/ccbg.jpg" width="30px" height="30px">
+							<div style="position:absolute;margin-top:-35px;left:50px;">
+								<b style="font-size:10px;color:#0063af;font-famliy:微软雅黑;">Dikuni</b>
+							</div>
+							<span style="font-size:10px;font-famliy:微软雅黑;color:#999;padding-left:5px;">2016-11-28</span>
+							<p style="font-size:10px;font-famliy:微软雅黑;">&nbsp;&nbsp;&nbsp;&nbsp;情歌王子郑烁彬啊！我是他的忠实粉丝啊！我激动了！不行了，我要晕倒了！</p>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var picList = [{
+			"pid": "1540637",
+			"pic": "../../images/001.jpg",
+		},
+		{
+			"pid": "1540637",
+			"pic": "../../images/003.jpg",
+		},
+		{
+			"pid": "1540637",
+			"pic": "../../images/003.jpg",
+		},
+		{
+			"pid": "1540637",
+			"pic": "../../images/004.jpg",
+		},
+		{
+			"pid": "1540637",
+			"pic": "../../images/001.jpg",
+		},
+		{
+			"pid": "1540637",
+			"pic": "../../images/003.jpg",
+		},
+		{
+			"pid": "1540637",
+			"pic": "../../images/004.jpg",
+		},
+		{
+			"pid": "1540637",
+			"pic": "../../images/004.jpg",
+		},
+		{
+			"pid": "1540637",
+			"pic": "../../images/003.jpg",
+		},
+		{
+			"pid": "1540637",
+			"pic": "../../images/001.jpg",
+		}];
+		//追加照片列表
+		var morePic = [{
+			"pid": "1540637",
+			"pic": "../../images/001.jpg",
+		},
+		{
+			"pid": "1540637",
+			"pic": "../../images/003.jpg",
+		},
+		{
+			"pid": "1540637",
+			"pic": "../../images/003.jpg",
+		},
+		{
+			"pid": "1540637",
+			"pic": "../../images/004.jpg",
+		},
+		{
+			"pid": "1540637",
+			"pic": "../../images/001.jpg",
+		}];
+
+		var left = 0;//ul位移量
+		var firstIndex = 0;//记录小图组当前页第一个照片的下标
+		var lastIndex = 10;//记录小图组当前页最后一个照片的下标
+		var Len;//获取数据长度
+		var selectIndex;//当前选中的图片
+
+		//初始化相册
+		function initalbum(){
+			getPicGroup();
+			getFirstPic();
+			Len = $("#picList li").length;//获取数据长度
+
+			nextPicGroup();
+			prePicGroup();
+			
+			getLargePicByPreBtn();
+			getLargePicByNextBtn();
+			getLargePicBySmallPic();
+		}
+
+		//获取相册第一张照片，设置在div上
+		function getFirstPic(){
+			var picSrc = $("#picList li").eq(0).children("img").attr("src");
+			$("#large_pic").append('<img src='+picSrc+' width="760px" height="400px">');
+			selectIndex = 0;
+			$("#picList li").eq(0).css("padding","0").addClass("pic_select");
+		}
+		//改变大图
+		function changeLargePic(index){
+			var picSrc = $("#picList li").eq(index).children("img").attr("src");
+			$("#large_pic img").remove();
+			$("#large_pic").append('<img src="'+picSrc+'" width="760px" height="400px">');
+			setSamllPicBorder(index);
+			selectIndex = index;
+		}
+		//小图被选中，设置边框
+		function setSamllPicBorder(index){
+			$("#picList li").eq(index).css("padding","0").addClass("pic_select").siblings(this).removeClass("pic_select").css("padding","5px");
+		}
+		//设置照片小图li
+		function getPicGroup(){
+			for(var i = 0;i<picList.length;i++ )
+			$("#picList").append('<li><img src='+ picList[i].pic+' width="50px" height="50px"></li>');
+		}
+
+		//追加照片
+		function getMorePic(){
+			if(1){//还有数据
+				for(var j = 0;j<morePic.length;j++ ){
+					$("#picList").append('<li><img src='+ morePic[j].pic+' width="50px" height="50px"></li>');
+				}
+			}else{
+				alert("没有更多照片了！");
+			}
+		}
+		//下一页
+		function nextPicGroup(){
+			$("#next_pic_group").click(function(){
+				if(lastIndex==Len){
+					getMorePic();
+					Len = Len + 5;
+				}
+				
+				left = left + -60*5;
+				$("#picList").animate({left:left},1000);
+				
+				firstIndex = firstIndex + 5;
+				lastIndex = lastIndex + 5;
+				$("#pre_pic_group").show();
+				if(lastIndex>Len){
+					$("#next_pic_group").hide();
+				}
+				getLargePicBySmallPic();
+			});
+		}
+		
+		//上一页
+		function prePicGroup(){
+			$("#pre_pic_group").click(function(){
+				left = left + 60*5;
+				$("#picList").animate({left:left},1000);
+				firstIndex = firstIndex - 5;
+				lastIndex = lastIndex - 5;
+				if(firstIndex==0){
+					$("#pre_pic_group").hide();
+				}
+				$("#next_pic_group").show();
+			});
+		}
+		//根据照片数量，设置上页下页隐藏和显示。
+		$(function(){
+			if(Len<=10){
+				$("#pre_pic_group").hide();
+				$("#next_pic_group").hide();
+			}
+			if(firstIndex==0){
+				$("#pre_pic_group").hide();
+			}
+		});
+		//下一张图片
+		function getLargePicByNextBtn(){
+			$("#next_pic").click(function(){
+				if(selectIndex==Len-1){
+					alert("大哥这已经是最后一张了！还点什么！");
+				}else{
+					changeLargePic(selectIndex+1);
+				}
+			});
+		}
+		
+		//下一张图片
+		function getLargePicByPreBtn(){
+			$("#pre_pic").click(function(){
+				if(selectIndex==0){
+					alert("大哥这已经是第一张了！还点什么！");
+				}else{
+					changeLargePic(selectIndex-1);
+				}
+			
+			});
+		}
+		//点击小图切图
+		function getLargePicBySmallPic(){
+			$("#picList li").click(function(){
+				var index = $(this).index();
+				changeLargePic(index);
+			});
+		}
+	</script>
+</html>

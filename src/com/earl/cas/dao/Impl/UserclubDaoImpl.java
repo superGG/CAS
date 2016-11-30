@@ -13,6 +13,12 @@ import com.earl.cas.entity.Userclub;
  */
 @Repository("userclubDao")
 public class UserclubDaoImpl extends BaseDaoImpl<Userclub> implements UserclubDao {
-
-
+	
+	public int deleteByapplyId(int applyId){
+		String hql = "delete Userclub  where applyId = :applyId";
+		int flag=getCurrentSession().createQuery(hql).setInteger("applyId",applyId).executeUpdate();
+		getCurrentSession().flush();
+		return flag;
+	}
+	
 }
