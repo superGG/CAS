@@ -1,0 +1,14 @@
+.editor{
+	padding: 5px;
+}
+.editor .editorContent{
+	border: 1px solid #ccc;
+}
+.editor .toolBar{
+	background-color: #ccc;
+}
+.editor .toolBar .expression{
+	width: 40px;
+	height: 40px;
+	background:url("../images/expression/1.gif");
+}

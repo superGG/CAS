@@ -93,7 +93,7 @@ function login(argument) {
   var sendData = $("#loginForm").serialize();
   console.log(sendData);
   $.post(url,sendData,function (data) {
-    alert(data.resultInfo)
+    alert(data.resultInfo);
   });
 }
 
@@ -102,6 +102,6 @@ function register(argument) {
   var sendData = $("#registerForm").serialize();
   console.log(sendData);
   $.post(url,sendData,function (data) {
-    alert(data.resultInfo)
+    alert(data.resultInfo);
   });
 }
