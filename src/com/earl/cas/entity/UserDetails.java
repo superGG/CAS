@@ -1,7 +1,6 @@
 package com.earl.cas.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -52,7 +51,7 @@ public class UserDetails implements Serializable
 	private Integer roleId;
 	
 	//创建时间
-	private Date createtime;
+	private String createtime;
 	
 	//用户登录id
 	private Integer userId;
@@ -60,7 +59,7 @@ public class UserDetails implements Serializable
 	public UserDetails() {
 	}
 
-	public UserDetails(int id, Date createtime) {
+	public UserDetails(int id, String createtime) {
 		this.id = id;
 		this.createtime = createtime;
 	}
@@ -131,7 +130,6 @@ public class UserDetails implements Serializable
 		this.singnation = singnation;
 	}
 
-	@Generated(GenerationTime.INSERT)
 	@Column(name = "head_path")
 	public String getHeadPath() {
 		return this.headPath;
@@ -152,11 +150,11 @@ public class UserDetails implements Serializable
 
 	@Generated(GenerationTime.INSERT)
 	@Column(name = "createtime")
-	public Date getCreatetime() {
+	public String getCreatetime() {
 		return this.createtime;
 	}
 
-	public void setCreatetime(Date createtime) {
+	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
 	}
 

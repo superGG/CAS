@@ -32,19 +32,52 @@
 				<div class="activity-top">
 					<div class="activity-filtrate">
 						<span>筛选:</span>
-						<select class="activity-select" onchange="selectChange(this.options[this.options.selectedIndex].value)">
+						<select class="activity-select" onchange="selectChange();">
 							<option value="1">最新</option>
 							<option value="2">热度</option>
 						</select>
 					</div>
 					<div class="activity-search">
 						<input class="search-key" type="text" name="key" placeholder="输入关键词">
-						<button class="search-btn" type="submit" name="search">搜索</button>
+						<button class="search-btn" type="submit" name="search" onclick="searchActivity()">搜索</button>
 					</div>
 				</div>
 				<ul class="activityList">
-					
+					<li>
+						<div class="activity-title">
+							<a href="">标题</a>
+						</div>
+						<div class="activity-club">
+							<a href="">社团</a>
+						</div>
+						<div class="activity-time">
+							<a href="">2016/11/29</a>
+						</div>
+					</li>
+					<li>
+						<div class="activity-title">
+							<a href="">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题11111111111</a>
+						</div>
+						<div class="activity-club">
+							<a href="">社团</a>
+						</div>
+						<div class="activity-time">
+							<a href="">2016/11/29</a>
+						</div>
+					</li>
+					<li>
+						<div class="activity-title">
+							<a href="">标题</a>
+						</div>
+						<div class="activity-club">
+							<a href="">社团</a>
+						</div>
+						<div class="activity-time">
+							<a href="">2016/11/29</a>
+						</div>
+					</li>
 				</ul>
+				<div id="loadMoreActivity" onclick="loadMoreActivity()">加载更多</div>
 			</div>
 		</div>
 		<div class="footer">
