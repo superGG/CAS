@@ -120,7 +120,7 @@ public class ApplyController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 	/**
-	 * 剔除成员
+	 * 剔除成员->根据申请书Id
 	 */
 	@RequestMapping(value = "/deleteMember", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> deleteMember(int applyId) {
@@ -128,6 +128,18 @@ public class ApplyController extends BaseController {
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		userclubService.deleteByapplyId(applyId);
+		result.setResultInfo("该成员已从社团中剔除");
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	/**
+	 * 修改成员职位->操作在查看成员信息那里完成
+	 */
+	@RequestMapping(value = "/updateposition", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> updatePosition(int userId,String positionName) {
+		logger.debug("REST request to update a menberPosition");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		userclubService.updatePosition(positionName);
 		result.setResultInfo("该成员已从社团中剔除");
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}

@@ -29,15 +29,19 @@ public class UserclubServiceImpl extends BaseServiceImpl<Userclub> implements
 	protected BaseDao<Userclub> getDao() {
 		return userclubDao;
 	}
-	
-	public boolean deleteByapplyId(int applyId){
+
+	public boolean deleteByapplyId(int applyId) {
 		int flag = userclubDao.deleteByapplyId(applyId);
-		if (flag!=0){
+		if (flag != 0) {
 			return true;
-		}
-		else{
+		} else {
 			throw new DomainSecurityException("删除失败");
 		}
-		
+	}
+
+	public boolean updatePosition(int clubID,String positionName) {
+		//根据positionName和clubId找到positionId
+		//update userclub表的positionId
+		//
 	}
 }

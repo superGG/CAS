@@ -10,4 +10,10 @@ public interface UserclubService extends BaseService<Userclub> {
 	 * @param applyId
 	 */
 	boolean deleteByapplyId(int applyId);
+	/**
+	 * 修改成员职位
+	 * @param positionName
+	 * @return
+	 */
+	boolean updatePosition(int clubId,String positionName);
 }
