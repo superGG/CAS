@@ -1,5 +1,7 @@
 package com.earl.cas.dao.Impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.earl.cas.commons.dao.BaseDaoImpl;
@@ -13,6 +15,13 @@ import com.earl.cas.entity.Album;
  */
 @Repository("albumDao")
 public class AlbumDaoImpl extends BaseDaoImpl<Album> implements AlbumDao {
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Album> getByClubId(Integer id) {
+		String hql = "from Album where id = :id";
+		return getCurrentSession().createQuery(hql).setInteger("id", id).list();
+	}
 
 
 }

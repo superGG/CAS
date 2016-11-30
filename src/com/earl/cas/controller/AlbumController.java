@@ -19,14 +19,16 @@ import com.earl.cas.vo.ResultMessage;
 
 /**
  * Album的controller.
- *@author 宋
- *@date 2016-11-23
+ * 
+ * @author 宋
+ * @date 2016-11-23
  */
 @RestController
 @RequestMapping(value = "/album")
 public class AlbumController extends BaseController {
 
-	private final Logger logger = LoggerFactory.getLogger(AlbumController.class);
+	private final Logger logger = LoggerFactory
+			.getLogger(AlbumController.class);
 
 	@Autowired
 	private AlbumService albumService;
@@ -37,14 +39,29 @@ public class AlbumController extends BaseController {
 	 * GET /album -> get all the album
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> getAll() {
+	public ResponseEntity<ResultMessage> getAll() {
 		logger.debug("REST request to get all album");
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		List<Album> albumList = albumService.findAll();
 		result.getResultParm().put("album", albumList);
-		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 	
+
+	/**
+	 * 查询社团全部相册.
+	 *@author 宋.
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/getByClub", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> getByClub(Integer id) {
+		result = new ResultMessage();
+		List<Album> albumList = albumService.getByClubId(id);
+		result.setServiceResult(true);
+		result.getResultParm().put("albumList", albumList);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 
 }
