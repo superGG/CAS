@@ -2,8 +2,6 @@ package com.earl.cas.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Apply;
 import com.earl.cas.entity.Club;
-import com.earl.cas.entity.UserDetails;
 import com.earl.cas.service.ApplyService;
 import com.earl.cas.service.ClubService;
-import com.earl.cas.service.UserDetailsService;
 import com.earl.cas.service.UserclubService;
 import com.earl.cas.vo.ResultMessage;
-
+import com.earl.cas.vo.Member;
 /**
  * Apply的controller.
  * 
@@ -40,8 +36,6 @@ public class ApplyController extends BaseController {
 	@Autowired
 	private ApplyService applyService;
 
-	@Autowired
-	private UserDetailsService userDetailsService;
 
 	@Autowired
 	private ClubService clubService;
@@ -94,15 +88,13 @@ public class ApplyController extends BaseController {
 	 * 查看自己社团的入社申请书->申请书管理列表
 	 */
 	@RequestMapping(value = "/displayClubApply", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> displayClubApply(int userId) {
+	public ResponseEntity<ResultMessage> displayClubApply(int detailId) {
 		logger.debug("REST request to display club apply");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		// 获取用户详情，前端传进来userId或者session获取
-		UserDetails userDetails = userDetailsService.getByUserId(userId);
 
 		// 获取用户创建的社团
-		Club club = clubService.getClubByuserDetailId(userDetails.getId());
+		Club club = clubService.getClubByuserDetailId(detailId);
 
 		// 通过clubId获得对应社团的申请书
 		List<Apply> applylist = applyService.getClubApply(club.getId());
@@ -149,5 +141,17 @@ public class ApplyController extends BaseController {
 		result.setResultInfo("职位更新成功");
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	
+	}
+	/**
+	 * 查看成员列表
+	 */
+	@RequestMapping(value = "/displayMember", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> displayMember(int detailId) {
+		logger.debug("REST request to display club member");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Member> memberlist = applyService.getMember(detailId);
+		result.getResultParm().put("apply", memberlist);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 }
