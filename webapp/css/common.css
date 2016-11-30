@@ -118,7 +118,7 @@ body{
 	background-position: 0px -24px;
 }
 
-#login-tab,#register-tab,#phone-tab,#common-tab{
+#login-tab,#register-tab{
 	float: left;
 	width: 50%;
 	height: 55px;
@@ -130,7 +130,7 @@ body{
 	cursor: pointer;
 }
 
-#loginFrame .tab-active , #registerFrame .tab-active{
+#loginFrame .tab-active{
 	color: #000;
 	background-color: #fff;
 }
@@ -138,10 +138,13 @@ body{
 	width: 100%;
 	overflow: hidden;
 }
-#loginForm,#commonForm,#phoneForm{
+#loginForm,#registerForm{
 	position: relative;
 	width: 100%;
 	margin-top: 10px;
+}
+#registerForm{
+	display: none;
 }
 .form-input{
 	position: relative;
@@ -199,7 +202,7 @@ body{
 	cursor: pointer;
 }
 
-#login-btn ,#common-btn,#phone-btn{
+#login-btn ,#register-btn{
 	width: 50%;
     height: 31px;
     margin: 10px auto;
