@@ -152,11 +152,45 @@ public class UserController extends BaseController {
 		if (userDetail == null) {
 			throw new DomainSecurityException("没有该用户详情");
 		}
-		//将用户详情存放在session中.
+		// 将用户详情存放在session中.
 		request.getSession().setAttribute("userDetail", userDetail);
 		result.setResultInfo("登录成功");
 		result.getResultParm().put("userDetail", userDetail);
-		request.getSession().setAttribute("userDetailId",userDetail.getId());
+		request.getSession().setAttribute("userDetailId", userDetail.getId());
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+
+	/**
+	 * 找回密码.
+	 * 
+	 * @author 宋.
+	 * @param verifyCode
+	 * @param account
+	 * @param newPassword
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/findPassword", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> findPassword(String verifyCode,
+			String account, String newPassword, HttpServletRequest request) {
+		if (StringUtils.isNullOrEmpty(newPassword)
+				| StringUtils.isNullOrEmpty(verifyCode)) {
+			throw new DomainSecurityException("数据有误");
+		}
+		if (!checkVerifyCode(request, verifyCode)) {
+			throw new DomainSecurityException("验证码错误");
+		}
+		User user = userService.findByAccount(account);
+		if (user == null) {
+			throw new DomainSecurityException("无该用户");
+		}
+		user.setPassword(MD5Util.md5(newPassword));
+		userService.updateWithNotNullProperties(user);
+		result = new ResultMessage();
+		result.setResultInfo("更新成功");
+		result.setServiceResult(true);
+		result.getResultParm().put("userDtail",
+				userDetailsService.getByUserId(user.getId()));
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 
