@@ -1,18 +1,20 @@
 package com.earl.cas.service.Impl;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
 import com.earl.cas.dao.AlbumDao;
+import com.earl.cas.dao.ClubDao;
 import com.earl.cas.entity.Album;
+import com.earl.cas.entity.Club;
 import com.earl.cas.service.AlbumService;
 
 /**
@@ -29,8 +31,11 @@ public class AlbumServiceImpl extends BaseServiceImpl<Album> implements
 	private static Logger logger = LoggerFactory
 			.getLogger(AlbumServiceImpl.class);
 
-	@Resource
+	@Autowired
 	private AlbumDao albumDao;
+	
+	@Autowired
+	private ClubDao clubDao;
 
 	@Override
 	protected BaseDao<Album> getDao() {
@@ -40,7 +45,14 @@ public class AlbumServiceImpl extends BaseServiceImpl<Album> implements
 	@Override
 	public List<Album> getByClubId(Integer id) {
 		logger.info("进入AlbumServiceImpl层的getByClubId方法");
-		return albumDao.getByClubId(id);
+		List<Album> albumList = new ArrayList<Album>(); 
+		List<Album> list = albumDao.getByClubId(id);
+		Club club = clubDao.get(id);
+		for(Album album : list) {
+			album.setClubName(club.getName());
+			albumList.add(album);
+		}
+		return albumList;
 	}
 
 }

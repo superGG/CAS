@@ -39,6 +39,9 @@ public class Album implements Serializable
 	//相册封面路径
 	private String path;
 	
+	//社团名称
+	private String ClubName;
+	
 	public Album() {
 	}
 
@@ -94,11 +97,19 @@ public class Album implements Serializable
 	public void setPath(String path) {
 		this.path = path;
 	}
+	
+	public String getClubName() {
+		return ClubName;
+	}
+
+	public void setClubName(String clubName) {
+		ClubName = clubName;
+	}
 
 	@Override
 	public String toString() {
 		return "Album [id=" + id + ", clubId=" + clubId + ", name=" + name
-				+ ", createtime=" + createtime + ", path=" + path +  "]";
+				+ ", createtime=" + createtime + ", path=" + path
+				+ ", ClubName=" + ClubName + "]";
 	}
-
 }

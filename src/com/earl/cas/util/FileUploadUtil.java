@@ -52,7 +52,7 @@ public class FileUploadUtil {
 			} catch (Exception e) {
 				logger.info("上传文件复制失败");
 				e.printStackTrace();
-			}
+			} 
 			filePath = "/" + rootPath + "/" + fileName;
 		}
 		logger.info("上传文件结束，filePath:" + filePath);

@@ -39,6 +39,9 @@ public class Photo implements Serializable
 	
 	//创建时间
 	private String createtime;
+	
+	//相册名
+	private String albumName;
 
 	public Photo() {
 	}
@@ -96,10 +99,18 @@ public class Photo implements Serializable
 		this.createtime = createtime;
 	}
 
+	public String getAlbumName() {
+		return albumName;
+	}
+
+	public void setAlbumName(String albumName) {
+		this.albumName = albumName;
+	}
+
 	@Override
 	public String toString() {
 		return "Photo [id=" + id + ", albumId=" + albumId + ", content="
 				+ content + ", path=" + path + ", createtime=" + createtime
-				+ "]";
+				+ ", albumName=" + albumName + "]";
 	}
 }
