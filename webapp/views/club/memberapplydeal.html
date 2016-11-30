@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>社团管理-申请处理</title>
+		<link href="../../css/mystyle.css" rel="stylesheet" type="text/css"> 
+		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+		<link rel='icon' href='../../images/titile_logo.ico' type='image/x-ico' />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var timer;
+				var user;
+				$(".sq_details").css("visibility","visible");
+				$(".sq_details").hide();
+				$(".user").hover(function(){
+					clearTimeout(timer);
+					user = $(this).attr("id");
+					timer=setTimeout(function(){
+						$("#"+user+"_details").slideDown("fast");
+					},200);	
+				},function(){
+					clearTimeout(timer);
+					$("#"+user+"_details").slideUp("fast");
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="top">
+			<div class="logobox">
+				<img id="logo" src="../../images/logo_school.png">
+			</div>
+			<div class="nav">
+				<ul>
+					<li><a class="active" href="index.html" >首页</a></li>
+					<li><a href="club/allClub.html">社团</a></li>
+					<li><a href="club/allActivity.html">活动</a></li>
+					<li><a href="massage/massage.html">留言板</a></li>
+				</ul>
+			</div>
+			<div class="login">
+				<a href="">登录</a>
+				<a href="">注册</a>
+			</div>
+		</div>
+		<div class="lwd_main">
+			<div class="lwd_main_nav">
+				<div class="header_photo">
+					<img src="../../images/ccbg.jpg">
+					<p>梁伟栋</p>
+				</div>
+				<div class="sidebar_left">
+					<div class="sidebar_left_module">
+						<a href="../user/personalcenter.html">
+							<b><img src="../../images/man.png"></b>
+							个人信息
+						</a>
+						<a href="showjoinedclubs.html">
+							<b><img src="../../images/club.png"></b>
+							我加入的社团
+						</a>
+						<a href="memberapplydeal.html" class="curr">
+							<b><img src="../../images/club.png"></b>
+							我创建的社团
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="lwd_main_iframe">
+				<div class="cmm_head_nav">
+					<ul class="top_navs">
+						<li class="curr"><a href="memberapplydeal.html">申请处理</a></li>
+						<li><a href="clubinformationmanage.html">社团信息</a></li>
+						<li><a href="albummanage.html">相册管理</a></li>
+						<li><a href="membermanage.html">成员管理</a></li>
+						<li><a href="activitymanage.html">活动管理</a></li>
+						<li><a href="positionmanage.html">职位管理</a></li>
+					</ul>
+					<div style="height:30px;line-height:30px;padding:10px 0 0 10px;">
+						<a href="#" class="active">全部</a><a href="#">未审核</a><a href="#">已审核</a>
+					</div>	
+					<div class="sq_item">
+						<div class="sq_item_box">
+							<img src="../../images/ccbg.jpg" width="70px" height="70px" id="user1" class="user">
+							<textarea cols="88" rows="3" style="position:absolute;margin-top:0;margin-left:80px;" disabled="disabled">这里写申请理由</textarea>
+							<span style="padding-right:50px;font-size:12px;">申请日期:2016-11-15</span><span style="padding-right:50px;font-size:12px;">审核状态:未审核</span>
+							<button aciton="#" class="sq_item_btn" style="margin-left:200px;">同意</button>
+							<button action="#" class="sq_item_btn">拒绝</button>
+							<div class="sq_details" id="user1_details">
+									<img src="../../images/ccbg.jpg" width="116px" height="116px" style="position:absolute;margin-top:10px;margin-left:170px;border:1px solid #ccc">
+									<div><span>姓名</span><input type="text" disabled="disabled" value="Dikuni"></div>
+									<div><span>性别</span><input type="text" disabled="disabled" value="male"></div>
+									<div><span>电话</span><input type="text" disabled="disabled" value="18320363387"></div>
+									<div style="margin-top:7px;"><span style="position:absolute;margin-top:2px;">爱好</span><textarea cols="30" rows="3" disabled="disabled" style="border:1px solid #ccc;position:absolute; margin-left:52px;"></textarea></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<p>
+				Copyright © 2016 Powered by 社团网申_第12组版权所有
+			</p>
+			<p>
+				地址：广东海洋大学钟海楼04019 邮政编码：524000　电话：18344094195
+			</p>
+			<div xmlns:wb="http://open.weibo.com/wb">
+				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
+			</div>
+		</div>
+	</body>
+</html>

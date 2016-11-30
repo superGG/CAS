@@ -1,11 +1,14 @@
 package com.earl.cas.dao.Impl;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Repository;
 
 import com.earl.cas.commons.dao.BaseDaoImpl;
 import com.earl.cas.dao.ApplyDao;
 import com.earl.cas.entity.Apply;
+import com.earl.cas.entity.Club;
 
 /**
  * applyDao实现类.
@@ -24,5 +27,11 @@ public class ApplyDaoImpl extends BaseDaoImpl<Apply> implements ApplyDao {
 			return false;
 		}
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public List<Apply> getApplyByDetails(int id){
+		String hql = "from Apply where  clubId = :id";
+		List<Apply> applylist = (List<Apply>) getCurrentSession().createQuery(hql).setInteger("id",id).list();
+		return applylist;
+	}
 }

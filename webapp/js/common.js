@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	
+
 })
 $(window).resize(function(){
     if ($("#loginFrame").length>0) {

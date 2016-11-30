@@ -6,8 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.earl.cas.commons.dao.BaseDaoImpl;
 import com.earl.cas.dao.MessageDao;
-import com.earl.cas.entity.Club;
-import com.earl.cas.entity.ClubType;
 import com.earl.cas.entity.Message;
 
 /**

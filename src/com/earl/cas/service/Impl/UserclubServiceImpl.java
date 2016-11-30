@@ -11,6 +11,7 @@ import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
 import com.earl.cas.dao.UserclubDao;
 import com.earl.cas.entity.Userclub;
+import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.UserclubService;
 
 @Service("userclubService")
@@ -28,5 +29,15 @@ public class UserclubServiceImpl extends BaseServiceImpl<Userclub> implements
 	protected BaseDao<Userclub> getDao() {
 		return userclubDao;
 	}
-
+	
+	public boolean deleteByapplyId(int applyId){
+		int flag = userclubDao.deleteByapplyId(applyId);
+		if (flag!=0){
+			return true;
+		}
+		else{
+			throw new DomainSecurityException("删除失败");
+		}
+		
+	}
 }

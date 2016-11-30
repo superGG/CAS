@@ -2,7 +2,6 @@ package com.earl.cas.controller;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.ClubType;
-import com.earl.cas.entity.School;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ClubTypeService;
 import com.earl.cas.vo.ResultMessage;
-import com.sun.xml.internal.xsom.util.DomAnnotationParserFactory;
 
 /**
  * ClubType的controller.

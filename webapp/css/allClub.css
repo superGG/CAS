@@ -27,6 +27,11 @@
 	width: 80px;
 	height: 30px;
 	padding: 4px 6px;
+	background-color: #12b7f5;
+    border: none;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
 }
 .main .club-type,.club-ranking{
 	width: 60%;
