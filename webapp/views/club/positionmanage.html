@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>社团管理-职位管理</title>
+		<link href="../../css/mystyle.css" rel="stylesheet" type="text/css"> 
+		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+		<link rel='icon' href='../../images/titile_logo.ico' type='image/x-ico' />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="top">
+			<div class="logobox">
+				<img id="logo" src="../../images/icon11.png" width="100px" height="70px">
+			</div>
+			<div class="nav">
+				<ul>
+					<li><a class="active" href="index.html" >首页</a></li>
+					<li><a href="club/allClub.html">社团</a></li>
+					<li><a href="club/allActivity.html">活动</a></li>
+					<li><a href="massage/massage.html">留言板</a></li>
+				</ul>
+			</div>
+			<div class="login">
+				<a href="">登录</a>
+				<a href="">注册</a>
+			</div>
+		</div>
+		<div class="lwd_main">
+			<div class="lwd_main_nav">
+				<div class="header_photo">
+					<img src="../../images/ccbg.jpg">
+					<p>梁伟栋</p>
+				</div>
+				<div class="sidebar_left">
+					<div class="sidebar_left_module">
+						<a href="../user/personalcenter.html">
+							<b><img src="../../images/man.png"></b>
+							个人信息
+						</a>
+						<a href="showjoinedclubs.html">
+							<b><img src="../../images/club.png"></b>
+							我加入的社团
+						</a>
+						<a href="memberapplydeal.html" class="curr">
+							<b><img src="../../images/club.png"></b>
+							我创建的社团
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="lwd_main_iframe">
+				<div class="cmm_head_nav">
+					<ul class="top_navs">
+						<li><a href="memberapplydeal.html">申请处理</a></li>
+						<li><a href="clubinformationmanage.html">社团信息</a></li>
+						<li><a href="albummanage.html">相册管理</a></li>
+						<li><a href="membermanage.html">成员管理</a></li>
+						<li><a href="activitymanage.html">活动管理</a></li>
+						<li class="curr"><a href="positionmanage.html">职位管理</a></li>
+					</ul>
+				</div>
+					<button 
+						style="margin:10px 0;float:right;margin-right:40px;height:29px;cursor:pointer;">新建职位
+					</button>
+					<input type="text" style="float:right;" placeholder="请输入新建职位名称"/>
+				<table class="memberlist">
+					<tr style="background:#999;color:#fff;height:42px;">
+						<th style="width:101px;"><strong>#</strong></th>
+						<th style="width:184px;"><strong>职位</strong></th>
+						<th><strong>操作</strong></th>
+					</tr>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td id="position">社长</td>
+							<td><button class="bige_btn" id="edit">修改</button>
+								<button class="bige_btn">删除</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div class="footer">
+			<p>
+				Copyright © 2016 Powered by 社团网申_第12组版权所有
+			</p>
+			<p>
+				地址：广东海洋大学钟海楼04019 邮政编码：524000　电话：18344094195
+			</p>
+			<div xmlns:wb="http://open.weibo.com/wb">
+				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
+			</div>
+		</div>
+		
+			<script>                       
+				 var statu = 0;           
+				 var edit = document.getElementById('edit');          
+				 var item = document.getElementById('position');                     
+				 var item_value = item.innerHTML; 
+				     
+				 edit.onclick =function(){      
+					if(statu == 0){
+						edit.innerHTML= '保存';                                    
+						item.innerHTML = '<input type="text" style="margin:0;padding:3px 0;text-align:center;width:100px;" id="item_input" value="'+item_value+'">';
+						statu = 1;                
+					}
+					else{
+						edit.innerHTML= '修改';                           
+						item_value = document.getElementById('item_input').value; 
+						item.innerHTML = item_value;            
+						statu = 0
+					}               
+					return false;     
+				}        
+			</script>   
+	</body>
+</html>

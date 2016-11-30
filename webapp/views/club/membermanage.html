@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>社团管理-成员管理</title>
+		<link href="../../css/mystyle.css" rel="stylesheet" type="text/css"> 
+		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+		<link rel='icon' href='../../images/titile_logo.ico' type='image/x-ico' />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="top">
+			<div class="logobox">
+				<img id="logo" src="../../images/logo_school.png">
+			</div>
+			<div class="nav">
+				<ul>
+					<li><a class="active" href="index.html" >首页</a></li>
+					<li><a href="club/allClub.html">社团</a></li>
+					<li><a href="club/allActivity.html">活动</a></li>
+					<li><a href="massage/massage.html">留言板</a></li>
+				</ul>
+			</div>
+			<div class="login">
+				<a href="">登录</a>
+				<a href="">注册</a>
+			</div>
+		</div>
+		<div class="lwd_main">
+			<div class="lwd_main_nav">
+				<div class="header_photo">
+					<img src="../../images/ccbg.jpg">
+					<p>梁伟栋</p>
+				</div>
+				<div class="sidebar_left">
+					<div class="sidebar_left_module">
+						<a href="../user/personalcenter.html">
+							<b><img src="../../images/man.png"></b>
+							个人信息
+						</a>
+						<a href="showjoinedclubs.html">
+							<b><img src="../../images/club.png"></b>
+							我加入的社团
+						</a>
+						<a href="memberapplydeal.html" class="curr">
+							<b><img src="../../images/club.png"></b>
+							我创建的社团
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="lwd_main_iframe">
+				<div class="cmm_head_nav">
+					<ul class="top_navs">
+						<li><a href="memberapplydeal.html">申请处理</a></li>
+						<li><a href="clubinformationmanage.html">社团信息</a></li>
+						<li><a href="albummanage.html">相册管理</a></li>
+						<li class="curr"><a href="membermanage.html">成员管理</a></li>
+						<li><a href="activitymanage.html">活动管理</a></li>
+						<li><a href="positionmanage.html">职位管理</a></li>
+					</ul>			
+				</div>
+				<div class="table_header">
+					<select id="" style="width:60px;margin-left:0;">
+						<option>10</option>
+						<option>20</option>
+						<option>50</option>
+						<option>100</option>
+					</select>
+					<input type="button" class="search_btn" value="搜索">
+					<input type="text" style="float:right;" placeholder="search">
+				</div>
+				<table class="memberlist">
+					<tr style="background:#999;color:#fff;">
+						<th>#</th>
+						<th><strong>姓名</strong></th>
+						<th><strong>职位</strong></th>
+						<th><strong>专业班级</strong></th>
+						<th><strong>电话</strong></th>
+						<th><strong>入社时间</strong></th>
+						<th><strong>操作</strong></th>
+					</tr>
+					<tbody id="membertable">
+					<tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><a href="memberinformation.html"><button>查看</button></a><button>删除</button></td>
+					</tr>
+					<tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr><tr id="line1">
+						<td>1</td>
+						<td>Dikuni</td>
+						<td>长老</td>
+						<td>诛仙聚贤堂</td>
+						<td>124886578965</td>
+						<td>2016-11-1</td>
+						<td><button>查看</button><button>删除</button></td>
+					</tr>
+					</tbody>
+				</table>
+				<br>
+				<div class="page_box" style="text-align:center;">
+					<button id="btnFirst" onclick="first();">首页</button>
+					<button id="btnPre" onclick="pre();">上一页</button>
+					<span id="spanPageNum"></span>/<span id="spanTotalPage"></span>
+					<button id="btnNext" onclick="next();">下一页</button>
+					<button id="btnLast" onclick="last();">尾页</button>
+					数据总量<span id="datacount"></span>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<p>
+				Copyright © 2016 Powered by 社团网申_第12组版权所有
+			</p>
+			<p>
+				地址：广东海洋大学钟海楼04019 邮政编码：524000　电话：18344094195
+			</p>
+			<div xmlns:wb="http://open.weibo.com/wb">
+				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
+			</div>
+		</div>
+	<script>       
+		var theTable = document.getElementById("membertable");    //要分页的目标表格
+		var totalPage = document.getElementById("spanTotalPage");  //总页数  
+		var pageNum = document.getElementById("spanPageNum");    //当前所在的页数
+		var dataCount = document.getElementById("datacount");//数据总量
+			   
+		var btnPre = document.getElementById("btnPre");    //上一页
+		var btnNext = document.getElementById("btnNext");    //下一页
+		var btnFirst = document.getElementById("btnFirst");    //首页
+		var btnLast = document.getElementById("btnLast");    //尾页
+
+		var numberRowsInTable = theTable.rows.length;    //总行数
+		var pageSize = 10;    //每页行数
+		var page = 1;  
+		
+		dataCount.innerHTML = numberRowsInTable;    
+		//下一页    
+		function next(){    
+			   
+			hideTable();    
+					
+			currentRow = pageSize * page;    //当前页最后一行是总表的第几条记录
+			maxRow = currentRow + pageSize;    //下一页最后一行是总表的第几条记录
+			if ( maxRow > numberRowsInTable ) maxRow = numberRowsInTable;    
+			for ( var i = currentRow; i< maxRow; i++ ){    
+				theTable.rows[i].style.display = '';    
+			}    
+			page++;    
+					
+			if ( maxRow == numberRowsInTable ) { nextText(); lastText(); }  
+			showPage();    
+			preLink();    
+			firstLink();    
+		}    
+			   
+			//上一页    
+		function pre(){    
+			   
+			hideTable();    
+					
+			page--;    
+				
+			currentRow = pageSize * page;    
+			maxRow = currentRow - pageSize;    
+			if ( currentRow > numberRowsInTable ) currentRow = numberRowsInTable;    
+			for ( var i = maxRow; i< currentRow; i++ ){    
+				theTable.rows[i].style.display = '';    
+			}    
+					
+					
+			if ( maxRow == 0 ){ preText(); firstText(); }    
+			showPage();    
+			nextLink();    
+			lastLink();    
+		}    
+			   
+			//第一页    
+		function first(){    
+			hideTable();    
+			page = 1;    
+			for ( var i = 0; i<pageSize; i++ ){    
+				theTable.rows[i].style.display = '';    
+			}    
+			showPage();    
+					
+			preText(); 
+			firstText();
+			nextLink();    
+			lastLink();    
+		}    
+			   
+		//最后一页    
+		function last(){    
+			hideTable();    
+			page = pageCount();    
+			currentRow = pageSize * (page - 1);    
+			for ( var i = currentRow; i<numberRowsInTable; i++ ){    
+				theTable.rows[i].style.display = '';    
+			}    
+			showPage();    
+					
+			preLink();
+			lastText();
+			nextText();    
+			firstLink();    
+		}    
+			   
+		function hideTable(){    
+			for ( var i = 0; i<numberRowsInTable; i++ ){    
+				theTable.rows[i].style.display = 'none';    
+			}    
+		}    
+			   
+		function showPage(){     
+			pageNum.innerHTML = page;
+		}    
+			   
+			//总共页数    
+		function pageCount(){    
+			var count = 0;    
+			if ( numberRowsInTable%pageSize != 0 ) count = 1;     
+			return parseInt(numberRowsInTable/pageSize) + count;    
+		}    
+			   
+			//显示按钮    
+		function preLink(){ $("#btnPre").attr("disabled", false);}    
+		function preText(){ $("#btnPre").attr("disabled", true);}    
+			   
+		function nextLink(){ $("#btnNext").attr("disabled", false);}    
+		function nextText(){ $("#btnNext").attr("disabled", true);}    
+			   
+		function firstLink(){ $("#btnFirst").attr("disabled", false);}    
+		function firstText(){ $("#btnFirst").attr("disabled", true);}    
+			   
+		function lastLink(){ $("#btnLast").attr("disabled", false);}    
+		function lastText(){ $("#btnLast").attr("disabled", true);}    
+			   
+		//隐藏表格    
+		function hide(){    
+			for ( var i = pageSize; i<numberRowsInTable; i++ ){    
+				theTable.rows[i].style.display = 'none';    
+			}    
+					
+			totalPage.innerHTML = pageCount();    
+			pageNum.innerHTML = '1';    
+			
+			preText();
+			firstText();
+			nextLink();    
+			lastLink();    
+		}    
+			   
+		hide();    
+	</script>		
+	</body>
+</html>
