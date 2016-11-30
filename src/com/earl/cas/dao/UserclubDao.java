@@ -5,6 +5,12 @@ import com.earl.cas.entity.Userclub;
 
 
 public interface UserclubDao extends BaseDao<Userclub>{
+	/**
+	 * 根据申请书ID剔除成员
+	 * @param applyId
+	 * @return
+	 */
+	int deleteByapplyId(int applyId);
 
     
 }

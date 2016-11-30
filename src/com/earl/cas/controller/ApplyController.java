@@ -19,6 +19,7 @@ import com.earl.cas.entity.UserDetails;
 import com.earl.cas.service.ApplyService;
 import com.earl.cas.service.ClubService;
 import com.earl.cas.service.UserDetailsService;
+import com.earl.cas.service.UserclubService;
 import com.earl.cas.vo.ResultMessage;
 
 /**
@@ -42,6 +43,9 @@ public class ApplyController extends BaseController {
 
 	@Autowired
 	private ClubService clubService;
+
+	@Autowired
+	private UserclubService userclubService;
 
 	private ResultMessage result = null;
 
@@ -115,5 +119,16 @@ public class ApplyController extends BaseController {
 		result.setResultInfo("该成员已加入社团");
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-
+	/**
+	 * 剔除成员
+	 */
+	@RequestMapping(value = "/deleteMember", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> deleteMember(int applyId) {
+		logger.debug("REST request to delete a member");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		userclubService.deleteByapplyId(applyId);
+		result.setResultInfo("该成员已从社团中剔除");
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 }

@@ -9,6 +9,6 @@ public interface PositionDao extends BaseDao<Position> {
 	/*
 	 * 获取该社团职位
 	 */
-	 List<Position> findByClubId(int id);
+	List<Position> findByClubId(int id);
 
 }

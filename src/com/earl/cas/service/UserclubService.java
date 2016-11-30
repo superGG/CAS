@@ -5,7 +5,9 @@ import com.earl.cas.entity.Userclub;
 
 
 public interface UserclubService extends BaseService<Userclub> {
-
-	
-
+	/**
+	 * 根据申请书ID剔除成员
+	 * @param applyId
+	 */
+	boolean deleteByapplyId(int applyId);
 }
