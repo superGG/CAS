@@ -12,10 +12,10 @@ public interface MessageService extends BaseService<Message> {
   /*
    * 更新留言
    */
- public Boolean update(Message message);
+  Boolean update(Message message);
  
  /*
   * 查找子留言
   */
- public List<Message> findDetail(int fatherId);
+  List<Message> findDetail(int fatherId);
 }

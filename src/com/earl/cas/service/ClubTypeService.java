@@ -1,7 +1,10 @@
 package com.earl.cas.service;
 
+import java.util.List;
+
 import com.earl.cas.commons.service.BaseService;
 import com.earl.cas.entity.ClubType;
+
 
 
 public interface ClubTypeService extends BaseService<ClubType> {
@@ -13,6 +16,12 @@ public interface ClubTypeService extends BaseService<ClubType> {
 	/**
 	 * 更新社团
 	 */
-	public Boolean update(ClubType clubs);
+	 Boolean update(ClubType clubtype);
+	
+	
+	/**
+	 * 获取社团类型名字
+	 */
+	 List<ClubType> getByClubTypeName(ClubType clubtype);
 
 }
