@@ -51,13 +51,14 @@ public class AlbumController extends BaseController {
 
 	/**
 	 * 添加相册.
-	 *@author 宋.
+	 * 
+	 * @author 宋.
 	 * @param album
 	 * @return
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> save(Album album) {
-		if(album.getClubId() == 0){
+		if (album.getClubId() == 0) {
 			throw new DomainSecurityException("社团id不能为空");
 		}
 		result = new ResultMessage();
@@ -70,15 +71,16 @@ public class AlbumController extends BaseController {
 		}
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * 删除相册.
-	 *@author 宋.
+	 * 
+	 * @author 宋.
 	 * @param album
 	 * @return
 	 */
-	@RequestMapping(value="/delete",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> delete(Integer id){
+	@RequestMapping(value = "/delete", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> delete(Integer id) {
 		if (id == null) {
 			throw new DomainSecurityException("id不能为空");
 		}
@@ -90,7 +92,26 @@ public class AlbumController extends BaseController {
 			result.setResultInfo("添加失败");
 			result.setServiceResult(false);
 		}
-		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+
+	/**
+	 * 更新相册.
+	 *@author 宋.
+	 * @param album
+	 * @return
+	 */
+	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> update(Album album) {
+		if (album.getId() == 0 ) {
+			throw new DomainSecurityException("id不能为空");
+		}
+		result = new ResultMessage();
+		albumService.updateWithNotNullProperties(album);
+		result.setServiceResult(true);
+		result.setResultInfo("更新成功");
+		result.getResultParm().put("album", albumService.get(album.getId()));
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 
 	/**
