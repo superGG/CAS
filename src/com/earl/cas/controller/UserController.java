@@ -21,6 +21,7 @@ import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.UserDetailsService;
 import com.earl.cas.service.UserService;
 import com.earl.cas.util.ImgVerifyCodeUtil;
+import com.earl.cas.util.MD5Util;
 import com.earl.cas.vo.ResultMessage;
 import com.mysql.jdbc.StringUtils;
 
@@ -107,11 +108,11 @@ public class UserController extends BaseController {
 		if (!checkVerifyCode(request, verifyCode)) {
 			throw new DomainSecurityException("验证码错误");
 		}
-		if(userService.findByAccount(user.getAccount()) != null){
+		if (userService.findByAccount(user.getAccount()) != null) {
 			throw new DomainSecurityException("该用户已存在");
 		}
 		UserDetails userDetail = userService.register(user);
-		if(userDetail.getId()!=0){
+		if (userDetail.getId() != 0) {
 			result.setServiceResult(true);
 			result.setResultInfo("注册成功");
 			result.getResultParm().put("userDetail", userDetail);
@@ -143,17 +144,16 @@ public class UserController extends BaseController {
 		if (user == null) {
 			throw new DomainSecurityException("没有该用户");
 		}
-		if (!password.equals(user.getPassword())) {
+		String password_md5 = MD5Util.md5(password);
+		if (!password_md5.equals(user.getPassword())) {
 			throw new DomainSecurityException("密码错误");
 		}
-		// String password_md5 = MD5Util.md5(password);
-		// if (!password_md5.equals(user.getPassword())) {
-		// throw new DomainSecurityException("密码错误");
-		// }
 		UserDetails userDetail = userDetailsService.getByUserId(user.getId());
 		if (userDetail == null) {
 			throw new DomainSecurityException("没有该用户详情");
 		}
+		//将用户详情存放在session中.
+		request.getSession().setAttribute("userDetail", userDetail);
 		result.setResultInfo("登录成功");
 		result.getResultParm().put("userDetail", userDetail);
 		request.getSession().setAttribute("userDetailId",userDetail.getId());

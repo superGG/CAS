@@ -81,6 +81,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements
 		userDetail.setUserId(userId);
 		userDetail.setHeadPath("/headpath/aaa.jpg");
 		userDetail.setName("用户"+userId);
+		userDetail.setRoleId(1);
 		userDetailDao.save(userDetail);
 		return userDetail;
 	}

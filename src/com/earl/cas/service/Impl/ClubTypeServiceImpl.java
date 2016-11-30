@@ -1,7 +1,10 @@
 package com.earl.cas.service.Impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -10,7 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
 import com.earl.cas.dao.ClubTypeDao;
+import com.earl.cas.entity.Club;
 import com.earl.cas.entity.ClubType;
+import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ClubTypeService;
 
 /**
@@ -38,8 +43,24 @@ public class ClubTypeServiceImpl extends BaseServiceImpl<ClubType> implements
 		return clubTypeDao.delete(id);
 	}
 
-	public Boolean update(ClubType clubs) {
-		 clubTypeDao.update(clubs); 
-		 return true;
+	public Boolean update(ClubType clubtype) {
+	    return clubTypeDao.update(clubtype); 
+		 
+	}
+	
+   // public List<ClubType> getByClubTypeName(String clubTypeName){
+    	//List<ClubType> clubtypelist = clubTypeDao.getByName(clubTypeName);
+    	//if(clubtypelist==null){
+		//	return
+		//}
+	//	else{
+		//	throw new DomainSecurityException("该社团类型已存在");
+	//	}
+  //  }
+	
+	@Override
+	public List<ClubType> getByClubTypeName(ClubType clubtype) {
+		List<ClubType> typename = clubTypeDao.getTypeName(clubtype);
+		return typename;
 	}
 }

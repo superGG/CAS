@@ -1,5 +1,7 @@
 package com.earl.cas.dao;
 
+import java.util.List;
+
 import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.entity.ClubType;
 
@@ -13,5 +15,11 @@ public interface ClubTypeDao extends BaseDao<ClubType>{
 	/**
 	 * 更新社团类型
 	 */
-	public Boolean update(ClubType clubs);
+	Boolean update(ClubType clubtype);
+	
+	/**
+	 * 获取社团类型名字
+	 */
+	List<ClubType>  getTypeName(ClubType clubtype);
+	
 }

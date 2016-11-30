@@ -73,6 +73,7 @@ public class ClubType implements Serializable
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
 	}
+	
 
 	@Override
 	public String toString() {
