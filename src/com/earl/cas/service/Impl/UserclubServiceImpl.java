@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
+import com.earl.cas.dao.PositionDao;
 import com.earl.cas.dao.UserclubDao;
+import com.earl.cas.entity.Position;
 import com.earl.cas.entity.Userclub;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.UserclubService;
@@ -25,6 +27,9 @@ public class UserclubServiceImpl extends BaseServiceImpl<Userclub> implements
 	@Resource
 	private UserclubDao userclubDao;
 
+	@Resource
+	private PositionDao positionDao;
+	
 	@Override
 	protected BaseDao<Userclub> getDao() {
 		return userclubDao;
@@ -39,8 +44,10 @@ public class UserclubServiceImpl extends BaseServiceImpl<Userclub> implements
 		}
 	}
 
-	public boolean updatePosition(int clubID,String positionName) {
+	public boolean updatePosition(int clubId,String positionName) {
 		//根据positionName和clubId找到positionId
+		Position position = positionDao.getByClubIdAndName(clubId,positionName);
+		
 		//update userclub表的positionId
 		//
 	}

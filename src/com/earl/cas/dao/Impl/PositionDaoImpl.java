@@ -10,20 +10,28 @@ import com.earl.cas.entity.Position;
 
 /**
  * positionDao的实现类
- *@author 宋
- *@date 2016-11-23
+ * 
+ * @author 宋
+ * @date 2016-11-23
  */
 @Repository("positionDao")
-public class PositionDaoImpl extends BaseDaoImpl<Position> implements PositionDao {
+public class PositionDaoImpl extends BaseDaoImpl<Position> implements
+		PositionDao {
 	/*
 	 * 通过Id获取该社团职位
 	 */
-		@SuppressWarnings("unchecked")
-		public List<Position> findByClubId(int id){
-			String hql = "from Position where clubId = :id";
-			List<Position> list = getCurrentSession().createQuery(hql).setInteger("id",id).list();
-		//	logger.info(list.toString());
-			return list;	
-		}
+	@SuppressWarnings("unchecked")
+	public List<Position> findByClubId(int id) {
+		String hql = "from Position where clubId = :id";
+		List<Position> list = getCurrentSession().createQuery(hql)
+				.setInteger("id", id).list();
+		// logger.info(list.toString());
+		return list;
+	}
 
+	public Position getByClubIdAndName(int clubId, String name){
+		String hql = "from Position where clubId= :id and name = :name";
+		Position position = (Position)getCurrentSession().createQuery(hql).setInteger("id",clubId).setString("name",name).uniqueResult();
+		return position;
+	}
 }
