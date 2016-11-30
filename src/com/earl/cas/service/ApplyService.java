@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.earl.cas.commons.service.BaseService;
 import com.earl.cas.entity.Apply;
+import com.earl.cas.vo.Member;
 
 public interface ApplyService extends BaseService<Apply> {
 
@@ -28,5 +29,11 @@ public interface ApplyService extends BaseService<Apply> {
 	 * @param statue
 	 */
 	void update(int id, int statue);
+	/**
+	 * 获得社团成员列表
+	 * @param applyId
+	 * @return
+	 */
+	List<Member> getMember(int detaliId);
 
 }

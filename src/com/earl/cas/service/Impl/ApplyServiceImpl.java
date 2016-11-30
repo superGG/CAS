@@ -1,5 +1,6 @@
 package com.earl.cas.service.Impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,11 +13,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
 import com.earl.cas.dao.ApplyDao;
+import com.earl.cas.dao.ClubDao;
+import com.earl.cas.dao.PositionDao;
 import com.earl.cas.dao.UserclubDao;
 import com.earl.cas.entity.Apply;
+import com.earl.cas.entity.Club;
+import com.earl.cas.entity.Position;
 import com.earl.cas.entity.Userclub;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ApplyService;
+import com.earl.cas.vo.Member;
 
 @Service("applyService")
 public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
@@ -30,6 +36,12 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 
 	@Resource
 	private UserclubDao userclubDao;
+	
+	@Resource
+	private ClubDao clubDao;
+	
+	@Resource
+	private PositionDao positionDao;
 
 	@Override
 	protected BaseDao<Apply> getDao() {
@@ -58,7 +70,7 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 	}
 
 	public List<Apply> getClubApply(int id) {
-		List<Apply> applyList = applyDao.getApplyByDetails(id);
+		List<Apply> applyList = applyDao.getApplyByClubId(id);
 		if (applyList != null) {
 			return applyList;
 		} else {
@@ -71,5 +83,51 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		apply.setId(id);
 		apply.setStatue(statue);
 		applyDao.updateWithNotNullProperties(apply);
+	}
+	
+
+	public List<Member> getMember(int detaliId){
+		//一些容器变量
+		List<Member> memberlist = new ArrayList<Member>();
+		int clubId;
+		int i=1;	//计数标记
+		String name;
+		Userclub userclub;
+		Position position;
+		//session中有userDetailId ->clubId
+		Club club = clubDao.getClubByuserDetailId(detaliId);
+		if(club!=null){
+			 clubId = club.getId();
+		}
+		else{
+			throw new DomainSecurityException("用户没有创建社团");
+		}
+		//获得该社团申请书列表
+		List<Apply> applylist = applyDao.getApplyByClubIdStatusIsOk(clubId);
+		//遍历将信息放进vo类
+		for(Apply apply:applylist){
+			name = apply.getName();   //从申请书中获得成员名字
+			Member member = new Member();
+			member.setId(i);  //编号
+			member.setName(name);
+			userclub = userclubDao.getUserclubByApplyId(apply.getId());  //获得成员社团关联表
+			userclub.getPositionId();
+			member.setCreateTime(userclub.getCreatetime());   //userclub上的加入时间
+			position = positionDao.get(userclub.getPositionId());  //根据具体职位Id获得职位 提取出职位名字
+			member.setPosition(position.getName());
+			member.setTel(apply.getPhone());
+			member.setMajorClass(apply.getMajorClass());
+			member.setApplyId(apply.getId());
+			i++;  //计数器加1
+			if(member!=null){
+			memberlist.add(member);
+			}
+		}
+		if(memberlist!=null){
+			return memberlist;
+		}
+		else{
+			throw new DomainSecurityException("该社团没有成员");
+		}
 	}
 }
