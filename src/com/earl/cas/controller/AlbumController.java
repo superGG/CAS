@@ -70,6 +70,28 @@ public class AlbumController extends BaseController {
 		}
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	
+	/**
+	 * 删除相册.
+	 *@author 宋.
+	 * @param album
+	 * @return
+	 */
+	@RequestMapping(value="/delete",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> delete(Integer id){
+		if (id == null) {
+			throw new DomainSecurityException("id不能为空");
+		}
+		result = new ResultMessage();
+		result.setResultInfo("添加成功");
+		result.setServiceResult(true);
+		int delete = albumService.deleteById(id);
+		if (delete == 0) {
+			result.setResultInfo("添加失败");
+			result.setServiceResult(false);
+		}
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
 
 	/**
 	 * 查询社团全部相册.
