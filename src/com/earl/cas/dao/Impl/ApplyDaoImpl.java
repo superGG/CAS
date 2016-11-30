@@ -30,7 +30,7 @@ public class ApplyDaoImpl extends BaseDaoImpl<Apply> implements ApplyDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<Apply> getApplyByDetails(int id){
-		String hql = "from Apply where  detailsId = :id";
+		String hql = "from Apply where  clubId = :id";
 		List<Apply> applylist = (List<Apply>) getCurrentSession().createQuery(hql).setInteger("id",id).list();
 		return applylist;
 	}

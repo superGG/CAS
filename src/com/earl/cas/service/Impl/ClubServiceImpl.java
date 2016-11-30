@@ -57,5 +57,14 @@ ClubService {
 		}
 		
 	}
+	public Club getClubByuserDetailId(int id){
+		Club club = clubDao.getClubByuserDetailId(id);
+		if(club!=null){
+			return club;
+		}
+		else{
+			throw new DomainSecurityException("该用户没创建社团");
+		}
+	}
 	
 }
