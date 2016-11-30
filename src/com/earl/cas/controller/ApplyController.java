@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Apply;
+import com.earl.cas.entity.Club;
 import com.earl.cas.entity.UserDetails;
 import com.earl.cas.service.ApplyService;
+import com.earl.cas.service.ClubService;
 import com.earl.cas.service.UserDetailsService;
 import com.earl.cas.vo.ResultMessage;
 
@@ -37,7 +39,10 @@ public class ApplyController extends BaseController {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
+
+	@Autowired
+	private ClubService clubService;
+
 	private ResultMessage result = null;
 
 	/**
@@ -65,7 +70,7 @@ public class ApplyController extends BaseController {
 		result.setResultInfo("该成员已加入社团");
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * 查看申请书
 	 */
@@ -78,6 +83,7 @@ public class ApplyController extends BaseController {
 		result.getResultParm().put("apply", applylist);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+
 	/**
 	 * 查看自己社团的入社申请书->申请书管理列表
 	 */
@@ -86,10 +92,28 @@ public class ApplyController extends BaseController {
 		logger.debug("REST request to display club apply");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		UserDetails userDetails = userDetailsService.getByUserId(userId); //前端传进来userId或者session获取
-		List<Apply> applylist = applyService.getClubApply(userDetails.getId());
+		// 获取用户详情，前端传进来userId或者session获取
+		UserDetails userDetails = userDetailsService.getByUserId(userId);
+
+		// 获取用户创建的社团
+		Club club = clubService.getClubByuserDetailId(userDetails.getId());
+
+		// 通过clubId获得对应社团的申请书
+		List<Apply> applylist = applyService.getClubApply(club.getId());
 		result.getResultParm().put("apply", applylist);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-	
+	/**
+	 * 同意申请并添加成员->对非空属性进行更新
+	 */
+	@RequestMapping(value = "/isAgree", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> isAgree(int applyId,int statue) {
+		logger.debug("REST request to agree a apply");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		applyService.update(applyId,statue);
+		result.setResultInfo("该成员已加入社团");
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+
 }

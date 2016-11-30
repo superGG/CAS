@@ -20,5 +20,11 @@ public interface ClubDao extends BaseDao<Club>{
 	 * @return
 	 */
 	public boolean update(Club club);
+	/**
+	 * 根据userDetailId找到社团
+	 * @param id
+	 * @return
+	 */
+	public Club getClubByuserDetailId(int id);
  
 }

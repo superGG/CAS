@@ -1,5 +1,6 @@
 body{
 	width: 100%;
+	height: 100%;
 	padding: 0;
 	margin: 0;
 	background-color: #e7e7e7;
@@ -76,11 +77,12 @@ body{
 
 /*页脚*/
 .footer{
-	clear: both;
+	width: 100%;
+	padding: 20px 0px;
+	margin-top:50px; 
 	background: #82898e;
 	text-align: center;
-	padding: 20px;
-	margin-top:50px; 
+	clear: both;
 }
 
 /*登录框相关*/

@@ -19,7 +19,6 @@ import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ApplyService;
 
 @Service("applyService")
-@Transactional
 public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		ApplyService {
 
@@ -62,10 +61,15 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		List<Apply> applyList = applyDao.getApplyByDetails(id);
 		if (applyList != null) {
 			return applyList;
-		}
-		else{
+		} else {
 			throw new DomainSecurityException("没有找到申请书");
 		}
 	}
 
+	public void update(int id,int statue){
+		Apply apply = new Apply();
+		apply.setId(id);
+		apply.setStatue(statue);
+		applyDao.updateWithNotNullProperties(apply);
+	}
 }
