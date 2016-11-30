@@ -2,6 +2,8 @@ package com.earl.cas.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Album;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.AlbumService;
+import com.earl.cas.util.FileUploadUtil;
 import com.earl.cas.vo.ResultMessage;
 
 /**
@@ -102,9 +106,15 @@ public class AlbumController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> update(Album album) {
+	public ResponseEntity<ResultMessage> update(Album album, MultipartFile file,HttpServletRequest request) {
 		if (album.getId() == 0 ) {
 			throw new DomainSecurityException("id不能为空");
+		}
+		if (!file.isEmpty()) {
+			logger.info("file不为空，开始处理上传相册封面");
+			String path = FileUploadUtil.NewFileUpload(request, file, "album");
+			logger.info("上传相册封面访问地址："+ path);
+			album.setPath(path);
 		}
 		result = new ResultMessage();
 		albumService.updateWithNotNullProperties(album);

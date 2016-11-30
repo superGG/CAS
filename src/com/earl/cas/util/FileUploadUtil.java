@@ -27,10 +27,12 @@ public class FileUploadUtil {
 	 * @author 宋.
 	 * @param request
 	 * @param file
+	 * @param rootPath
+	 *            根路径
 	 * @return
 	 */
 	public static String NewFileUpload(HttpServletRequest request,
-			MultipartFile file) {
+			MultipartFile file, String rootPath) {
 		logger.info("开始文件上传");
 		String path = request.getSession().getServletContext().getRealPath("/");
 		logger.info("--------path: " + path);
@@ -38,10 +40,10 @@ public class FileUploadUtil {
 		String fileName = null;
 		if (!file.isEmpty()) {
 			fileName = setName(file.getOriginalFilename());
-			File targetFile = new File(path + "/headpath", fileName);
+			File targetFile = new File(path + "/" + rootPath, fileName);
 			while (targetFile.exists()) {// 重命名解决
 				fileName = newFileName(fileName);
-				targetFile = new File(path + "/headpath", fileName);
+				targetFile = new File(path + "/" + rootPath, fileName);
 			}
 			targetFile.mkdirs();
 			// 保存
@@ -51,7 +53,7 @@ public class FileUploadUtil {
 				logger.info("上传文件复制失败");
 				e.printStackTrace();
 			}
-			filePath = "/headpath/" + fileName;
+			filePath = "/" + rootPath + "/" + fileName;
 		}
 		logger.info("上传文件结束，filePath:" + filePath);
 		return filePath;
