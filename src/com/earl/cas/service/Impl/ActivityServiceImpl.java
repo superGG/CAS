@@ -45,8 +45,7 @@ ActivityService {
 		List<Activity> detaillist = activityDao.findDetail(id);
 		if(detaillist==null){
 			throw new DomainSecurityException("该活动已被删除 ");
-		}
-		else{
+		} else{
 			return detaillist;
 		}
 	}
@@ -58,8 +57,8 @@ ActivityService {
  */
 	@Override
 	public Boolean updateActivity(Activity activity) {
-		activityDao.update(activity);
-		return true;
+			Boolean update = activityDao.update(activity);
+			return update;
 	}
 
 }

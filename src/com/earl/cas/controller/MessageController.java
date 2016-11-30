@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
-import com.earl.cas.entity.ClubType;
 import com.earl.cas.entity.Message;
 import com.earl.cas.service.MessageService;
 import com.earl.cas.vo.ResultMessage;

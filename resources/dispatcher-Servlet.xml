@@ -24,8 +24,13 @@
    
    
    <!-- 设置使用注解的类所在的jar包 -->
-   <context:component-scan base-package="com.earl.cas" />
+   <context:component-scan base-package="com.earl.cas" >
+   		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+   		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+   </context:component-scan>
    
+   <!--注解支持-->
+  <mvc:annotation-driven/>
    
 	<!--配置拦截器, 多个拦截器,顺序执行 -->
 	<mvc:interceptors>

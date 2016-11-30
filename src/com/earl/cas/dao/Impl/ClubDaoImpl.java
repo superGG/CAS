@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.earl.cas.commons.dao.BaseDaoImpl;
 import com.earl.cas.dao.ClubDao;
 import com.earl.cas.entity.Club;
-import com.earl.cas.entity.Position;
 
 /**
  * clubDao的实现类

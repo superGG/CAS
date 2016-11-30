@@ -21,7 +21,6 @@ import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.UserDetailsService;
 import com.earl.cas.service.UserService;
 import com.earl.cas.util.ImgVerifyCodeUtil;
-import com.earl.cas.util.MD5Util;
 import com.earl.cas.vo.ResultMessage;
 
 /**

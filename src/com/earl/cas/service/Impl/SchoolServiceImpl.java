@@ -39,6 +39,7 @@ public class SchoolServiceImpl extends BaseServiceImpl<School> implements
 	public int deleteById(Integer id){
 		return schoolDao.deleteById(id);
 	}
+	
 	@Override
 	public void update(School school){
 		if(!schoolDao.update(school)){

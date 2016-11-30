@@ -17,7 +17,6 @@ import org.apache.commons.beanutils.BeanMap;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -26,7 +25,6 @@ import org.slf4j.LoggerFactory;
 
 import com.earl.cas.commons.domain.IdAnnotatioin;
 import com.earl.cas.vo.PageInfo;
-import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
 
 
 
@@ -64,7 +62,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		System.out.println(t.toString());
 		// logger.debug("saving " + clazz.getName() + " instance");
 		Integer id =  (Integer) getCurrentSession().save(t);
-		return (Integer) getCurrentSession().save(t);
+		return id;
 	}
 
 	// 根据ID删除对象
@@ -81,7 +79,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		T object = (T) getCurrentSession().get(entityClazz, id);
 		return object;
 	}
-
+	
 	// 查找该表中的所有记录，
 	@SuppressWarnings("unchecked")
 	@Override
@@ -235,6 +233,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			}
 			// 更新
 			getCurrentSession().update(t);
+			getCurrentSession().flush();
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
@@ -270,5 +269,4 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 				return criteria;
 	}
 
-	
 }

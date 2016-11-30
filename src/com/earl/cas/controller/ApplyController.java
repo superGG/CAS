@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Apply;
-import com.earl.cas.entity.User;
 import com.earl.cas.entity.UserDetails;
 import com.earl.cas.service.ApplyService;
 import com.earl.cas.service.UserDetailsService;

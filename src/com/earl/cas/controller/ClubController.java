@@ -3,7 +3,6 @@
  */
 package com.earl.cas.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.slf4j.Logger;

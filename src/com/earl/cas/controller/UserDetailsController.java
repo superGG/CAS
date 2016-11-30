@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
-import com.earl.cas.entity.School;
-import com.earl.cas.entity.User;
 import com.earl.cas.entity.UserDetails;
 import com.earl.cas.service.UserDetailsService;
 import com.earl.cas.service.UserService;
