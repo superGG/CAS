@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Album;
+import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.AlbumService;
 import com.earl.cas.vo.ResultMessage;
 
@@ -47,11 +48,33 @@ public class AlbumController extends BaseController {
 		result.getResultParm().put("album", albumList);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-	
+
+	/**
+	 * 添加相册.
+	 *@author 宋.
+	 * @param album
+	 * @return
+	 */
+	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> save(Album album) {
+		if(album.getClubId() == 0){
+			throw new DomainSecurityException("社团id不能为空");
+		}
+		result = new ResultMessage();
+		result.setResultInfo("添加成功");
+		result.setServiceResult(true);
+		Integer save = albumService.save(album);
+		if (save == 0) {
+			result.setResultInfo("添加失败");
+			result.setServiceResult(false);
+		}
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 
 	/**
 	 * 查询社团全部相册.
-	 *@author 宋.
+	 * 
+	 * @author 宋.
 	 * @param id
 	 * @return
 	 */
