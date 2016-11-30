@@ -159,6 +159,28 @@ public class UserController extends BaseController {
 		request.getSession().setAttribute("userDetailId", userDetail.getId());
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	
+	/**
+	 * 更改密码.
+	 *@author 宋.
+	 * @param account 账号
+	 * @param oldPassword 旧密码
+	 * @param newPassword 新密码
+	 * @return
+	 */
+	@RequestMapping(value="/updatePassword" , method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> updatePassword(String account, String oldPassword,String newPassword){
+		result = new ResultMessage();
+		User user = userService.findByAccount(account);
+		if (!user.getPassword().equals(MD5Util.md5(oldPassword))) {
+			throw new DomainSecurityException("旧密码错误");
+		}
+		user.setPassword(MD5Util.md5(newPassword));
+		userService.updateWithNotNullProperties(user);
+		result.setServiceResult(true);	
+		result.setResultInfo("更新成功");
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 
 	/**
 	 * 找回密码.
