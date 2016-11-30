@@ -156,6 +156,7 @@ public class UserController extends BaseController {
 		}
 		result.setResultInfo("登录成功");
 		result.getResultParm().put("userDetail", userDetail);
+		request.getSession().setAttribute("userDetailId",userDetail.getId());
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 

@@ -25,6 +25,6 @@ public interface ClubDao extends BaseDao<Club>{
 	 * @param id
 	 * @return
 	 */
-	public Club getClubByuserDetailId(int id);
+	 Club getClubByuserDetailId(int id);
  
 }

@@ -11,6 +11,12 @@ public interface UserclubDao extends BaseDao<Userclub>{
 	 * @return
 	 */
 	int deleteByapplyId(int applyId);
+	/**
+	 * 通过applyId获得userclub
+	 * @param applyId
+	 * @return
+	 */
+	Userclub getUserclubByApplyId(int applyId);
 
     
 }
