@@ -3,6 +3,7 @@ package com.earl.cas.util;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,7 +23,8 @@ public class FileUploadUtil {
 
 	/**
 	 * 新的文件上传方法
-	 *@author 宋.
+	 * 
+	 * @author 宋.
 	 * @param request
 	 * @param file
 	 * @return
@@ -30,17 +32,16 @@ public class FileUploadUtil {
 	public static String NewFileUpload(HttpServletRequest request,
 			MultipartFile file) {
 		logger.info("开始文件上传");
+		String path = request.getSession().getServletContext().getRealPath("/");
+		logger.info("--------path: " + path);
 		String filePath = null;
 		String fileName = null;
 		if (!file.isEmpty()) {
-			String path = request.getSession().getServletContext()
-					.getRealPath("/");
-			logger.info("--------path: " + path);
-			fileName = file.getOriginalFilename();
-			File targetFile = new File(path + "/reports", fileName);
-			while (targetFile.exists()) {//重命名解决
+			fileName = setName(file.getOriginalFilename());
+			File targetFile = new File(path + "/headpath", fileName);
+			while (targetFile.exists()) {// 重命名解决
 				fileName = newFileName(fileName);
-				targetFile = new File(path + "/reports", fileName);
+				targetFile = new File(path + "/headpath", fileName);
 			}
 			targetFile.mkdirs();
 			// 保存
@@ -50,10 +51,28 @@ public class FileUploadUtil {
 				logger.info("上传文件复制失败");
 				e.printStackTrace();
 			}
-			filePath = "/reports/" + fileName;
+			filePath = "/headpath/" + fileName;
 		}
 		logger.info("上传文件结束，filePath:" + filePath);
-		return fileName;
+		return filePath;
+	}
+
+	/**
+	 * 文件重名时重命名文件.
+	 * 
+	 * @author 宋.
+	 * @param fileName
+	 * @return
+	 */
+	private static String newFileName(String fileName) {
+		StringBuffer newFileName = new StringBuffer();
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
+		String str = sdf.format(date);
+		newFileName.append(getRealName(fileName)).append("(").append(str)
+				.append(")").append(".")
+				.append(FilenameUtils.getExtension(fileName));
+		return newFileName.toString();
 	}
 
 	/**
@@ -70,23 +89,20 @@ public class FileUploadUtil {
 		return realName;
 	}
 
-	/**
-	 * 文件重名时重命名文件.
-	 *@author 宋.
-	 * @param fileName
-	 * @return
-	 */
-	private static String newFileName(String fileName) {
-		StringBuffer newFileName = new StringBuffer();
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
-		String str = sdf.format(date);
-		newFileName.append(getRealName(fileName)).append("(").append(str).append(")").append(".")
-				.append(FilenameUtils.getExtension(fileName));
-		return newFileName.toString();
+	// 1: 获取文件后缀名
+	private static String getExt(String oldName) {
+		return FilenameUtils.getExtension(oldName);
 	}
 
-	
-	
-	
+	// 2: 通过UUID生成新文件名
+	private static String setName(String oldName) {
+		String ext = getExt(oldName);
+		String newName = UUID.randomUUID().toString() + "." + ext;
+		System.out.println(ext);
+		if (ext.equals(""))
+			newName = UUID.randomUUID().toString() + "." + "png";
+		System.out.println(newName);
+		return newName;
+	}
+
 }
