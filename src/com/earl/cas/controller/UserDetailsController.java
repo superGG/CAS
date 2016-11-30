@@ -65,7 +65,7 @@ public class UserDetailsController extends BaseController {
 		result = new ResultMessage();
 		if (!file.isEmpty()) {
 			logger.info("file不为空，开始处理上传头像");
-			String headPath = FileUploadUtil.NewFileUpload(request, file);
+			String headPath = FileUploadUtil.NewFileUpload(request, file,"headpath");
 			logger.info("上传头像访问地址："+ headPath);
 			userDetail.setHeadPath(headPath);
 		} 

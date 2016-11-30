@@ -1,5 +1,7 @@
 package com.earl.cas.service.Impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -33,6 +35,12 @@ public class AlbumServiceImpl extends BaseServiceImpl<Album> implements
 	@Override
 	protected BaseDao<Album> getDao() {
 		return albumDao;
+	}
+
+	@Override
+	public List<Album> getByClubId(Integer id) {
+		logger.info("进入AlbumServiceImpl层的getByClubId方法");
+		return albumDao.getByClubId(id);
 	}
 
 }
