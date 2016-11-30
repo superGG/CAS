@@ -21,8 +21,8 @@ import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.UserDetailsService;
 import com.earl.cas.service.UserService;
 import com.earl.cas.util.ImgVerifyCodeUtil;
-import com.earl.cas.util.MD5Util;
 import com.earl.cas.vo.ResultMessage;
+import com.mysql.jdbc.StringUtils;
 
 /**
  * user的controller.
@@ -86,24 +86,7 @@ public class UserController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 
-	/**
-	 * 获取图片验证码.
-	 * 
-	 * @author 宋.
-	 * @return
-	 */
-	@RequestMapping(value = "/getImgVerifyCode", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> getQRCode(HttpServletRequest request) {
-		result = new ResultMessage();
-		ImgVerifyCodeUtil v = new ImgVerifyCodeUtil();
-		String path = v.getVerifyCode(request);
-		request.getSession().setAttribute("ImgVerifyCode", v.getText());
-		System.out.println("验证码:" + v.getText());
-		result.setServiceResult(true);
-		result.setResultInfo("生成图片验证码成功");
-		result.getResultParm().put("path", path);
-		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
-	}
+	
 
 	/**
 	 * 用户登录.
@@ -140,6 +123,45 @@ public class UserController extends BaseController {
 		result.setResultInfo("登录成功");
 		result.getResultParm().put("userDetail", userDetail);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	
+	/**
+	 * 获取图片验证码.
+	 * 
+	 * @author 宋.
+	 * @return
+	 */
+	@RequestMapping(value = "/getImgVerifyCode", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> getQRCode(HttpServletRequest request) {
+		result = new ResultMessage();
+		ImgVerifyCodeUtil v = new ImgVerifyCodeUtil();
+		String path = v.getVerifyCode(request);
+		request.getSession().setAttribute("VerifyCode", v.getText());
+		System.out.println("图片验证码:" + v.getText());
+		result.setServiceResult(true);
+		result.setResultInfo("生成图片验证码成功");
+		result.getResultParm().put("path", path);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	
+	/**
+	 * 获取短信验证码.
+	 *@author 宋.
+	 * @param phone
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/getSmsCode" , method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> getSmsCode(String phone, HttpServletRequest request){
+		result = new ResultMessage();
+		String verifyCode = userService.getSmsCode(phone);
+		if(StringUtils.isNullOrEmpty(verifyCode)){
+			throw new DomainSecurityException("获取验证码失败");
+		}
+		result.setResultInfo("获取验证码成功");
+		result.setServiceResult(true);
+		request.getSession().setAttribute("VerifyCode", verifyCode);
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 
 	/**

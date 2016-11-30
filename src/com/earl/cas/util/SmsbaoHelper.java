@@ -27,7 +27,7 @@ public class SmsbaoHelper {
 
 
 	private static String username = "q410654146";// 短信宝帐户名
-	private static String password = MD5Util.md5("940507");// 短信宝账户密码
+	private static String password = MD5Util.md5(".940507");// 短信宝账户密码
 
 	/**
 	 * 获取字符段，发送指定信息.

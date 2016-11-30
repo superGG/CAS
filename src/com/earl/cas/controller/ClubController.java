@@ -3,7 +3,6 @@
  */
 package com.earl.cas.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -31,7 +30,6 @@ import com.earl.cas.vo.ResultMessage;
 @RequestMapping(value = "/club")
 public class ClubController extends BaseController{
 	private final Logger logger = LoggerFactory.getLogger(ClubController.class);
-
 	@Autowired
 	private ClubService clubService;
 
@@ -71,17 +69,41 @@ public class ClubController extends BaseController{
 	@RequestMapping(value = "/getByName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<ResultMessage> getByName(String name) {
 		logger.debug("REST request to get a club by name");
-		String clubName = null;
-		try {
-			clubName = new String (name.getBytes("iso8859-1"),"utf-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//String clubName = null;
+		//try {
+		//	clubName = new String (name.getBytes("iso8859-1"),"utf-8");
+		//} catch (UnsupportedEncodingException e) {
+		//	// TODO Auto-generated catch block
+		//	e.printStackTrace();
+		//}
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Club> clubList = clubService.getByName(clubName);
+		List<Club> clubList = clubService.getByName(name);
 		result.getResultParm().put("club", clubList);
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	/**
+	 * 注销社团
+	 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> delete(Club club) {
+		logger.debug("REST request to delete a club");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		clubService.deleteById(club.getId());
+		result.setResultInfo("注销成功");
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	/**
+	 * 更新社团信息
+	 */
+	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> update(Club club){
+		logger.debug("REST request to update a club");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		clubService.update(club);
+		result.setResultInfo("更新成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 }

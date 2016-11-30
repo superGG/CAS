@@ -47,5 +47,24 @@ ClubService {
 			return clublist;
 		}
 	}
-
+	
+	public boolean update(Club club){
+		if(!clubDao.update(club)){
+			throw new DomainSecurityException("更新失败");
+		}
+		else{
+			return true;
+		}
+		
+	}
+	public Club getClubByuserDetailId(int id){
+		Club club = clubDao.getClubByuserDetailId(id);
+		if(club!=null){
+			return club;
+		}
+		else{
+			throw new DomainSecurityException("该用户没创建社团");
+		}
+	}
+	
 }

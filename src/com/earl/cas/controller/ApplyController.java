@@ -14,22 +14,34 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Apply;
+import com.earl.cas.entity.Club;
+import com.earl.cas.entity.UserDetails;
 import com.earl.cas.service.ApplyService;
+import com.earl.cas.service.ClubService;
+import com.earl.cas.service.UserDetailsService;
 import com.earl.cas.vo.ResultMessage;
 
 /**
  * Apply的controller.
- *@author 宋
- *@date 2016-11-23
+ * 
+ * @author 宋
+ * @date 2016-11-23
  */
 @RestController
 @RequestMapping(value = "/apply")
 public class ApplyController extends BaseController {
 
-	private final Logger logger = LoggerFactory.getLogger(ApplyController.class);
+	private final Logger logger = LoggerFactory
+			.getLogger(ApplyController.class);
 
 	@Autowired
 	private ApplyService applyService;
+
+	@Autowired
+	private UserDetailsService userDetailsService;
+
+	@Autowired
+	private ClubService clubService;
 
 	private ResultMessage result = null;
 
@@ -37,14 +49,71 @@ public class ApplyController extends BaseController {
 	 * GET /apply -> get all the apply
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> getAll() {
+	public ResponseEntity<ResultMessage> getAll() {
 		logger.debug("REST request to get all apply");
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		List<Apply> applyList = applyService.findAll();
 		result.getResultParm().put("apply", applyList);
-		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-	
+
+	/**
+	 * 同意申请并添加成员
+	 */
+	@RequestMapping(value = "/agree", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> agree(Apply apply) {
+		logger.debug("REST request to agree a apply");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		applyService.update(apply);
+		result.setResultInfo("该成员已加入社团");
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+
+	/**
+	 * 查看申请书
+	 */
+	@RequestMapping(value = "/displayApply", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> displayApply() {
+		logger.debug("REST request to display all apply");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Apply> applylist = applyService.findAll();
+		result.getResultParm().put("apply", applylist);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+
+	/**
+	 * 查看自己社团的入社申请书->申请书管理列表
+	 */
+	@RequestMapping(value = "/displayClubApply", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> displayClubApply(int userId) {
+		logger.debug("REST request to display club apply");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		// 获取用户详情，前端传进来userId或者session获取
+		UserDetails userDetails = userDetailsService.getByUserId(userId);
+
+		// 获取用户创建的社团
+		Club club = clubService.getClubByuserDetailId(userDetails.getId());
+
+		// 通过clubId获得对应社团的申请书
+		List<Apply> applylist = applyService.getClubApply(club.getId());
+		result.getResultParm().put("apply", applylist);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	/**
+	 * 同意申请并添加成员->对非空属性进行更新
+	 */
+	@RequestMapping(value = "/isAgree", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> isAgree(int applyId,int statue) {
+		logger.debug("REST request to agree a apply");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		applyService.update(applyId,statue);
+		result.setResultInfo("该成员已加入社团");
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 
 }

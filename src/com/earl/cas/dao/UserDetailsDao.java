@@ -12,6 +12,6 @@ public interface UserDetailsDao extends BaseDao<UserDetails>{
 	 * @param id
 	 */
 	UserDetails getByUserId(int id);
-
+	
     
 }
