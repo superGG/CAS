@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Apply;
+import com.earl.cas.entity.UserDetails;
 import com.earl.cas.service.ApplyService;
+import com.earl.cas.service.UserDetailsService;
 import com.earl.cas.vo.ResultMessage;
 
 /**
@@ -33,6 +35,9 @@ public class ApplyController extends BaseController {
 	@Autowired
 	private ApplyService applyService;
 
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
 	private ResultMessage result = null;
 
 	/**
@@ -73,6 +78,18 @@ public class ApplyController extends BaseController {
 		result.getResultParm().put("apply", applylist);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-	
+	/**
+	 * 查看自己社团的入社申请书->申请书管理列表
+	 */
+	@RequestMapping(value = "/displayClubApply", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> displayClubApply(int userId) {
+		logger.debug("REST request to display club apply");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		UserDetails userDetails = userDetailsService.getByUserId(userId); //前端传进来userId或者session获取
+		List<Apply> applylist = applyService.getClubApply(userDetails.getId());
+		result.getResultParm().put("apply", applylist);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 	
 }
