@@ -221,6 +221,18 @@ public class ApplyController extends BaseController {
 		result.getResultParm().put("memberlist", memberlist);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	/**
+	 * 查看成员列表->分页查询 pageSize=10
+	 */
+	@RequestMapping(value = "/displayPageMember", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> displayPageMember(int detailId,int pageIndex) {
+		logger.debug("REST request to display club member");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Member> memberlist = applyService.getMember(detailId,pageIndex);
+		result.getResultParm().put("memberlist", memberlist);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 	
 	/**
 	 * 查看成员详情

@@ -65,5 +65,12 @@ public interface ApplyService extends BaseService<Apply> {
 	 * @param statue
 	 */
 	void notAgree(int applyId);
+	/**
+	 * 获得成员列表-分页查询
+	 * @param detailId
+	 * @param pageIndex
+	 * @return
+	 */
+	List<Member> getMember(int detailId, int pageIndex);
 
 }

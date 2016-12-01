@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.earl.cas.commons.dao.BaseDaoImpl;
 import com.earl.cas.dao.ApplyDao;
 import com.earl.cas.entity.Apply;
-import com.earl.cas.entity.Club;
 
 /**
  * applyDao实现类.
@@ -61,6 +60,15 @@ public class ApplyDaoImpl extends BaseDaoImpl<Apply> implements ApplyDao {
 		List<Apply> applylist = (List<Apply>) getCurrentSession()
 				.createQuery(hql).setInteger("id", id).setInteger("statue", 2)
 				.list();
+		return applylist;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Apply> getPageApplyByClubIdStatusIsOk(int clubId, int pageIndex) {
+		String hql = "from Apply where  clubId = :id and statue = :statue";
+		List<Apply> applylist = getCurrentSession().createQuery(hql)
+				.setInteger("id", clubId).setInteger("statue", 0)
+				.setFirstResult((pageIndex - 1) * 10).setMaxResults(10).list();
 		return applylist;
 	}
 }
