@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-12-01 11:01:41
+Date: 2016-12-01 16:50:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -118,11 +118,11 @@ CREATE TABLE `message` (
   `detail_id` int(11) DEFAULT NULL COMMENT '用户详情编号',
   `content` text COMMENT '留言内容',
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `father_id` int(11) DEFAULT NULL COMMENT '父级留言编号',
+  `father_id` int(11) DEFAULT '0' COMMENT '父级留言编号',
   `good` int(11) NOT NULL DEFAULT '0' COMMENT '点赞次数',
   `bad` int(11) NOT NULL DEFAULT '0' COMMENT '点踩次数',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for photo
