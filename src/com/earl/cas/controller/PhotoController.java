@@ -79,18 +79,43 @@ public class PhotoController extends BaseController {
 
 	/**
 	 * 获取某相册照片
-	 *@author 宋.
-	 * @param photo 必须含有 albumId
-	 * @param pageInfo 必须含有 indexPageNum\size
+	 * 
+	 * @author 宋.
+	 * @param photo
+	 *            必须含有 albumId
+	 * @param pageInfo
+	 *            必须含有 indexPageNum\size
 	 * @return
 	 */
 	@RequestMapping(value = "/getAlbumPhoto", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> getAlbumPhoto(Photo photo, PageInfo pageInfo) {
+	public ResponseEntity<ResultMessage> getAlbumPhoto(Photo photo,
+			PageInfo pageInfo) {
 		result = new ResultMessage();
-		List<Photo> photoList = photoService.findByGivenCreteria(photo, pageInfo);
+		List<Photo> photoList = photoService.findByGivenCreteria(photo,
+				pageInfo);
 		result.setServiceResult(true);
 		result.getResultParm().put("photoList", photoList);
 		result.getResultParm().put("total", pageInfo.getTotalCount());
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+
+	/**
+	 * 根据id删除照片.
+	 * 
+	 * @author 宋.
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> delete(Integer id) {
+		result = new ResultMessage();
+		int delete = photoService.deleteById(id);
+		result.setResultInfo("删除成功");
+		result.setServiceResult(true);
+		if (delete == 0) {
+			result.setResultInfo("删除失败");
+			result.setServiceResult(false);
+		}
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 
