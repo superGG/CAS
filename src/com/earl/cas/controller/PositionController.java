@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Position;
 import com.earl.cas.service.PositionService;
+import com.earl.cas.vo.PageInfo;
 import com.earl.cas.vo.ResultMessage;
 
 /**
@@ -44,6 +45,19 @@ public class PositionController extends BaseController {
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		List<Position> positionList = positionService.findAll();
+		result.getResultParm().put("position", positionList);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	/**
+	 * GET /position -> get all the position  分页查询
+	 * @param PageInfo
+	 */
+	@RequestMapping(value = "/getPageAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> getAll(PageInfo pageInfo) {
+		logger.debug("REST request to get all position");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Position> positionList = positionService.findAll(pageInfo);
 		result.getResultParm().put("position", positionList);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}

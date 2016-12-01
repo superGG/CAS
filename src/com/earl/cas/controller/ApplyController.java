@@ -18,6 +18,7 @@ import com.earl.cas.entity.Club;
 import com.earl.cas.service.ApplyService;
 import com.earl.cas.service.ClubService;
 import com.earl.cas.service.UserclubService;
+import com.earl.cas.vo.PageInfo;
 import com.earl.cas.vo.ResultMessage;
 import com.earl.cas.vo.Member;
 /**
@@ -222,15 +223,16 @@ public class ApplyController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 	/**
-	 * 查看成员列表->分页查询 pageSize=10
+	 * 查看成员列表->分页查询
 	 */
 	@RequestMapping(value = "/displayPageMember", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> displayPageMember(int detailId,int pageIndex) {
+	public ResponseEntity<ResultMessage> displayPageMember(int detailId,PageInfo pageInfo) {
 		logger.debug("REST request to display club member");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Member> memberlist = applyService.getMember(detailId,pageIndex);
+		List<Member> memberlist = applyService.getMember(detailId,pageInfo);
 		result.getResultParm().put("memberlist", memberlist);
+		result.getResultParm().put("pageTotal",pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 	
