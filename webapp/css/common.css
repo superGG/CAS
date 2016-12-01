@@ -8,7 +8,6 @@ body{
 }
 .top{
 	width: 100%;
-	overflow:hidden;
 	margin: auto;
 	background-color: #82898e;
 	top:0;
@@ -74,7 +73,45 @@ body{
 .top .login a:hover{
 	color: #ffffff;
 }
-
+.top .user{
+	position: relative;
+	float: left;
+	margin-top:10px; 
+}
+.top .user:hover .list{
+	display: block;
+}
+.top .user .list{
+	position: absolute;
+	display: none;
+	top: 40px;
+	background-color: #fff;
+}
+.top .user .userImg{
+	float: left;
+	width: 40px;
+	height: 40px;
+}
+.top .user .userImg img{
+	width: 100%;
+	height: 100%;
+}
+.top .user .userName{
+	float: left;
+    color: #fff;
+    line-height: 40px;
+}
+.top .user .list li{
+	list-style-type: none;
+	padding: 5px 10px;
+}
+.top .user .list li:hover{
+	background-color: #12b7f5;
+}
+.top .user .list li a{
+	color: #000;
+	text-decoration:none;
+}
 /*页脚*/
 .footer{
 	width: 100%;
@@ -117,7 +154,11 @@ body{
 .close:hover{
 	background-position: 0px -24px;
 }
-
+.login-tip{
+	width: 100%;
+	text-align: center;
+	color: red;
+}
 #login-tab,#register-tab{
 	float: left;
 	width: 50%;

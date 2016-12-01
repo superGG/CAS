@@ -41,6 +41,17 @@ public class Activity implements Serializable
 	
 	//创建时间
 	private String createtime;
+	
+	//社团名称
+	private String clubName;
+
+	public String getClubName() {
+		return clubName;
+	}
+
+	public void setClubName(String clubName) {
+		this.clubName = clubName;
+	}
 
 	public Activity() {
 	}

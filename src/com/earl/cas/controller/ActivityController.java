@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Activity;
+import com.earl.cas.entity.Club;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ActivityService;
 import com.earl.cas.vo.ResultMessage;
@@ -42,6 +43,7 @@ public class ActivityController extends BaseController {
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> createActivity(Activity activity){
 		logger.debug("REST request to save activity");
+		//判断输入的活动标题或者活动内容是否为空
 		if(StringUtils.isBlank(activity.getContent()) | StringUtils.isBlank(activity.getTitle())){//判断活动标题和内容是否为空
 			throw new DomainSecurityException("标题和内容均不能为空");
 		}
@@ -72,6 +74,7 @@ public class ActivityController extends BaseController {
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> updateActivity(Activity activity) {
 		logger.debug("REST request to update activity");
+		//判断输入的活动标题或者活动内容是否为空
 		if (StringUtils.isBlank(activity.getContent()) | StringUtils.isBlank(activity.getTitle())) {//判断活动标题和内容是否为空
 			throw new DomainSecurityException("内容或标题均不能为空");
 		}
@@ -86,11 +89,11 @@ public class ActivityController extends BaseController {
 	 * GET /activity -> 查看所有活动
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)//返回结果是jason类型
-	public  ResponseEntity<ResultMessage> getAll() {
+	public  ResponseEntity<ResultMessage> getAllActivity() {
 		logger.debug("REST request to get all activity");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Activity> activityList = activityService.findAll();
+		List<Activity> activityList = activityService.findAllActivity();
 		result.getResultParm().put("activity", activityList);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
@@ -103,8 +106,8 @@ public class ActivityController extends BaseController {
 		logger.debug("REST request to get activityDetail");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Activity> detailList = activityService.findDetail(id);
-		result.getResultParm().put("activity", detailList);
+		Activity detail = activityService.findDetail(id);
+		result.getResultParm().put("activity", detail);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
