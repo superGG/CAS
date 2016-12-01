@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-11-30 17:41:48
+Date: 2016-12-01 08:48:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,7 +34,7 @@ CREATE TABLE `activity` (
 DROP TABLE IF EXISTS `album`;
 CREATE TABLE `album` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '相册编号',
-  `club_id` int(11) DEFAULT NULL COMMENT '社团编号',
+  `club_id` int(11) NOT NULL COMMENT '社团编号',
   `name` varchar(255) DEFAULT NULL COMMENT '相册名称',
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `path` varchar(255) DEFAULT NULL COMMENT '封面路径',
@@ -130,11 +130,10 @@ CREATE TABLE `message` (
 DROP TABLE IF EXISTS `photo`;
 CREATE TABLE `photo` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '图片编号',
-  `album_id` int(11) DEFAULT NULL COMMENT '相册编号',
+  `album_id` int(11) NOT NULL COMMENT '相册编号',
   `content` varchar(255) DEFAULT NULL COMMENT '图片说明',
   `path` varchar(255) DEFAULT NULL COMMENT '图片路径',
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `albumId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -147,7 +146,6 @@ CREATE TABLE `position` (
   `club_id` int(11) DEFAULT NULL COMMENT '社团编号',
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `name` varchar(255) DEFAULT NULL COMMENT '职位名称',
-  `clubId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
