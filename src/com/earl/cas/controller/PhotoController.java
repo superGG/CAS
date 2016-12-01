@@ -1,6 +1,10 @@
 package com.earl.cas.controller;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +48,28 @@ public class PhotoController extends BaseController {
 		List<Photo> photoList = photoService.findAll();
 		result.getResultParm().put("photo", photoList);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	/**
+	 * 多图片上传(每个文件不能同名——同名覆盖).
+	 *@author 宋.
+	 * @param request
+	 * @param response
+	 * @param photo 不可缺少 albumId
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/upload", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> upload2(HttpServletRequest request,
+			HttpServletResponse response, Photo photo) throws IllegalStateException,
+			IOException {
+		result = new ResultMessage();
+		List<Photo> list = photoService.upload(request,response,photo);
+		result.setResultInfo("上传完成");
+		result.setServiceResult(true);
+		result.getResultParm().put("photoList", list);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 	
 

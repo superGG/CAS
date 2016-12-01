@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-11-29 16:24:08
+Date: 2016-12-01 08:48:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,7 +34,7 @@ CREATE TABLE `activity` (
 DROP TABLE IF EXISTS `album`;
 CREATE TABLE `album` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '相册编号',
-  `club_id` int(11) DEFAULT NULL COMMENT '社团编号',
+  `club_id` int(11) NOT NULL COMMENT '社团编号',
   `name` varchar(255) DEFAULT NULL COMMENT '相册名称',
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `path` varchar(255) DEFAULT NULL COMMENT '封面路径',
@@ -79,6 +79,7 @@ CREATE TABLE `club` (
   `email` varchar(255) DEFAULT NULL COMMENT '社团邮箱',
   `type_id` int(11) DEFAULT NULL COMMENT '社团类型',
   `badge` varchar(255) DEFAULT NULL COMMENT '社徽',
+  `detail_id` int(11) DEFAULT NULL COMMENT '创建社团用户',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -129,11 +130,10 @@ CREATE TABLE `message` (
 DROP TABLE IF EXISTS `photo`;
 CREATE TABLE `photo` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '图片编号',
-  `album_id` int(11) DEFAULT NULL COMMENT '相册编号',
+  `album_id` int(11) NOT NULL COMMENT '相册编号',
   `content` varchar(255) DEFAULT NULL COMMENT '图片说明',
   `path` varchar(255) DEFAULT NULL COMMENT '图片路径',
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `albumId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -146,7 +146,6 @@ CREATE TABLE `position` (
   `club_id` int(11) DEFAULT NULL COMMENT '社团编号',
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `name` varchar(255) DEFAULT NULL COMMENT '职位名称',
-  `clubId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -171,7 +170,7 @@ CREATE TABLE `user` (
   `password` varchar(255) DEFAULT NULL COMMENT '用户密码',
   `createtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for userclub
@@ -181,10 +180,6 @@ CREATE TABLE `userclub` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '成员编号',
   `club_id` int(11) DEFAULT NULL COMMENT '社团编号',
   `apply_id` int(11) DEFAULT NULL COMMENT '申请表编号',
-<<<<<<< HEAD
-=======
-  `position_id` int(11) DEFAULT NULL COMMENT '职位编号',
->>>>>>> e6b905be400699466464914149ae6968aa96785f
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `position_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -207,4 +202,4 @@ CREATE TABLE `user_details` (
   `role_id` int(11) DEFAULT '0' COMMENT '角色',
   `createtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;

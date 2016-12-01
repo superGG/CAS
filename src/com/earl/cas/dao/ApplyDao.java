@@ -19,6 +19,12 @@ public interface ApplyDao extends BaseDao<Apply> {
 	 * @param id
 	 * @return
 	 */
-	List<Apply> getApplyByDetails(int id);
+	List<Apply> getApplyByClubId(int id);
+	/**
+	 * 找到已经通过审核的申请书
+	 * @param id
+	 * @return
+	 */
+	List<Apply> getApplyByClubIdStatusIsOk(int id);
 
 }
