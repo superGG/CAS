@@ -249,7 +249,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		String propertyName = null;
 		while (keyIterator.hasNext()) {
 			propertyName = (String) keyIterator.next();
-			if (!propertyName.equals("positionNameList")) {
+			if (!propertyName.contains("List")) { //将List属性排除掉
 				if (!"class".equals(propertyName)
 						&& beanMap.get(propertyName) != null
 						&& !"".equals(beanMap.get(propertyName))) {

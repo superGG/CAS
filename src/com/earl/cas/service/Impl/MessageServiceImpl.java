@@ -54,13 +54,7 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 	public List<Message> findDetail(int fatherId) {
 		logger.info("进入MessageServiceImpl留言板块的findDetail查询子留言方法");
 		List<Message> detailList = messageDao.findDetail(fatherId);
-		List<Message> twoMessageList = new ArrayList<Message>();
-		for(Message message : detailList){
-			UserDetails userDetail = userDetailsDao.get(message.getDetailId());
-			message.setUserName(userDetail.getName());
-			twoMessageList.add(message);
-		}
-		return twoMessageList;
+		return setUserName(detailList);
 	}
 
 	@Override
@@ -70,10 +64,33 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 		List<Message> oneMessageList = new ArrayList<Message>();
 		for(Message index : fatherList){
 			UserDetails userDetail = userDetailsDao.get(index.getDetailId());
+			List<Message> sonList = messageDao.findDetail(index.getId());
 			index.setUserName(userDetail.getName());
-			index.setSonSize(messageDao.findDetail(index.getId()).size());
+			index.setSonSize(sonList.size());
+			index.setSonList(setUserName(sonList));
 			oneMessageList.add(index);
 		}
 		return oneMessageList;
+	}
+
+	@Override
+	public Message findById(Integer id) {
+		Message message = messageDao.get(id);
+		UserDetails userDetail = userDetailsDao.get(message.getDetailId());
+		message.setUserName(userDetail.getName());
+		return message;
+	}
+	
+	/*
+	 * 将获取到的留言加上留言发布者的信息.
+	 */
+	private List<Message> setUserName(List<Message> messageList) {
+		List<Message> twoMessageList = new ArrayList<Message>();
+		for(Message message : messageList){
+			UserDetails userDetail = userDetailsDao.get(message.getDetailId());
+			message.setUserName(userDetail.getName());
+			twoMessageList.add(message);
+		}
+		return twoMessageList;
 	}
 }

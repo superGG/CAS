@@ -2,6 +2,7 @@ package com.earl.cas.entity;
 // Generated 2016-11-21 9:28:51 by Hibernate Tools 5.2.0.Beta1
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -55,6 +56,8 @@ public class Message implements Serializable
 	
 	//子留言数量
 	private Integer sonSize;
+	
+	private List<Message> sonList;
 	
 	public Message() {
 	}
@@ -148,6 +151,15 @@ public class Message implements Serializable
 
 	public void setSonSize(Integer sonSize) {
 		this.sonSize = sonSize;
+	}
+	
+	@Transient
+	public List<Message> getSonList() {
+		return sonList;
+	}
+
+	public void setSonList(List<Message> sonList) {
+		this.sonList = sonList;
 	}
 
 	@Override
