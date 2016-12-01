@@ -62,7 +62,7 @@ public class UserDetails implements Serializable
 	public UserDetails() {
 	}
 
-	public UserDetails(int id, String createtime) {
+	public UserDetails(Integer id, String createtime) {
 		this.id = id;
 		this.createtime = createtime;
 	}
@@ -70,11 +70,11 @@ public class UserDetails implements Serializable
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -88,7 +88,7 @@ public class UserDetails implements Serializable
 	}
 
 	@Generated(GenerationTime.INSERT)
-	@Column(name = "sex" ,columnDefinition="bit(1) default b'1' COMMENT '1男 0女'")
+	@Column(name = "sex")
 	public Boolean getSex() {
 		return this.sex;
 	}

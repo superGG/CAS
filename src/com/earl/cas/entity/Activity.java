@@ -28,7 +28,7 @@ public class Activity implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	@IdAnnotatioin
-	private int id;
+	private Integer id;
 	
 	//社团id
 	private Integer clubId;
@@ -64,11 +64,11 @@ public class Activity implements Serializable
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

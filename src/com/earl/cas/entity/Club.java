@@ -28,7 +28,7 @@ public class Club implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	@IdAnnotatioin //用于动态更新数据
-	private int id;
+	private Integer id;
 	
 	//社团类型id
 	private Integer typeId;
@@ -63,7 +63,7 @@ public class Club implements Serializable
 	public Club() {
 	}
 
-	public Club(int id, String createtime) {
+	public Club(Integer id, String createtime) {
 		this.id = id;
 		this.createtime = createtime;
 	}
@@ -71,11 +71,11 @@ public class Club implements Serializable
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

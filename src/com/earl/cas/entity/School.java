@@ -29,7 +29,7 @@ public class School implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	@IdAnnotatioin //用于动态更新数据
-	private int id;
+	private Integer id;
 	
 	//学校名称
 	private String name;
@@ -40,12 +40,12 @@ public class School implements Serializable
 	public School() {
 	}
 
-	public School(int id, String createtime) {
+	public School(Integer id, String createtime) {
 		this.id = id;
 		this.createtime = createtime;
 	}
 
-	public School(int id, String name, String createtime, Set<Club> clubs) {
+	public School(Integer id, String name, String createtime, Set<Club> clubs) {
 		this.id = id;
 		this.name = name;
 		this.createtime = createtime;
@@ -54,11 +54,11 @@ public class School implements Serializable
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

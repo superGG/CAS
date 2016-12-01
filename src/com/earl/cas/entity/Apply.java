@@ -30,7 +30,7 @@ public class Apply implements Serializable
 	
 	//申请表编号
 	@IdAnnotatioin //用于动态更新数据
-	private int id;
+	private Integer id;
 	
 	//社团id
 	private Integer clubId;
@@ -77,7 +77,7 @@ public class Apply implements Serializable
 	public Apply() {
 	}
 
-	public Apply(int id, String createtime) {
+	public Apply(Integer id, String createtime) {
 		this.id = id;
 		this.createtime = createtime;
 	}
@@ -85,11 +85,11 @@ public class Apply implements Serializable
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

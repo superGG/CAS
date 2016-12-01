@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Message;
 import com.earl.cas.service.MessageService;
+import com.earl.cas.vo.PageInfo;
 import com.earl.cas.vo.ResultMessage;
 
 /**
@@ -49,12 +50,32 @@ public class MessageController extends BaseController {
 	/**
 	 *GET /message -> 根据父留言id查到子留言
 	 */
-	@RequestMapping(value = "/getDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/getTwoMessgae", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<ResultMessage> getDetail(Integer fatherId) {
 		logger.debug("REST request to get all message");
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		List<Message> detailList = messageService.findDetail(fatherId);
+		result.getResultParm().put("message", detailList);
+		result.getResultParm().put("total", detailList.size());
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	/**
+	 * 查询所有父留言.
+	 *@author 宋.
+	 * @param indexPageNum 当前页
+	 * @param size 每页数量 
+	 * @return
+	 */
+	@RequestMapping(value = "/getOneMessgae", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getOneMessgae(PageInfo pageInfo) {
+		logger.info("查询所有父留言");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		Message message = new Message();
+		message.setFatherId(0);
+		List<Message> detailList = messageService.findByGivenCreteria(message, pageInfo);
 		result.getResultParm().put("message", detailList);
 		result.getResultParm().put("total", detailList.size());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
@@ -81,8 +102,11 @@ public class MessageController extends BaseController {
 	public ResponseEntity<ResultMessage> saveMessage(Message message){
 		logger.debug("REST request to save message");
 		result = new ResultMessage();
-		result.setServiceResult(true);
+		if (message.getFatherId() == null) { //如果是父留言
+			message.setFatherId(0);
+		}
 		messageService.save(message);
+		result.setServiceResult(true);
 		result.setResultInfo("添加成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}

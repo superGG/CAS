@@ -29,7 +29,7 @@ public class Photo implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	@IdAnnotatioin //用于动态更新数据
-	private int id;
+	private Integer id;
 	
 	//相册
 	private Integer albumId;
@@ -49,7 +49,7 @@ public class Photo implements Serializable
 	public Photo() {
 	}
 
-	public Photo(int id, String createtime) {
+	public Photo(Integer id, String createtime) {
 		this.id = id;
 		this.createtime = createtime;
 	}
@@ -57,11 +57,11 @@ public class Photo implements Serializable
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	

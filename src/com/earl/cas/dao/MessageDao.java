@@ -17,4 +17,5 @@ public interface MessageDao extends BaseDao<Message>{
  * 查找子留言  
  */
      List<Message> findDetail(int fatherid);
+
 }

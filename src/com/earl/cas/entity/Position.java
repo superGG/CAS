@@ -28,7 +28,7 @@ public class Position implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	@IdAnnotatioin //用于动态更新数据
-	private int id;
+	private Integer id;
 	
 	//社团id
 	private Integer clubId;
@@ -42,7 +42,7 @@ public class Position implements Serializable
 	public Position() {
 	}
 
-	public Position(int id, String createtime) {
+	public Position(Integer id, String createtime) {
 		this.id = id;
 		this.createtime = createtime;
 	}
@@ -50,11 +50,11 @@ public class Position implements Serializable
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

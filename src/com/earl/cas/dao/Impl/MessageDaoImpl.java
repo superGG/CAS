@@ -44,4 +44,5 @@ public class MessageDaoImpl extends BaseDaoImpl<Message> implements MessageDao {
 				.createQuery(hql).setInteger("fatherId", fatherId).list();
 		return detaillist;
 	}
+
 }

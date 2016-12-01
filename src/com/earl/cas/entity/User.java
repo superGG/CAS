@@ -29,7 +29,7 @@ public class User implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	@IdAnnotatioin //用于动态更新数据
-	private int id;
+	private Integer id;
 	
 	//用户账号
 	private String account;
@@ -43,12 +43,12 @@ public class User implements Serializable
 	public User() {
 	}
 
-	public User(int id, String createtime) {
+	public User(Integer id, String createtime) {
 		this.id = id;
 		this.createtime = createtime;
 	}
 
-	public User(int id, String account,
+	public User(Integer id, String account,
 			String password, String createtime) {
 		this.id = id;
 		this.account = account;
@@ -59,11 +59,11 @@ public class User implements Serializable
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

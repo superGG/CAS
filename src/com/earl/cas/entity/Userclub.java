@@ -46,7 +46,7 @@ public class Userclub implements Serializable
 	public Userclub() {
 	}
 
-	public Userclub(int id, String createtime) {
+	public Userclub(Integer id, String createtime) {
 		this.id = id;
 		this.createtime = createtime;
 	}
@@ -55,11 +55,11 @@ public class Userclub implements Serializable
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

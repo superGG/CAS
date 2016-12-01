@@ -28,7 +28,7 @@ public class Album implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	@IdAnnotatioin //用于动态更新数据
-	private int id;
+	private Integer id;
 	
 	//社团
 	private Integer clubId;
@@ -48,7 +48,7 @@ public class Album implements Serializable
 	public Album() {
 	}
 
-	public Album(int id, String createtime) {
+	public Album(Integer id, String createtime) {
 		this.id = id;
 		this.createtime = createtime;
 	}
@@ -56,11 +56,11 @@ public class Album implements Serializable
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -29,7 +30,7 @@ public class Message implements Serializable
 	
 	//留言编号
 	@IdAnnotatioin //用于动态更新数据
-	private int id;
+	private Integer id;
 	
 	//父级id
 	private Integer fatherId;
@@ -49,22 +50,25 @@ public class Message implements Serializable
 	//点踩次数
 	private Integer bad;
 	
+	//留言者
+	private String userName;
+	
 	public Message() {
 	}
 
-	public Message(int id, String createtime) {
+	public Message(Integer id, String createtime) {
 		this.id = id;
 		this.createtime = createtime;
 	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	@Column(name = "id")
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -105,6 +109,7 @@ public class Message implements Serializable
 		this.createtime = createtime;
 	}
 
+	@Generated(GenerationTime.INSERT)
 	@Column(name = "good")
 	public Integer getGood() {
 		return this.good;
@@ -114,6 +119,7 @@ public class Message implements Serializable
 		this.good = good;
 	}
 
+	@Generated(GenerationTime.INSERT)
 	@Column(name = "bad")
 	public Integer getBad() {
 		return this.bad;
@@ -121,6 +127,15 @@ public class Message implements Serializable
 
 	public void setBad(Integer bad) {
 		this.bad = bad;
+	}
+	
+	@Transient
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	@Override

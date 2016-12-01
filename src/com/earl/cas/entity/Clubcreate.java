@@ -29,7 +29,7 @@ public class Clubcreate implements Serializable
 	
 	//申请表编号
 	@IdAnnotatioin //用于动态更新数据
-	private int id;
+	private Integer id;
 	
 	//申请用户
 	private Integer detailId;
@@ -55,11 +55,11 @@ public class Clubcreate implements Serializable
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
