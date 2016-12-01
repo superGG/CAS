@@ -97,4 +97,16 @@ public class PositionController extends BaseController {
 		result.setResultInfo("更新成功");
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	/**
+	 * 删除职位
+	 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> delete(int positionId) {
+		logger.debug("REST request to delete position");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		positionService.deleteById(positionId);
+		result.setResultInfo("删除成功");
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 }
