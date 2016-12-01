@@ -16,6 +16,7 @@ import com.earl.cas.dao.UserDetailsDao;
 import com.earl.cas.entity.Message;
 import com.earl.cas.entity.UserDetails;
 import com.earl.cas.service.MessageService;
+import com.earl.cas.vo.PageInfo;
 
 /**
  * messageService实现类.
@@ -60,5 +61,19 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 			twoMessageList.add(message);
 		}
 		return twoMessageList;
+	}
+
+	@Override
+	public List<Message> getOneMessgae(Message message, PageInfo pageInfo) {
+		logger.info("进入MessageServiceImpl留言板块的getOneMessgae查询所有父留言方法");
+		List<Message> fatherList = messageDao.findByGivenCriteria(message, pageInfo);
+		List<Message> oneMessageList = new ArrayList<Message>();
+		for(Message index : fatherList){
+			UserDetails userDetail = userDetailsDao.get(index.getDetailId());
+			index.setUserName(userDetail.getName());
+			index.setSonSize(messageDao.findDetail(index.getId()).size());
+			oneMessageList.add(index);
+		}
+		return oneMessageList;
 	}
 }

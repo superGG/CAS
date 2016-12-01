@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Message;
+import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.MessageService;
 import com.earl.cas.vo.PageInfo;
 import com.earl.cas.vo.ResultMessage;
@@ -75,9 +76,9 @@ public class MessageController extends BaseController {
 		result.setServiceResult(true);
 		Message message = new Message();
 		message.setFatherId(0);
-		List<Message> detailList = messageService.findByGivenCreteria(message, pageInfo);
+		List<Message> detailList = messageService.getOneMessgae(message, pageInfo);
 		result.getResultParm().put("message", detailList);
-		result.getResultParm().put("total", detailList.size());
+		result.getResultParm().put("total", pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 
@@ -117,9 +118,12 @@ public class MessageController extends BaseController {
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> update(Message message) {
 		logger.debug("REST request to update Message");
+		if (message.getId() == null) {
+			throw new DomainSecurityException("id不能为空");
+		}
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		messageService.update(message);
+		messageService.updateWithNotNullProperties(message);
 		result.setResultInfo("更新成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}

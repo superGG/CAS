@@ -23,6 +23,7 @@ import com.earl.cas.entity.Userclub;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ApplyService;
 import com.earl.cas.vo.Member;
+import com.earl.cas.vo.PageInfo;
 
 @Service("applyService")
 public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
@@ -129,7 +130,7 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		}
 	}
 
-	public List<Member> getMember(int detailId, int pageIndex) {
+	public List<Member> getMember(int detailId, PageInfo pageInfo) {
 		// 一些容器变量
 		List<Member> memberlist = new ArrayList<Member>();
 		int clubId;
@@ -145,7 +146,10 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 			throw new DomainSecurityException("用户没有创建社团");
 		}
 		// 获得该社团申请书列表
-		List<Apply> applylist = applyDao.getPageApplyByClubIdStatusIsOk(clubId,pageIndex);
+		Apply applyVo = new Apply();
+		applyVo.setClubId(clubId);
+		applyVo.setStatue(0);
+		List<Apply> applylist = applyDao.findByGivenCriteria(applyVo,pageInfo);
 		// 遍历将信息放进vo类
 		for (Apply apply : applylist) {
 			name = apply.getName(); // 从申请书中获得成员名字

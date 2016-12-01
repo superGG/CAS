@@ -53,6 +53,9 @@ public class Message implements Serializable
 	//留言者
 	private String userName;
 	
+	//子留言数量
+	private Integer sonSize;
+	
 	public Message() {
 	}
 
@@ -136,6 +139,15 @@ public class Message implements Serializable
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	@Transient
+	public Integer getSonSize() {
+		return sonSize;
+	}
+
+	public void setSonSize(Integer sonSize) {
+		this.sonSize = sonSize;
 	}
 
 	@Override
