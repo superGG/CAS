@@ -42,4 +42,5 @@ public class MessageDaoImpl extends BaseDaoImpl<Message> implements MessageDao {
 		List<Message> detaillist = (List<Message>) getCurrentSession().createQuery(hql).setInteger("fatherId",fatherId).list();
 		return detaillist;
 	}
+
 }

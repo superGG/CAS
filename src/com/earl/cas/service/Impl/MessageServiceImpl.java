@@ -40,7 +40,8 @@ MessageService {
 		messageDao.update(message);
 		return true;
 	}
-
+    
+	//根据父留言id查找子留言
 	@Override
 	public List<Message> findDetail(int fatherId) {
 		List<Message> detaillist=messageDao.findDetail(fatherId);
@@ -50,5 +51,26 @@ MessageService {
 		else{
 			return detaillist;
 		}
+	}
+	
+	//留言点踩
+	@Override
+	public void badTake(int id){
+		//根据id找到该Message
+		Message message = messageDao.get(id);
+	    //从从message拿出以前的bad数量 并+1,从新放进该message
+		message.setBad(message.getBad()+1);
+		//更新该message
+		messageDao.updateWithNotNullProperties(message);
+	}
+	//留言点赞
+	@Override
+	public void goodTake(int id) {
+		//根据id找到该Message
+		Message message =messageDao.get(id);
+		//从message拿出以前的good数量 并+1,从新放进该message
+		message.setGood(message.getGood()+1);
+		//更新该message
+		messageDao.updateWithNotNullProperties(message);	 
 	}
 }

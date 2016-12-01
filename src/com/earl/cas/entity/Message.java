@@ -45,7 +45,7 @@ public class Message implements Serializable
 	
 	//点踩次数
 	private Integer bad;
-	
+
 	public Message() {
 	}
 

@@ -99,5 +99,28 @@ public class MessageController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
-
+    /**
+     * POST /message -> 点赞
+     */
+	@RequestMapping(value = "/like",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> goodTake(Integer id) {
+		logger.debug("REST request to goodTake Message");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		messageService.goodTake(id);
+		result.setResultInfo("已点赞");
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+   }
+	/**
+	 * POST /message -> 点踩
+	 */
+	@RequestMapping(value="/bad",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE )
+    public ResponseEntity<ResultMessage> badTake(Integer id){
+		logger.debug("REST request to goodTake Message");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		messageService.badTake(id);
+		result.setResultInfo("已踩");
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+   }
 }

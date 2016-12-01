@@ -18,4 +18,14 @@ public interface MessageService extends BaseService<Message> {
   * 查找子留言
   */
   List<Message> findDetail(int fatherId);
+  
+ /*
+  * 点赞
+  */
+  void goodTake(int id);
+  
+/*
+ * 点踩
+ */
+  void badTake(int id);
 }

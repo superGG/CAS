@@ -106,8 +106,8 @@ public class ActivityController extends BaseController {
 		logger.debug("REST request to get activityDetail");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		Activity detail = activityService.findDetail(id);
-		result.getResultParm().put("activity", detail);
+		Activity activityDetail = activityService.findDetail(id);
+		result.getResultParm().put("activity", activityDetail);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
