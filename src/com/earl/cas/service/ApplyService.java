@@ -35,5 +35,35 @@ public interface ApplyService extends BaseService<Apply> {
 	 * @return
 	 */
 	List<Member> getMember(int detaliId);
+	/**
+	 * 查看成员详情
+	 * @param applyId
+	 * @return
+	 */
+	Apply getMemberDetail(int applyId);
+	/**
+	 * 获得已通过审核的入社申请列表
+	 * @param id
+	 * @return
+	 */
+	List<Apply> getClubApplyIsOk(int id);
+	/**
+	 * 获得已审核的入社申请列表
+	 * @param id
+	 * @return
+	 */
+	List<Apply> getClubApplyHasExam(int id);
+	/**
+	 * 获得未审核的入社申请书
+	 * @param id
+	 * @return
+	 */
+	List<Apply> getClubApplyNotExam(int id);
+	/**
+	 * 拒绝申请
+	 * @param applyId
+	 * @param statue
+	 */
+	void notAgree(int applyId);
 
 }
