@@ -2,6 +2,7 @@ package com.earl.cas.entity;
 // Generated 2016-11-21 9:28:51 by Hibernate Tools 5.2.0.Beta1
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -59,6 +61,9 @@ public class Club implements Serializable
 	
 	//申请用户详情
 	private Integer detailId;
+	
+	//社团类型集合，非映射到数据库
+	private List<String> clubTypeList;
 
 	public Club() {
 	}
@@ -169,6 +174,15 @@ public class Club implements Serializable
 	public void setDetailId(Integer detailId) {
 		this.detailId = detailId;
 	}
+	@Transient
+	public List<String> getClubTypeList() {
+		return clubTypeList;
+	}
+
+	public void setClubTypeList(List<String> clubTypeList) {
+		this.clubTypeList = clubTypeList;
+	}
+
 	@Override
 	public String toString() {
 		return "Club [id=" + id + ", typeId=" + typeId + ", schoolId="

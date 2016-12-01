@@ -5,6 +5,8 @@ package com.earl.cas.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Club;
+import com.earl.cas.entity.UserDetails;
+import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ClubService;
+import com.earl.cas.util.FileUploadUtil;
 import com.earl.cas.vo.ResultMessage;
 
 /**
@@ -103,6 +109,31 @@ public class ClubController extends BaseController{
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		clubService.update(club);
+		result.setResultInfo("更新成功");
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	/**
+	 * 查看自己社团信息
+	 */
+	@RequestMapping(value = "/getMyClub", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getMyClub(int detailId) {
+		logger.debug("REST request to get myclub");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		Club club = clubService.getMyClub(detailId);
+		result.getResultParm().put("club", club);
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	/**
+	 * 更新社团信息
+	 */
+	@RequestMapping(value = "/updateMyClub",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> update(Club club, MultipartFile file, HttpServletRequest request,String typeName) {
+		logger.debug("REST request to update myclub");
+		result = new ResultMessage();
+		clubService.updateMyclub(club,file,request,typeName);
+		result.setServiceResult(true);
 		result.setResultInfo("更新成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
