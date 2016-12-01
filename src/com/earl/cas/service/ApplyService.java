@@ -5,6 +5,7 @@ import java.util.List;
 import com.earl.cas.commons.service.BaseService;
 import com.earl.cas.entity.Apply;
 import com.earl.cas.vo.Member;
+import com.earl.cas.vo.PageInfo;
 
 public interface ApplyService extends BaseService<Apply> {
 
@@ -65,5 +66,12 @@ public interface ApplyService extends BaseService<Apply> {
 	 * @param statue
 	 */
 	void notAgree(int applyId);
+	/**
+	 * 获得成员列表-分页查询
+	 * @param detailId
+	 * @param pageInfo
+	 * @return
+	 */
+	List<Member> getMember(int detailId, PageInfo pageInfo);
 
 }

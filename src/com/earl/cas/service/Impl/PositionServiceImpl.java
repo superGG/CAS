@@ -63,4 +63,8 @@ public class PositionServiceImpl extends BaseServiceImpl<Position> implements
 			return positionDao.findByClubId(id);
 		}
 	
+	public void update(Position position){
+		positionDao.updateWithNotNullProperties(position);
+	}
+
 }
