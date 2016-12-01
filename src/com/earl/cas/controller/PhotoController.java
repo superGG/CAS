@@ -119,4 +119,19 @@ public class PhotoController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 
+
+	/**
+	 * 更新照片信息.
+	 *@author 宋.
+	 * @param photo
+	 * @return
+	 */
+	@RequestMapping(value = "update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> update(Photo photo) {
+		result = new ResultMessage();
+		photoService.updateWithNotNullProperties(photo);
+		result.setResultInfo("更新成功");
+		result.setServiceResult(true);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 }
