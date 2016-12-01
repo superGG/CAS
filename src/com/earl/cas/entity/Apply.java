@@ -1,7 +1,11 @@
 package com.earl.cas.entity;
+
 // Generated 2016-11-21 9:28:51 by Hibernate Tools 5.2.0.Beta1
 
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -23,9 +28,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 //jackson 控制，放回字段为null,将被过滤
 @Entity
 @Table(name = "apply", catalog = "clubsystem")
-public class Apply implements Serializable
-{
-	//表明类的不同版本间的兼容性
+public class Apply implements Serializable {
+	// 表明类的不同版本间的兼容性
 	private static final long serialVersionUID = 1L;
 	
 	//申请表编号
@@ -34,45 +38,48 @@ public class Apply implements Serializable
 	
 	//社团id
 	private Integer clubId;
-	
-	//用户
+
+	// 用户
 	private Integer detailId;
-	
-	//真实姓名
+
+	// 真实姓名
 	private String name;
-	
-	//邮箱
+
+	// 邮箱
 	private String email;
-	
-	//性别
+
+	// 性别
 	private Boolean sex;
-	
-	//年龄
+
+	// 年龄
 	private Integer age;
-	
-	//民族
+
+	// 民族
 	private String nation;
-	
-	//爱好
+
+	// 爱好
 	private String hobby;
-	
-	//电话
+
+	// 电话
 	private String phone;
-	
-	//专业班级
+
+	// 专业班级
 	private String majorClass;
-	
-	//个人简介
+
+	// 个人简介
 	private String introduce;
-	
-	//申请时间
+
+	// 申请时间
 	private String createtime;
-	
-	//申请理由
+
+	// 申请理由
 	private String reason;
-	
-	//状态
+
+	// 状态
 	private Integer statue;
+
+	// 职位list 不映射进数据库
+	private List<String> positionNameList = new ArrayList<String>();
 
 	public Apply() {
 	}
@@ -83,7 +90,7 @@ public class Apply implements Serializable
 	}
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public Integer getId() {
 		return this.id;
@@ -101,7 +108,7 @@ public class Apply implements Serializable
 	public void setClubId(Integer clubId) {
 		this.clubId = clubId;
 	}
-	
+
 	@Column(name = "detail_id")
 	public Integer getDetailId() {
 		return detailId;
@@ -218,6 +225,15 @@ public class Apply implements Serializable
 
 	public void setStatue(Integer statue) {
 		this.statue = statue;
+	}
+
+	@Transient
+	public List<String> getPositionNameList() {
+		return positionNameList;
+	}
+
+	public void setPositionNameList(List<String> positionNameList) {
+		this.positionNameList = positionNameList;
 	}
 
 	@Override

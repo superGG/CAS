@@ -124,5 +124,4 @@ public class MessageController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
-
 }

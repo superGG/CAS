@@ -41,7 +41,25 @@ public class ApplyDaoImpl extends BaseDaoImpl<Apply> implements ApplyDao {
 	public List<Apply> getApplyByClubIdStatusIsOk(int id) {
 		String hql = "from Apply where  clubId = :id and statue = :statue";
 		List<Apply> applylist = (List<Apply>) getCurrentSession()
-				.createQuery(hql).setInteger("id", id).setInteger("statue", 1)
+				.createQuery(hql).setInteger("id", id).setInteger("statue", 0)
+				.list();
+		return applylist;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Apply> getApplyByClubIdStatueNotTwo(int id) {
+		String hql = "from Apply where  clubId = :id and statue < :statue";
+		List<Apply> applylist = (List<Apply>) getCurrentSession()
+				.createQuery(hql).setInteger("id", id).setInteger("statue", 2)
+				.list();
+		return applylist;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Apply> getApplyByClubIdStatueIsTwo(int id) {
+		String hql = "from Apply where  clubId = :id and statue = :statue";
+		List<Apply> applylist = (List<Apply>) getCurrentSession()
+				.createQuery(hql).setInteger("id", id).setInteger("statue", 2)
 				.list();
 		return applylist;
 	}

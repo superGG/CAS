@@ -47,7 +47,8 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 		messageDao.update(message);
 		return true;
 	}
-
+    
+	//根据父留言id查找子留言
 	@Override
 	public List<Message> findDetail(int fatherId) {
 		logger.info("进入MessageServiceImpl留言板块的findDetail查询子留言方法");
@@ -60,5 +61,4 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 		}
 		return twoMessageList;
 	}
-
 }
