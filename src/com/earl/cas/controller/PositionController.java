@@ -85,5 +85,16 @@ public class PositionController extends BaseController {
 		result.setResultInfo("添加成功");
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-
+	/**
+	 * 更新社团职位
+	 */
+	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> update(Position position) {
+		logger.debug("REST request to update position");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		positionService.update(position);
+		result.setResultInfo("更新成功");
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 }
