@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+  showUser();
 })
 $(window).resize(function(){
     if ($("#loginFrame").length>0) {
@@ -74,6 +74,7 @@ function initLoginFrameBtn(){
     getCheckCode("rVerifiImg");
   });
   $("#login-btn").click(function () {
+    $("#loginForm .login-tip").remove();
     login();
   });
   $("#register-btn").click(function () {
@@ -88,20 +89,62 @@ function getCheckCode(id) {
   });
 }
 
-function login(argument) {
+function login() {
   var url ="/ClubSystem/users/login";
   var sendData = $("#loginForm").serialize();
-  console.log(sendData);
   $.post(url,sendData,function (data) {
-    alert(data.resultInfo);
+    console.log(data.serviceResult);
+    if (data.serviceResult) {
+      var date=new Date(); 
+      date.setTime(date.getTime()+1800*1000); 
+      var mCookies = JSON.stringify(data.resultParm.userDetail);
+      document.cookie="USER="+escape(mCookies)+"; path=/ClubSystem/; expires="+date.toGMTString();
+      location.reload();
+    }else{
+      $("#loginForm").prepend("<div class='login-tip'>"+data.resultInfo+"</div>");
+    }
   });
 }
+function loginOut(){
+  //获取当前时间 
+  var date=new Date(); 
+  //将date设置为过去的时间 
+  date.setTime(date.getTime()-1800*1000);
+  //将userId这个cookie删除 
+  var oldCookie = document.cookie;
+  document.cookie=oldCookie+"; path=/ClubSystem/; expires="+date.toGMTString();
+  location.reload();
+}
 
-function register(argument) {
+function register() {
   var url ="/ClubSystem/users/register";
   var sendData = $("#registerForm").serialize();
   console.log(sendData);
   $.post(url,sendData,function (data) {
     alert(data.resultInfo);
   });
+}
+
+function showUser(){
+  var userData =getCookieUserData();
+  if (userData!=null) {
+    var str = "<div class='userImg'><img src='/ClubSystem"+userData.headPath+"'></div>";
+    str += "<div class='userName'>"+userData.name+"</div>";
+    str += "<div class='list'><li><a href='user/personalcenter.html?"+userData.name+"'>个人中心</a></li>";
+    str +="<li><a href='javaScript:loginOut()'>退出</a></li></div>"
+    $(".top .login").addClass("user").removeClass("login").html(str);
+  }
+}
+
+function getCookieUserData() {
+  var strCookie = document.cookie;
+  var arrCookie = strCookie.split("; ");
+  var userData ;
+  for (var i = 0; i < arrCookie.length; i++) {
+    var arr = arrCookie[i].split("=");
+    if (arr[0]=="USER") {
+      userData = arr[1];
+      return JSON.parse(unescape(userData));
+    }
+  }
 }

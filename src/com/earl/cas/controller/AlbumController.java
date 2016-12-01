@@ -101,19 +101,21 @@ public class AlbumController extends BaseController {
 
 	/**
 	 * 更新相册.
-	 *@author 宋.
+	 * 
+	 * @author 宋.
 	 * @param album
 	 * @return
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> update(Album album, MultipartFile file,HttpServletRequest request) {
-		if (album.getId() == 0 ) {
+	public ResponseEntity<ResultMessage> update(Album album,
+			MultipartFile file, HttpServletRequest request) {
+		if (album.getId() == 0) {
 			throw new DomainSecurityException("id不能为空");
 		}
 		if (!file.isEmpty()) {
 			logger.info("file不为空，开始处理上传相册封面");
 			String path = FileUploadUtil.NewFileUpload(request, file, "album");
-			logger.info("上传相册封面访问地址："+ path);
+			logger.info("上传相册封面访问地址：" + path);
 			album.setPath(path);
 		}
 		result = new ResultMessage();

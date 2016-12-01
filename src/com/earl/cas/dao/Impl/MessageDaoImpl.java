@@ -10,36 +10,38 @@ import com.earl.cas.entity.Message;
 
 /**
  * messageDao的实现类
- *@author 宋
- *@date 2016-11-23
+ * 
+ * @author 宋
+ * @date 2016-11-23
  */
 @Repository("messageDao")
 public class MessageDaoImpl extends BaseDaoImpl<Message> implements MessageDao {
-/*
- * 更新留言
- * (non-Javadoc)
- * @see com.earl.cas.dao.MessageDao#update(com.earl.cas.entity.Message)
- */
+	/*
+	 * 更新留言 (non-Javadoc)
+	 * 
+	 * @see com.earl.cas.dao.MessageDao#update(com.earl.cas.entity.Message)
+	 */
 	@Override
-	 public Boolean update(Message message){
+	public Boolean update(Message message) {
 		String hql = "update from Message set content= :content where id= :id";
-		int flag=getCurrentSession().createQuery(hql).setString("content",message.getContent()).setInteger("id", message.getId()).executeUpdate();
-		if(flag!=0){
+		int flag = getCurrentSession().createQuery(hql)
+				.setString("content", message.getContent())
+				.setInteger("id", message.getId()).executeUpdate();
+		if (flag != 0) {
 			return true;
-		}
-		else{
+		} else {
 			return false;
 		}
 	}
-	
-/*
- * 通过father_id查找子留言
- * 
- */
-	 @SuppressWarnings("unchecked")
-	public List<Message> findDetail(int fatherId){
+
+	/*
+	 * 通过father_id查找子留言
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Message> findDetail(int fatherId) {
 		String hql = "from Message where fatherId= :fatherId ";
-		List<Message> detaillist = (List<Message>) getCurrentSession().createQuery(hql).setInteger("fatherId",fatherId).list();
+		List<Message> detaillist = (List<Message>) getCurrentSession()
+				.createQuery(hql).setInteger("fatherId", fatherId).list();
 		return detaillist;
 	}
 }

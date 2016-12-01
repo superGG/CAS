@@ -12,9 +12,10 @@ public interface ActivityDao extends BaseDao<Activity>{
  * 修改活动	
  */
  Boolean update(Activity activity);
+
 	
 /*
  * 查找活动详情
  */
-  List<Activity> findDetail(int id);
+  Activity findDetail(int id);
 }

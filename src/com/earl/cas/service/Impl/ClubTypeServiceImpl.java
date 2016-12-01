@@ -48,16 +48,8 @@ public class ClubTypeServiceImpl extends BaseServiceImpl<ClubType> implements
 		 
 	}
 	
-   // public List<ClubType> getByClubTypeName(String clubTypeName){
-    	//List<ClubType> clubtypelist = clubTypeDao.getByName(clubTypeName);
-    	//if(clubtypelist==null){
-		//	return
-		//}
-	//	else{
-		//	throw new DomainSecurityException("该社团类型已存在");
-	//	}
-  //  }
-	
+
+	//获取社团类型名称
 	@Override
 	public List<ClubType> getByClubTypeName(ClubType clubtype) {
 		List<ClubType> typename = clubTypeDao.getTypeName(clubtype);
