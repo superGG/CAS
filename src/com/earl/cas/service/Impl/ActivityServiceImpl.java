@@ -48,9 +48,9 @@ ActivityService {
  * 查看所有活动
  */
 	@Override
-	public List<Activity> findAllActivity(){
-		List<Activity> allList = activityDao.findAll();
-		if(allList != null){
+	public List<Activity> findAllActivity(PageInfo pageInfo){
+		List<Activity> allList = activityDao.findAll(pageInfo);
+		if(!allList.isEmpty()){
 			for(Activity activity:allList){
 				Club club = clubDao.get(activity.getClubId());//从活动里提取出社团id
 				activity.setClubName(club.getName());//将对应社团id的名字传进活动列表

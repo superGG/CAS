@@ -18,6 +18,7 @@ import com.earl.cas.entity.Activity;
 import com.earl.cas.entity.Club;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ActivityService;
+import com.earl.cas.vo.PageInfo;
 import com.earl.cas.vo.ResultMessage;
 
 /**
@@ -38,7 +39,7 @@ public class ActivityController extends BaseController {
 
 	
 	/**
-	 *PSOT /activity -> 创建活动,标题和内容均不能为空
+	 *创建活动,标题和内容均不能为空
 	 */
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> createActivity(Activity activity){
@@ -55,7 +56,7 @@ public class ActivityController extends BaseController {
 	}
 	
 	/**
-	 *POST /activity -> 删除活动
+	 * 删除活动
 	 */
 	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> deleteActivity(Integer id) {
@@ -69,7 +70,7 @@ public class ActivityController extends BaseController {
 	}
 	
 	/**
-	 *POST /activity ->  修改活动，标题和内容均不能为空
+	 * 修改活动，标题和内容均不能为空
 	 */
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> updateActivity(Activity activity) {
@@ -86,20 +87,21 @@ public class ActivityController extends BaseController {
 	}
 	
 	/**
-	 * GET /activity -> 查看所有活动
+	 *  查看所有活动
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)//返回结果是jason类型
-	public  ResponseEntity<ResultMessage> getAllActivity() {
+	public  ResponseEntity<ResultMessage> getAllActivity(PageInfo pageInfo) {
 		logger.debug("REST request to get all activity");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Activity> activityList = activityService.findAllActivity();
+		List<Activity> activityList = activityService.findAllActivity(pageInfo);
 		result.getResultParm().put("activity", activityList);
+		result.getResultParm().put("total", activityList.size());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
 	/**
-	 *POST /activity -> 查看活动详情
+	 *查看活动详情
 	 */
 	@RequestMapping(value = "/getDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<ResultMessage> getDetail(int id) {

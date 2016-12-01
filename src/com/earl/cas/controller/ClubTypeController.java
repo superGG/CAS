@@ -15,6 +15,7 @@ import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.ClubType;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ClubTypeService;
+import com.earl.cas.vo.PageInfo;
 import com.earl.cas.vo.ResultMessage;
 
 /**
@@ -37,12 +38,13 @@ public class ClubTypeController extends BaseController {
 	 * 查看全部社团类型
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> getAll() {
+	public  ResponseEntity<ResultMessage> getAll(PageInfo pageInfo) {
 		logger.debug("REST request to get all clubType");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<ClubType> clubTypeList = clubTypeService.findAll();
+		List<ClubType> clubTypeList = clubTypeService.findAll(pageInfo);
 		result.getResultParm().put("clubType", clubTypeList);
+		result.getResultParm().put("total", pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	

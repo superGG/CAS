@@ -5,6 +5,7 @@ import java.util.List;
 import com.earl.cas.commons.service.BaseService;
 import com.earl.cas.entity.Activity;
 import com.earl.cas.entity.Message;
+import com.earl.cas.vo.PageInfo;
 
 
 public interface ActivityService extends BaseService<Activity> {
@@ -17,7 +18,7 @@ public interface ActivityService extends BaseService<Activity> {
 /*
  * 查看所有活动
  */
-	List<Activity> findAllActivity();
+	List<Activity> findAllActivity(PageInfo pageInfo);
 		
 /*
  * 查看活动详情

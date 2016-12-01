@@ -35,7 +35,7 @@ public class MessageController extends BaseController {
 	private ResultMessage result = null;
 
 	/**
-	 *GET /message -> 得到所有留言
+	 * 得到所有留言
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<ResultMessage> getAll() {
@@ -48,7 +48,7 @@ public class MessageController extends BaseController {
 	}
 	
 	/**
-	 *GET /message -> 根据父留言id查到子留言
+	 *根据父留言id查到子留言
 	 */
 	@RequestMapping(value = "/getTwoMessgae", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<ResultMessage> getDetail(Integer fatherId) {
@@ -82,7 +82,7 @@ public class MessageController extends BaseController {
 	}
 
 	/**
-	 *POST /message -> 根据id删除留言
+	 *根据id删除留言
 	 */
 	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> deleteMessage(Integer id) {
@@ -96,7 +96,7 @@ public class MessageController extends BaseController {
 	}
 	
 	/**
-	 *POST /message -> 添加留言
+	 * 添加留言
 	 */
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> saveMessage(Message message){
@@ -112,7 +112,7 @@ public class MessageController extends BaseController {
 	}
 	
 	/**
-	 * POST /message -> 更新留言
+	 * 更新留言
 	 */
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> update(Message message) {
