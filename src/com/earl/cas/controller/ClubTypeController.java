@@ -68,6 +68,7 @@ public class ClubTypeController extends BaseController {
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> save(ClubType clubtype) {
 		logger.debug("REST request to delete clubType");
+		//查找输入的名字是否在数据库中存在
 		List<ClubType> typeName = clubTypeService.getByClubTypeName(clubtype);
 		if(!typeName.isEmpty()){
 			throw new DomainSecurityException("社团类型已存在");
@@ -85,6 +86,7 @@ public class ClubTypeController extends BaseController {
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> update(ClubType clubtype) {
 		logger.debug("REST request to update ClubType");
+		//查找输入的名字是否在数据库中存在
 		List<ClubType> typeName = clubTypeService.getByClubTypeName(clubtype);
 		if(!typeName.isEmpty()){
 			throw new DomainSecurityException("社团类型已存在");
