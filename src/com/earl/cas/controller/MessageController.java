@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Message;
+import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.MessageService;
+import com.earl.cas.vo.PageInfo;
 import com.earl.cas.vo.ResultMessage;
 
 /**
@@ -34,33 +36,55 @@ public class MessageController extends BaseController {
 	private ResultMessage result = null;
 
 	/**
-	 *GET /message -> 得到所有留言
+	 * 得到所有留言
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> getAll() {
+	public  ResponseEntity<ResultMessage> getAll(PageInfo pageInfo) {
 		logger.debug("REST request to get all message");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Message> messageList = messageService.findAll();
+		List<Message> messageList = messageService.findAll(pageInfo);
 		result.getResultParm().put("message", messageList);
+		result.getResultParm().put("total", pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
 	/**
-	 *POST /message -> 根据父留言id查到子留言
+	 *根据父留言id查到子留言
 	 */
-	@RequestMapping(value = "/getDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> getDetail(int fatherId) {
+	@RequestMapping(value = "/getTwoMessgae", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getDetail(Integer fatherId) {
 		logger.debug("REST request to get all message");
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		List<Message> detailList = messageService.findDetail(fatherId);
 		result.getResultParm().put("message", detailList);
+		result.getResultParm().put("total", detailList.size());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
 	/**
-	 *POST /message -> 根据id删除留言
+	 * 查询所有父留言.
+	 *@author 宋.
+	 * @param indexPageNum 当前页
+	 * @param size 每页数量 
+	 * @return
+	 */
+	@RequestMapping(value = "/getOneMessgae", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getOneMessgae(PageInfo pageInfo) {
+		logger.info("查询所有父留言");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		Message message = new Message();
+		message.setFatherId(0);
+		List<Message> detailList = messageService.getOneMessgae(message, pageInfo);
+		result.getResultParm().put("message", detailList);
+		result.getResultParm().put("total", pageInfo.getTotalCount());
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+
+	/**
+	 *根据id删除留言
 	 */
 	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> deleteMessage(Integer id) {
@@ -74,30 +98,38 @@ public class MessageController extends BaseController {
 	}
 	
 	/**
-	 *POST /message -> 添加留言
+	 * 添加留言
 	 */
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> saveMessage(Message message){
 		logger.debug("REST request to save message");
 		result = new ResultMessage();
-		result.setServiceResult(true);
+		if (message.getFatherId() == null) { //如果是父留言
+			message.setFatherId(0);
+		}
 		messageService.save(message);
+		result.setServiceResult(true);
 		result.setResultInfo("添加成功");
+		result.getResultParm().put("message", messageService.findById(message.getId()));
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
 	/**
-	 * POST /message -> 更新留言
+	 * 更新留言
 	 */
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> update(Message message) {
 		logger.debug("REST request to update Message");
+		if (message.getId() == null) {
+			throw new DomainSecurityException("id不能为空");
+		}
 		result = new ResultMessage();
+		messageService.updateWithNotNullProperties(message);
+		message = messageService.findById(message.getId());
 		result.setServiceResult(true);
-		messageService.update(message);
 		result.setResultInfo("更新成功");
+		result.getResultParm().put("message", message);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
-
 }

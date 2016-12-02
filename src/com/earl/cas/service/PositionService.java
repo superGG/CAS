@@ -21,5 +21,11 @@ public interface PositionService extends BaseService<Position> {
 	 * @return
 	 */
 	List<Position> getByClubId(int id);
+	/**
+	 * 更新社团职位
+	 * @param position
+	 */
+	void update(Position position);
+
 
 }

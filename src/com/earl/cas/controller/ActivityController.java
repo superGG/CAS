@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Activity;
+import com.earl.cas.entity.Club;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ActivityService;
+import com.earl.cas.vo.PageInfo;
 import com.earl.cas.vo.ResultMessage;
 
 /**
@@ -37,11 +39,12 @@ public class ActivityController extends BaseController {
 
 	
 	/**
-	 *PSOT /activity -> 创建活动,标题和内容均不能为空
+	 *创建活动,标题和内容均不能为空
 	 */
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> createActivity(Activity activity){
 		logger.debug("REST request to save activity");
+		//判断输入的活动标题或者活动内容是否为空
 		if(StringUtils.isBlank(activity.getContent()) | StringUtils.isBlank(activity.getTitle())){//判断活动标题和内容是否为空
 			throw new DomainSecurityException("标题和内容均不能为空");
 		}
@@ -53,7 +56,7 @@ public class ActivityController extends BaseController {
 	}
 	
 	/**
-	 *POST /activity -> 删除活动
+	 * 删除活动
 	 */
 	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> deleteActivity(Integer id) {
@@ -67,11 +70,12 @@ public class ActivityController extends BaseController {
 	}
 	
 	/**
-	 *POST /activity ->  修改活动，标题和内容均不能为空
+	 * 修改活动，标题和内容均不能为空
 	 */
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> updateActivity(Activity activity) {
 		logger.debug("REST request to update activity");
+		//判断输入的活动标题或者活动内容是否为空
 		if (StringUtils.isBlank(activity.getContent()) | StringUtils.isBlank(activity.getTitle())) {//判断活动标题和内容是否为空
 			throw new DomainSecurityException("内容或标题均不能为空");
 		}
@@ -83,28 +87,29 @@ public class ActivityController extends BaseController {
 	}
 	
 	/**
-	 * GET /activity -> 查看所有活动
+	 *  查看所有活动
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)//返回结果是jason类型
-	public  ResponseEntity<ResultMessage> getAll() {
+	public  ResponseEntity<ResultMessage> getAllActivity(PageInfo pageInfo) {
 		logger.debug("REST request to get all activity");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Activity> activityList = activityService.findAll();
+		List<Activity> activityList = activityService.findAllActivity(pageInfo);
 		result.getResultParm().put("activity", activityList);
+		result.getResultParm().put("total", activityList.size());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
 	/**
-	 *POST /activity -> 查看活动详情
+	 *查看活动详情
 	 */
 	@RequestMapping(value = "/getDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<ResultMessage> getDetail(int id) {
 		logger.debug("REST request to get activityDetail");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Activity> detailList = activityService.findDetail(id);
-		result.getResultParm().put("activity", detailList);
+		Activity activityDetail = activityService.findDetail(id);
+		result.getResultParm().put("activity", activityDetail);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	

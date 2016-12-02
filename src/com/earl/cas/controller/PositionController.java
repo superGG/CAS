@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Position;
 import com.earl.cas.service.PositionService;
+import com.earl.cas.vo.PageInfo;
 import com.earl.cas.vo.ResultMessage;
 
 /**
@@ -47,9 +48,22 @@ public class PositionController extends BaseController {
 		result.getResultParm().put("position", positionList);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	/**
+	 * GET /position -> get all the position  分页查询
+	 * @param PageInfo
+	 */
+	@RequestMapping(value = "/getPageAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> getAll(PageInfo pageInfo) {
+		logger.debug("REST request to get all position");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Position> positionList = positionService.findAll(pageInfo);
+		result.getResultParm().put("position", positionList);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 
 	/**
-	 * POST /position -> 通过社团名字获得职位信息
+	 * POST /position -> 通过社团名字获得该社团职位信息
 	 */
 	@RequestMapping(value = "/getByClubName", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> getByClubName(String name) {
@@ -60,6 +74,8 @@ public class PositionController extends BaseController {
 		result.getResultParm().put("position", positionList);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	
+
 	/**
 	 * GET /position -> 通过社团ID获得职位信息
 	 */
@@ -85,5 +101,28 @@ public class PositionController extends BaseController {
 		result.setResultInfo("添加成功");
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-
+	/**
+	 * 更新社团职位
+	 */
+	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> update(Position position) {
+		logger.debug("REST request to update position");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		positionService.update(position);
+		result.setResultInfo("更新成功");
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	/**
+	 * 删除职位
+	 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> delete(int positionId) {
+		logger.debug("REST request to delete position");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		positionService.deleteById(positionId);
+		result.setResultInfo("删除成功");
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 }

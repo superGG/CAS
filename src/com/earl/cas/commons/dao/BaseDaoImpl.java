@@ -26,30 +26,28 @@ import org.slf4j.LoggerFactory;
 import com.earl.cas.commons.domain.IdAnnotatioin;
 import com.earl.cas.vo.PageInfo;
 
-
-
 public class BaseDaoImpl<T> implements BaseDao<T> {
 
-    private static Logger logger = LoggerFactory.getLogger(BaseDaoImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(BaseDaoImpl.class);
 
-    @SuppressWarnings("rawtypes")
+	@SuppressWarnings("rawtypes")
 	private Class entityClazz;
 
-    @SuppressWarnings("unchecked")
-    public BaseDaoImpl() {
-        Type genType = getClass().getGenericSuperclass();
-        Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
-        entityClazz = (Class<T>) params[0];
-    }
-    
-    @Resource(name = "sessionFactory")
+	@SuppressWarnings("unchecked")
+	public BaseDaoImpl() {
+		Type genType = getClass().getGenericSuperclass();
+		Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
+		entityClazz = (Class<T>) params[0];
+	}
+
+	@Resource(name = "sessionFactory")
 	SessionFactory sessionFactory;
-    
-    public Session getCurrentSession() {
+
+	public Session getCurrentSession() {
 		logger.debug("进入getCurrentSession函数");
 		return sessionFactory.getCurrentSession();
 	}
-    
+
 	// 插入对象
 	@Override
 	/**
@@ -61,7 +59,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	public Integer save(T t) {
 		System.out.println(t.toString());
 		// logger.debug("saving " + clazz.getName() + " instance");
-		Integer id =  (Integer) getCurrentSession().save(t);
+		Integer id = (Integer) getCurrentSession().save(t);
 		return id;
 	}
 
@@ -69,8 +67,10 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	@Override
 	public int deleteById(Integer id) {
 		logger.debug("delete " + entityClazz.getName() + " instance");
-		String hql = "delete from " + entityClazz.getSimpleName() + " where id = ?";
-		return getCurrentSession().createQuery(hql).setInteger(0, id).executeUpdate();		
+		String hql = "delete from " + entityClazz.getSimpleName()
+				+ " where id = ?";
+		return getCurrentSession().createQuery(hql).setInteger(0, id)
+				.executeUpdate();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -79,7 +79,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		T object = (T) getCurrentSession().get(entityClazz, id);
 		return object;
 	}
-	
+
 	// 查找该表中的所有记录，
 	@SuppressWarnings("unchecked")
 	@Override
@@ -126,6 +126,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		try {
 			logger.info(persistentInstance.toString());
 			getCurrentSession().delete(persistentInstance);
+			getCurrentSession().flush();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -241,6 +242,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		}
 	}
 
+	/*
+	 * 获取非空值
+	 */
 	private Map<String, Object> getNotNullProperties(T object) {
 		Map<String, Object> notNullParam = null;
 		BeanMap beanMap = new BeanMap(object);
@@ -249,24 +253,26 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		String propertyName = null;
 		while (keyIterator.hasNext()) {
 			propertyName = (String) keyIterator.next();
-			if (!"class".equals(propertyName)
-					&& beanMap.get(propertyName) != null
-					&& !"".equals(beanMap.get(propertyName))) {
-				notNullParam.put(propertyName, beanMap.get(propertyName));
+			if (!propertyName.contains("List")) { // 将List属性排除掉
+				if (!"class".equals(propertyName)
+						&& beanMap.get(propertyName) != null
+						&& !"".equals(beanMap.get(propertyName))) {
+					notNullParam.put(propertyName, beanMap.get(propertyName));
+				}
 			}
 		}
 		return notNullParam;
 	}
-	
-	protected Criteria pageAttribute(Criteria criteria,PageInfo pageInfo){
-		
-				pageInfo.setTotalCount((Long) criteria.setProjection(
-						Projections.rowCount()).uniqueResult());
-				criteria.setProjection(null);
-				criteria.setFirstResult(
-						(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
-						.setMaxResults(pageInfo.getSize()).list();
-				return criteria;
+
+	protected Criteria pageAttribute(Criteria criteria, PageInfo pageInfo) {
+
+		pageInfo.setTotalCount((Long) criteria.setProjection(
+				Projections.rowCount()).uniqueResult());
+		criteria.setProjection(null);
+		criteria.setFirstResult(
+				(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
+				.setMaxResults(pageInfo.getSize()).list();
+		return criteria;
 	}
 
 }

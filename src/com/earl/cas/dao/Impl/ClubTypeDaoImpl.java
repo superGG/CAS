@@ -35,11 +35,18 @@ public class ClubTypeDaoImpl extends BaseDaoImpl<ClubType> implements ClubTypeDa
 			return false;
 		}
 	}
-
+	
+    //获取输入社团类型名称是否在数据库中存在
 	public List<ClubType> getTypeName(ClubType clubtype) {
 		String hql = "from ClubType where name = :name ";
 		List<ClubType> typename= getCurrentSession().createQuery(hql).setString("name",clubtype.getName()).list();
 		return typename;
+	}
+	
+	public ClubType getByName(String name){
+		String hql = "from ClubType where name = :name ";
+		ClubType clubtype = (ClubType) getCurrentSession().createQuery(hql).setString("name",name).uniqueResult();
+		return clubtype;
 	}
 
 }

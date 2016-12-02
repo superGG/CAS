@@ -5,6 +5,7 @@ import java.util.List;
 import com.earl.cas.commons.service.BaseService;
 import com.earl.cas.entity.Activity;
 import com.earl.cas.entity.Message;
+import com.earl.cas.vo.PageInfo;
 
 
 public interface ActivityService extends BaseService<Activity> {
@@ -13,9 +14,16 @@ public interface ActivityService extends BaseService<Activity> {
  * 修改活动	
  */
 	Boolean updateActivity(Activity activity);
+	
+/*
+ * 查看所有活动
+ */
+	List<Activity> findAllActivity(PageInfo pageInfo);
+		
 /*
  * 查看活动详情
  */
-	List<Activity> findDetail(int id);
+	Activity findDetail(int id);
+
 
 }

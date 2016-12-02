@@ -18,6 +18,7 @@ import com.earl.cas.entity.Club;
 import com.earl.cas.service.ApplyService;
 import com.earl.cas.service.ClubService;
 import com.earl.cas.service.UserclubService;
+import com.earl.cas.vo.PageInfo;
 import com.earl.cas.vo.ResultMessage;
 import com.earl.cas.vo.Member;
 /**
@@ -85,7 +86,7 @@ public class ApplyController extends BaseController {
 	}
 
 	/**
-	 * 查看自己社团的入社申请书->申请书管理列表
+	 * 查看自己社团的全部入社申请书->申请书管理列表
 	 */
 	@RequestMapping(value = "/displayClubApply", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> displayClubApply(int detailId) {
@@ -102,7 +103,61 @@ public class ApplyController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 	/**
-	 * 同意申请并添加成员->对非空属性进行更新
+	 * 查看自己社团的已通过审核的入社申请书->申请书管理列表
+	 */
+	@RequestMapping(value = "/displayClubApplyIsOk", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> displayClubApplyStatueIsOk(int detailId) {
+		logger.debug("REST request to display club apply which statue is OK");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+
+		// 获取用户创建的社团
+		Club club = clubService.getClubByuserDetailId(detailId);
+
+		// 通过clubId获得对应社团的已经通过的申请书
+		List<Apply> applylist = applyService.getClubApplyIsOk(club.getId());
+		result.getResultParm().put("apply", applylist);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	
+	/**
+	 * 查看自己社团的已审核的入社申请书->申请书管理列表
+	 */
+	@RequestMapping(value = "/displayClubApplyHasExam", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> displayClubApplyHasExam(int detailId) {
+		logger.debug("REST request to display club apply which statue is 1 or 0");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+
+		// 获取用户创建的社团
+		Club club = clubService.getClubByuserDetailId(detailId);
+
+		// 通过clubId获得对应社团的已经审核的申请书
+		List<Apply> applylist = applyService.getClubApplyHasExam(club.getId());
+		result.getResultParm().put("apply", applylist);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	
+	/**
+	 * 查看自己社团的未审核的入社申请书->申请书管理列表
+	 */
+	@RequestMapping(value = "/displayClubApplyNotExam", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> displayClubApplyNotExam(int detailId) {
+		logger.debug("REST request to display club apply which statue is 2");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+
+		// 获取用户创建的社团
+		Club club = clubService.getClubByuserDetailId(detailId);
+
+		// 通过clubId获得对应社团的未审核的申请书
+		List<Apply> applylist = applyService.getClubApplyNotExam(club.getId());
+		result.getResultParm().put("apply", applylist);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	
+	/**
+	 * 审核入社申请->statue由前端传入  0同意，1拒绝 
 	 */
 	@RequestMapping(value = "/isAgree", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> isAgree(int applyId,int statue) {
@@ -113,6 +168,19 @@ public class ApplyController extends BaseController {
 		result.setResultInfo("该成员已加入社团");
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	/**
+	 * 拒绝申请->对非空属性进行更新
+	 */
+	@RequestMapping(value = "/notAgree", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> notAgree(int applyId) {
+		logger.debug("REST request to do not agree a apply");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		applyService.notAgree(applyId);
+		result.setResultInfo("拒绝该成员加入社团");
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	
 	/**
 	 * 剔除成员->根据申请书Id
 	 */
@@ -151,7 +219,47 @@ public class ApplyController extends BaseController {
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		List<Member> memberlist = applyService.getMember(detailId);
+		result.getResultParm().put("memberlist", memberlist);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	/**
+	 * 查看成员列表->分页查询
+	 */
+	@RequestMapping(value = "/displayPageMember", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> displayPageMember(int detailId,PageInfo pageInfo) {
+		logger.debug("REST request to display club member");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Member> memberlist = applyService.getMember(detailId,pageInfo);
+		result.getResultParm().put("memberlist", memberlist);
+		result.getResultParm().put("pageTotal",pageInfo.getTotalCount());
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	
+	/**
+	 * 查看成员详情
+	 */
+	@RequestMapping(value = "/memberDetail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> memberDetail(int applyId) {
+		logger.debug("REST request to display club member detail");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		Apply apply = applyService.getMemberDetail(applyId);
+		result.getResultParm().put("apply", apply);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	
+	/**
+	 * 搜索成员
+	 */
+	@RequestMapping(value = "/searchMember", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> searchMember(int detailId,String name) {
+		logger.debug("REST request to search club member");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Member> memberlist = applyService.searchMember(detailId,name);
 		result.getResultParm().put("apply", memberlist);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	
 }

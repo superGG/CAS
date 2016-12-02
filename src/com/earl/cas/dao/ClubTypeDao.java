@@ -21,5 +21,10 @@ public interface ClubTypeDao extends BaseDao<ClubType>{
 	 * 获取社团类型名字
 	 */
 	List<ClubType>  getTypeName(ClubType clubtype);
-	
+	/**
+	 * 根据名字获取
+	 * @param name
+	 * @return
+	 */
+	ClubType getByName(String name);
 }

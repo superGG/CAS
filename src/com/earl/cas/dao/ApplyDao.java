@@ -26,5 +26,29 @@ public interface ApplyDao extends BaseDao<Apply> {
 	 * @return
 	 */
 	List<Apply> getApplyByClubIdStatusIsOk(int id);
+	/**
+	 * 通过社团ID找到该社团statue不等于2的入社申请书
+	 * @param id
+	 */
+	List<Apply> getApplyByClubIdStatueNotTwo(int id);
+	/**
+	 * 通过社团ID找到该社团statue等于2的入社申请
+	 * @param id
+	 * @return
+	 */
+	List<Apply> getApplyByClubIdStatueIsTwo(int id);
+	/**
+	 * 分页查询status为0（通过审核）的apply
+	 * @param clubId
+	 * @param pageIndex
+	 * @return
+	 */
+	List<Apply> getPageApplyByClubIdStatusIsOk(int clubId, int pageIndex);
+	/**
+	 * 根据名字搜索成员
+	 * @param id
+	 * @param name
+	 */
+	List<Apply> getByName(Integer id, String name);
 
 }
