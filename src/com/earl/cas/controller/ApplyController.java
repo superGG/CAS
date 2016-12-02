@@ -248,4 +248,18 @@ public class ApplyController extends BaseController {
 		result.getResultParm().put("apply", apply);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	
+	/**
+	 * 搜索成员
+	 */
+	@RequestMapping(value = "/searchMember", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> searchMember(int detailId,String name) {
+		logger.debug("REST request to search club member");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Member> memberlist = applyService.searchMember(detailId,name);
+		result.getResultParm().put("apply", memberlist);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	
 }

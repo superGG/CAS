@@ -2,6 +2,10 @@ package com.earl.cas.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.earl.cas.commons.service.BaseService;
 import com.earl.cas.entity.Club;
 
@@ -30,5 +34,19 @@ public interface ClubService extends BaseService<Club> {
 	 * @return
 	 */
 	Club getClubByuserDetailId(int id);
+	/**
+	 * 获取自己的社团信息
+	 * @param detailId
+	 * @return
+	 */
+	Club getMyClub(int detailId);
+	/**
+	 * 更新我的社团
+	 * @param club
+	 * @param file
+	 * @param request
+	 * @param typeName 
+	 */
+	void updateMyclub(Club club, MultipartFile file, HttpServletRequest request, String typeName);
 
 }
