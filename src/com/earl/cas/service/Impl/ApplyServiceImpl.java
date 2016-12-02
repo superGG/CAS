@@ -149,7 +149,7 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		Apply applyVo = new Apply();
 		applyVo.setClubId(clubId);
 		applyVo.setStatue(0);
-		List<Apply> applylist = applyDao.findByGivenCriteria(applyVo,pageInfo);
+		List<Apply> applylist = applyDao.findByGivenCriteria(applyVo, pageInfo);
 		// 遍历将信息放进vo类
 		for (Apply apply : applylist) {
 			name = apply.getName(); // 从申请书中获得成员名字
@@ -157,7 +157,7 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 			member.setId(i); // 编号
 			member.setName(name);
 			userclub = userclubDao.getUserclubByApplyId(apply.getId()); // 获得成员社团关联表
-			userclub.getPositionId();
+			// userclub.getPositionId();
 			member.setCreateTime(userclub.getCreatetime()); // userclub上的加入时间
 			position = positionDao.get(userclub.getPositionId()); // 根据具体职位Id获得职位
 																	// 提取出职位名字
@@ -220,4 +220,42 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		apply.setStatue(1);
 		applyDao.updateWithNotNullProperties(apply);
 	}
+
+	public List<Member> searchMember(int detailId, String name) {
+		// 一些临时变量
+		List<Member> memberlist = new ArrayList<Member>();
+		String memberName;
+		int clubId;
+		int i = 1; // 计数标记
+		Userclub userclub;
+		Position position;
+		// 获得对应的club
+		Club club = clubDao.getClubByuserDetailId(detailId);
+		clubId = club.getId();
+		// 查询相关入社申请书->statue=0，name=%name%，clubId=club.Id;
+		List<Apply> applylist = applyDao.getByName(clubId, name);
+		if (applylist == null) {
+			logger.info("搜索结果为空");
+			return null;
+		} else {
+			for (Apply apply : applylist) {
+					Member member = new Member();
+					memberName = apply.getName(); // 从申请书中获得成员名字
+					member.setId(i); // 编号
+					member.setName(memberName);
+					userclub = userclubDao.getUserclubByApplyId(apply.getId()); // 获得成员社团关联表
+					member.setCreateTime(userclub.getCreatetime()); // userclub上的加入时间
+					position = positionDao.get(userclub.getPositionId()); // 根据具体职位Id获得职位															// 提取出职位名字
+					member.setPosition(position.getName());
+					member.setTel(apply.getPhone());
+					member.setMajorClass(apply.getMajorClass());
+					member.setApplyId(apply.getId());
+					i++; // 计数器加1
+					if (member != null) {
+						memberlist.add(member);
+					}
+				}
+				return memberlist;
+			}
+		}
 }

@@ -71,4 +71,13 @@ public class ApplyDaoImpl extends BaseDaoImpl<Apply> implements ApplyDao {
 				.setFirstResult((pageIndex - 1) * 10).setMaxResults(10).list();
 		return applylist;
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Apply> getByName(Integer id, String name) {
+		String hql = "from Apply where  clubId = :id and statue = :statue and name like :name";
+		List<Apply> applylist = getCurrentSession().createQuery(hql)
+				.setInteger("id", id).setInteger("statue", 0)
+				.setString("name", "%" + name + "%").list();
+		return applylist;
+	}
 }

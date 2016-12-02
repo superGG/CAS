@@ -126,6 +126,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		try {
 			logger.info(persistentInstance.toString());
 			getCurrentSession().delete(persistentInstance);
+			getCurrentSession().flush();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -241,6 +242,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		}
 	}
 
+	/*
+	 * 获取非空值
+	 */
 	private Map<String, Object> getNotNullProperties(T object) {
 		Map<String, Object> notNullParam = null;
 		BeanMap beanMap = new BeanMap(object);
@@ -249,7 +253,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		String propertyName = null;
 		while (keyIterator.hasNext()) {
 			propertyName = (String) keyIterator.next();
-			if (!propertyName.equals("positionNameList")||!propertyName.equals("clubTypeList")) {
+			if (!propertyName.contains("List")) { // 将List属性排除掉
 				if (!"class".equals(propertyName)
 						&& beanMap.get(propertyName) != null
 						&& !"".equals(beanMap.get(propertyName))) {

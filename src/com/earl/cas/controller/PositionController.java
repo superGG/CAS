@@ -63,7 +63,7 @@ public class PositionController extends BaseController {
 	}
 
 	/**
-	 * POST /position -> 通过社团名字获得职位信息
+	 * POST /position -> 通过社团名字获得该社团职位信息
 	 */
 	@RequestMapping(value = "/getByClubName", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> getByClubName(String name) {
@@ -74,6 +74,8 @@ public class PositionController extends BaseController {
 		result.getResultParm().put("position", positionList);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	
+
 	/**
 	 * GET /position -> 通过社团ID获得职位信息
 	 */

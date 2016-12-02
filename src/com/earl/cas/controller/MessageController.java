@@ -40,12 +40,13 @@ public class MessageController extends BaseController {
 	 * 得到所有留言
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> getAll() {
+	public  ResponseEntity<ResultMessage> getAll(PageInfo pageInfo) {
 		logger.debug("REST request to get all message");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Message> messageList = messageService.findAll();
+		List<Message> messageList = messageService.findAll(pageInfo);
 		result.getResultParm().put("message", messageList);
+		result.getResultParm().put("total", pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
@@ -114,6 +115,7 @@ public class MessageController extends BaseController {
 		messageService.save(message);
 		result.setServiceResult(true);
 		result.setResultInfo("添加成功");
+		result.getResultParm().put("message", messageService.findById(message.getId()));
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
@@ -124,9 +126,11 @@ public class MessageController extends BaseController {
 	public ResponseEntity<ResultMessage> update(Message message) {
 		logger.debug("REST request to update Message");
 		result = new ResultMessage();
-		result.setServiceResult(true);
 		messageService.updateWithNotNullProperties(message);
+		message = messageService.findById(message.getId());
+		result.setServiceResult(true);
 		result.setResultInfo("更新成功");
+		result.getResultParm().put("message", message);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	

@@ -1,7 +1,5 @@
 package com.earl.cas.dao.Impl;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
 
 import com.earl.cas.commons.dao.BaseDaoImpl;
@@ -23,7 +21,6 @@ public class ActivityDaoImpl extends BaseDaoImpl<Activity> implements
 	 * 
 	 * @see com.earl.cas.dao.ActivityDao#find(int)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public Activity findDetail(int id) {
 		String hql = "from Activity where id= :id";
