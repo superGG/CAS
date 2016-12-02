@@ -27,4 +27,5 @@ public interface PositionService extends BaseService<Position> {
 	 */
 	void update(Position position);
 
+
 }

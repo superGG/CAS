@@ -73,5 +73,12 @@ public interface ApplyService extends BaseService<Apply> {
 	 * @return
 	 */
 	List<Member> getMember(int detailId, PageInfo pageInfo);
+	/**
+	 * 搜索成员
+	 * @param detailId
+	 * @param name
+	 * @return
+	 */
+	List<Member> searchMember(int detailId, String name);
 
 }

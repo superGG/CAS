@@ -44,5 +44,11 @@ public interface ApplyDao extends BaseDao<Apply> {
 	 * @return
 	 */
 	List<Apply> getPageApplyByClubIdStatusIsOk(int clubId, int pageIndex);
+	/**
+	 * 根据名字搜索成员
+	 * @param id
+	 * @param name
+	 */
+	List<Apply> getByName(Integer id, String name);
 
 }
