@@ -1,0 +1,74 @@
+.editor{
+	position: relative;
+	padding: 5px;
+}
+.editor .editorContent{
+	min-height: 30px;
+	border: 1px solid #ccc;
+	padding: 5px;
+	overflow:visible;
+}
+.editor .toolBar{
+	display: none;
+	background-color: #ccc;
+	padding: 5px;
+	overflow: hidden;
+}
+.editor .toolBar .expression{
+	float: left;
+	width: 20px;
+	height: 20px;
+	border:1px solid #ccc;
+	background:url("../images/photo-scan-layer.png")no-repeat -490px -34px;
+}
+.editor .toolBar .expression:hover{
+	border:1px solid #fff;
+	background-position: -490px -52px;
+	cursor: pointer;
+}
+.expression-panel{
+	position: absolute;
+	border:1px solid #ccc; 
+	background-color: #fff;
+	z-index: 99;
+}
+.expression-panel ul{
+	width: 361px;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+.expression-panel li{
+	float: left;
+	list-style-type: none;
+	cursor:pointer;;
+}
+.expression-panel .expression-btn{
+	padding: 4px 0px;
+	text-align:center;
+}
+.expression-panel .expression-btn a{
+	margin: 4px;
+}
+.editor .comment_post{
+	display: none;
+	padding:5px 10px;
+	border:0;
+	border-radius:2px;
+	background-color: #48d4fd;
+    background-image: -webkit-linear-gradient(top, #48d4fd, #3dbeeb);
+	color:#fff;
+	margin-right:10px;
+	cursor: pointer;
+	border: 1px solid #DaDaDa;
+}
+.editor .comment_cancel{
+	display: none;
+	padding:5px 10px;
+	border:0;
+	border-radius:2px;
+	background-color: #F8F8F8;
+    background-image: -webkit-linear-gradient(top, #ffffff, #fafafa);
+	cursor: pointer;
+	border: 1px solid #DaDaDa;
+}

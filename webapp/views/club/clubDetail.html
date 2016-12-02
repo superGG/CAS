@@ -1,18 +1,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>社团详情</title>
+	<link rel='icon' href='../../images/titile_logo.ico' type=‘image/x-ico’ /> 
+	<link rel="stylesheet" type="text/css" href="../../css/common.css">
 	<link rel="stylesheet" type="text/css" href="../../css/clubDetail.css">
+	<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+	<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
-	<div class="editor">
-		<div class="editorContent" contenteditable="true">
-			<img src="../../images/expression/1.gif">
+	<div class="top">
+			<div class="logobox">
+				<img id="logo" src="../../images/logo2.png">
+			</div>
+			<div class="nav">
+				<ul>
+					<li><a href="../index.html" >首页</a></li>
+					<li><a href="allClub.html">社团</a></li>
+					<li><a href="allActivity.html">活动</a></li>
+					<li><a href="../massage/massage.html">留言板</a></li>
+				</ul>
+			</div>
+			<div class="login">
+				<a href="javascript:void(0)" onclick="showLoginFrame()">登录</a>
+				<a href="javascript:void(0)" onclick="showRegisterFrame()">注册</a>
+			</div>
 		</div>
-		<div class="toolBar">
-			<span class="expression" title="表情" ></span>
+		<div class="main">
+        	<div class="clubDetai-top">
+            	<div class="club-logo">
+            		<img src="../../images/clubbadge.jpg">
+            	</div>
+            	<div class="club-info">
+            		<h2>广东海洋大学篮球社</h2>
+            		<div class="club-info-item"><span class="item-title">社团类型</span><span>文艺</span></div>
+            		<div class="club-info-item"><span class="item-title">社团位置</span><span>广东海洋大学</span></div>
+            		<div class="club-info-item"><span class="item-title">社团人数</span><span>18</span></div>
+            		<div class="apply-btn">申请加入</div>
+            	</div>
+            </div>
+            <div class="clubDetai-bar">
+            	<ul>
+            		<li class="info-tab">简介</li>
+            		<li class="activity-tab">活动</li>
+            		<li class="member-tab">成员</li>
+            		<li class="album-tab">相册</li>
+            	</ul>
+            </div>
+            <div class="clubDetai-content">
+            	
+            </div>
 		</div>
-	</div>
-	<script type="text/javascript" src="../../js/clubDetail.js"></script>
+		<div class="footer">
+			<p>
+				Copyright © 2016 Powered by 社团网申_第12组版权所有
+			</p>
+			<p>
+				地址：广东海洋大学钟海楼04019 邮政编码：524000　电话：18344094195
+			</p>
+			<div xmlns:wb="http://open.weibo.com/wb">
+				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../js/common.js"></script>
+		<script type="text/javascript" src="../../js/clubDetail.js"></script>
 </body>
 </html>
