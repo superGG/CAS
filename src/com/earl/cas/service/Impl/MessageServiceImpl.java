@@ -76,4 +76,5 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 		}
 		return oneMessageList;
 	}
+
 }

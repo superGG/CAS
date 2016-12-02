@@ -22,5 +22,8 @@ public interface MessageService extends BaseService<Message> {
 	 * 查找父留言
 	 */
 	List<Message> getOneMessgae(Message message, PageInfo pageInfo);
+	
+	
+	
 
 }

@@ -40,6 +40,8 @@ public class ActivityController extends BaseController {
 	
 	/**
 	 *创建活动,标题和内容均不能为空
+	 *@param activity
+	 *@author 祝
 	 */
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> createActivity(Activity activity){
@@ -57,6 +59,8 @@ public class ActivityController extends BaseController {
 	
 	/**
 	 * 删除活动
+	 * @param id
+	 * @author 祝
 	 */
 	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> deleteActivity(Integer id) {
@@ -71,6 +75,8 @@ public class ActivityController extends BaseController {
 	
 	/**
 	 * 修改活动，标题和内容均不能为空
+	 * @param activity
+	 * @author 祝
 	 */
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> updateActivity(Activity activity) {
@@ -88,6 +94,9 @@ public class ActivityController extends BaseController {
 	
 	/**
 	 *  查看所有活动
+	 *  @author 祝
+	 *  @param indexPageNum 当前页
+	 * @param size 每页数量 
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)//返回结果是jason类型
 	public  ResponseEntity<ResultMessage> getAllActivity(PageInfo pageInfo) {
@@ -96,12 +105,32 @@ public class ActivityController extends BaseController {
 		result.setServiceResult(true);
 		List<Activity> activityList = activityService.findAllActivity(pageInfo);
 		result.getResultParm().put("activity", activityList);
-		result.getResultParm().put("total", activityList.size());
+		result.getResultParm().put("total",pageInfo.getTotalCount());
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	/**
+	 * 根据社团id查找社团活动
+	 * @param activity
+	 * @param indexPageNum 当前页
+	 * @param size 每页数量 
+	 * @author 祝
+	 */
+	@RequestMapping(value = "/getClubActivity",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> getClubActivity(PageInfo pageInfo,Activity activity){
+		logger.debug("通过社团id查找社团活动");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Activity> clubActivityList = activityService.findByClubId(activity, pageInfo);
+		result.getResultParm().put("/Activity", clubActivityList);
+		result.getResultParm().put("total",pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
 	/**
 	 *查看活动详情
+	 *@param id
+	 *@author 祝
 	 */
 	@RequestMapping(value = "/getDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<ResultMessage> getDetail(int id) {
@@ -112,8 +141,6 @@ public class ActivityController extends BaseController {
 		result.getResultParm().put("activity", activityDetail);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
-	
-	
-	
+		
 
 }

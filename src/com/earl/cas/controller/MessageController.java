@@ -2,6 +2,7 @@ package com.earl.cas.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,10 +99,14 @@ public class MessageController extends BaseController {
 	
 	/**
 	 * 添加留言
+	 * @param content
 	 */
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> saveMessage(Message message){
 		logger.debug("REST request to save message");
+		if(StringUtils.isBlank(message.getContent())){//判断评论内容是否为空
+			throw new DomainSecurityException("评论内容不能为空");
+		}
 		result = new ResultMessage();
 		if (message.getFatherId() == null) { //如果是父留言
 			message.setFatherId(0);
@@ -118,9 +123,6 @@ public class MessageController extends BaseController {
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> update(Message message) {
 		logger.debug("REST request to update Message");
-		if (message.getId() == null) {
-			throw new DomainSecurityException("id不能为空");
-		}
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		messageService.updateWithNotNullProperties(message);
@@ -128,4 +130,5 @@ public class MessageController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
+
 }

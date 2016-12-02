@@ -89,5 +89,23 @@ ActivityService {
 			Boolean update = activityDao.update(activity);
 			return update;
 	}
+	
+/*根据社团id从社团表中找出社团名字并放进活动表中
+ * (non-Javadoc)
+ * @see com.earl.cas.service.ActivityService#findByClubId(com.earl.cas.entity.Activity, com.earl.cas.vo.PageInfo)
+ */
+@Override
+public List<Activity> findByClubId(Activity activity, PageInfo pageInfo) {
+	List<Activity> findByClubIdList = activityDao.findByGivenCriteria(activity, pageInfo);
+	if(!findByClubIdList.isEmpty()){
+		Club club = clubDao.get(activity.getClubId());//从活动里提取出社团id
+		for(Activity activityt:findByClubIdList){
+			activityt.setClubName(club.getName());//将对应社团id的名字传进活动列表
+		}
+		return findByClubIdList;
+	} else{
+		throw new DomainSecurityException("该活动页面没有活动 ");			
+	}
+ }
 
 }
