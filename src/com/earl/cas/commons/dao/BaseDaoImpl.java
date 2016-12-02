@@ -126,6 +126,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		try {
 			logger.info(persistentInstance.toString());
 			getCurrentSession().delete(persistentInstance);
+			getCurrentSession().flush();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -241,6 +242,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		}
 	}
 
+	/*
+	 * 获取非空值
+	 */
 	private Map<String, Object> getNotNullProperties(T object) {
 		Map<String, Object> notNullParam = null;
 		BeanMap beanMap = new BeanMap(object);
