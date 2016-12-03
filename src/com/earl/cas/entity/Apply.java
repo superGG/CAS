@@ -78,8 +78,9 @@ public class Apply implements Serializable {
 	// 状态
 	private Integer statue;
 
-	// 职位list 不映射进数据库
-	private List<String> positionNameList = new ArrayList<String>();
+
+	//职位名称 不映射进数据库
+	private String positionName;
 
 	public Apply() {
 	}
@@ -227,13 +228,14 @@ public class Apply implements Serializable {
 		this.statue = statue;
 	}
 
+
 	@Transient
-	public List<String> getPositionNameList() {
-		return positionNameList;
+	public String getPositionName() {
+		return positionName;
 	}
 
-	public void setPositionNameList(List<String> positionNameList) {
-		this.positionNameList = positionNameList;
+	public void setPositionName(String positionName) {
+		this.positionName = positionName;
 	}
 
 	@Override

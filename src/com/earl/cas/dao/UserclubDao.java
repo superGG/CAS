@@ -17,6 +17,10 @@ public interface UserclubDao extends BaseDao<Userclub>{
 	 * @return
 	 */
 	Userclub getUserclubByApplyId(int applyId);
-
+	/**
+	 * 获得社团人数
+	 * @return
+	 */
+	Long getNumberByclubId(int clubId);
     
 }

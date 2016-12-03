@@ -31,4 +31,13 @@ public class UserclubDaoImpl extends BaseDaoImpl<Userclub> implements
 				.setInteger("applyId", applyId).uniqueResult();
 		return uc;
 	}
+
+	public Long getNumberByclubId(int clubId) {
+		String hql = "select count(*) from Userclub where clubId = :clubId";
+		Object uniqueResult = getCurrentSession().createQuery(hql)
+				.setInteger("clubId", clubId).uniqueResult();
+		Long intValue = (new Integer(uniqueResult.toString())).longValue();
+		return intValue;
+
+	}
 }

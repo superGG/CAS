@@ -50,5 +50,10 @@ public interface ApplyDao extends BaseDao<Apply> {
 	 * @param name
 	 */
 	List<Apply> getByName(Integer id, String name);
+	/**
+	 * 获得个人的已经通过的申请书
+	 * @param detailId
+	 */
+	List<Apply> getBydetailIdStatueIsOk(int detailId);
 
 }
