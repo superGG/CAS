@@ -1,9 +1,12 @@
 package com.earl.cas.dao.Impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.earl.cas.commons.dao.BaseDaoImpl;
 import com.earl.cas.dao.SchoolDao;
+import com.earl.cas.entity.ClubType;
 import com.earl.cas.entity.School;
 
 /**
@@ -30,6 +33,13 @@ public class SchoolDaoImpl extends BaseDaoImpl<School> implements SchoolDao {
 		else{
 			return false;
 		}
+	}
+
+	@Override
+	public List<School> getSchoolName(School school) {
+		String hql = "from School where name = :name ";
+		List<School> schoolname= getCurrentSession().createQuery(hql).setString("name",school.getName()).list();
+		return schoolname;
 	}
 
 }

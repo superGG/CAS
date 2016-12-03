@@ -48,5 +48,17 @@ public interface ClubService extends BaseService<Club> {
 	 * @param typeName 
 	 */
 	void updateMyclub(Club club, MultipartFile file, HttpServletRequest request, String typeName);
+	/**
+	 * 获取已经加入的社团信息
+	 * @param clubId
+	 * @return
+	 */
+	Club getMyJoinClub(int clubId);
+	/**
+	 * 获得自己所有的已加入社团
+	 * @param detailId
+	 * @return
+	 */
+	List<Club> getMyClubList(int detailId);
 
 }

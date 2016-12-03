@@ -113,6 +113,7 @@ public class ClubController extends BaseController{
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
+	
 	/**
 	 * 查看自己社团信息
 	 */
@@ -122,6 +123,30 @@ public class ClubController extends BaseController{
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		Club club = clubService.getMyClub(detailId);
+		result.getResultParm().put("club", club);
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	/**
+	 * 获取自己已加入的社团列表
+	 */
+	@RequestMapping(value = "/getMyClubList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getMyClubList(int detailId) {
+		logger.debug("REST request to get myclubList");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Club> clublist = clubService.getMyClubList(detailId);
+		result.getResultParm().put("club", clublist);
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	/**
+	 * 查看自己已经加入的社团信息
+	 */
+	@RequestMapping(value = "/getMyJoinClub", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getMyJoinClub(int clubId) {
+		logger.debug("REST request to get myclub");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		Club club = clubService.getMyJoinClub(clubId);
 		result.getResultParm().put("club", club);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}

@@ -62,8 +62,11 @@ public class Club implements Serializable
 	//申请用户详情
 	private Integer detailId;
 	
-	//社团类型集合，非映射到数据库
-	private List<String> clubTypeList;
+	//社团人数 不映射进数据库表
+	private Long number;
+	
+	//类型名称 不映射进数据库表
+	private String typeName;
 
 	public Club() {
 	}
@@ -174,13 +177,25 @@ public class Club implements Serializable
 	public void setDetailId(Integer detailId) {
 		this.detailId = detailId;
 	}
+
+	
 	@Transient
-	public List<String> getClubTypeList() {
-		return clubTypeList;
+	public String getTypeName() {
+		return typeName;
 	}
 
-	public void setClubTypeList(List<String> clubTypeList) {
-		this.clubTypeList = clubTypeList;
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+	
+	
+	@Transient
+	public Long getNumber() {
+		return number;
+	}
+
+	public void setNumber(Long number) {
+		this.number = number;
 	}
 
 	@Override
