@@ -2,6 +2,7 @@ package com.earl.cas.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,17 +37,15 @@ public class ClubTypeController extends BaseController {
 
 	/**
 	 * 查看全部社团类型
-	 * @param pageInfo
 	 * @author 祝
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> getAll(PageInfo pageInfo) {
+	public  ResponseEntity<ResultMessage> getAll() {
 		logger.debug("REST request to get all clubType");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<ClubType> clubTypeList = clubTypeService.findAll(pageInfo);
+		List<ClubType> clubTypeList = clubTypeService.findAll();
 		result.getResultParm().put("clubType", clubTypeList);
-		result.getResultParm().put("total", pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
@@ -70,12 +69,17 @@ public class ClubTypeController extends BaseController {
 	/**
 	 * 添加社团类型
 	 * @param clubtype
+	 *         类型名称name必填
 	 * @author 祝
 	 * 
 	 */
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> save(ClubType clubtype) {
 		logger.debug("REST request to delete clubType");
+		//判断社团类型名字是否为空
+		if(StringUtils.isBlank(clubtype.getName())){
+			throw new DomainSecurityException("社团类型名字不能为空");
+		}
 		//查找输入的名字是否在数据库中存在
 		List<ClubType> typeName = clubTypeService.getByClubTypeName(clubtype);
 		if(!typeName.isEmpty()){

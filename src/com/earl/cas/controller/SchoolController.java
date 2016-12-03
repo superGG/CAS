@@ -55,6 +55,15 @@ public class SchoolController extends BaseController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> save(School school) {
 		logger.debug("REST request to save School");
+		//判断学校民字是否为空
+		if(StringUtils.isBlank(school.getName())){
+			throw new DomainSecurityException("学校名称不能为空");
+		}
+		//判断学校名字是否存在
+		List<School> schoolNameList = schoolService.getBySchoolName(school);
+		if(!schoolNameList.isEmpty()){
+			throw new DomainSecurityException("学校名称已存在");
+		}
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		schoolService.save(school);
@@ -80,6 +89,15 @@ public class SchoolController extends BaseController {
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> update(School school) {
 		logger.debug("REST request to update School");
+		//判断学校民字是否为空
+		if(StringUtils.isBlank(school.getName())){
+			throw new DomainSecurityException("学校名称不能为空");
+		}
+		//判断学校名字是否存在
+		List<School> schoolNameList = schoolService.getBySchoolName(school);
+		if(!schoolNameList.isEmpty()){
+			throw new DomainSecurityException("学校名称已存在");
+		}
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		schoolService.update(school);
