@@ -48,7 +48,7 @@ public class ActivityController extends BaseController {
 		logger.debug("REST request to save activity");
 		//判断输入的活动标题或者活动内容是否为空
 		if(StringUtils.isBlank(activity.getContent()) | StringUtils.isBlank(activity.getTitle())){//判断活动标题和内容是否为空
-			throw new DomainSecurityException("标题和内容均不能为空");
+			throw new DomainSecurityException("活动内容或活动标题均不能为空");
 		}
 		result = new ResultMessage();
 		result.setServiceResult(true);
@@ -83,7 +83,7 @@ public class ActivityController extends BaseController {
 		logger.debug("REST request to update activity");
 		//判断输入的活动标题或者活动内容是否为空
 		if (StringUtils.isBlank(activity.getContent()) | StringUtils.isBlank(activity.getTitle())) {//判断活动标题和内容是否为空
-			throw new DomainSecurityException("内容或标题均不能为空");
+			throw new DomainSecurityException("活动内容或活动标题均不能为空");
 		}
 		result = new ResultMessage();
 		result.setServiceResult(true);
@@ -132,7 +132,7 @@ public class ActivityController extends BaseController {
 	 *@param id
 	 *@author 祝
 	 */
-	@RequestMapping(value = "/getDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/getDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<ResultMessage> getDetail(int id) {
 		logger.debug("REST request to get activityDetail");
 		result = new ResultMessage();
