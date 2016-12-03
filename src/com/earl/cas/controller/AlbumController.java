@@ -66,12 +66,13 @@ public class AlbumController extends BaseController {
 			throw new DomainSecurityException("社团id不能为空");
 		}
 		result = new ResultMessage();
-		result.setResultInfo("添加成功");
-		result.setServiceResult(true);
+		result.setResultInfo("添加失败");
+		result.setServiceResult(false);
 		Integer save = albumService.save(album);
 		if (save == 0) {
-			result.setResultInfo("添加失败");
-			result.setServiceResult(false);
+			result.setResultInfo("添加成功");
+			result.setServiceResult(true);
+			result.getResultParm().put("album", album);
 		}
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
