@@ -76,6 +76,7 @@ public class ActivityController extends BaseController {
 	/**
 	 * 修改活动，标题和内容均不能为空
 	 * @param activity
+	 *            必须含有content、title和id
 	 * @author 祝
 	 */
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -95,8 +96,8 @@ public class ActivityController extends BaseController {
 	/**
 	 *  查看所有活动
 	 *  @author 祝
-	 *  @param indexPageNum 当前页
-	 * @param size 每页数量 
+	 *  @param pageInfo
+	 *               必须含有 indexPageNum\size
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)//返回结果是jason类型
 	public  ResponseEntity<ResultMessage> getAllActivity(PageInfo pageInfo) {
@@ -112,8 +113,9 @@ public class ActivityController extends BaseController {
 	/**
 	 * 根据社团id查找社团活动
 	 * @param activity
-	 * @param indexPageNum 当前页
-	 * @param size 每页数量 
+	 *             必须含有clubId
+	 * @param pageInfo
+	 *               必须含有 indexPageNum\size
 	 * @author 祝
 	 */
 	@RequestMapping(value = "/getClubActivity",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
