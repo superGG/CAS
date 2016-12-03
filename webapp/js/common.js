@@ -18,6 +18,7 @@ function showMask() {
     $("body").append(maskStr);
     setMaskWH();
 }
+//显示登录面板
 function showLoginFrame() {
     showMask();
     if ($("#loginFrame").length>0 ||$("#registerFrame").length>0) {
@@ -41,13 +42,16 @@ function showLoginFrame() {
     initLoginFrameBtn();
     getCheckCode("verifiImg");
 }
+//设置遮幕宽高
 function setMaskWH() {
   $("#mask").width($(document).width()).height($(document).height());
 }
+//设置弹出面板宽高
 function setFrameWH() {
    $("#loginFrame").css({"left":($(window).width()- $("#loginFrame").width())/2,"top":($(window).height()- $("#loginFrame").height())/2})
 }
 
+// 页面按钮点击事件
 function initLoginFrameBtn(){
   $(".close").click(function() {
     $("#loginFrame").remove();
@@ -82,6 +86,7 @@ function initLoginFrameBtn(){
   });
 }
 
+//获取验证码
 function getCheckCode(id) {
   var url ="/ClubSystem/users/getImgVerifyCode";
   $.get(url,function (data) {
@@ -89,6 +94,7 @@ function getCheckCode(id) {
   });
 }
 
+//登录提交
 function login() {
   var url ="/ClubSystem/users/login";
   var sendData = $("#loginForm").serialize();
@@ -105,6 +111,7 @@ function login() {
     }
   });
 }
+//退出登录
 function loginOut(){
   //获取当前时间 
   var date=new Date(); 
@@ -116,6 +123,7 @@ function loginOut(){
   location.reload();
 }
 
+//注册提交
 function register() {
   var url ="/ClubSystem/users/register";
   var sendData = $("#registerForm").serialize();
@@ -125,6 +133,7 @@ function register() {
   });
 }
 
+//显示登录用户
 function showUser(){
   var userData =getCookieUserData();
   if (userData!=null) {
@@ -136,6 +145,7 @@ function showUser(){
   }
 }
 
+//获取登录Cookie
 function getCookieUserData() {
   var strCookie = document.cookie;
   var arrCookie = strCookie.split("; ");

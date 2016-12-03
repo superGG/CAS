@@ -1,14 +1,94 @@
-.editor{
-	padding: 5px;
+.main{
+	width:70%;
+	margin:70px auto 0px;
 }
-.editor .editorContent{
+.clubDetai-top{
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	margin: auto;
+	background-color: #fff;
+	overflow: hidden;
+}
+
+.club-logo{
+	float: left;
+	width: 45%;
+	height: 100%;
+	margin: auto;
 	border: 1px solid #ccc;
+	text-align:center;
 }
-.editor .toolBar{
+.club-logo img{
+	width: 50%;
+	height:100%;
+	margin: auto;
+}
+.club-info{
+	position: relative;
+	float: left;
+	width: 54%;
+	height: 215px;
+	margin: auto;
+	border:1px solid #ccc;
+}
+.club-info h2{
+	text-align:center;
+}
+.club-info-item{
+	float: left;
+	width: 33%;
+	margin: auto;
+	text-align: center;
+}
+.item-title{
+	display: block;
+	padding: 5px 0;
+	color: #fff;
 	background-color: #ccc;
 }
-.editor .toolBar .expression{
-	width: 40px;
+.club-info .apply-btn{
+	position: absolute;
+	width: 50%;
+	padding: 5px 0;
+	background-color: #12b7f5;
+	bottom: 0px;
+	text-align:center; 
+	cursor: pointer;
+}
+.clubDetai-bar{
+	width: 100%;
+	padding: 0 10px;
+	margin:10px auto;
+	background-color: #fff;
+}
+.clubDetai-bar ul{
+	width: 50%;
+	padding: 0;
+	margin: 0 auto;
+	list-style: none;
+	overflow: hidden;
+}
+.clubDetai-bar ul li{
+	float: left;
+	width: 24%;
 	height: 40px;
-	background:url("../images/expression/1.gif");
+	margin-left:1px; 
+	line-height: 40px;
+	color: #fff;
+	background-color: #12b7f5;
+	border:1px solid #12b7f5;
+	text-align: center;
+	cursor: pointer;
+}
+.clubDetai-bar ul li:hover{
+	color: #000;
+	background-color: #fff;
+}
+
+.clubDetai-content{
+	width: 100%;
+	height: 300px;
+	padding: 10px;
+	background-color: #fff;
 }

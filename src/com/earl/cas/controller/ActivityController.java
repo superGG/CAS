@@ -40,13 +40,15 @@ public class ActivityController extends BaseController {
 	
 	/**
 	 *创建活动,标题和内容均不能为空
+	 *@param activity
+	 *@author 祝
 	 */
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> createActivity(Activity activity){
 		logger.debug("REST request to save activity");
 		//判断输入的活动标题或者活动内容是否为空
 		if(StringUtils.isBlank(activity.getContent()) | StringUtils.isBlank(activity.getTitle())){//判断活动标题和内容是否为空
-			throw new DomainSecurityException("标题和内容均不能为空");
+			throw new DomainSecurityException("活动内容或活动标题均不能为空");
 		}
 		result = new ResultMessage();
 		result.setServiceResult(true);
@@ -57,6 +59,8 @@ public class ActivityController extends BaseController {
 	
 	/**
 	 * 删除活动
+	 * @param id
+	 * @author 祝
 	 */
 	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> deleteActivity(Integer id) {
@@ -71,13 +75,16 @@ public class ActivityController extends BaseController {
 	
 	/**
 	 * 修改活动，标题和内容均不能为空
+	 * @param activity
+	 *            必须含有content、title和id
+	 * @author 祝
 	 */
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> updateActivity(Activity activity) {
 		logger.debug("REST request to update activity");
 		//判断输入的活动标题或者活动内容是否为空
 		if (StringUtils.isBlank(activity.getContent()) | StringUtils.isBlank(activity.getTitle())) {//判断活动标题和内容是否为空
-			throw new DomainSecurityException("内容或标题均不能为空");
+			throw new DomainSecurityException("活动内容或活动标题均不能为空");
 		}
 		result = new ResultMessage();
 		result.setServiceResult(true);
@@ -88,6 +95,9 @@ public class ActivityController extends BaseController {
 	
 	/**
 	 *  查看所有活动
+	 *  @author 祝
+	 *  @param pageInfo
+	 *               必须含有 indexPageNum\size
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)//返回结果是jason类型
 	public  ResponseEntity<ResultMessage> getAllActivity(PageInfo pageInfo) {
@@ -96,14 +106,35 @@ public class ActivityController extends BaseController {
 		result.setServiceResult(true);
 		List<Activity> activityList = activityService.findAllActivity(pageInfo);
 		result.getResultParm().put("activity", activityList);
-		result.getResultParm().put("total", activityList.size());
+		result.getResultParm().put("total",pageInfo.getTotalCount());
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	/**
+	 * 根据社团id查找社团活动
+	 * @param activity
+	 *             必须含有clubId
+	 * @param pageInfo
+	 *               必须含有 indexPageNum\size
+	 * @author 祝
+	 */
+	@RequestMapping(value = "/getClubActivity",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> getClubActivity(PageInfo pageInfo,Activity activity){
+		logger.debug("通过社团id查找社团活动");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Activity> clubActivityList = activityService.findByClubId(activity, pageInfo);
+		result.getResultParm().put("/Activity", clubActivityList);
+		result.getResultParm().put("total",pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
 	/**
 	 *查看活动详情
+	 *@param id
+	 *@author 祝
 	 */
-	@RequestMapping(value = "/getDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/getDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<ResultMessage> getDetail(int id) {
 		logger.debug("REST request to get activityDetail");
 		result = new ResultMessage();
@@ -112,8 +143,6 @@ public class ActivityController extends BaseController {
 		result.getResultParm().put("activity", activityDetail);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
-	
-	
-	
+		
 
 }

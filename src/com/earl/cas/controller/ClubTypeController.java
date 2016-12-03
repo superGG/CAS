@@ -36,6 +36,8 @@ public class ClubTypeController extends BaseController {
 
 	/**
 	 * 查看全部社团类型
+	 * @param pageInfo
+	 * @author 祝
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<ResultMessage> getAll(PageInfo pageInfo) {
@@ -50,6 +52,8 @@ public class ClubTypeController extends BaseController {
 	
 	/**
 	 * 根据id删除社团类型
+	 * @param id
+	 * @author 祝
 	 */
 	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> delete(Integer id) {
@@ -65,6 +69,8 @@ public class ClubTypeController extends BaseController {
 	
 	/**
 	 * 添加社团类型
+	 * @param clubtype
+	 * @author 祝
 	 * 
 	 */
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -84,6 +90,8 @@ public class ClubTypeController extends BaseController {
 	
 	/**
 	 * 更新社团类型
+	 * @param clubtype
+	 * @author 祝
 	 */
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> update(ClubType clubtype) {

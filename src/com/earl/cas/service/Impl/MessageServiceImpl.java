@@ -73,6 +73,7 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 		return oneMessageList;
 	}
 
+
 	@Override
 	public Message findById(Integer id) {
 		Message message = messageDao.get(id);
@@ -93,4 +94,5 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 		}
 		return twoMessageList;
 	}
+
 }
