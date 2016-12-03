@@ -1,5 +1,6 @@
 package com.earl.cas.service.Impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -65,6 +66,15 @@ public class PositionServiceImpl extends BaseServiceImpl<Position> implements
 	
 	public void update(Position position){
 		positionDao.updateWithNotNullProperties(position);
+	}
+	public List<String> getNameByClubId(int id){
+		List<String> positionName =  new ArrayList<String>();
+
+		List<Position> positionList = positionDao.findByClubId(id);
+		for(Position position:positionList){
+			positionName.add(position.getName());
+		}
+		return positionName;
 	}
 
 }

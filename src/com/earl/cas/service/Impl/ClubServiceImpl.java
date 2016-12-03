@@ -14,10 +14,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
+import com.earl.cas.dao.ApplyDao;
 import com.earl.cas.dao.ClubDao;
 import com.earl.cas.dao.ClubTypeDao;
+import com.earl.cas.dao.UserclubDao;
+import com.earl.cas.entity.Apply;
 import com.earl.cas.entity.Club;
 import com.earl.cas.entity.ClubType;
+import com.earl.cas.entity.Userclub;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ClubService;
 import com.earl.cas.util.FileUploadUtil;
@@ -37,8 +41,14 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 			.getLogger(ClubServiceImpl.class);
 
 	@Resource
+	private UserclubDao userclubDao;
+
+	@Resource
+	private ApplyDao applyDao;
+
+	@Resource
 	private ClubDao clubDao;
-	
+
 	@Resource
 	private ClubTypeDao clubTypeDao;
 
@@ -76,29 +86,26 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	}
 
 	public Club getMyClub(int detailId) {
-		// 一些容器
-		List<String> typelist = new ArrayList<String>();
+
 		// 获得社团信息
 		Club club = clubDao.getClubByuserDetailId(detailId);
-		// 获得所有社团类型
-		List<ClubType> clubtypelist = clubTypeDao.findAll();
 		// 获得社团当前类型
 		String typename = clubTypeDao.get(club.getTypeId()).getName();
-		// 放在list第一位
-		typelist.add(typename);
-		// 遍历clubtypelist
-		for (ClubType typeVo : clubtypelist) {
-			String nameVo = typeVo.getName();
-			if (!nameVo.equals(typename)) {
-				typelist.add(nameVo);
-			}
-		}
-		club.setClubTypeList(typelist);
+		club.setTypeName(typename);
+		return club;
+	}
+
+	public Club getMyJoinClub(int clubId) {
+		Club club = clubDao.get(clubId);
+		Long number = userclubDao.getNumberByclubId(clubId);
+		club.setNumber(number);
+		String typename = clubTypeDao.get(club.getTypeId()).getName();
+		club.setTypeName(typename);
 		return club;
 	}
 
 	public void updateMyclub(Club club, MultipartFile file,
-			HttpServletRequest request,String typeName) {
+			HttpServletRequest request, String typeName) {
 		if (club.getId() != null) {
 			if (!file.isEmpty()) {
 				logger.info("file不为空，开始处理上传社徽");
@@ -107,13 +114,35 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 				logger.info("上传社徽访问地址：" + shehuipath);
 				club.setBadge(shehuipath);
 			}
-			//获得职位Id
+			// 获得职位Id
 			ClubType clubtype = clubTypeDao.getByName(typeName);
 			club.setTypeId(clubtype.getId());
 			clubDao.updateWithNotNullProperties(club);
-		}
-		else{
+		} else {
 			throw new DomainSecurityException("找不到社团ID");
 		}
 	}
+
+	public List<Club> getMyClubList(int detailId) {
+		List<Club> clublist = new ArrayList<Club>();
+		// 根据detailId获取所有已经通过申请的申请书
+		List<Apply> applyList = applyDao.getBydetailIdStatueIsOk(detailId);
+		// 根据申请书Id获取所有的userclub里面的clubId
+		Userclub uc;
+		Club club;
+		for (Apply apply : applyList) {
+
+			uc = userclubDao.getUserclubByApplyId(apply.getId());
+			if (uc != null) { 
+				// 获得社团
+				club = clubDao.get(uc.getClubId());
+				// 获得社团人数
+				Long number = userclubDao.getNumberByclubId(club.getId());
+				club.setNumber(number);
+				clublist.add(club);
+			}
+		}
+		return clublist;
+	}
+
 }

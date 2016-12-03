@@ -178,24 +178,16 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 	}
 
 	public Apply getMemberDetail(int applyId) {
-		List<String> positionName = new ArrayList<String>();
 		Apply apply = applyDao.get(applyId);
-		List<Position> positionlist = positionDao.findByClubId(apply
-				.getClubId());
+		Userclub userclub = userclubDao.getUserclubByApplyId(applyId);
+		
 		// 获取成员目前职位
-		int positionId = userclubDao.getUserclubByApplyId(applyId)
-				.getPositionId();
+		int positionId = userclub.getPositionId();
+		//获得加入的时间
+		String time = userclub.getCreatetime();
 		Position nowPosition = positionDao.get(positionId);
-		positionName.add(nowPosition.getName()); // 当前职位放在list的第一位
-		// 获取职位名称
-		for (Position position : positionlist) {
-			String name = position.getName();
-			// 不和当前职位相等 放进list
-			if (!nowPosition.getName().equals(name)) {
-				positionName.add(name);
-			}
-		}
-		apply.setPositionNameList(positionName);
+		apply.setPositionName(nowPosition.getName());
+		apply.setCreatetime(time);
 		return apply;
 	}
 
