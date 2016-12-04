@@ -84,6 +84,7 @@ public class SchoolController extends BaseController {
 		result.setServiceResult(true);
 		schoolService.update(school);
 		result.setResultInfo("更新成功");
+		
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 

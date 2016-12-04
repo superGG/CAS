@@ -76,5 +76,8 @@ public class PositionServiceImpl extends BaseServiceImpl<Position> implements
 		}
 		return positionName;
 	}
+	public Position findById(Integer id){
+		return	positionDao.get(id);
+	}
 
 }

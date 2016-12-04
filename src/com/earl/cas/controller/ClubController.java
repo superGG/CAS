@@ -160,6 +160,7 @@ public class ClubController extends BaseController{
 		clubService.updateMyclub(club,file,request,typeName);
 		result.setServiceResult(true);
 		result.setResultInfo("更新成功");
+		result.getResultParm().put("club", clubService.findById(club.getId()));
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 }

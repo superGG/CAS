@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Apply;
 import com.earl.cas.entity.Club;
+import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ApplyService;
 import com.earl.cas.service.ClubService;
 import com.earl.cas.service.UserclubService;
@@ -146,12 +147,28 @@ public class ApplyController extends BaseController {
 		logger.debug("REST request to display club apply which statue is 2");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-
 		// 获取用户创建的社团
 		Club club = clubService.getClubByuserDetailId(detailId);
-
 		// 通过clubId获得对应社团的未审核的申请书
 		List<Apply> applylist = applyService.getClubApplyNotExam(club.getId());
+		result.getResultParm().put("apply", applylist);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	/**
+	 * 申请书管理列表3合1
+	 */
+	@RequestMapping(value = "/displayAllClubApply", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> displayAllClubApply(int detailId,Integer statue) {
+		logger.debug("REST request to display club apply which statue is ?");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		// 获取用户创建的社团
+		Club club = clubService.getClubByuserDetailId(detailId);
+		if(club==null){
+			throw new DomainSecurityException("该用户未创建社团");
+		}
+		// 通过clubId获得对应社团的未审核的申请书
+		List<Apply> applylist = applyService.getClubApply(club.getId(),statue);
 		result.getResultParm().put("apply", applylist);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
@@ -165,7 +182,10 @@ public class ApplyController extends BaseController {
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		applyService.update(applyId,statue);
-		result.setResultInfo("该成员已加入社团");
+		if(statue==0){
+			result.setResultInfo("该用户已加入社团");
+		}
+		else result.setResultInfo("拒绝该用户加入社团");		
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 	/**
@@ -232,7 +252,7 @@ public class ApplyController extends BaseController {
 		result.setServiceResult(true);
 		List<Member> memberlist = applyService.getMember(detailId,pageInfo);
 		result.getResultParm().put("memberlist", memberlist);
-		result.getResultParm().put("pageTotal",pageInfo.getTotalCount());
+		result.getResultParm().put("totalCount",pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 	

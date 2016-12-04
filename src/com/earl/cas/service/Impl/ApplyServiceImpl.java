@@ -250,4 +250,18 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 				return memberlist;
 			}
 		}
+	public List<Apply> getClubApply(Integer id, Integer statue){
+		//找到全部申请书
+		if(statue==null){
+			return getClubApply(id);
+		}
+		//找到已经审核的申请书
+		else if(statue.intValue()!=2){
+			return getClubApplyHasExam(id);
+		}
+		//找到未审核的申请书
+		else{
+			return getClubApplyNotExam(id);
+		}
+	}
 }

@@ -80,5 +80,12 @@ public interface ApplyService extends BaseService<Apply> {
 	 * @return
 	 */
 	List<Member> searchMember(int detailId, String name);
+	/**
+	 * 根据状态和社团ID获取申请书
+	 * @param id
+	 * @param statue
+	 * @return
+	 */
+	List<Apply> getClubApply(Integer id, Integer statue);
 
 }

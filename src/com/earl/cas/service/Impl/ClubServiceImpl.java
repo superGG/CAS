@@ -144,5 +144,9 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		}
 		return clublist;
 	}
+	
+	public Club findById(Integer id){
+		return clubDao.get(id);
+	}
 
 }

@@ -60,5 +60,11 @@ public interface ClubService extends BaseService<Club> {
 	 * @return
 	 */
 	List<Club> getMyClubList(int detailId);
+	/**
+	 * 更新或者新建后返回club
+	 * @param id
+	 * @return
+	 */
+	Club findById(Integer id);
 
 }

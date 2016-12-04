@@ -105,13 +105,14 @@ public class PositionController extends BaseController {
 	/**
 	 * 添加社团职位
 	 */
-	@RequestMapping(value = "/save", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> save(Position position) {
 		logger.debug("REST request to save position");
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		positionService.save(position);
 		result.setResultInfo("添加成功");
+		result.getResultParm().put("position",positionService.findById(position.getId()));
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 	/**
@@ -124,6 +125,7 @@ public class PositionController extends BaseController {
 		result.setServiceResult(true);
 		positionService.update(position);
 		result.setResultInfo("更新成功");
+		result.getResultParm().put("position",positionService.findById(position.getId()));
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 	/**
