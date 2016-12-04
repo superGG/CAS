@@ -84,8 +84,8 @@ public class ClubController extends BaseController{
 		//}
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Club> clubList = clubService.getByName(name);
-		result.getResultParm().put("club", clubList);
+		Club club = clubService.getByName(name);
+		result.getResultParm().put("club", club);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	/**
@@ -161,6 +161,19 @@ public class ClubController extends BaseController{
 		result.setServiceResult(true);
 		result.setResultInfo("更新成功");
 		result.getResultParm().put("club", clubService.findById(club.getId()));
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	/**
+	 * 判断是否已创建社团
+	 */
+	@RequestMapping(value = "/isCreated",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> isCreated(Integer detailId) {
+		logger.debug("REST request to 判断用户是否创建过社团 ");
+		result = new ResultMessage();
+		boolean flag = clubService.isCreated(detailId);
+		result.setServiceResult(true);
+		result.setResultInfo("true->已创建过社团，false->没创建社团");
+		result.getResultParm().put("flag",flag);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 }

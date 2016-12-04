@@ -128,8 +128,7 @@ public class AlbumController extends BaseController {
 	}
 
 	/**
-	 * 查询社团全部相册.
-	 * 
+	 * 查询社团全部相册
 	 * @author 宋.
 	 * @param id
 	 * @return

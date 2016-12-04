@@ -68,13 +68,13 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		return clubDao;
 	}
 
-	public List<Club> getByName(String clubName) {
+	public Club getByName(String clubName) {
 
-		List<Club> clublist = clubDao.getByName(clubName);
-		if (clublist == null) {
+		Club club = clubDao.getByName(clubName);
+		if (club == null) {
 			throw new DomainSecurityException("找不到该社团");
 		} else {
-			return clublist;
+			return club;
 		}
 	}
 
@@ -168,5 +168,12 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		activityDao.deleteByClubId(clubId);
 		clubDao.deleteById(clubId);		
 	}
-
+	
+	public boolean isCreated(Integer detailId){
+		Club club = clubDao.getClubByuserDetailId(detailId);
+		if(club!=null){
+			return true;
+		}
+		else return false;
+	}
 }

@@ -53,4 +53,7 @@ public class SchoolServiceImpl extends BaseServiceImpl<School> implements
 		List<School> schoolList = schoolDao.getSchoolName(school);
 		return schoolList;
 	}
+	public School getById(Integer id){
+		return schoolDao.get(id);
+	}
 }

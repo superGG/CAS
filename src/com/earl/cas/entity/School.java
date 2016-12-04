@@ -86,4 +86,5 @@ public class School implements Serializable
 		return "School [id=" + id + ", name=" + name + ", createtime="
 				+ createtime + "]";
 	}
+
 }

@@ -17,7 +17,7 @@ public interface ClubService extends BaseService<Club> {
 	 * @param clubName
 	 * @return
 	 */
-	List<Club> getByName(String clubName);
+	Club getByName(String clubName);
 
 	/**
 	 * 更新社团
@@ -71,5 +71,10 @@ public interface ClubService extends BaseService<Club> {
 	 * @param clubId
 	 */
 	void delete(int clubId);
+	/**
+	 * 判断用户是否创建过社团
+	 * @param detailId
+	 */
+	boolean isCreated(Integer detailId);
 
 }
