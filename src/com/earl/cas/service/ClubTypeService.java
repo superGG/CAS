@@ -23,5 +23,6 @@ public interface ClubTypeService extends BaseService<ClubType> {
 	 * 获取社团类型名字
 	 */
 	 List<ClubType> getByClubTypeName(ClubType clubtype);
+	 
 
 }

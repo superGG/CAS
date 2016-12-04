@@ -54,6 +54,8 @@ public class ActivityController extends BaseController {
 		result.setServiceResult(true);
 		activityService.save(activity);
 		result.setResultInfo("创建成功");
+		//创建的活动，并将社团名字 
+		result.getResultParm().put("activity", activityService.findByClubId(activity.getId()));
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
@@ -90,6 +92,7 @@ public class ActivityController extends BaseController {
 		result.setServiceResult(true);
 		activityService.updateActivity(activity);
 		result.setResultInfo("更新成功");
+		result.getResultParm().put("activity", activityService.findByClubId(activity.getId()));
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	

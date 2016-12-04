@@ -112,4 +112,17 @@ public List<Activity> findByClubId(Activity activity, PageInfo pageInfo) {
 	}
  }
 
+/*
+ * 将社团名字传进来,并返回活动对象
+ * (non-Javadoc)
+ * @see com.earl.cas.service.ActivityService#findByClubId(java.lang.Integer)
+ */
+@Override
+public Activity findByClubId(Integer id) {
+	Activity activity = activityDao.findDetail(id);
+	Club club = clubDao.get(activity.getClubId());//从活动里提取出社团id
+	activity.setClubName(club.getName());//将对应社团id的名字传进活动对象
+	return activity;
+}
+
 }
