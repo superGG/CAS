@@ -72,6 +72,7 @@ public class UserDetailsController extends BaseController {
 		userDetailsService.updateWithNotNullProperties(userDetail);
 		result.setServiceResult(true);
 		result.setResultInfo("更新成功");
+		result.getResultParm().put("userDetail", userDetailsService.get(userDetail.getId()));
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	

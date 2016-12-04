@@ -1,5 +1,7 @@
 package com.earl.cas.service.Impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -45,5 +47,10 @@ public class SchoolServiceImpl extends BaseServiceImpl<School> implements
 		if(!schoolDao.update(school)){
 			throw new DomainSecurityException("更新失败");
 		}	
+	}
+
+	public List<School> getBySchoolName(School school) {
+		List<School> schoolList = schoolDao.getSchoolName(school);
+		return schoolList;
 	}
 }
