@@ -132,6 +132,7 @@ public class PhotoController extends BaseController {
 		photoService.updateWithNotNullProperties(photo);
 		result.setResultInfo("更新成功");
 		result.setServiceResult(true);
+		result.getResultParm().put("photo", photo);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 }

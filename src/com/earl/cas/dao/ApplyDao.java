@@ -55,5 +55,10 @@ public interface ApplyDao extends BaseDao<Apply> {
 	 * @param detailId
 	 */
 	List<Apply> getBydetailIdStatueIsOk(int detailId);
+	/**
+	 * 根据社团Id删除申请书
+	 * @param clubId
+	 */
+	void deleteByClubId(int clubId);
 
 }

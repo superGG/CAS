@@ -22,4 +22,10 @@ public interface SchoolService extends BaseService<School> {
 	 * @return
 	 */
 	List<School> getBySchoolName(School school);
+	/**
+	 * getById
+	 * @param id
+	 * @return
+	 */
+	School getById(Integer id);
 }

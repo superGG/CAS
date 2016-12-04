@@ -68,6 +68,7 @@ public class SchoolController extends BaseController {
 		result.setServiceResult(true);
 		schoolService.save(school);
 		result.setResultInfo("添加成功");
+		result.getResultParm().put("school", schoolService.getById(school.getId()));
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
@@ -102,6 +103,7 @@ public class SchoolController extends BaseController {
 		result.setServiceResult(true);
 		schoolService.update(school);
 		result.setResultInfo("更新成功");
+		result.getResultParm().put("school", schoolService.getById(school.getId()));
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 

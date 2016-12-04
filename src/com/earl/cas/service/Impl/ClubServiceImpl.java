@@ -14,9 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
+import com.earl.cas.dao.ActivityDao;
 import com.earl.cas.dao.ApplyDao;
 import com.earl.cas.dao.ClubDao;
 import com.earl.cas.dao.ClubTypeDao;
+import com.earl.cas.dao.MessageDao;
+import com.earl.cas.dao.PositionDao;
 import com.earl.cas.dao.UserclubDao;
 import com.earl.cas.entity.Apply;
 import com.earl.cas.entity.Club;
@@ -42,13 +45,21 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 
 	@Resource
 	private UserclubDao userclubDao;
-
+	
+	@Resource
+	private ActivityDao activityDao;
 	@Resource
 	private ApplyDao applyDao;
+	
+	@Resource
+	private MessageDao messageDao;
 
 	@Resource
 	private ClubDao clubDao;
-
+	
+	@Resource
+	private PositionDao positionDao;
+	
 	@Resource
 	private ClubTypeDao clubTypeDao;
 
@@ -57,13 +68,13 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		return clubDao;
 	}
 
-	public List<Club> getByName(String clubName) {
+	public Club getByName(String clubName) {
 
-		List<Club> clublist = clubDao.getByName(clubName);
-		if (clublist == null) {
+		Club club = clubDao.getByName(clubName);
+		if (club == null) {
 			throw new DomainSecurityException("找不到该社团");
 		} else {
-			return clublist;
+			return club;
 		}
 	}
 
@@ -144,5 +155,25 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		}
 		return clublist;
 	}
-
+	
+	public Club findById(Integer id){
+		return clubDao.get(id);
+	}
+	
+	public void delete(int clubId){
+		logger.info("级联删除");
+		applyDao.deleteByClubId(clubId);
+		userclubDao.deleteByClubId(clubId);
+		positionDao.deleteByClubId(clubId);
+		activityDao.deleteByClubId(clubId);
+		clubDao.deleteById(clubId);		
+	}
+	
+	public boolean isCreated(Integer detailId){
+		Club club = clubDao.getClubByuserDetailId(detailId);
+		if(club!=null){
+			return true;
+		}
+		else return false;
+	}
 }
