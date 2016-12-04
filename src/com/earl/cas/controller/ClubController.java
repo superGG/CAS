@@ -92,11 +92,11 @@ public class ClubController extends BaseController{
 	 * 注销社团
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> delete(Club club) {
+	public  ResponseEntity<ResultMessage> delete(int clubId) {
 		logger.debug("REST request to delete a club");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		clubService.deleteById(club.getId());
+		clubService.delete(clubId);
 		result.setResultInfo("注销成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}

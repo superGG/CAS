@@ -38,6 +38,11 @@ public class UserclubDaoImpl extends BaseDaoImpl<Userclub> implements
 				.setInteger("clubId", clubId).uniqueResult();
 		Long intValue = (new Integer(uniqueResult.toString())).longValue();
 		return intValue;
-
+	}
+	
+	public void deleteByClubId(int clubId){
+		String hql = "delete Userclub where clubId = :clubId";
+		 getCurrentSession().createQuery(hql).setInteger("clubId", clubId).executeUpdate();
+		 getCurrentSession().flush();
 	}
 }

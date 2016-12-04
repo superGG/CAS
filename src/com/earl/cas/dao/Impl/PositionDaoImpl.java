@@ -34,4 +34,9 @@ public class PositionDaoImpl extends BaseDaoImpl<Position> implements
 		Position position = (Position)getCurrentSession().createQuery(hql).setInteger("id",clubId).setString("name",name).uniqueResult();
 		return position;
 	}
+	public void deleteByClubId(int clubId){
+		String hql = "delete Position where clubId = :clubId";
+		 getCurrentSession().createQuery(hql).setInteger("clubId", clubId).executeUpdate();
+		 getCurrentSession().flush();
+	}
 }

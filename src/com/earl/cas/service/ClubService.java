@@ -66,5 +66,10 @@ public interface ClubService extends BaseService<Club> {
 	 * @return
 	 */
 	Club findById(Integer id);
+	/**
+	 * 删除社团以及级联删除userclub  apply message activity position
+	 * @param clubId
+	 */
+	void delete(int clubId);
 
 }

@@ -88,4 +88,10 @@ public class ApplyDaoImpl extends BaseDaoImpl<Apply> implements ApplyDao {
 				.setInteger("detailId", detailId).list();
 		return applylist;
 	}
+	
+	public void deleteByClubId(int clubId){
+		String hql = "delete Apply where clubId = :clubId";
+		 getCurrentSession().createQuery(hql).setInteger("clubId", clubId).executeUpdate();
+		 getCurrentSession().flush();
+	}
 }

@@ -22,5 +22,10 @@ public interface UserclubDao extends BaseDao<Userclub>{
 	 * @return
 	 */
 	Long getNumberByclubId(int clubId);
+	/**
+	 * 根据clubId删除数据
+	 * @param clubId
+	 */
+	void deleteByClubId(int clubId);
     
 }

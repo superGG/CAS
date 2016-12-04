@@ -17,4 +17,9 @@ public interface PositionDao extends BaseDao<Position> {
 	 * @return
 	 */
 	Position getByClubIdAndName(int clubId,String Name);
+	/**
+	 * 根据社团ID删除职位
+	 * @param clubId
+	 */
+	void deleteByClubId(int clubId);
 }

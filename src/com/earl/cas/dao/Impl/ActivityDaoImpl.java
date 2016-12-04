@@ -48,6 +48,11 @@ public class ActivityDaoImpl extends BaseDaoImpl<Activity> implements
 		}
 	}
 
+	public void deleteByClubId(int clubId){
+		String hql = "delete Activity where clubId = :clubId";
+		 getCurrentSession().createQuery(hql).setInteger("clubId", clubId).executeUpdate();
+		 getCurrentSession().flush();
+	}
 	
 
 }
