@@ -24,6 +24,7 @@ import com.earl.cas.entity.UserDetails;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ClubService;
 import com.earl.cas.util.FileUploadUtil;
+import com.earl.cas.vo.PageInfo;
 import com.earl.cas.vo.ResultMessage;
 
 /**
@@ -199,4 +200,33 @@ public class ClubController extends BaseController{
 		result.setResultInfo("退出成功");
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	
+	/**
+	 * 根据学校找到社团
+	 */
+	@RequestMapping(value = "/getBySchoolName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getBySchoolName(String schoolName,PageInfo pageInfo) {
+		logger.debug("REST request to get a club by schoolname");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Club> clublist = clubService.getBySchoolName(schoolName,pageInfo);
+		result.getResultParm().put("totalCount",pageInfo.getTotalCount());
+		result.getResultParm().put("clublist", clublist);
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	/**
+	 * 根据类型找到社团
+	 */
+	@RequestMapping(value = "/getBytypeName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getBytypeName(String typeName,PageInfo pageInfo) {
+		logger.debug("REST request to get a club by schoolname");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Club> clublist = clubService.getByTypeName(typeName,pageInfo);
+		result.getResultParm().put("totalCount",pageInfo.getTotalCount());
+		result.getResultParm().put("clublist", clublist);
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
 }

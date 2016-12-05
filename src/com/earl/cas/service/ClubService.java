@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.earl.cas.commons.service.BaseService;
 import com.earl.cas.entity.Club;
+import com.earl.cas.vo.PageInfo;
 
 public interface ClubService extends BaseService<Club> {
 	/**
@@ -90,5 +91,19 @@ public interface ClubService extends BaseService<Club> {
 	 * @param clubId
 	 */
 	void quit(int detailId, int clubId);
+	/**
+	 * 根据学校名字获得社团
+	 * @param name
+	 * @param pageInfo
+	 * @return
+	 */
+	List<Club> getBySchoolName(String name, PageInfo pageInfo);
+	/**
+	 * 根据类型获取社团
+	 * @param typeName
+	 * @param pageInfo
+	 * @return
+	 */
+	List<Club> getByTypeName(String typeName, PageInfo pageInfo);
 
 }

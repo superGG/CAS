@@ -31,6 +31,7 @@ import com.earl.cas.entity.Userclub;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ClubService;
 import com.earl.cas.util.FileUploadUtil;
+import com.earl.cas.vo.PageInfo;
 
 /**
  * clubService实现类.
@@ -211,5 +212,36 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		Userclub userclub = userclubDao.getUserclubByApplyId(apply.getId());
 		userclubDao.delete(userclub);
 		applyDao.delete(apply);
+	}
+	
+	public List<Club> getBySchoolName(String name, PageInfo pageInfo){
+		Club club  = new Club();
+		club.setSchoolId(schoolDao.getByName(name).getId());
+		List<Club> clublist = clubDao.findByGivenCriteria(club,pageInfo);
+		setName(clublist);
+		return clublist;
+	}
+	
+
+	
+	public List<Club> getByTypeName(String typeName, PageInfo pageInfo){
+		Club club  = new Club();
+		club.setTypeId(clubTypeDao.getByName(typeName).getId());
+		List<Club> clublist = clubDao.findByGivenCriteria(club,pageInfo);
+		setName(clublist);
+		return clublist;
+	}
+	
+	/**
+	 * 为club加上学校名字
+	 * @param list
+	 */
+	@SuppressWarnings("unused")
+	private void setName(List<Club> list){
+		School school = null;
+		for(Club club:list){
+			school = schoolDao.get(club.getSchoolId());
+			club.setSchoolName(school.getName());
+		}
 	}
 }
