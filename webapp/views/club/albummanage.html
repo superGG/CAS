@@ -3,14 +3,25 @@
 	<head>
 		<meta charset="utf-8">
 		<title>社团管理-相册管理</title>
-		<link href="../../css/mystyle.css" rel="stylesheet" type="text/css"> 
-		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
 		<link rel='icon' href='../../images/titile_logo.ico' type='image/x-ico' />
+
 		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../../css/club_common.css">
+		<link href="../../css/album.css" rel="stylesheet" type="text/css">
+
+		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 
 		<script type="text/javascript">
+			var albumList = {"album":[{"id":"1","title":"逝去的时光","createtime":"2016-12-5","cover":"../../images/ccbg.jpg"},
+			{"id":"2","title":"社团招新","createtime":"2016-12-5","cover":"../../images/001.jpg"},
+			{"id":"3","title":"烧烤","createtime":"2016-12-5","cover":"../../images/003.jpg"},
+			{"id":"4","title":"社团bb大赛","createtime":"2016-12-5","cover":"../../images/004.jpg"},
+			{"id":"5","title":"昔日","createtime":"2016-12-5","cover":"../../images/004.jpg"},
+			{"id":"6","title":"那些年","createtime":"2016-12-5","cover":"../../images/003.jpg"},
+			{"id":"7","title":"开会照片","createtime":"2016-12-5","cover":"../../images/004.jpg"}]};
 			$(document).ready(function(){
+					showAlbumList(albumList);
 					var timer;
 					var album;
 					$(".album_action").css("visibility","visible")
@@ -27,8 +38,15 @@
 						$("#"+album+"_action").slideUp("fast");
 						$("#"+album+"_name").animate({height:'30px'},"fast");
 					});
-				});
+			});
+			function showAlbumList(albumList){
+				for(var i=0; i<albumList.album.length; i++){
+					$(".lwd_main_iframe").append('<div class="album" id="'+albumList.album[i].id+'"><div class="album_pic"><img src="'+albumList.album[i].cover+'" width="150px" height="100px"></div><div class="album_name" id="'+albumList.album[i].id+'_name">	<span style="font-size:12px;">'+albumList.album[i].title+'</span><span style="font-size:12px;position:absolute;right:5px;">'+albumList.album[i].createtime+'</span></div><div id="'+albumList.album[i].id+'_action" class="album_action"><a href="albuminformation.html"><button>进入相册</button></a> <button>删除相册</button></div></div>');
+				}
+			}
 		</script>
+		
+		
 	</head>
 	<body>
 		<div class="top">
@@ -71,7 +89,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="lwd_main_iframe">
+			<div class="lwd_main_iframe" style="position:relative;">
 				<div class="cmm_head_nav">
 					<ul class="top_navs">
 						<li><a href="memberapplydeal.html">申请处理</a></li>
@@ -82,80 +100,27 @@
 						<li><a href="positionmanage.html">职位管理</a></li>
 					</ul>			
 				</div>
-				<div class="album">
-					<a href="tocreatealbum.html" class="album_a">
+				<div class="album" style="display:block;">
+					<a href="#" class="album_a" id="album_a">
 						<img src="../../images/icon17.png" style="position:absolute;margin-top:40px;margin-left:50px;">
 						<span style="position:absolute;bottom:10px;left:45px;">创建相册</span>
 					</a>
 				</div>
-				<div class="album" id="album1">
-					<div class="album_pic">
-						<img src="../../images/ccbg.jpg" width="150px" height="100px">
-					</div>
-					<div class="album_name" id="album1_name">
-						<span style="font-size:15px;">鱼和海</span>
-						<span style="font-size:12px;position:absolute;right:5px;">2016-11-16</span>
-					</div>
-					<div id="album1_action" class="album_action">
-						<button action="#">进入相册</button>
-						<button action="#">删除相册</button>
-					</div>
-				</div>
-
-				<div class="album" id="album2">
-					<div class="album_pic">
-						<img src="../../images/ccbg.jpg" width="150px" height="100px">
-					</div>
-					<div class="album_name" id="album2_name">
-						<span style="font-size:15px;">鱼和海</span>
-						<span style="font-size:12px;position:absolute;right:5px;">2016-11-16</span>
-					</div>
-					<div id="album2_action" class="album_action">
-						<button action="#">进入相册</button>
-						<button action="#">删除相册</button>
-					</div>
-				</div>
-
-				<div class="album" id="album3">
-					<div class="album_pic">
-						<img src="../../images/ccbg.jpg" width="150px" height="100px">
-					</div>
-					<div class="album_name" id="album3_name">
-						<span style="font-size:15px;">鱼和海</span>
-						<span style="font-size:12px;position:absolute;right:5px;">2016-11-16</span>
-					</div>
-					<div id="album3_action" class="album_action">
-						<button action="#">进入相册</button>
-						<button action="#">删除相册</button>
-					</div>
-				</div>
-
-				<div class="album" id="album4">
-					<div class="album_pic">
-						<img src="../../images/ccbg.jpg" width="150px" height="100px">
-					</div>
-					<div class="album_name" id="album4_name">
-						<span style="font-size:15px;">鱼和海</span>
-						<span style="font-size:12px;position:absolute;right:5px;">2016-11-16</span>
-					</div>
-					<div id="album4_action" class="album_action">
-						<button action="#">进入相册</button>
-						<button action="#">删除相册</button>
-					</div>
-				</div>
-
-				<div class="album" id="album5">
-					<div class="album_pic">
-						<img src="../../images/ccbg.jpg" width="150px" height="100px">
-					</div>
-					<div class="album_name" id="album5_name">
-						<span style="font-size:15px;">鱼和海</span>
-						<span style="font-size:12px;position:absolute;right:5px;">2016-11-16</span>
-					</div>
-					<div id="album5_action" class="album_action">
-						<button action="#">进入相册</button>
-						<button action="#">删除相册</button>
-					</div>
+				<div id="albumcreate" class="albumcreate" >
+					<table border="0"  style="text-align:center; margin:0 auto 0" >
+						<tr>
+							<td>
+								<input type="text" id="name" name="name"  maxlength="8" 
+								placeholder="请填写社团名称" required="required" style="margin:10px 15px 0 10px; padding:5px;">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="padding:5px 0 0 0;">
+								<button type="submit" class="sb_btn" onclick="addAlbum()">确定</button>
+								<button id="close" class="sb_btn">取消</button>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -170,5 +135,13 @@
 				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
 			</div>
 		</div>
+		<script>
+			$("#album_a").click(function(){
+				$("#albumcreate").show();
+			});
+			$("#close").click(function(){
+				$("#albumcreate").hide();
+			});
+		</script>
 	</body>
 </html>
