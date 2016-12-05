@@ -84,5 +84,11 @@ public interface ClubService extends BaseService<Club> {
 	 * @param clubType
 	 */
 	void create(Integer detailId, Club club, String schoolName, String clubType);
+	/**
+	 * 退出社团
+	 * @param detailId
+	 * @param clubId
+	 */
+	void quit(int detailId, int clubId);
 
 }

@@ -33,7 +33,7 @@ public class PositionController extends BaseController {
 
 	@Autowired
 	private PositionService positionService;
-
+	
 	private ResultMessage result = null;
 
 	/**
@@ -62,18 +62,6 @@ public class PositionController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 
-	/**
-	 * POST /position -> 通过社团名字获得该社团职位信息
-	 */
-	@RequestMapping(value = "/getByClubName", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> getByClubName(String name) {
-		logger.debug("REST request to get club position");
-		result = new ResultMessage();
-		result.setServiceResult(true);
-		List<Position> positionList = positionService.getByClubName(name);
-		result.getResultParm().put("position", positionList);
-		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
-	}
 	
 
 	/**
@@ -140,4 +128,5 @@ public class PositionController extends BaseController {
 		result.setResultInfo("删除成功");
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+
 }

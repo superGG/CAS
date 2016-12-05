@@ -14,12 +14,7 @@ public interface PositionService extends BaseService<Position> {
 	 * @param name
 	 * @return list
 	 */
-	List<Position> getByClubName(String clubName);
-	/**
-	 * 通过社团ID获取职位信息
-	 * @param id
-	 * @return
-	 */
+	
 	List<Position> getByClubId(int id);
 	/**
 	 * 更新社团职位
