@@ -35,11 +35,18 @@ public class SchoolDaoImpl extends BaseDaoImpl<School> implements SchoolDao {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<School> getSchoolName(School school) {
 		String hql = "from School where name = :name ";
 		List<School> schoolname= getCurrentSession().createQuery(hql).setString("name",school.getName()).list();
 		return schoolname;
+	}
+	
+	public School getByName(String schoolName){
+		String hql = "from School where name = :name ";
+		School school= (School)getCurrentSession().createQuery(hql).setString("name",schoolName).uniqueResult();
+		return school;
 	}
 
 }

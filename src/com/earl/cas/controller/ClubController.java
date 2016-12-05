@@ -75,19 +75,13 @@ public class ClubController extends BaseController{
 	@RequestMapping(value = "/getByName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<ResultMessage> getByName(String name) {
 		logger.debug("REST request to get a club by name");
-		//String clubName = null;
-		//try {
-		//	clubName = new String (name.getBytes("iso8859-1"),"utf-8");
-		//} catch (UnsupportedEncodingException e) {
-		//	// TODO Auto-generated catch block
-		//	e.printStackTrace();
-		//}
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		Club club = clubService.getByName(name);
-		result.getResultParm().put("club", club);
+		List<Club> clublist = clubService.getByName(name);
+		result.getResultParm().put("club", clublist);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
+
 	/**
 	 * 注销社团
 	 */
@@ -174,6 +168,22 @@ public class ClubController extends BaseController{
 		result.setServiceResult(true);
 		result.setResultInfo("true->已创建过社团，false->没创建社团");
 		result.getResultParm().put("flag",flag);
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	/**
+	 * 创建社团
+	 */
+	@RequestMapping(value = "/create",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> create(Integer detailId,String clubType,String schoolName,Club club) {
+		logger.debug("REST request to 创建社团");
+		result = new ResultMessage();
+		if(clubService.isCreated(detailId)){
+			throw new DomainSecurityException("用户已创建过社团");
+		}
+		clubService.create(detailId,club,schoolName,clubType);
+		result.setServiceResult(true);
+		result.setResultInfo("社团创建成功");
+		result.getResultParm().put("club", clubService.findById(club.getId()));
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 }

@@ -22,4 +22,8 @@ public interface SchoolDao extends BaseDao<School> {
 	 * @return
 	 */
 	List<School> getSchoolName(School school);
+
+	School getByName(String schoolName);
+
+	
 }

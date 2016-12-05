@@ -15,6 +15,7 @@ import com.earl.cas.commons.service.BaseServiceImpl;
 import com.earl.cas.dao.ApplyDao;
 import com.earl.cas.dao.ClubDao;
 import com.earl.cas.dao.PositionDao;
+import com.earl.cas.dao.SchoolDao;
 import com.earl.cas.dao.UserclubDao;
 import com.earl.cas.entity.Apply;
 import com.earl.cas.entity.Club;
@@ -34,7 +35,10 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 
 	@Resource
 	private ApplyDao applyDao;
-
+	
+	@Resource
+	private SchoolDao schoolDao;
+	
 	@Resource
 	private UserclubDao userclubDao;
 
@@ -272,8 +276,9 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		return applyDao.get(id);
 	}
 
-	public void createApply(String clubName, Apply apply) {
-		Club club = clubDao.getByName(clubName);
+	public void createApply(String clubName, Apply apply,String schoolName) {
+		
+	Club club = clubDao.getByNameAndSchool(clubName,schoolDao.getByName(schoolName).getId());
 		if (club != null) {
 			apply.setStatue(2);
 			apply.setClubId(club.getId());
