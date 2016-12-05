@@ -38,7 +38,7 @@ Activity findByClubId(Integer id);
 /*
  * 根据社团名字查找社团活动
  */
-List<Activity> findByClubName(String clubName, PageInfo pageInfo);
+List<Activity> findByClubName(String clubName);
 
 
 

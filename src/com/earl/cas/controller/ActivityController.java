@@ -156,14 +156,14 @@ public class ActivityController extends BaseController {
 	 * @author 祝
 	 */
 	@RequestMapping(value = "/searchClubActivity",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> searchClubActivity(String clubName,PageInfo pageInfo){
+	public ResponseEntity<ResultMessage> searchClubActivity(String clubName){
 		logger.debug("通过社团名字查找社团活动");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Activity> searchList = activityService.findByClubName(clubName,pageInfo);
+		List<Activity> searchList = activityService.findByClubName(clubName);
 		result.getResultParm().put("activity", searchList);
-		result.getResultParm().put("total",pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+		
 	}
 
 }
