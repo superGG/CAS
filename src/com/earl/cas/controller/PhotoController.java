@@ -57,13 +57,9 @@ public class PhotoController extends BaseController {
 	 * 多图片上传(每个文件不能同名——同名覆盖).
 	 * 
 	 * @author 宋.
-	 * @param request
-	 * @param response
+	 * @param file(每个参数都不能相同，不然会覆盖)
 	 * @param photo
 	 *            不可缺少 albumId
-	 * @return
-	 * @throws IllegalStateException
-	 * @throws IOException
 	 */
 	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> upload2(HttpServletRequest request,
@@ -78,7 +74,7 @@ public class PhotoController extends BaseController {
 	}
 
 	/**
-	 * 获取某相册照片
+	 * 获取某相册照片（分页）
 	 * 
 	 * @author 宋.
 	 * @param photo
@@ -96,6 +92,24 @@ public class PhotoController extends BaseController {
 		result.setServiceResult(true);
 		result.getResultParm().put("photoList", photoList);
 		result.getResultParm().put("total", pageInfo.getTotalCount());
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	
+	/**
+	 * 获取某相册所有照片（不分页）
+	 * 
+	 * @author 宋.
+	 * @param albumId 相册id
+	 * @return
+	 */
+	@RequestMapping(value = "/getAllAlbumPhoto", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> getAlbumPhoto(Integer albumId) {
+		result = new ResultMessage();
+		Photo photo = new Photo();
+		photo.setAlbumId(albumId);
+		List<Photo> photoList = photoService.findByGivenCreteria(photo);
+		result.setServiceResult(true);
+		result.getResultParm().put("photoList", photoList);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 

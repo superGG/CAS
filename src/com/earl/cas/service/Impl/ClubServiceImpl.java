@@ -112,6 +112,8 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		// 获得社团当前类型
 		String typename = clubTypeDao.get(club.getTypeId()).getName();
 		club.setTypeName(typename);
+		Long number = userclubDao.getNumberByclubId(club.getId());
+		club.setNumber(number);
 		return club;
 	}
 
@@ -202,5 +204,12 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		else{
 			throw new DomainSecurityException("社团已存在");
 		}
+	}
+	
+	public void quit(int detailId, int clubId){
+		Apply apply = applyDao.getByDetailIdAndClubId(detailId,clubId);
+		Userclub userclub = userclubDao.getUserclubByApplyId(apply.getId());
+		userclubDao.delete(userclub);
+		applyDao.delete(apply);
 	}
 }

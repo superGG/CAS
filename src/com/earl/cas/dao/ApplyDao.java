@@ -14,7 +14,7 @@ public interface ApplyDao extends BaseDao<Apply> {
 	boolean update(Apply apply);
 
 	/**
-	 * 通过userdetailsId查找申请书
+	 * 通过clubId查找申请书
 	 * 
 	 * @param id
 	 * @return
@@ -60,5 +60,11 @@ public interface ApplyDao extends BaseDao<Apply> {
 	 * @param clubId
 	 */
 	void deleteByClubId(int clubId);
+	/**
+	 * 根据detailId和clubId获得申请书
+	 * @param detailId
+	 * @param clubId
+	 */
+	Apply getByDetailIdAndClubId(int detailId, int clubId);
 
 }
