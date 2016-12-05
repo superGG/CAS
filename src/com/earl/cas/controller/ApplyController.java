@@ -46,7 +46,22 @@ public class ApplyController extends BaseController {
 	private UserclubService userclubService;
 
 	private ResultMessage result = null;
-
+	
+	
+	/**
+	 * POST->创建申请书
+	 */
+	@RequestMapping(value = "/createApply", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> createApply(int detailId,Apply apply,String clubName) {
+		logger.debug("REST request to create a apply");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		apply.setDetailId(detailId);
+		applyService.createApply(clubName,apply);
+		result.setResultInfo("申请书已提交，等待审核");
+		result.getResultParm().put("apply", applyService.findById(apply.getId()));
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 	/**
 	 * GET /apply -> get all the apply
 	 */
@@ -70,6 +85,7 @@ public class ApplyController extends BaseController {
 		result.setServiceResult(true);
 		applyService.update(apply);
 		result.setResultInfo("该成员已加入社团");
+		result.getResultParm().put("apply", applyService.findById(apply.getId()));
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 
@@ -227,6 +243,7 @@ public class ApplyController extends BaseController {
 		result.setServiceResult(true);
 		userclubService.updatePosition(detailId,applyId,positionName);
 		result.setResultInfo("职位更新成功");
+		result.getResultParm().put("apply", applyService.findById(applyId));
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	
 	}

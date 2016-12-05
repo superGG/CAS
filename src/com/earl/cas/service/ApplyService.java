@@ -87,5 +87,19 @@ public interface ApplyService extends BaseService<Apply> {
 	 * @return
 	 */
 	List<Apply> getClubApply(Integer id, Integer statue);
+	/**
+	 * 根据ID找到申请书
+	 * @param id
+	 * @return
+	 */
+	Apply findById(Integer id);
+	/**
+	 * 创建申请书
+	 * @param clubName
+	 * @param apply
+	 */
+	void createApply(String clubName, Apply apply);
+
+
 
 }
