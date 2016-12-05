@@ -3,9 +3,12 @@
 	<head>
 		<meta charset="utf-8">
 		<title>创建社团</title>
-		<link href="../../css/mystyle.css" rel="stylesheet" type="text/css">
 		<link rel='icon' href='../../images/titile_logo.ico' type='image/x-ico' />
+
 		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		<link href="../../css/create_club.css" rel="stylesheet" type="text/css">
+
+		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
@@ -51,9 +54,85 @@
 			</div>
 			<div class="lwd_main_iframe" style="background-image:url('../../images/ccbg.jpg');background-size:100% 100%;">
 				<div class="cc_button">
-					<a href="#"><b>创建社团</b></a>
+					<a href="#"  id="clubcreateclick"><b>创建社团</b></a>
+				</div>
+				<div  id="applytable" class="applytable">
+					<button id="applytableclose" style="float:right;background-color:white; margin:0;padding:0;display:inline-block;">
+						<div style="background:#999;padding:0 0 10px 10px;border-radius:0 0 0 40px">
+							<img src="../../images/close.png " width="20px" height="20px">
+						</div>
+					</button><br>
+					<form action="#" method="#" id="clubcreate"  >
+					
+						<table  align="center" border="0" style="margin:0 0 10px 30px;">
+							<colgroup span="3">
+								<col span="1" style="width:80px;">
+								<col span="1" style="width:200px;">
+								<col span="1" style="width:100px;">
+							</colgroup>													
+								<tr>
+									<td>
+										<label for="name">社团名称</label>
+									</td>
+									<td>
+										<input type="text"  name="name" id="name" placeholder="社团名称" maxlength="8" required="required" autofocus>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label for="type">社团类型</label>
+									</td>
+									<td>
+										<input type="text" name="type" list="mydatalist" placeholder="社团类型">
+											<datalist id="mydatalist">
+												<option value="文艺">文艺</option>
+												<option value="体育">体育</option>
+												<option value="社交">社交</option>
+											</datalist>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label for="school">学校</label>
+									</td>
+									<td>
+										<input type="text" name="school" list="mydatalist1" placeholder="学校">
+											<datalist id="mydatalist1">
+												<option value="广东海洋大学">广东海洋大学</option>
+												<option value="中山大学">中山大学</option>
+												<option value="北京大学">北京大学</option>
+											</datalist>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label for="phone">联系电话</label>
+									</td>
+									<td>
+										<input type="tel" id="phone" name="phone" placeholder="联系电话" required="required" pattern="[0-9]{11}" >
+									</td>
+								</tr>
+								<tr >
+									<td valign="top">
+										<label for="reason" >申请理由</label>
+									</td>
+									<td colspan="2">
+										<textarea rows="5" cols="40" name="reason" id="reason" 
+												placeholder="申请理由" required="required"
+												style="padding:5px 0 0 5px;"></textarea>
+									</td>
+								</tr>										
+								<tr>
+									<td colspan="3" style="text-align:center;">
+										<button type="submit" style="margin:0 50px 0 0">确定</button>
+										<button type="reset">重置</button>
+									</td>
+								</tr>
+						</table>
+					</form>
 				</div>
 			</div>
+			
 		</div>
 		<div class="footer">
 			<p>
@@ -66,5 +145,19 @@
 				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
 			</div>
 		</div>
+		<div class="loadingDiv">
+		</div>
+		<script>
+			$("#clubcreateclick").click(function(){
+				$("#applytable").show();
+				$(".loadingDiv").show();
+				
+			});
+			$("#applytableclose").click(function(){
+				$("#applytable").hide();
+				$(".loadingDiv").hide();
+		
+			});
+		</script>
 	</body>
 </html>

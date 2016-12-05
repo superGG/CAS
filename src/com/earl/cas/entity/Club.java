@@ -67,6 +67,9 @@ public class Club implements Serializable
 	
 	//类型名称 不映射进数据库表
 	private String typeName;
+	
+	//学校名称 不映射进数据库表
+	private String schoolName;
 
 	public Club() {
 	}
@@ -196,6 +199,16 @@ public class Club implements Serializable
 
 	public void setNumber(Long number) {
 		this.number = number;
+	}
+	
+	
+	@Transient
+	public String getSchoolName() {
+		return schoolName;
+	}
+
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
 	}
 
 	@Override

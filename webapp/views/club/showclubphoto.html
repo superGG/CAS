@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>我的社团-社团相册-照片展示</title>
+		<link rel='icon' href='../../images/titile_logo.ico' type='image/x-ico' />
+
+		<link rel="stylesheet" type="text/css" href="../../css/club_common.css">
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../../css/album.css">
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+
+		<script type="text/javascript">
+			var photoList = {"photo":[{"id":"1","name":"图片一","src":"../../images/001.jpg"},
+									  {"id":"2","name":"图片二","src":"../../images/004.jpg"},
+									  {"id":"3","name":"图片水电费","src":"../../images/003.jpg"},
+								      {"id":"4","name":"图片但是","src":"../../images/001.jpg"},
+									  {"id":"5","name":"图片给","src":"../../images/003.jpg"},
+								      {"id":"6","name":"图片给","src":"../../images/004.jpg"},
+									  {"id":"7","name":"图片啊","src":"../../images/003.jpg"},
+									  {"id":"8","name":"图片额","src":"../../images/001.jpg"},
+									  {"id":"9","name":"图片v","src":"../../images/004.jpg"},
+									  {"id":"10","name":"图片和","src":"../../images/001.jpg"},
+									  {"id":"11","name":"图片和","src":"../../images/003.jpg"},
+									  {"id":"12","name":"图片你","src":"../../images/004.jpg"},
+									  {"id":"13","name":"图片吗","src":"../../images/003.jpg"},
+									  {"id":"14","name":"图片去","src":"../../images/001.jpg"},
+									  {"id":"15","name":"图片在","src":"../../images/004.jpg"},
+									  {"id":"16","name":"图片我","src":"../../images/003.jpg"},
+									  {"id":"17","name":"图片用","src":"../../images/001.jpg"}]};
+			$(document).ready(function(){
+				showImg(photoList);
+				var photo;
+				var selectIndex;//当前选中的照片下标
+				var len;//数据长度
+				
+				len = $(".album_photo .photo_item").length;
+				$(".photo_item").hover(function(){
+					photo = $(this).attr("id");
+					$("#"+photo+"_photo").append('<div class="photo_watch"><a href="#" id="watch_btn"><b>查看</b></a></div>');
+					$("#watch_btn").click(function(){
+						selectIndex = $(this).parent().parent().parent().index();
+						showMask();
+						var pic_src = $(this).parent().parent().children("img").attr("src");
+						$(".photo_mask_main").append('<img src='+pic_src+' width="800px" height="550px">');
+					});
+				},function(){
+					$("#"+photo+"_photo .photo_watch").remove();
+				});
+				$("#pre_btn").click(function(){
+					if(selectIndex==0){
+					}else{
+						$(".photo_mask_main img").remove();
+						var pre_src =  $(".album_photo .photo_item").eq(selectIndex-1).children(".photo_box").children("img").attr("src");
+						$(".photo_mask_main").append('<img src='+pre_src+' width="800px" height="550px">');
+						selectIndex = selectIndex-1;
+					}
+				});
+				$("#next_btn").click(function(){
+					if(selectIndex==len-1){
+					}else{
+						$(".photo_mask_main img").remove();
+						var next_src =  $(".album_photo .photo_item").eq(selectIndex+1).children(".photo_box").children("img").attr("src");
+						$(".photo_mask_main").append('<img src='+next_src+' width="800px" height="550px">');
+						selectIndex = selectIndex+1;
+					}
+				});
+			});
+			function showMask(){
+				$("body").css("overflow-y","hidden");
+				$("#mask").css("height",$(document.body).height());     
+				$("#mask").css("width",$(document.body).outerWidth(true));     
+				$("#mask").show();
+			} 
+			function hideMask(){ 
+				$(".photo_mask_main img").remove();
+				$("#mask").hide();
+				$("body").css("overflow-y","visible");
+			}
+			function showImg(photoList){
+				for(var i = 0; i<photoList.photo.length; i++){
+					$(".album_photo").append('<div class="photo_item" id="'+photoList.photo[i].id+'"><div class="photo_box" id="'+photoList.photo[i].id+'_photo"><img src="'+photoList.photo[i].src+'"width="150px" height="120px"></div><div class="photo_name"><span>'+photoList.photo[i].name+'</span></div></div>');
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="top">
+			<div class="logobox">
+				<img id="logo" src="../../images/logo_school.png">
+			</div>
+			<div class="nav">
+				<ul>
+					<li><a href="index.html" >首页</a></li>
+					<li><a href="club/allClub.html">社团</a></li>
+					<li><a href="club/allActivity.html">活动</a></li>
+					<li><a href="massage/massage.html">留言板</a></li>
+				</ul>
+			</div>
+			<div class="login">
+				<a href="">登录</a>
+				<a href="">注册</a>
+			</div>
+		</div>
+		<div class="lwd_main">
+			<div class="lwd_main_nav">
+				<div class="header_photo">
+					<img src="../../images/ccbg.jpg">
+					<p>梁伟栋</p>
+				</div>
+				<div class="sidebar_left">
+					<div class="sidebar_left_module">
+						<a href="../user/personalcenter.html">
+							<b><img src="../../images/man.png"></b>
+							个人信息
+						</a>
+						<a href="showjoinedclubs.html"  class="curr">
+							<b><img src="../../images/club.png"></b>
+							我加入的社团
+						</a>
+						<a href="memberapplydeal.html">
+							<b><img src="../../images/club.png"></b>
+							我创建的社团
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="lwd_main_iframe">
+				<div class="cmm_head_nav">
+					<ul class="top_navs">
+						<li><a href="showclubinformation.html">社团详情</a></li>
+						<li class="curr"><a href="showclubalbums.html">社团相册</a></li>
+						<li><a href="showclubactivity.html">社团活动</a></li>
+						<li><a href="#">社团留言板</a></li>
+					</ul>			
+				</div>
+				<div class="album_info_tool">
+					<div class="album_cover"><img src="../../images/ccbg.jpg" width="100%" height="100%"></div>
+					<div class="album_title">
+						<b>那些逝去的时光</b>
+						<span>共24张<span><span style="padding-left:60px;">创建时间：2016-12-3</span>
+						<a href="showclubalbums.html"><button class="btn_white">返回</button></a>
+					</div>
+					<div class="album_intro">
+						<span>相册描述：阿斯利康到付款拉黑萨格拉斯简单的开房间撒款到即发开始啦还刚开始的饭卡啊时代发生大幅度萨芬撒的发生的发生地方撒旦法啊当时发生的发生</span>
+					</div>
+				</div>
+				<div class="album_photo">
+					
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<p>
+				Copyright © 2016 Powered by 社团网申_第12组版权所有
+			</p>
+			<p>
+				地址：广东海洋大学钟海楼04019 邮政编码：524000　电话：18344094195
+			</p>
+			<div xmlns:wb="http://open.weibo.com/wb">
+				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
+			</div>
+		</div>
+
+		<div id="mask" class="photo_mask">
+			<button onclick="hideMask()"><img src="../../images/close.png" width="30px" height="30px"></button>
+			<div class="photo_mask_main">
+				
+				<a href="#" class="prepage" id="pre_btn"></a>
+				<a href="#" class="nextpage" id="next_btn"></a>
+			</div>
+		</div>
+	</body>
+</html>
