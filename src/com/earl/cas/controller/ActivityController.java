@@ -127,7 +127,7 @@ public class ActivityController extends BaseController {
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		List<Activity> clubActivityList = activityService.findByClubId(activity, pageInfo);
-		result.getResultParm().put("/Activity", clubActivityList);
+		result.getResultParm().put("activity", clubActivityList);
 		result.getResultParm().put("total",pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
@@ -146,6 +146,25 @@ public class ActivityController extends BaseController {
 		result.getResultParm().put("activity", activityDetail);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
+	
+	/**
+	 * 根据社团名字查找社团活动
+	 * @param clubName
+	 * @param pageInfo
+	 *               必须含有 indexPageNum\size
+	 * @author 祝
+	 */
+	@RequestMapping(value = "/searchClubActivity",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> searchClubActivity(String clubName,PageInfo pageInfo){
+		logger.debug("通过社团名字查找社团活动");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Activity> searchList = activityService.findByClubName(clubName, pageInfo);
+		result.getResultParm().put("activity", searchList);
+		result.getResultParm().put("total",pageInfo.getTotalCount());
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
 		
 
 }

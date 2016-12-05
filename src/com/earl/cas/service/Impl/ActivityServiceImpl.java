@@ -125,4 +125,24 @@ public Activity findByClubId(Integer id) {
 	return activity;
 }
 
+/*
+ * 根据社团名字查找社团活动
+ * (non-Javadoc)
+ * @see com.earl.cas.service.ActivityService#findByClubName(com.earl.cas.entity.Activity, com.earl.cas.vo.PageInfo)
+ */
+@Override
+public List<Activity> findByClubName(String clubName, PageInfo pageInfo) {
+	Club club = clubDao.getByName(clubName);
+	Activity activity = new Activity();
+	activity.setClubId(club.getId());
+	List<Activity> searchList = activityDao.findByGivenCriteria(activity, pageInfo);
+	if(!searchList.isEmpty()) {
+	for(Activity activityt:searchList){
+		activityt.setClubName(club.getName());//将对应社团id的名字传进活动列表
+	}
+	return searchList;
+    } else{
+		throw new DomainSecurityException("该社团没有发布活动 ");
+	}
+ }
 }
