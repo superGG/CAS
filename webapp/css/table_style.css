@@ -1,0 +1,129 @@
+﻿h3{
+	margin:0;
+	padding:0;
+	color:#fff;
+}
+input,select{
+	padding:5px;
+	margin:10px 0 10px 30px;
+}
+select{
+	width:163px;
+}
+label{
+	font-size:15px;
+}
+textarea{
+	margin-left:30px;
+}
+
+.psinfo_header{
+	height:50px;
+	background:#999;
+	margin-top:0;
+	padding-left:15px;
+	padding-right:15px;
+	line-height:50px;
+}
+.psinfo_pic{
+	width:220px;
+	float:right;
+}
+.psinfo_pic>a{
+	color:#333;
+	border:1px solid #ccc;
+	border-radius:2px;
+	background:#fff;
+	padding:7px 20px;
+	display:block;
+	width:74px;
+	text-align:center;
+	margin-top:3px;
+	font-size:12px;
+}
+.psinfo_pic>a:hover{
+	background:#ccc;
+}
+.psinfo_pic>button{
+	width:116px;
+	height:30px;
+	line-height:30px;
+	color:#fff;
+	background:#0063af;
+	border:0;
+	cursor:pointer;
+	margin-top:2px;
+}
+.psinfo_pic>button:hover{
+	background:#37a1cc;
+}
+.table_header{
+	width:740px;
+	margin:0 auto;
+}
+.search_btn{
+	float:right;
+	margin-left:0;
+}
+.memberlist{
+	border-spacing:0;
+	margin:0 auto;
+	font-family:宋体;
+	color:#666;
+	width:740px;
+}
+.memberlist th{
+	padding:8px;
+	margin:0;
+	border-bottom:1px solid #ccc;
+	
+}
+.memberlist td{
+	padding-top:8px;
+	padding-bottom:8px;
+	text-align:center;
+	border-bottom:1px solid #ccc;
+	font-size:15px;
+	cursor:pointer;
+}
+.memberlist button{
+	border:0;
+	color:#fff;
+	background:#0063af;
+	cursor:pointer;
+	padding:5px 10px;
+}
+.memberlist button:hover{
+	background:#37a1cc;
+}
+.memberlist tr:hover{
+	background:#e5e5e5;
+}
+.list_action{
+	text-align:center;
+	line-height:36px;
+	background:#fff;
+	position:absolute;
+	top:154px;
+	opacity:0;
+	width:150px;
+	height:36px;
+}
+.dot_down{
+	border-top:20px solid #999;
+	border-left:30px solid transparent;
+	border-right:30px solid transparent;
+	margin:auto;
+	width:0;
+	height:0;
+	cursor:pointer;
+}
+.dot_down:hover{
+	border-top:20px solid #0063af;
+	border-left:30px solid transparent;
+	border-right:30px solid transparent;
+	margin:auto;
+	width:0;
+	height:0;
+	cursor:pointer;
+}

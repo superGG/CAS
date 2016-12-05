@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>我加入的社团-社团活动</title>
+		<link rel='icon' href='../../images/titile_logo.ico' type='image/x-ico' />
+
+		<link href="../../css/club_activity.css" rel="stylesheet" type="text/css"> 
+		<link rel="stylesheet" type="text/css" href="../../css/club_common.css">
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		
+		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript">
+			var activityList = {"activity":[{"id":"1","title":"招新活动撒的发生","createtime":"2016-12-5"},
+			{"id":"1","title":"招新活动","createtime":"2016-12-5"},{"id":"1","title":"招新活动","createtime":"2016-12-5"},{"id":"1","title":"招新活动啊大法师打发的说法是打发斯蒂芬","createtime":"2016-12-5"},{"id":"1","title":"招新活动阿萨德发生","createtime":"2016-12-5"},{"id":"1","title":"招新活动","createtime":"2016-12-5"},{"id":"1","title":"招新活动阿萨德发生地方阿萨德发生地方","createtime":"2016-12-5"},{"id":"1","title":"招新活动阿萨德发生地方","createtime":"2016-12-5"},{"id":"1","title":"招新活动","createtime":"2016-12-5"},{"id":"1","title":"招新阿萨德发飒飒发顺丰萨芬活动","createtime":"2016-12-5"},{"id":"1","title":"招新活动","createtime":"2016-12-5"}]};
+			$(document).ready(function(){
+				showActivityList(activityList);
+			});
+			function showActivityList(activityList){
+				for(var i = 0; i<activityList.activity.length; i++){
+					$(".activity_list").append('<div class="activity_item"><img src="../../images/folder_new.gif" width="17px" height="17px"><a href="#">'+activityList.activity[i].title+'</a><div class="num_count"><span>发布时间：'+activityList.activity[i].createtime+'</span></div></div>');
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="top">
+			<div class="logobox">
+				<img id="logo" src="../../images/logo_school.png">
+			</div>
+			<div class="nav">
+				<ul>
+					<li><a class="active" href="index.html" >首页</a></li>
+					<li><a href="club/allClub.html">社团</a></li>
+					<li><a href="club/allActivity.html">活动</a></li>
+					<li><a href="massage/massage.html">留言板</a></li>
+				</ul>
+			</div>
+			<div class="login">
+				<a href="">登录</a>
+				<a href="">注册</a>
+			</div>
+		</div>
+		<div class="lwd_main">
+			<div class="lwd_main_nav">
+				<div class="header_photo">
+					<img src="../../images/ccbg.jpg">
+					<p>梁伟栋</p>
+				</div>
+				<div class="sidebar_left">
+					<div class="sidebar_left_module">
+						<a href="../user/personalcenter.html">
+							<b><img src="../../images/man.png"></b>
+							个人信息
+						</a>
+						<a href="showjoinedclubs.html" class="curr">
+							<b><img src="../../images/club.png"></b>
+							我加入的社团
+						</a>
+						<a href="memberapplydeal.html">
+							<b><img src="../../images/club.png"></b>
+							我创建的社团
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="lwd_main_iframe">
+				<div class="cmm_head_nav">
+					<ul class="top_navs">
+						<li><a href="showclubinformation.html">社团详情</a></li>
+						<li><a href="showclubalbums.html">社团相册</a></li>
+						<li  class="curr"><a href="showclubactivity.html">社团活动</a></li>
+						<li><a href="#">社团留言板</a></li>
+					</ul>
+				</div><br>
+				<div class="activity_list">
+					
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<p>
+				Copyright © 2016 Powered by 社团网申_第12组版权所有
+			</p>
+			<p>
+				地址：广东海洋大学钟海楼04019 邮政编码：524000　电话：18344094195
+			</p>
+			<div xmlns:wb="http://open.weibo.com/wb">
+				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
+			</div>
+		</div>
+	</body>
+</html>
