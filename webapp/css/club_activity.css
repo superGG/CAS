@@ -1,0 +1,43 @@
+.activity_list{
+	border-top:1px solid #ccc;
+	width:736px;
+	margin:auto;
+}
+.activity_item{
+	margin:auto;
+	padding:3px 15px;
+	width:706px;
+	height:30px;
+	line-height:30px;
+	border-left:1px solid #ccc;
+	border-right:1px solid #ccc;
+	border-bottom:1px solid #ccc;
+	position:relative;
+}
+.activity_item:hover{
+	background:#eee;
+}
+.activity_item a{
+	font-size:13px;
+	color:#000;
+	font-family:Tahoma,'Microsoft Yahei','Simsun';
+	padding-left:20px;
+}
+.activity_item a:hover{
+	text-decoration:underline;
+}
+.activity_item span{
+	font-size:13px;
+	color:#999;
+	font-family:Tahoma,'Microsoft Yahei','Simsun';
+}
+.activity_item img{
+	position:absolute;
+	top:10px;
+	left:10px;
+}
+.num_count{
+	display:inline-block;
+	position:absolute;
+	right:20px;
+}

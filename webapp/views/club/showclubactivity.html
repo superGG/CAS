@@ -2,46 +2,25 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>我加入的社团-社团相册</title>
+		<title>我加入的社团-社团活动</title>
 		<link rel='icon' href='../../images/titile_logo.ico' type='image/x-ico' />
 
+		<link href="../../css/club_activity.css" rel="stylesheet" type="text/css"> 
 		<link rel="stylesheet" type="text/css" href="../../css/club_common.css">
 		<link rel="stylesheet" type="text/css" href="../../css/common.css">
-		<link rel="stylesheet" type="text/css" href="../../css/album.css">
-
+		
 		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 
 		<script type="text/javascript">
-			var albumList = {"album":[{"id":"1","title":"逝去的时光","createtime":"2016-12-5","cover":"../../images/ccbg.jpg"},
-			{"id":"2","title":"社团招新","createtime":"2016-12-5","cover":"../../images/001.jpg"},
-			{"id":"3","title":"烧烤","createtime":"2016-12-5","cover":"../../images/003.jpg"},
-			{"id":"4","title":"社团bb大赛","createtime":"2016-12-5","cover":"../../images/004.jpg"},
-			{"id":"5","title":"昔日","createtime":"2016-12-5","cover":"../../images/004.jpg"},
-			{"id":"6","title":"那些年","createtime":"2016-12-5","cover":"../../images/003.jpg"},
-			{"id":"7","title":"开会照片","createtime":"2016-12-5","cover":"../../images/004.jpg"}]};
+			var activityList = {"activity":[{"id":"1","title":"招新活动撒的发生","createtime":"2016-12-5"},
+			{"id":"1","title":"招新活动","createtime":"2016-12-5"},{"id":"1","title":"招新活动","createtime":"2016-12-5"},{"id":"1","title":"招新活动啊大法师打发的说法是打发斯蒂芬","createtime":"2016-12-5"},{"id":"1","title":"招新活动阿萨德发生","createtime":"2016-12-5"},{"id":"1","title":"招新活动","createtime":"2016-12-5"},{"id":"1","title":"招新活动阿萨德发生地方阿萨德发生地方","createtime":"2016-12-5"},{"id":"1","title":"招新活动阿萨德发生地方","createtime":"2016-12-5"},{"id":"1","title":"招新活动","createtime":"2016-12-5"},{"id":"1","title":"招新阿萨德发飒飒发顺丰萨芬活动","createtime":"2016-12-5"},{"id":"1","title":"招新活动","createtime":"2016-12-5"}]};
 			$(document).ready(function(){
-					showAlbumList(albumList);
-					var timer;
-					var album;
-					$(".album_action").css("visibility","visible")
-					$(".album_action").hide();
-					$(".album").hover(function(){
-						clearTimeout(timer);
-						album = $(this).attr("id");
-						timer=setTimeout(function(){
-							$("#"+album+"_action").slideDown("fast");
-							$("#"+album+"_name").animate({height:'60px'},"fast");
-						},100);
-					},function(){
-						clearTimeout(timer);
-						$("#"+album+"_action").slideUp("fast");
-						$("#"+album+"_name").animate({height:'30px'},"fast");
-					});
+				showActivityList(activityList);
 			});
-			function showAlbumList(albumList){
-				for(var i=0; i<albumList.album.length; i++){
-					$(".lwd_main_iframe").append('<div class="album" id="'+albumList.album[i].id+'"><div class="album_pic"><img src="'+albumList.album[i].cover+'" width="150px" height="100px"></div><div class="album_name" id="'+albumList.album[i].id+'_name">	<span style="font-size:12px;">'+albumList.album[i].title+'</span><span style="font-size:12px;position:absolute;right:5px;">'+albumList.album[i].createtime+'</span></div><div id="'+albumList.album[i].id+'_action" class="album_action"><a href="showclubphoto.html"><button action="#">进入相册</button></a></div></div>');
+			function showActivityList(activityList){
+				for(var i = 0; i<activityList.activity.length; i++){
+					$(".activity_list").append('<div class="activity_item"><img src="../../images/folder_new.gif" width="17px" height="17px"><a href="#">'+activityList.activity[i].title+'</a><div class="num_count"><span>发布时间：'+activityList.activity[i].createtime+'</span></div></div>');
 				}
 			}
 		</script>
@@ -49,7 +28,7 @@
 	<body>
 		<div class="top">
 			<div class="logobox">
-				<img id="logo" src="../../images/young.png" width="150px" height="70px">
+				<img id="logo" src="../../images/logo_school.png">
 			</div>
 			<div class="nav">
 				<ul>
@@ -91,12 +70,14 @@
 				<div class="cmm_head_nav">
 					<ul class="top_navs">
 						<li><a href="showclubinformation.html">社团详情</a></li>
-						<li class="curr"><a href="showclubalbums.html">社团相册</a></li>
-						<li><a href="showclubactivity.html">社团活动</a></li>
+						<li><a href="showclubalbums.html">社团相册</a></li>
+						<li  class="curr"><a href="showclubactivity.html">社团活动</a></li>
 						<li><a href="#">社团留言板</a></li>
 					</ul>
+				</div><br>
+				<div class="activity_list">
+					
 				</div>
-				
 			</div>
 		</div>
 		<div class="footer">
