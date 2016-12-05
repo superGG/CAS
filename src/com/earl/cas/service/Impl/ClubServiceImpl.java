@@ -20,10 +20,13 @@ import com.earl.cas.dao.ClubDao;
 import com.earl.cas.dao.ClubTypeDao;
 import com.earl.cas.dao.MessageDao;
 import com.earl.cas.dao.PositionDao;
+import com.earl.cas.dao.SchoolDao;
+import com.earl.cas.dao.UserDetailsDao;
 import com.earl.cas.dao.UserclubDao;
 import com.earl.cas.entity.Apply;
 import com.earl.cas.entity.Club;
 import com.earl.cas.entity.ClubType;
+import com.earl.cas.entity.School;
 import com.earl.cas.entity.Userclub;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ClubService;
@@ -47,6 +50,9 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	private UserclubDao userclubDao;
 	
 	@Resource
+	private SchoolDao schoolDao;
+
+	@Resource
 	private ActivityDao activityDao;
 	@Resource
 	private ApplyDao applyDao;
@@ -56,6 +62,9 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 
 	@Resource
 	private ClubDao clubDao;
+	
+	@Resource
+	private UserDetailsDao userdetailsDao;
 	
 	@Resource
 	private PositionDao positionDao;
@@ -68,13 +77,13 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		return clubDao;
 	}
 
-	public Club getByName(String clubName) {
+	public List<Club> getByName(String clubName) {
 
-		Club club = clubDao.getByName(clubName);
-		if (club == null) {
-			throw new DomainSecurityException("找不到该社团");
+		List<Club> clublist = clubDao.getByName(clubName);
+		if (clublist == null) {
+			throw new DomainSecurityException("找不到该名字的社团");
 		} else {
-			return club;
+			return clublist;
 		}
 	}
 
@@ -175,5 +184,23 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 			return true;
 		}
 		else return false;
+	}
+	
+	public void create(Integer detailId,Club club, String schoolName, String clubType){
+		if(detailId==null){
+			throw new DomainSecurityException("请先登录");
+		}
+		club.setLeader(userdetailsDao.get(detailId).getName());
+		club.setDetailId(detailId);
+		School school = schoolDao.getByName(schoolName);
+		ClubType clubtype =  clubTypeDao.getByName(clubType);
+		if(clubDao.getByNameAndSchool(club.getName(),school.getId())==null){
+			club.setTypeId(clubtype.getId());
+			club.setSchoolId(school.getId());
+			clubDao.save(club);
+		}
+		else{
+			throw new DomainSecurityException("社团已存在");
+		}
 	}
 }

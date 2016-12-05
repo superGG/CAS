@@ -52,12 +52,12 @@ public class ApplyController extends BaseController {
 	 * POST->创建申请书
 	 */
 	@RequestMapping(value = "/createApply", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> createApply(int detailId,Apply apply,String clubName) {
+	public ResponseEntity<ResultMessage> createApply(int detailId,Apply apply,String clubName,String schoolName) {
 		logger.debug("REST request to create a apply");
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		apply.setDetailId(detailId);
-		applyService.createApply(clubName,apply);
+		applyService.createApply(clubName,apply,schoolName);
 		result.setResultInfo("申请书已提交，等待审核");
 		result.getResultParm().put("apply", applyService.findById(apply.getId()));
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);

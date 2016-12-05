@@ -12,7 +12,7 @@ public interface ClubDao extends BaseDao<Club>{
 	 * @param name
 	 * @param clubName 
 	 */
-	Club getByName( String clubName);
+	List<Club> getByName( String clubName);
 	
 	/**
 	 * 更新社团
@@ -26,5 +26,8 @@ public interface ClubDao extends BaseDao<Club>{
 	 * @return
 	 */
 	 Club getClubByuserDetailId(int id);
- 
+	 /**
+	  * 通过学校和名字精确找到社团
+	  */
+	 Club getByNameAndSchool(String Name,int schoolId);
 }

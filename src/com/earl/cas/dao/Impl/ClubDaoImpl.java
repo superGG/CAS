@@ -19,12 +19,12 @@ import com.earl.cas.entity.Club;
 public class ClubDaoImpl extends BaseDaoImpl<Club> implements ClubDao {
 
 	@SuppressWarnings("unchecked")
-	public Club getByName(String clubName) {
+	public List<Club> getByName(String clubName) {
 		String hql = "from Club where  name = :name";
-		Club club = (Club) getCurrentSession().createQuery(hql)
-				.setString("name", clubName).uniqueResult();
+		List<Club> clublist = getCurrentSession().createQuery(hql)
+				.setString("name", clubName).list();
 		// logger.info(list.toString());
-		return club;
+		return clublist;
 	}
 
 	public boolean update(Club club) {
@@ -42,10 +42,18 @@ public class ClubDaoImpl extends BaseDaoImpl<Club> implements ClubDao {
 			return false;
 		}
 	}
-	
-	public Club getClubByuserDetailId(int id){
-		String hql ="from Club where detailId = :id";
-		Club club = (Club) getCurrentSession().createQuery(hql).setInteger("id",id).uniqueResult();
+
+	public Club getClubByuserDetailId(int id) {
+		String hql = "from Club where detailId = :id";
+		Club club = (Club) getCurrentSession().createQuery(hql)
+				.setInteger("id", id).uniqueResult();
+		return club;
+	}
+
+	public Club getByNameAndSchool(String Name, int schoolId) {
+		String hql = "from Club where name = :name and schoolId = :schoolId";
+		Club club = (Club) getCurrentSession().createQuery(hql).setString("name",Name)
+				.setInteger("schoolId", schoolId).uniqueResult();
 		return club;
 	}
 }

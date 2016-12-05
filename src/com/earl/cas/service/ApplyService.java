@@ -97,8 +97,9 @@ public interface ApplyService extends BaseService<Apply> {
 	 * 创建申请书
 	 * @param clubName
 	 * @param apply
+	 * @param schoolName 
 	 */
-	void createApply(String clubName, Apply apply);
+	void createApply(String clubName, Apply apply, String schoolName);
 
 
 
