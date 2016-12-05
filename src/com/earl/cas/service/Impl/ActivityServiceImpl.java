@@ -3,8 +3,6 @@ package com.earl.cas.service.Impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +13,10 @@ import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
 import com.earl.cas.dao.ActivityDao;
 import com.earl.cas.dao.ClubDao;
+import com.earl.cas.dao.SchoolDao;
 import com.earl.cas.entity.Activity;
 import com.earl.cas.entity.Club;
+import com.earl.cas.entity.School;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ActivityService;
 import com.earl.cas.vo.PageInfo;
@@ -40,6 +40,10 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements
 
 	@Autowired
 	private ClubDao clubDao;
+	
+	@Autowired
+	private SchoolDao schoolDao;
+
 
 	@Override
 	protected BaseDao<Activity> getDao() {
@@ -53,11 +57,7 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements
 	public List<Activity> findAllActivity(PageInfo pageInfo) {
 		List<Activity> allList = activityDao.findAll(pageInfo);
 		if (!allList.isEmpty()) {
-			for (Activity activity : allList) {
-				Club club = clubDao.get(activity.getClubId());// 从活动里提取出社团id
-				activity.setClubName(club.getName());// 将对应社团id的名字传进活动列表
-			}
-			return allList;
+			return setName(allList);
 		} else {
 			throw new DomainSecurityException("该活动页面没有活动 ");
 		}
@@ -75,8 +75,14 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements
 			throw new DomainSecurityException("该活动已被删除 或不存在");
 
 		} else {
-			Club club = clubDao.get(detail.getClubId());// 从活动表里抽取社团id
-			detail.setClubName(club.getName());// 将对应社团id的名字传进活动列表
+			// 从活动表里抽取社团id,得到社团对象
+			Club club = clubDao.get(detail.getClubId());
+			// 从社团表里抽取学校id,得到学校对象
+			School school = schoolDao.get(club.getSchoolId());
+			// 将对应社团id的名字传进活动列表
+			detail.setClubName(club.getName());
+			// 将对应学校id的名字传进活动列表
+			detail.setSchoolName(school.getName());
 			return detail;
 		}
 	}
@@ -94,7 +100,7 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements
 		return update;
 	}
 	
-/*根据社团id从社团表中找出社团名字并放进活动表中
+/*根据社团id从社团表中找出社团名字和从学校表中找出学校名字并放进活动表中
  * (non-Javadoc)
  * @see com.earl.cas.service.ActivityService#findByClubId(com.earl.cas.entity.Activity, com.earl.cas.vo.PageInfo)
  */
@@ -102,11 +108,7 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements
 public List<Activity> findByClubId(Activity activity, PageInfo pageInfo) {
 	List<Activity> findByClubIdList = activityDao.findByGivenCriteria(activity, pageInfo);
 	if(!findByClubIdList.isEmpty()){
-		Club club = clubDao.get(activity.getClubId());//从活动里提取出社团id
-		for(Activity activityt:findByClubIdList){
-			activityt.setClubName(club.getName());//将对应社团id的名字传进活动列表
-		}
-		return findByClubIdList;
+		return setName(findByClubIdList);
 	} else{
 		throw new DomainSecurityException("该活动页面没有活动 ");			
 	}
@@ -121,7 +123,9 @@ public List<Activity> findByClubId(Activity activity, PageInfo pageInfo) {
 public Activity findByClubId(Integer id) {
 	Activity activity = activityDao.findDetail(id);
 	Club club = clubDao.get(activity.getClubId());//从活动里提取出社团id
+	School school = schoolDao.get(club.getSchoolId());
 	activity.setClubName(club.getName());//将对应社团id的名字传进活动对象
+	activity.setSchoolName(school.getName());
 	return activity;
 }
 
@@ -132,17 +136,35 @@ public Activity findByClubId(Integer id) {
  */
 @Override
 public List<Activity> findByClubName(String clubName, PageInfo pageInfo) {
-	Club club = clubDao.getByName(clubName);
-	Activity activity = new Activity();
-	activity.setClubId(club.getId());
-	List<Activity> searchList = activityDao.findByGivenCriteria(activity, pageInfo);
-	if(!searchList.isEmpty()) {
-	for(Activity activityt:searchList){
-		activityt.setClubName(club.getName());//将对应社团id的名字传进活动列表
+	 List<Activity> addClubSchoolList = new ArrayList<Activity>();
+	 List<Club> clubList = clubDao.getByName(clubName);
+	 Activity activity = new Activity();
+	 List<Activity> activityList = new ArrayList<Activity>();
+	 for(Club club:clubList){
+		 activity.setClubId(club.getId());
+		 activityList = activityDao.findByGivenCriteria(activity);
+		 addClubSchoolList.addAll(activityList);
+	 }
+    
+	return setName(addClubSchoolList);
 	}
-	return searchList;
-    } else{
-		throw new DomainSecurityException("该社团没有发布活动 ");
-	}
- }
+ 
+/*
+ * 将学校名字和社团名字加入到社团活动中去
+ */
+  private List<Activity>  setName(List<Activity> indexList){
+	  Club club = new Club();
+	  School school = new School();
+	  for(Activity activity :indexList){
+		 club = clubDao.get( activity.getClubId());
+		 activity.setClubName(club.getName());
+		 school = schoolDao.get(club.getSchoolId());
+		 activity.setSchoolName(school.getName());
+	  }
+	  return indexList;
+  }
+
+
+
 }
+

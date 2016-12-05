@@ -1,0 +1,84 @@
+.club_box{
+	width:700px;
+	height:180px;
+	margin:20px auto 0 auto;
+	padding:10px;
+	background:#fff;
+	box-shadow:0 0 5px #666;
+	transition:0.3s;
+}
+.club_box:hover{
+	box-shadow:0 10px 10px #666;
+}
+.club_box_pic{
+	display:inline-block;
+}
+.club_box_text{
+	width:520px;
+	height:170px;
+	position:absolute;
+	margin-top:5px;
+	margin-left:20px;
+	background:#fff;
+	display:inline-block;
+}
+.clubtitle{
+	font-family:楷体;
+	font-size:36px;
+	color:#333;
+}
+.ccdate{
+	font-size:10px;
+	color:#999;
+	position:absolute;
+	top:40px;
+	left:5px;
+}
+.clubint{
+	border:1px solid #ccc;
+	padding:5px;
+	position:absolute;
+	top:105px;
+	right:0;
+	
+}
+.club_box_text>textarea{
+	margin-left:0 !important;
+}
+.clubdet{
+	width:519px;
+	height:50px;
+	background:#fff;
+	position:absolute;
+	top:55px;
+	left:0;
+}
+.clubdet_item{
+	width:100px;
+	height:30px;
+	border-right:1px solid #ccc;
+	margin-top:10px
+	display:inline-block;
+	float:left;
+	padding:0 30px;
+}
+.clubdet_item>p{
+	padding:0 10px 5px 0;
+	margin:0;
+	text-align:center;
+	font-size:12px;
+}
+.club_box button{
+	color:#fff;
+	background:#0063af;
+	border:0;
+	padding:5px;
+	cursor:pointer;
+}
+.club_box button:hover{
+	background:#37a1cc;
+}
+a{
+	text-decoration:none;
+	color:#fff;
+}

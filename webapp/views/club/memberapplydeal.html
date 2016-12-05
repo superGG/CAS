@@ -3,29 +3,38 @@
 	<head>
 		<meta charset="utf-8">
 		<title>社团管理-申请处理</title>
-		<link href="../../css/mystyle.css" rel="stylesheet" type="text/css"> 
-		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
 		<link rel='icon' href='../../images/titile_logo.ico' type='image/x-ico' />
+
+		<link rel="stylesheet" type="text/css" href="../../css/club_common.css">
 		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../../css/apply_deal.css">
+		<link rel="stylesheet" type="text/css" href="../../css/other.css">
+		
+		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 
 		<script type="text/javascript">
+			var applyList = {"apply":[{"id":"1","name":"夏小璐","email":"168168168@qq.cpm","sex":"男","age":"14","nation":"汉族","hobby":"跟秦绛珠聊天","phone":"18316816888","majorClass":"语言学","introduce":"我是男的。","createtime":"2016-12-5","reason":"在电视上看到校园生活非常美好，向往校园中的社团生活，所以想体验一下。","statue":"未审核"},
+			{"id":"2","name":"秦绛珠","email":"168168168@qq.cpm","sex":"女","age":"14","nation":"汉族","hobby":"跟秦绛珠聊天","phone":"18316816888","majorClass":"语言学","introduce":"我是男的。","createtime":"2016-12-5","reason":"在电视上看到校园生活非常美好，向往校园中的社团生活，所以想体验一下。阿打发似的发射的法师打发士大夫撒发生法撒的发生的发生法。","statue":"未审核"},
+			{"id":"3","name":"赵可乐","email":"168168168@qq.cpm","sex":"女","age":"14","nation":"汉族","hobby":"跟秦绛珠聊天","phone":"18316816888","majorClass":"语言学","introduce":"我是男的。","createtime":"2016-12-5","reason":"在电视上看到校园生活非常美好，向往校园中的社团生活，所阿萨德发生的发生的发生的发生的发生法萨芬撒飞洒发萨菲撒发生发生飞洒以想体验一下。","statue":"未审核"}]};
 			$(document).ready(function(){
-				var timer;
-				var user;
+				showApplyList(applyList);
+				var item;
 				$(".sq_details").css("visibility","visible");
 				$(".sq_details").hide();
-				$(".user").hover(function(){
-					clearTimeout(timer);
-					user = $(this).attr("id");
-					timer=setTimeout(function(){
-						$("#"+user+"_details").slideDown("fast");
-					},200);	
-				},function(){
-					clearTimeout(timer);
-					$("#"+user+"_details").slideUp("fast");
-				});
+					$(".sq_item").mouseover(function(){
+						user = $(this).attr("id");
+						$("#"+user+"_details").show();
+					});
+					$(".sq_item").mouseout(function(){
+						$("#"+user+"_details").hide();
+					});
 			});
+			function showApplyList(applyList){
+				for(var i=0; i<applyList.apply.length;i++){
+				$(".cmm_head_nav").append('<div class="sq_item" id="'+applyList.apply[i].id+'"><div class="sq_item_box"><img src="../../images/ccbg.jpg" width="70px" height="70px" style="margin-right:10px;"><textarea cols="88" rows="3" style="position:absolute;margin-top:0;margin-left:80px;" disabled="disabled">'+applyList.apply[i].reason+'</textarea><span style="padding-right:50px;font-size:12px;">申请日期:'+applyList.apply[i].createtime+'</span><span style="padding-right:50px;font-size:12px;">审核状态：'+applyList.apply[i].statue+'</span><button aciton="#" class="sq_item_btn" style="margin-left:200px;">同意</button> <button action="#" class="sq_item_btn">拒绝</button><div class="sq_details" id="'+applyList.apply[i].id+'_details"><img src="../../images/ccbg.jpg" width="116px" height="116px"style="position:absolute;margin-top:10px;margin-left:295px;border:1px solid #ccc"><div style="margin:10px 0 6px 0 ;"><span>姓名</span><input type="text" disabled="disabled" value="'+applyList.apply[i].name+'"></div><div><span>性别</span><input type="text" disabled="disabled" value="'+applyList.apply[i].sex+'"></div><div><span>年龄</span><input type="text" disabled="disabled" value="'+applyList.apply[i].age+'"></div><div><span>民族</span><input type="text" disabled="disabled" value="'+applyList.apply[i].nation+'"></div><div><span>专业</span><input type="text" disabled="disabled" value="'+applyList.apply[i].majorClass+'"></div><div><span>电话</span><input type="text" disabled="disabled" value="'+applyList.apply[i].phone+'"></div><div><span>邮箱</span><input type="text" disabled="disabled" value="'+applyList.apply[i].email+'"></div><div style="margin-top:2px;"><span style="position:absolute;top:130px;left:205px;">简介</span><textarea cols="20" rows="4" disabled="disabled" style="border:1px solid #ccc;position:absolute;top:135px;left:250px;">'+applyList.apply[i].introduce+'</textarea></div><div style="margin-top:2px;"><span style="position:absolute;top:210px;left:205px;">爱好</span><textarea cols="20" rows="4" disabled="disabled" style="border:1px solid #ccc;position:absolute;top:207px;left:250px;">'+applyList.apply[i].hobby+'</textarea></div></div></div></div>');
+				}
+			}
 		</script>
 	</head>
 	<body>
@@ -80,24 +89,8 @@
 						<li><a href="positionmanage.html">职位管理</a></li>
 					</ul>
 					<div style="height:30px;line-height:30px;padding:10px 0 0 10px;">
-						<a href="#" class="active">全部</a><a href="#">未审核</a><a href="#">已审核</a>
+						<a href="#" class="active">未审核</a>
 					</div>	
-					<div class="sq_item">
-						<div class="sq_item_box">
-							<img src="../../images/ccbg.jpg" width="70px" height="70px" id="user1" class="user">
-							<textarea cols="88" rows="3" style="position:absolute;margin-top:0;margin-left:80px;" disabled="disabled">这里写申请理由</textarea>
-							<span style="padding-right:50px;font-size:12px;">申请日期:2016-11-15</span><span style="padding-right:50px;font-size:12px;">审核状态:未审核</span>
-							<button aciton="#" class="sq_item_btn" style="margin-left:200px;">同意</button>
-							<button action="#" class="sq_item_btn">拒绝</button>
-							<div class="sq_details" id="user1_details">
-									<img src="../../images/ccbg.jpg" width="116px" height="116px" style="position:absolute;margin-top:10px;margin-left:170px;border:1px solid #ccc">
-									<div><span>姓名</span><input type="text" disabled="disabled" value="Dikuni"></div>
-									<div><span>性别</span><input type="text" disabled="disabled" value="male"></div>
-									<div><span>电话</span><input type="text" disabled="disabled" value="18320363387"></div>
-									<div style="margin-top:7px;"><span style="position:absolute;margin-top:2px;">爱好</span><textarea cols="30" rows="3" disabled="disabled" style="border:1px solid #ccc;position:absolute; margin-left:52px;"></textarea></div>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>

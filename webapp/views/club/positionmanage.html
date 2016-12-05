@@ -3,16 +3,19 @@
 	<head>
 		<meta charset="utf-8">
 		<title>社团管理-职位管理</title>
-		<link href="../../css/mystyle.css" rel="stylesheet" type="text/css"> 
-		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
 		<link rel='icon' href='../../images/titile_logo.ico' type='image/x-ico' />
+
+		<link rel="stylesheet" type="text/css" href="../../css/club_common.css">
 		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../../css/table_style.css">
+		
+		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
 		<div class="top">
 			<div class="logobox">
-				<img id="logo" src="../../images/icon11.png" width="100px" height="70px">
+				<img id="logo" src="../../images/logo_school.png">
 			</div>
 			<div class="nav">
 				<ul>
@@ -61,25 +64,29 @@
 						<li class="curr"><a href="positionmanage.html">职位管理</a></li>
 					</ul>
 				</div>
-					<button 
+					
+					<button  id="position_add" 
 						style="margin:10px 0;float:right;margin-right:40px;height:29px;cursor:pointer;">新建职位
 					</button>
-					<input type="text" style="float:right;" placeholder="请输入新建职位名称"/>
-				<table class="memberlist">
+					<input type="text" id="position_name"  placeholder="请输入新建职位名称" style="float:right;" />
+						
+				<table class="memberlist" id="position_table">
 					<tr style="background:#999;color:#fff;height:42px;">
 						<th style="width:101px;"><strong>#</strong></th>
 						<th style="width:184px;"><strong>职位</strong></th>
 						<th><strong>操作</strong></th>
 					</tr>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td id="position">社长</td>
-							<td><button class="bige_btn" id="edit">修改</button>
-								<button class="bige_btn">删除</button>
-							</td>
-						</tr>
-					</tbody>
+					
+					<tr id="1">
+						<td >1</td>
+						<td id="position">社长</td>
+						<td><button class="bige_btn" id="edit">修改</button>
+							<button class="bige_btn" id="remove">删除</button>
+						</td>
+					</tr>
+					
+				
+					
 				</table>
 			</div>
 		</div>
@@ -100,9 +107,8 @@
 				 var statu = 0;           
 				 var edit = document.getElementById('edit');          
 				 var item = document.getElementById('position');                     
-				 var item_value = item.innerHTML; 
-				     
-				 edit.onclick =function(){      
+				 var item_value = item.innerHTML;     
+				 edit.onclick =function(){
 					if(statu == 0){
 						edit.innerHTML= '保存';                                    
 						item.innerHTML = '<input type="text" style="margin:0;padding:3px 0;text-align:center;width:100px;" id="item_input" value="'+item_value+'">';
@@ -115,7 +121,15 @@
 						statu = 0
 					}               
 					return false;     
-				}        
+				} ;
+				$("#position_add").click(function(){
+					var position =$("#position_name").val();
+					$("#position_table").append('<tr><td>2</td><td id="position">'+position+'</td><td><button class="bige_btn" id="edit">修改</button> <button class="bige_btn">删除</button></td></tr>');
+					$("#position_name").val("");
+				});
+				$("#remove").click(function(){
+					$("#1").remove();
+				});
 			</script>   
 	</body>
 </html>

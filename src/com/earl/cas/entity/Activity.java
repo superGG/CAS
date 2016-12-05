@@ -44,6 +44,17 @@ public class Activity implements Serializable
 	
 	//社团名称
 	private String clubName;
+	
+	//学校名字
+	private String schoolName;
+
+	public String getSchoolName() {
+		return schoolName;
+	}
+
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
 
 	public String getClubName() {
 		return clubName;

@@ -40,4 +40,6 @@ Activity findByClubId(Integer id);
  */
 List<Activity> findByClubName(String clubName, PageInfo pageInfo);
 
+
+
 }

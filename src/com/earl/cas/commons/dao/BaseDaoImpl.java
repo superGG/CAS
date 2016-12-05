@@ -18,6 +18,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -145,6 +146,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			criteria.add(Restrictions.eq(entry.getKey(), entry.getValue()));
 
 		}
+		criteria.addOrder(Order.desc("createtime"));
 		@SuppressWarnings("unchecked")
 		List<T> listObject = criteria.list();
 
@@ -166,7 +168,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		for (Entry<String, Object> entry : notNullParam.entrySet()) {
 			criteria.add(Restrictions.eq(entry.getKey(), entry.getValue()));
 		}
-
+		criteria.addOrder(Order.desc("createtime"));
 		@SuppressWarnings("unchecked")
 		List<T> listObject = pageAttribute(criteria, pageInfo).list();
 
@@ -197,7 +199,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		// criteria.setFirstResult(
 		// (pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
 		// .setMaxResults(pageInfo.getSize()).list();
-
+		criteria.addOrder(Order.desc("createtime"));
 		@SuppressWarnings("unchecked")
 		List<T> listObject = criteria.list();
 
