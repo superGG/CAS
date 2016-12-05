@@ -30,4 +30,9 @@ public interface ActivityService extends BaseService<Activity> {
  */
   List<Activity> findByClubId(Activity activity,PageInfo pageInfo);
 
+/*
+ * 将社团名字传进来
+ */
+Activity findByClubId(Integer id);
+
 }

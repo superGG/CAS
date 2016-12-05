@@ -89,6 +89,7 @@ public class ClubTypeController extends BaseController {
 		result.setServiceResult(true);
 		clubTypeService.save(clubtype);
 		result.setResultInfo("增加成功");
+		result.getResultParm().put("clubtype", clubTypeService.get(clubtype.getId()));
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
@@ -109,6 +110,7 @@ public class ClubTypeController extends BaseController {
 		result.setServiceResult(true);
 		clubTypeService.update(clubtype);
 		result.setResultInfo("更新成功");
+		result.getResultParm().put("clubtype", clubTypeService.get(clubtype.getId()));
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 }
