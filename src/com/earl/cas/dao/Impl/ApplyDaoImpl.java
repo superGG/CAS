@@ -80,18 +80,26 @@ public class ApplyDaoImpl extends BaseDaoImpl<Apply> implements ApplyDao {
 				.setString("name", "%" + name + "%").list();
 		return applylist;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<Apply> getBydetailIdStatueIsOk(int detailId){
+	public List<Apply> getBydetailIdStatueIsOk(int detailId) {
 		String hql = "from Apply where  detailId = :detailId and statue = 0";
 		List<Apply> applylist = getCurrentSession().createQuery(hql)
 				.setInteger("detailId", detailId).list();
 		return applylist;
 	}
-	
-	public void deleteByClubId(int clubId){
+
+	public void deleteByClubId(int clubId) {
 		String hql = "delete Apply where clubId = :clubId";
-		 getCurrentSession().createQuery(hql).setInteger("clubId", clubId).executeUpdate();
-		 getCurrentSession().flush();
+		getCurrentSession().createQuery(hql).setInteger("clubId", clubId)
+				.executeUpdate();
+		getCurrentSession().flush();
+	}
+
+	public Apply getByDetailIdAndClubId(int detailId, int clubId) {
+		String hql = "from Apply where detailId = :detailId and clubId = :clubId";
+		return (Apply) getCurrentSession().createQuery(hql)
+				.setInteger("detailId", detailId).setInteger("clubId", clubId)
+				.uniqueResult();
 	}
 }

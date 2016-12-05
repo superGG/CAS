@@ -49,6 +49,7 @@ public class ClubDaoImpl extends BaseDaoImpl<Club> implements ClubDao {
 				.setInteger("id", id).uniqueResult();
 		return club;
 	}
+	
 
 	public Club getByNameAndSchool(String Name, int schoolId) {
 		String hql = "from Club where name = :name and schoolId = :schoolId";

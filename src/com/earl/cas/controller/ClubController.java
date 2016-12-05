@@ -186,4 +186,17 @@ public class ClubController extends BaseController{
 		result.getResultParm().put("club", clubService.findById(club.getId()));
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
+	
+	/**
+	 * 退出社团
+	 */
+	@RequestMapping(value = "/quit", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> quit(int detailId,int clubId) {
+		logger.debug("REST request to quit club");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		clubService.quit(detailId,clubId);
+		result.setResultInfo("退出成功");
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 }

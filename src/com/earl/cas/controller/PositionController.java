@@ -33,7 +33,7 @@ public class PositionController extends BaseController {
 
 	@Autowired
 	private PositionService positionService;
-
+	
 	private ResultMessage result = null;
 
 	/**
@@ -61,7 +61,6 @@ public class PositionController extends BaseController {
 		result.getResultParm().put("position", positionList);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-
 
 	
 
@@ -129,4 +128,5 @@ public class PositionController extends BaseController {
 		result.setResultInfo("删除成功");
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+
 }

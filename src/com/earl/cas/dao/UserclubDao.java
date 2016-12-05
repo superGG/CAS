@@ -27,5 +27,6 @@ public interface UserclubDao extends BaseDao<Userclub>{
 	 * @param clubId
 	 */
 	void deleteByClubId(int clubId);
+	
     
 }
