@@ -69,7 +69,7 @@ public class AlbumController extends BaseController {
 		result.setResultInfo("添加失败");
 		result.setServiceResult(false);
 		Integer save = albumService.save(album);
-		if (save == 0) {
+		if (save != 0) {
 			result.setResultInfo("添加成功");
 			result.setServiceResult(true);
 			result.getResultParm().put("album", album);
@@ -90,11 +90,11 @@ public class AlbumController extends BaseController {
 			throw new DomainSecurityException("id不能为空");
 		}
 		result = new ResultMessage();
-		result.setResultInfo("添加成功");
+		result.setResultInfo("删除成功");
 		result.setServiceResult(true);
 		int delete = albumService.deleteById(id);
 		if (delete == 0) {
-			result.setResultInfo("添加失败");
+			result.setResultInfo("删除失败");
 			result.setServiceResult(false);
 		}
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);

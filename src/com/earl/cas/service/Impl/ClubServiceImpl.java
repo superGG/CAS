@@ -229,6 +229,7 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		Club club = new Club();
 		club.setTypeId(clubTypeDao.getByName(typeName).getId());
 		List<Club> clublist = clubDao.findByGivenCriteria(club, pageInfo);
+		setNumber(clublist);
 		setName(clublist);
 		return clublist;
 	}
@@ -251,27 +252,10 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	}
 
 	public List<Club> getBySearch(String search, PageInfo pageInfo) {
-//		List<School> schoolList = schoolDao.getBySearch(search);
-//		Map<String,List<Club>> hashMap = new HashMap();
-//		List<Club> clublist = null;
-//		if (schoolList != null && !search.equals("大学")) {
-//			for (School school : schoolList) {
-//				clublist = clubDao.getBySearchNameAndSchool(search,
-//						school.getId(), pageInfo);
-//				setName(clublist);
-//				setNumber(clublist);
-//				hashMap.put(school.getName(),clublist);
-//			}
-//		} else {
-//			clublist = clubDao.getBySearch(search, pageInfo);
-//			setName(clublist);
-//			setNumber(clublist);
-//			hashMap
-//		}
-//		setName(clublist);
-//		setNumber(clublist);
-//		return clublist;
-		return null;
+		List<Club> clublist = clubDao.getBySearch(search, pageInfo);
+		setName(clublist);
+		setNumber(clublist);
+		return clublist;
 	}
 
 	/**
