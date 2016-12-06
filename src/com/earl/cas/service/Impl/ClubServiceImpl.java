@@ -252,10 +252,34 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	}
 
 	public List<Club> getBySearch(String search, PageInfo pageInfo) {
-		List<Club> clublist = clubDao.getBySearch(search, pageInfo);
-		setName(clublist);
-		setNumber(clublist);
-		return clublist;
+		List<Club> clublist = null;
+		List<Club> clublist_school = null;
+		clublist = clubDao.getBySearch(search, pageInfo);
+		List<School> schoollist = schoolDao.getBySearch(search);
+		if (schoollist != null) {
+			for (School school : schoollist) {
+				clublist_school = clubDao.getBySchoolId(school.getId(),
+						pageInfo);
+				if (clublist.size() <= pageInfo.getSize()) {
+					compare(clublist, clublist_school);
+				}
+			}
+			setName(clublist);
+			setNumber(clublist);
+			return clublist;
+		} else {
+			setName(clublist);
+			setNumber(clublist);
+			return clublist;
+		}
+		// List<Club> clublistforschool = clubDao
+		// .getBySchoolName(search, pageInfo);
+		// List<School> schoolList = schoolDao.getBySearch(search);
+
+		// compare(clublist, clublistforschool);
+		// setName(clublist);
+		// setNumber(clublist);
+		// return clublist;
 	}
 
 	/**
@@ -270,6 +294,9 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		}
 	}
 
+	/**
+	 * 学校循环
+	 */
 	/**
 	 * 为club加上学校名字
 	 * 
@@ -287,4 +314,36 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		}
 	}
 
+	/**
+	 * 根据number进行排行
+	 */
+	private List<Club> rank(List<Club> list) {
+		List<Club> clublist = new ArrayList<Club>();
+		for (Club club : list) {
+
+		}
+		return list;
+
+	}
+
+	/**
+	 * club进行比较
+	 */
+	private void compare(List<Club> clublist, List<Club> clublistforschool) {
+		if (clublist.size()>0) {
+			for (Club club_first : clublist) {
+				for (Club club_second : clublistforschool) {
+					if (club_first.getId() != club_second.getId()) {
+						clublist.add(club_second);
+					}
+				}
+			}
+		} else {
+			for (Club club_second : clublistforschool) {
+				{
+					clublist.add(club_second);
+				}
+			}
+		}
+	}
 }

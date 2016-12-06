@@ -95,22 +95,31 @@ public class ClubDaoImpl extends BaseDaoImpl<Club> implements ClubDao {
 		return list;
 	}
 	
-//	@SuppressWarnings("unchecked")
-//	public List<Club> getBySearchNameAndSchool(String SearchName, Integer id,PageInfo pageInfo){
-//		String hql = "from Club where name like :SearchName and schoolId = :schoolId";
-//		List<Club> list =  getCurrentSession().createQuery(hql)
-//				.setString("SearchName", SearchName).setInteger("schoolId", id)
-//				.setFirstResult(
-//						(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
-//				.setMaxResults(pageInfo.getSize())
-//				.list();
-//		
-//		String hql2 = "select count(*) from Club where name like :SearchName and schoolId = :schoolId";
-//		Object uniqueResult = getCurrentSession().createQuery(hql2)
-//				.setString("SearchName", SearchName).setInteger("schoolId", id)
-//				.uniqueResult();
-//		Long intValue = (new Integer(uniqueResult.toString())).longValue();
-//		pageInfo.setTotalCount(intValue);
-//		return list;
-//	}
+	@SuppressWarnings("unchecked")
+	public List<Club> getBySchoolId(int schoolId,PageInfo pageInfo){
+		String hql = "from Club where schoolId = :schoolId ";
+		List<Club> list = getCurrentSession()
+				.createQuery(hql)
+				.setInteger("schoolId", schoolId)
+				.setFirstResult(
+						(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
+				.setMaxResults(pageInfo.getSize()).list();
+
+		String hql2 = "select count(*) from Club where schoolId = :schoolId";
+		Object uniqueResult = getCurrentSession().createQuery(hql2)
+				.setString("schoolId",  "%" + schoolId + "%")
+				.uniqueResult();
+		Long intValue = (new Integer(uniqueResult.toString())).longValue();
+		pageInfo.setTotalCount(intValue);
+		return list;
+	}
+	
+	public Club getBySearchAndSchool(String search, Integer id){
+		String hql = "from Club where name like : search and schoolId = :id";
+		Club club = (Club) getCurrentSession()
+				.createQuery(hql)
+				.setString("search", "%" + search + "%").setInteger("id",id).uniqueResult();
+		return club;
+	}
+	
 }

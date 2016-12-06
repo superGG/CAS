@@ -56,7 +56,7 @@ public class SchoolDaoImpl extends BaseDaoImpl<School> implements SchoolDao {
 		String hql = "from School where  name like :search ";
 		List<School> list = getCurrentSession()
 				.createQuery(hql)
-				.setString("search", search).list();
+				.setString("search", "%"+search+"%").list();
 		return list;
 	}
 
