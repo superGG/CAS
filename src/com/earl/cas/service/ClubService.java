@@ -111,4 +111,11 @@ public interface ClubService extends BaseService<Club> {
 	 * @return
 	 */
 	List<Club> getAlls(PageInfo pageInfo);
+	/**
+	 * get By id  封装好所有属性
+	 * @param clubId
+	 * @return
+	 */
+	Club getById(int clubId);
+	
 }

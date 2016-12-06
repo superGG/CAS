@@ -55,6 +55,18 @@ public class ClubController extends BaseController{
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	/**
+	 * GET /club -> get a the club by id
+	 */
+	@RequestMapping(value = "/getById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getById(int clubId) {
+		logger.debug("REST request to get all club");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		Club club = clubService.getById(clubId);
+		result.getResultParm().put("club", club);
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	/**
 	 * 保存Club
 	 * @param club
 	 * @return

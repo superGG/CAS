@@ -239,6 +239,16 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		return clublist;	
 	}
 	
+	public Club getById(int clubId){
+		Club club = get(clubId);
+		club.setNumber( userclubDao.getNumberByclubId(club.getId()));
+		ClubType type = clubTypeDao.get(club.getTypeId());
+		School school = schoolDao.get(club.getSchoolId());
+		club.setSchoolName(school.getName());
+		club.setTypeName(type.getName());
+		return club;
+	}
+	
 	private void setNumber(List<Club> clublist) {
 		// TODO Auto-generated method stub]
 		for(Club club:clublist){
