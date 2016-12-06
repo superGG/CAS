@@ -1,7 +1,6 @@
 package com.earl.cas.entity;
 // Generated 2016-11-21 9:28:51 by Hibernate Tools 5.2.0.Beta1
 
-import java.beans.Transient;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -10,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -48,24 +48,6 @@ public class Activity implements Serializable
 	
 	//学校名字
 	private String schoolName;
-
-	@Transient
-	public String getSchoolName() {
-		return schoolName;
-	}
-
-	public void setSchoolName(String schoolName) {
-		this.schoolName = schoolName;
-	}
-
-	@Transient
-	public String getClubName() {
-		return clubName;
-	}
-
-	public void setClubName(String clubName) {
-		this.clubName = clubName;
-	}
 
 	public Activity() {
 	}
@@ -111,6 +93,22 @@ public class Activity implements Serializable
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+	@Transient 
+	public String getSchoolName() {
+		return schoolName;
+	}
+
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
+	@Transient 
+	public String getClubName() {
+		return clubName;
+	}
+
+	public void setClubName(String clubName) {
+		this.clubName = clubName;
 	}
 
 	//@Transient  设置该属性后标致该属性不持久化数据库，由数据库自己管理

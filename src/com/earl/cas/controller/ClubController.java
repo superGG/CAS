@@ -46,12 +46,24 @@ public class ClubController extends BaseController{
 	 * GET /club -> get all the club
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> getAll() {
+	public  ResponseEntity<ResultMessage> getAll(PageInfo pageInfo) {
 		logger.debug("REST request to get all club");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Club> clubList = clubService.findAll();
+		List<Club> clubList = clubService.getAlls(pageInfo);
 		result.getResultParm().put("club", clubList);
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	/**
+	 * GET /club -> get a the club by id
+	 */
+	@RequestMapping(value = "/getById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getById(int clubId) {
+		logger.debug("REST request to get all club");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		Club club = clubService.getById(clubId);
+		result.getResultParm().put("club", club);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	/**
@@ -228,5 +240,4 @@ public class ClubController extends BaseController{
 		result.getResultParm().put("clublist", clublist);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
-	
 }

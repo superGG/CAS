@@ -232,6 +232,30 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		return clublist;
 	}
 	
+	public List<Club> getAlls(PageInfo pageInfo){
+		List<Club> clublist = clubDao.findAll(pageInfo);
+		setName(clublist);
+		setNumber(clublist);
+		return clublist;	
+	}
+	
+	public Club getById(int clubId){
+		Club club = get(clubId);
+		club.setNumber( userclubDao.getNumberByclubId(club.getId()));
+		ClubType type = clubTypeDao.get(club.getTypeId());
+		School school = schoolDao.get(club.getSchoolId());
+		club.setSchoolName(school.getName());
+		club.setTypeName(type.getName());
+		return club;
+	}
+	
+	private void setNumber(List<Club> clublist) {
+		// TODO Auto-generated method stub]
+		for(Club club:clublist){
+			club.setNumber( userclubDao.getNumberByclubId(club.getId()));
+		}
+	}
+
 	/**
 	 * 为club加上学校名字
 	 * @param list
@@ -239,9 +263,14 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	@SuppressWarnings("unused")
 	private void setName(List<Club> list){
 		School school = null;
+		ClubType type = null;
 		for(Club club:list){
+			type = clubTypeDao.get(club.getTypeId());
 			school = schoolDao.get(club.getSchoolId());
 			club.setSchoolName(school.getName());
+			club.setTypeName(type.getName());
 		}
 	}
+
+	
 }

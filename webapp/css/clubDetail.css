@@ -14,8 +14,7 @@
 .club-logo{
 	float: left;
 	width: 45%;
-	height: 100%;
-	margin: auto;
+	height: 215px;
 	border: 1px solid #ccc;
 	text-align:center;
 }
@@ -29,7 +28,7 @@
 	float: left;
 	width: 54%;
 	height: 215px;
-	margin: auto;
+	margin-left: 1px;
 	border:1px solid #ccc;
 }
 .club-info h2{
@@ -37,7 +36,7 @@
 }
 .club-info-item{
 	float: left;
-	width: 33%;
+	width: 33.3%;
 	margin: auto;
 	text-align: center;
 }
@@ -51,6 +50,7 @@
 	position: absolute;
 	width: 50%;
 	padding: 5px 0;
+	color: #fff;
 	background-color: #12b7f5;
 	bottom: 0px;
 	text-align:center; 
@@ -63,11 +63,12 @@
 	background-color: #fff;
 }
 .clubDetai-bar ul{
+	position: relative;
 	width: 50%;
+	height: 42px;
 	padding: 0;
 	margin: 0 auto;
 	list-style: none;
-	overflow: hidden;
 }
 .clubDetai-bar ul li{
 	float: left;
@@ -85,10 +86,270 @@
 	color: #000;
 	background-color: #fff;
 }
-
+.clubDetai-bar ul .active{
+	color: #000;
+	background-color: #fff;
+}
 .clubDetai-content{
 	width: 100%;
-	height: 300px;
 	padding: 10px;
 	background-color: #fff;
 }
+.club-introduction,.club-activity,.club-member,.club-album{
+	width: 100%;
+	border:1px solid #ccc;
+}
+.club-introduction p{
+	padding: 10px;
+	text-indent: 2em;
+}
+.arrows{
+	position: absolute;
+	display: block;
+	width: 0px;
+	left: 11%;
+	top: 40px;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 12px solid #fff;
+}
+
+/*申请表*/
+#applyFrame{
+	position: fixed;
+	width: 50%;
+	padding: 10px;
+	min-width: 475px;
+	background-color: #fff;
+	z-index: 100;
+}
+#applyFrame #applyForm{
+	border:1px solid #ccc;
+	overflow: hidden;
+}
+#applyForm table{
+	width: 100%;
+	min-width: 475px;
+}
+
+#applyForm table td{
+	background-color: #ccc;
+	text-align: center;
+}
+#applyForm input{
+	width: 100%;
+	height: 100%;
+}
+#applyForm textarea{
+	width: 100%;
+	height: 100%;
+}
+#applyForm .apply_post,#applyForm .apply_cancel{
+	width: 150px;
+	padding: 5px;
+	margin:5px; 
+	display: inline-block;
+	background-color: #12b7f5;
+	cursor: pointer;
+}
+
+/*相册样式*/
+.club-album ul{
+	width: 100%;
+	padding: 0;
+	margin: 0 auto;
+	list-style-type:none;
+	overflow: hidden;
+}
+.club-album ul li{
+	float: left;
+	width: 23%;
+	margin: 1%;
+	background-color: #fff;
+}
+.club-album .club-album-box{
+	position: relative;
+	padding: 10px;
+	background-color: #ccc;
+}
+
+.club-album-box img{
+	width: 100%;
+	height: 100%;
+	min-height: 60px;
+	background-color: #dddddd;
+	cursor: pointer;
+}
+.club-album-box .photo-count{
+	position: absolute;
+	right: 11px;
+	bottom: 31px;
+	color: #fff;
+	font-size: 30px;
+}
+.photo_list{
+}
+.photo_list_hd{
+	background-color: #ddd;
+}
+.photo_list_hd_albumImg{
+	display: inline-block;
+	width: 100px;
+	height: 80px;
+	padding: 5px;
+	margin: 1%;
+	background-color: #ccc;
+	vertical-align: middle;
+}
+.photo_list_hd_albumImg img{
+	width: 100%;
+	height: 100%;
+}
+.photo_list_hd_albumName{
+	display: inline-block;
+}
+.photo_list_bd ul{
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+.photo_list_bd ul li{
+	display: inline-block;
+	width: 16%;
+	height: 100px;
+	padding: 1%;
+	margin: 1%;
+	background-color: #ccc;
+}
+.photo_list_bd ul li:hover{
+	background-color: #12b7f5;
+}
+.photo_list_bd ul li img{
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+}
+.photo_list_bd ul li.photo_acive{
+	background-color: royalblue;
+}
+/*展示照片*/
+#photoFrame{
+	position: fixed;
+	width: 80%;
+	min-height: 200px;
+	padding: 10px;
+	margin: auto;
+	background-color: #fff;
+	z-index: 100;
+}
+#photoFrame .photo_close{
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	right: 0px;
+	top: 0px;
+	background: url("../images/close.png")no-repeat #ccc;
+	background-size: 40px 40px;
+}
+#photoFrame .photo_close:hover{
+	background-image: url("../images/close_red.png");
+	cursor: pointer;
+}
+#photoFrame .bigPhoto{
+	position: relative;
+	width: 70%;
+	margin: auto;
+	text-align: center;
+	background-color: #ccc;
+}
+#photoFrame .bigPhoto img{
+	width: 100%;
+	height: 100%;
+	background-color: red;
+}
+#photoFrame .bigPhoto .bigPhoto_prev{
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	background:url("../images/Triangle_left.png") no-repeat center;
+	background-size: 80%;
+	top: 50%;
+	left: -100px;
+	cursor: pointer;
+}
+
+#photoFrame .bigPhoto .bigPhoto_next{
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	background:url("../images/Triangle_right.png") no-repeat center;
+	background-size: 80%;
+	top: 50%;
+	right:-100px;
+	cursor: pointer;
+}
+#photoFrame .bigPhoto_tip{
+	position: absolute;
+	display: none;
+	width: 200px;
+	height: 30px;
+	line-height: 30px;
+	top: 50%;
+	left: 40%;
+	color: #fff;
+	background-color: #000;
+	text-align: center;
+	z-index: 110;
+}
+/*.photoFrame .photoBar{
+	position: relative;
+	width: 80%;
+	height: 100px;
+	margin: auto;
+	background-color: red;
+}
+.photoBar .photoList{
+	position: relative;
+	height: 100px;
+	overflow: hidden;
+}
+.photoList ul{
+	position: absolute;
+	padding:0;
+	margin: 0;
+	white-space:nowrap;
+	list-style: none;
+	overflow: hidden;
+}
+.photoList ul li{
+	float: left;
+	width: 100px;
+	height: 100px;
+}
+.photoList ul li img{
+	width: 100%;
+	height: 100%;
+}
+.photoBar .photoBar_prev{
+	position: absolute;
+	width: 20px;
+	height: 100px;
+	background:url("../images/Triangle_left.png") no-repeat center;
+	background-size: 50% 100%;
+	top: 0;
+	left: -20px;
+	cursor: pointer;
+}
+.photoBar .photoBar_next{
+	position: absolute;
+	width: 20px;
+	height: 100px;
+	background:url("../images/Triangle_right.png") no-repeat center;
+	background-size: 50% 100%;
+	top: 0;
+	right: -20px;
+	cursor: pointer;
+}
+.photoBar_prev:hover , .photoBar_next:hover{
+	background-color: #12b7f5;
+}*/

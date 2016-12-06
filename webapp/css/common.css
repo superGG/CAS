@@ -12,7 +12,7 @@ body{
 	background-color: #82898e;
 	top:0;
 	z-index: 100;
-	min-width: 911px;
+	min-width: 710px;
 	position: fixed;
 	/*解决fixed抖动*/
 	-webkit-transform: translateZ(0);
@@ -133,7 +133,7 @@ body{
     top: 0;
     z-index: 99;
 }
-#loginFrame,#registerFrame{
+#loginFrame{
 	position: fixed;
 	width: 30%;
 	min-width: 350px;
@@ -149,7 +149,7 @@ body{
 	right: 0px;
 	cursor: pointer;
 	text-align: center;
-	background: url("../images/close.png")no-repeat;
+	background: url("../images/login_close.png")no-repeat;
 }
 .close:hover{
 	background-position: 0px -24px;

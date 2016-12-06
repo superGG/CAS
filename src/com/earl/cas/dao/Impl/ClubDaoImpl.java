@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.earl.cas.commons.dao.BaseDaoImpl;
 import com.earl.cas.dao.ClubDao;
 import com.earl.cas.entity.Club;
+import com.earl.cas.vo.PageInfo;
 
 /**
  * clubDao的实现类
@@ -56,5 +57,22 @@ public class ClubDaoImpl extends BaseDaoImpl<Club> implements ClubDao {
 		Club club = (Club) getCurrentSession().createQuery(hql).setString("name",Name)
 				.setInteger("schoolId", schoolId).uniqueResult();
 		return club;
+	}
+
+	public List<Club> findAll(PageInfo pageInfo){
+		String hql = "from Club order by createtime desc " ;
+		@SuppressWarnings("unchecked")
+		List<Club> list = getCurrentSession()
+				.createQuery(hql)
+				.setFirstResult(
+						(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
+				.setMaxResults(pageInfo.getSize()).list();
+
+		String hql2 = "select count(*) from Club";
+		Object uniqueResult = getCurrentSession().createQuery(hql2)
+				.uniqueResult();
+		Long intValue = (new Integer(uniqueResult.toString())).longValue();
+		pageInfo.setTotalCount(intValue);
+		return list;
 	}
 }
