@@ -17,7 +17,7 @@ public class Member {
 	private String position; // 职位
 	private String majorClass; // 专业
 	private String tel;// 电话
-	private String createTime; // 入社申请
+	private String createtime; // 入社申请
 
 	public int getId() {
 		return id;
@@ -67,12 +67,12 @@ public class Member {
 		this.tel = tel;
 	}
 
-	public String getCreateTime() {
-		return createTime;
+	public String getCreatetime() {
+		return createtime;
 	}
 
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
+	public void setCreatetime(String createtime) {
+		this.createtime = createtime;
 	}
 
 }

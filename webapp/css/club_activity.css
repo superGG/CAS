@@ -41,3 +41,21 @@
 	position:absolute;
 	right:20px;
 }
+.dot_down{
+	border-top:20px solid #999;
+	border-left:30px solid transparent;
+	border-right:30px solid transparent;
+	margin:auto;
+	width:0;
+	height:0;
+	cursor:pointer;
+}
+.dot_down:hover{
+	border-top:20px solid #0063af;
+	border-left:30px solid transparent;
+	border-right:30px solid transparent;
+	margin:auto;
+	width:0;
+	height:0;
+	cursor:pointer;
+}
