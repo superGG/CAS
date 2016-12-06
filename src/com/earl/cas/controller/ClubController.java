@@ -230,7 +230,7 @@ public class ClubController extends BaseController{
 	/**
 	 * 根据类型找到社团
 	 */
-	@RequestMapping(value = "/getBytypeName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/getByTypeName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<ResultMessage> getBytypeName(String typeName,PageInfo pageInfo) {
 		logger.debug("REST request to get a club by schoolname");
 		result = new ResultMessage();

@@ -109,7 +109,7 @@ function initClubNavBtn() {
 			//显示全部
 			//获取数据
 			var url="/ClubSystem/club/getAlls";
-			var parm = "indexPageNum=1&size=6"
+			var parm = "indexPageNum=1&size=6";
 			$.get(url,parm,function (data) {
 				console.log(data);
 				if (data.serviceResult) {

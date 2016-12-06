@@ -1,37 +1,47 @@
 $(document).ready(function () {
-	getClubList();
+	getClubList(1);
+	showClubType();
 })
 //获取社团列表
-function getClubList() {
-	var listDate = {"clubs":[{"clubId":"1","title":"网球社","proprieter":"张三","population":"50","position":"广东海洋大学","pic":"../../images/001.jpg"},
-							{"clubId":"1","title":"篮球社","proprieter":"李四","population":"20","position":"广州大学","pic":"../../images/002.png"},
-							{"clubId":"1","title":"足球社","proprieter":"王五","population":"30","position":"广东海洋大学","pic":"../../images/003.jpg"},
-							{"clubId":"1","title":"排球社","proprieter":"小七","population":"100","position":"广东海洋大学","pic":"../../images/004.jpg"},
-							{"clubId":"1","title":"乒乓球社","proprieter":"吴六","population":"33","position":"广东海洋大学","pic":"../../images/001.jpg"},
-							{"clubId":"1","title":"散打社","proprieter":"老九","population":"50","position":"广东海洋大学","pic":"../../images/003.jpg"}]};
-	showClubList(listDate);
+function getClubList(index) {
+	var url="/ClubSystem/club/getAlls";
+	var parm="size=6&indexPageNum="+index;
+	$.get(url, parm, function (data) {
+		console.log(data);
+		if (data.serviceResult) {
+			var listData = data.resultParm.club;
+			showClubList(listData);
+		}
+	})
 }
 //显示社团列表
-function showClubList(listDate) {
+function showClubList(listData) {
+	if (listData.length==0) {
+		$(".loadMore").html("已经没有了！").attr("onclick","javascipt:void(0);");
+		return;
+	}
 	var str = "";
-	for (var i = 0; i <listDate.clubs.length; i++) {
-		str+="<li class=\"clubBox\"><a href=\"clubDetail.html?clubId="+listDate.clubs[i].clubId+"\"><div class=\"imgBox\"><img src=\""+listDate.clubs[i].pic+"\"></div>";
-		str+="<div class=\"info-area\"><h3>"+listDate.clubs[i].title+"</h3>";
-		str+="<span class=\"proprieter\">"+listDate.clubs[i].proprieter+"</span>";
-		str+="<span class=\"associator\">"+listDate.clubs[i].population+"</span>";
-		str+="<span class=\"position\">"+listDate.clubs[i].position+"</span></div></a></li>";
+	for (var i = 0; i <listData.length; i++) {
+		var color=""
+		switch(i%6){
+			case 0:color="myblue" ;break;
+			case 1:color="mygreen" ;break;
+			case 2:color="myred" ;break;
+			case 3:color="myoringe" ;break;
+			case 4:color="myyellow" ;break;
+			default:color="myzise" ;break;
+		}
+		str+="<li class=\"clubBox "+color+"\"><a href=\"club/clubDetail.html?clubId="+listData[i].id+"\"><div class=\"imgBox\"><img src=\"/ClubSystem"+listData[i].badge+"\"></div>";
+		str+="<div class=\"info-area\"><div class='info-area_box'><h3>"+listData[i].name+"</h3>";
+		str+="<span class=\"proprieter\">"+listData[i].leader+"</span>";
+		str+="<span class=\"associator\">"+listData[i].number+"</span>";
+		str+="<span class=\"position\">"+listData[i].schoolName+"</span></div></div></a></li>";
 	}
 	$("#clubList").append(str);
 }
 //加载社团
 function loadMore(index) {
-	var listDate = {"clubs":[{"clubId":"1","title":"网球社","proprieter":"张三","population":"50","position":"广东海洋大学","pic":"../../images/001.jpg"},
-							{"clubId":"1","title":"篮球社","proprieter":"李四","population":"20","position":"广州大学","pic":"../../images/002.png"},
-							{"clubId":"1","title":"足球社","proprieter":"王五","population":"30","position":"广东海洋大学","pic":"../../images/003.jpg"},
-							{"clubId":"1","title":"排球社","proprieter":"小七","population":"100","position":"广东海洋大学","pic":"../../images/004.jpg"},
-							{"clubId":"1","title":"乒乓球社","proprieter":"吴六","population":"33","position":"广东海洋大学","pic":"../../images/001.jpg"},
-							{"clubId":"1","title":"散打社","proprieter":"老九","population":"50","position":"广东海洋大学","pic":"../../images/003.jpg"}]};
-	showClubList(listDate);
+	getClubList(index);
 	$(".loadMore").attr("onclick","loadMore("+(index+1)+")");
 }
 
@@ -40,10 +50,10 @@ function showClubType(){
 	var url="/ClubSystem/clubtype/getAlls";
 	$.get(url, function(data){
 		if (data.serviceResult) {
-			var list = data.resultParm.clubType;
+			var listData = data.resultParm.clubType;
 			var str="";
-			for (var i = 0; i <list.length; i++) {
-				str+="<li><a href='javascript:void(0);' onclick='findClubByType("+list[i].id+")'>"+list[i].name+"</a></li>"
+			for (var i = 0; i <listData.length; i++) {
+				str+="<li><a href='javascript:void(0)' onclick=\"findClubByType('"+listData[i].name+"',1)\">"+listData[i].name+"</a></li>"
 			}
 			$(".club-type-list").html(str);
 		}
@@ -51,21 +61,39 @@ function showClubType(){
 }
 
 //通过类型查找社团
-function findClubByType(tpyeId){
-	var url="/ClubSystem/clubs/getClubListByType"
-	var parm = "clubType="+tpyeId;
+function findClubByType(tpyeName,index){
+	var url="/ClubSystem/club/getByTypeName"
+	var parm = "typeName="+tpyeName+"&size=6&indexPageNum="+index;
 	$.get(url, parm, function(data){
+		console.log(data);
 		if (data.serviceResult) {
-			var list=data.resultParm.clubs;
+			var listData=data.resultParm.clublist;
 			var str="";
-			for (var i = 0; i <list.length; i++) {
-				str+="<li class=\"clubBox\"><a href=\"clubDetail.html?clubId="+list[i].clubId+"\"><div class=\"imgBox\"><img src=\""+list[i].pic+"\"></div>";
-				str+="<div class=\"info-area\"><h3>"+list[i].title+"</h3>";
-				str+="<span class=\"proprieter\">"+list[i].proprieter+"</span>";
-				str+="<span class=\"associator\">"+list[i].population+"</span>";
-				str+="<span class=\"position\">"+list[i].position+"</span></div></a></li>";
+			if (listData.length==0) {
+				$(".loadMore").html("已经没有了！").attr("onclick","javascipt:void(0);");
+			};
+			for (var i = 0; i <listData.length; i++) {
+				var color=""
+				switch(i%6){
+					case 0:color="myblue" ;break;
+					case 1:color="mygreen" ;break;
+					case 2:color="myred" ;break;
+					case 3:color="myoringe" ;break;
+					case 4:color="myyellow" ;break;
+					default:color="myzise" ;break;
+				}
+				str+="<li class=\"clubBox "+color+"\"><a href=\"club/clubDetail.html?clubId="+listData[i].id+"\"><div class=\"imgBox\"><img src=\"/ClubSystem"+listData[i].badge+"\"></div>";
+				str+="<div class=\"info-area\"><div class='info-area_box'><h3>"+listData[i].name+"</h3>";
+				str+="<span class=\"proprieter\">"+listData[i].leader+"</span>";
+				str+="<span class=\"associator\">"+listData[i].number+"</span>";
+				str+="<span class=\"position\">"+listData[i].schoolName+"</span></div></div></a></li>";
 			}
-			$("#clubList").html(str);
+			if (index==1) {
+				$("#clubList").html(str);
+			}else{
+				$("#clubList").append(str);
+			}
+			$(".loadMore").attr("onclick","findClubByType(\""+tpyeName+"\","+(++index)+")");
 		}
 	})
 }

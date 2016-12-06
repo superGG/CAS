@@ -63,7 +63,7 @@
 	color: #666; 
 }
 .main-top li a:hover{
-	color: blue;
+	color: #12b7f5;
 	background: #eee;
 }
 
@@ -86,7 +86,26 @@
 	float: left;
 	width: 31.3%;
 	margin: 1%;
+	background-color: #ccc;
 	transition: all 0.3s ease-out;
+}
+#clubList .clubBox.myblue{
+	background-color:#7ee0ea;
+}
+#clubList .clubBox.mygreen{
+	background-color:#8ff367;
+}
+#clubList .clubBox.myred{
+	background-color:#ffa5a5;
+}
+#clubList .clubBox.myoringe{
+	background-color:#fbcb9e;
+}
+#clubList .clubBox.myyellow{
+	background-color:#fbf89e;
+}
+#clubList .clubBox.myzise{
+	background-color:#e6baf5;
 }
 .clubBox:hover{
 	box-shadow: 0 0 12px;
@@ -103,18 +122,24 @@
 }
 .clubBox .imgBox{
 	width: 94%;
+	height:200px;
 	margin: 3% auto;
+	background-color: #ccc;
 	overflow: hidden;
 }
 .imgBox img{
 	display: block;
 	width: 100%;
+	height: 100%;
 	transition: all 0.3s ease-out;
 }
 
 .clubBox .info-area{
 	width: 94%;
 	margin: 3% auto;
+}
+.clubBox .info-area .info-area_box{
+	padding: 0 20px;
 }
 .clubBox .info-area h3{
 	margin: 0;
@@ -124,7 +149,7 @@
 }
 .clubBox .info-area span{
 	margin-top: 5px;
-	color: #999;
+	color: #000;
 }
 .info-area .proprieter{
 	display: inline-block;
