@@ -10,20 +10,8 @@
 		<link rel="stylesheet" type="text/css" href="../../css/common.css">
 		
 		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="../../js/showclubactivity.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
-
-		<script type="text/javascript">
-			var activityList = {"activity":[{"id":"1","title":"招新活动撒的发生","createtime":"2016-12-5"},
-			{"id":"1","title":"招新活动","createtime":"2016-12-5"},{"id":"1","title":"招新活动","createtime":"2016-12-5"},{"id":"1","title":"招新活动啊大法师打发的说法是打发斯蒂芬","createtime":"2016-12-5"},{"id":"1","title":"招新活动阿萨德发生","createtime":"2016-12-5"},{"id":"1","title":"招新活动","createtime":"2016-12-5"},{"id":"1","title":"招新活动阿萨德发生地方阿萨德发生地方","createtime":"2016-12-5"},{"id":"1","title":"招新活动阿萨德发生地方","createtime":"2016-12-5"},{"id":"1","title":"招新活动","createtime":"2016-12-5"},{"id":"1","title":"招新阿萨德发飒飒发顺丰萨芬活动","createtime":"2016-12-5"},{"id":"1","title":"招新活动","createtime":"2016-12-5"}]};
-			$(document).ready(function(){
-				showActivityList(activityList);
-			});
-			function showActivityList(activityList){
-				for(var i = 0; i<activityList.activity.length; i++){
-					$(".activity_list").append('<div class="activity_item"><img src="../../images/folder_new.gif" width="17px" height="17px"><a href="#">'+activityList.activity[i].title+'</a><div class="num_count"><span>发布时间：'+activityList.activity[i].createtime+'</span></div></div>');
-				}
-			}
-		</script>
 	</head>
 	<body>
 		<div class="top">
@@ -78,6 +66,8 @@
 				<div class="activity_list">
 					
 				</div>
+				<br>
+				<div class="dot_down" id="more"></div>
 			</div>
 		</div>
 		<div class="footer">

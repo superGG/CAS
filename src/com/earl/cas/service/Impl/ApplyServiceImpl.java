@@ -115,7 +115,7 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 			member.setName(name);
 			userclub = userclubDao.getUserclubByApplyId(apply.getId()); // 获得成员社团关联表
 			userclub.getPositionId();
-			member.setCreateTime(userclub.getCreatetime()); // userclub上的加入时间
+			member.setCreatetime(userclub.getCreatetime()); // userclub上的加入时间
 			position = positionDao.get(userclub.getPositionId()); // 根据具体职位Id获得职位
 																	// 提取出职位名字
 			member.setPosition(position.getName());
@@ -162,7 +162,7 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 			member.setName(name);
 			userclub = userclubDao.getUserclubByApplyId(apply.getId()); // 获得成员社团关联表
 			// userclub.getPositionId();
-			member.setCreateTime(userclub.getCreatetime()); // userclub上的加入时间
+			member.setCreatetime(userclub.getCreatetime()); // userclub上的加入时间
 			position = positionDao.get(userclub.getPositionId()); // 根据具体职位Id获得职位
 																	// 提取出职位名字
 			member.setPosition(position.getName());
@@ -240,7 +240,7 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 				member.setId(i); // 编号
 				member.setName(memberName);
 				userclub = userclubDao.getUserclubByApplyId(apply.getId()); // 获得成员社团关联表
-				member.setCreateTime(userclub.getCreatetime()); // userclub上的加入时间
+				member.setCreatetime(userclub.getCreatetime()); // userclub上的加入时间
 				position = positionDao.get(userclub.getPositionId()); // 根据具体职位Id获得职位
 																		// //
 																		// 提取出职位名字

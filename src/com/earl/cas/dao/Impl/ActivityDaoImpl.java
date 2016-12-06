@@ -18,7 +18,7 @@ import com.earl.cas.vo.PageInfo;
 @Repository("activityDao")
 public class ActivityDaoImpl extends BaseDaoImpl<Activity> implements
 		ActivityDao {
-	
+
 	/*
 	 * 查找活动详情 (non-Javadoc)
 	 * 
@@ -27,8 +27,8 @@ public class ActivityDaoImpl extends BaseDaoImpl<Activity> implements
 	@Override
 	public Activity findDetail(int id) {
 		String hql = "from Activity where id= :id";
-		Activity detail = (Activity) getCurrentSession()
-				.createQuery(hql).setInteger("id", id).uniqueResult();
+		Activity detail = (Activity) getCurrentSession().createQuery(hql)
+				.setInteger("id", id).uniqueResult();
 		return detail;
 	}
 
@@ -51,35 +51,38 @@ public class ActivityDaoImpl extends BaseDaoImpl<Activity> implements
 		}
 	}
 
-	public void deleteByClubId(int clubId){
+	public void deleteByClubId(int clubId) {
 		String hql = "delete Activity where clubId = :clubId";
-		 getCurrentSession().createQuery(hql).setInteger("clubId", clubId).executeUpdate();
-		 getCurrentSession().flush();
+		getCurrentSession().createQuery(hql).setInteger("clubId", clubId)
+				.executeUpdate();
+		getCurrentSession().flush();
 	}
 
 	/*
-	 * 根据clubId查找社团活动
-	 * (non-Javadoc)
-	 * @see com.earl.cas.dao.ActivityDao#findByClubId(java.lang.Integer, com.earl.cas.vo.PageInfo)
+	 * 根据clubId查找社团活动 (non-Javadoc)
+	 * 
+	 * @see com.earl.cas.dao.ActivityDao#findByClubId(java.lang.Integer,
+	 * com.earl.cas.vo.PageInfo)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Activity> findByClubId(Integer clubId, PageInfo pageInfo) {
 		String hql = "from Activity where clubId= :clubId order by createtime desc";
 		@SuppressWarnings("unchecked")
 		List<Activity> clubActivity = getCurrentSession()
-				.createQuery(hql).setInteger("clubId", clubId).setFirstResult(
+				.createQuery(hql)
+				.setInteger("clubId", clubId)
+				.setFirstResult(
 						(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
 				.setMaxResults(pageInfo.getSize()).list();
 		String hql2 = "select count(*) from Activity where clubId= :clubId";
-		Object uniqueResult = getCurrentSession().createQuery(hql2)
-				.setInteger("clubId", clubId).setFirstResult(
-				(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
-		        .setMaxResults(pageInfo.getSize())
+		Object uniqueResult = getCurrentSession()
+				.createQuery(hql2)
+				.setInteger("clubId", clubId)
 				.uniqueResult();
 		Long intValue = (new Integer(uniqueResult.toString())).longValue();
 		pageInfo.setTotalCount(intValue);
 		return clubActivity;
 	}
-	
 
 }

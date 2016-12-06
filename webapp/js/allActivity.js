@@ -17,7 +17,7 @@ function showActivityList(index){
 			}
 			$(".activity .activityList").append(str);
 		}else{
-			alert(data);
+			alert(data.resultInfo);
 		}
 	})
 }
