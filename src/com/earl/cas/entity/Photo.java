@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -65,7 +66,7 @@ public class Photo implements Serializable
 		this.id = id;
 	}
 	
-	@JoinColumn(name = "album_id")
+	@Column(name = "album_id")
 	public Integer getAlbumId() {
 		return albumId;
 	}
@@ -101,7 +102,8 @@ public class Photo implements Serializable
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
 	}
-
+	
+	@Transient
 	public String getAlbumName() {
 		return albumName;
 	}

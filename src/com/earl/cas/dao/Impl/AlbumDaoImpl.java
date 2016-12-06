@@ -19,7 +19,7 @@ public class AlbumDaoImpl extends BaseDaoImpl<Album> implements AlbumDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Album> getByClubId(Integer id) {
-		String hql = "from Album where id = :id";
+		String hql = "from Album where clubId = :id";
 		return getCurrentSession().createQuery(hql).setInteger("id", id).list();
 	}
 
