@@ -242,16 +242,16 @@ public class ClubController extends BaseController{
 	}
 	
 	/**
-	 * 通过名字获取社团
+	 * 通过名字获取社团->模糊搜索
 	 * @param clubName
 	 * @return
 	 */
 	@RequestMapping(value = "/getBySearch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> getBySearch(String serach,PageInfo pageInfo) {
+	public  ResponseEntity<ResultMessage> getBySearch(String search,PageInfo pageInfo) {
 		logger.debug("REST request to get a club by name");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Club> clublist = clubService.getBySearch(serach,pageInfo);
+		List<Club> clublist = clubService.getBySearch(search,pageInfo);
 		result.getResultParm().put("totalCount",pageInfo.getTotalCount());
 		result.getResultParm().put("clublist", clublist);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
