@@ -64,7 +64,8 @@ public class ActivityDaoImpl extends BaseDaoImpl<Activity> implements
 	 */
 	@Override
 	public List<Activity> findByClubId(Integer clubId, PageInfo pageInfo) {
-		String hql = "from Activity where clubId= :clubId";
+		String hql = "from Activity where clubId= :clubId order by createtime desc";
+		@SuppressWarnings("unchecked")
 		List<Activity> clubActivity = getCurrentSession()
 				.createQuery(hql).setInteger("clubId", clubId).setFirstResult(
 						(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
