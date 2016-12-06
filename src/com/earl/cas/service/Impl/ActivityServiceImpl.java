@@ -110,7 +110,7 @@ public List<Activity> findByClubId(Activity activity, PageInfo pageInfo) {
 	if(!findByClubIdList.isEmpty()){
 		return setName(findByClubIdList);
 	} else{
-		throw new DomainSecurityException("该活动页面没有活动 ");			
+		throw new DomainSecurityException("该社团没有发布活动 ");			
 	}
  }
 
@@ -130,12 +130,15 @@ public Activity findByClubId(Integer id) {
 }
 
 /*
- * 根据社团名字查找社团活动
+ * 根据社团名字查找所有学校的社团活动
  * (non-Javadoc)
  * @see com.earl.cas.service.ActivityService#findByClubName(com.earl.cas.entity.Activity, com.earl.cas.vo.PageInfo)
  */
 @Override
-public List<Activity> findByClubName(String clubName, PageInfo pageInfo) {
+public List<Activity> findByClubName(String clubName) {
+	if(clubName == null){
+		throw new DomainSecurityException("社团名字不能为空");	
+	} else{
 	 List<Activity> addClubSchoolList = new ArrayList<Activity>();
 	 List<Club> clubList = clubDao.getByName(clubName);
 	 Activity activity = new Activity();
@@ -148,6 +151,7 @@ public List<Activity> findByClubName(String clubName, PageInfo pageInfo) {
     
 	return setName(addClubSchoolList);
 	}
+}
  
 /*
  * 将学校名字和社团名字加入到社团活动中去

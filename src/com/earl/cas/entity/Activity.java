@@ -1,6 +1,7 @@
 package com.earl.cas.entity;
 // Generated 2016-11-21 9:28:51 by Hibernate Tools 5.2.0.Beta1
 
+import java.beans.Transient;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -48,6 +49,7 @@ public class Activity implements Serializable
 	//学校名字
 	private String schoolName;
 
+	@Transient
 	public String getSchoolName() {
 		return schoolName;
 	}
@@ -56,6 +58,7 @@ public class Activity implements Serializable
 		this.schoolName = schoolName;
 	}
 
+	@Transient
 	public String getClubName() {
 		return clubName;
 	}
