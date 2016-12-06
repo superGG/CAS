@@ -117,5 +117,11 @@ public interface ClubService extends BaseService<Club> {
 	 * @return
 	 */
 	Club getById(int clubId);
+	/**
+	 * 搜索获得社团
+	 * @param serach
+	 * @return
+	 */
+	List<Club> getBySearch(String serach,PageInfo pageInfo);
 	
 }
