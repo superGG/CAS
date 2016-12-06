@@ -235,9 +235,17 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	public List<Club> getAlls(PageInfo pageInfo){
 		List<Club> clublist = clubDao.findAll(pageInfo);
 		setName(clublist);
+		setNumber(clublist);
 		return clublist;	
 	}
 	
+	private void setNumber(List<Club> clublist) {
+		// TODO Auto-generated method stub]
+		for(Club club:clublist){
+			club.setNumber( userclubDao.getNumberByclubId(club.getId()));
+		}
+	}
+
 	/**
 	 * 为club加上学校名字
 	 * @param list
