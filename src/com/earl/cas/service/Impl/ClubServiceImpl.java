@@ -331,16 +331,17 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	 */
 	
 	private void compare(List<Club> clublist, List<Club> clublistforschool) {
-		List<Club> temp = new ArrayList<Club>();
+		//List<Club> temp = new ArrayList<Club>();
 		if (clublist.size()>0) {
 			for (Club club_first : clublist) {
 				for (Club club_second : clublistforschool) {
-					if (club_first.getId() != club_second.getId()) {
-						temp.add(club_second);
+					if (club_first.getId() == club_second.getId()) {
+						clublist.remove(club_first);
+						break;
 					}
 				}
 			}
-			clublist.addAll(temp);
+			clublist.addAll(clublistforschool);
 		} else {
 			for (Club club_second : clublistforschool) {
 				{
