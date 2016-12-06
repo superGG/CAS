@@ -100,22 +100,22 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements
 		return update;
 	}
 	
-/*根据社团id从社团表中找出社团名字和从学校表中找出学校名字并放进活动表中
- * (non-Javadoc)
- * @see com.earl.cas.service.ActivityService#findByClubId(com.earl.cas.entity.Activity, com.earl.cas.vo.PageInfo)
- */
-@Override
-public List<Activity> findByClubId(Activity activity, PageInfo pageInfo) {
-	List<Activity> findByClubIdList = activityDao.findByGivenCriteria(activity, pageInfo);
-	if(!findByClubIdList.isEmpty()){
-		return setName(findByClubIdList);
-	} else{
-		throw new DomainSecurityException("该社团没有发布活动 ");			
-	}
- }
+	/*根据社团id从社团表中找出社团名字和从学校表中找出学校名字并放进活动表中
+	 * (non-Javadoc)
+	 * @see com.earl.cas.service.ActivityService#findByClubId(com.earl.cas.entity.Activity, com.earl.cas.vo.PageInfo)
+	 */
+	@Override
+	public List<Activity> findByClubId(Integer clubId, PageInfo pageInfo) {
+		List<Activity> findByClubIdList = activityDao.findByClubId(clubId, pageInfo);
+		if(!findByClubIdList.isEmpty()){
+			return setName(findByClubIdList);
+		} else{
+			throw new DomainSecurityException("该社团没有发布活动 ");			
+		}
+	 }
 
 /*
- * 将社团名字传进来,并返回活动对象
+ * 将社团编号传进来,并返回活动对象
  * (non-Javadoc)
  * @see com.earl.cas.service.ActivityService#findByClubId(java.lang.Integer)
  */
@@ -148,7 +148,6 @@ public List<Activity> findByClubName(String clubName) {
 		 activityList = activityDao.findByGivenCriteria(activity);
 		 addClubSchoolList.addAll(activityList);
 	 }
-    
 	return setName(addClubSchoolList);
 	}
 }
@@ -167,8 +166,6 @@ public List<Activity> findByClubName(String clubName) {
 	  }
 	  return indexList;
   }
-
-
 
 }
 

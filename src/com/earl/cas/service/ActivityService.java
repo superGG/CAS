@@ -28,7 +28,7 @@ public interface ActivityService extends BaseService<Activity> {
 /*
  * 通过社团id查找社团活动
  */
-  List<Activity> findByClubId(Activity activity,PageInfo pageInfo);
+List<Activity> findByClubId(Integer clubId,PageInfo pageInfo);
 
 /*
  * 将社团名字传进来

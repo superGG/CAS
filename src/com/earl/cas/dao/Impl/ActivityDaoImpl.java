@@ -1,10 +1,13 @@
 package com.earl.cas.dao.Impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.earl.cas.commons.dao.BaseDaoImpl;
 import com.earl.cas.dao.ActivityDao;
 import com.earl.cas.entity.Activity;
+import com.earl.cas.vo.PageInfo;
 
 /**
  * activityDao的实现类
@@ -52,6 +55,29 @@ public class ActivityDaoImpl extends BaseDaoImpl<Activity> implements
 		String hql = "delete Activity where clubId = :clubId";
 		 getCurrentSession().createQuery(hql).setInteger("clubId", clubId).executeUpdate();
 		 getCurrentSession().flush();
+	}
+
+	/*
+	 * 根据clubId查找社团活动
+	 * (non-Javadoc)
+	 * @see com.earl.cas.dao.ActivityDao#findByClubId(java.lang.Integer, com.earl.cas.vo.PageInfo)
+	 */
+	@Override
+	public List<Activity> findByClubId(Integer clubId, PageInfo pageInfo) {
+		String hql = "from Activity where clubId= :clubId";
+		List<Activity> clubActivity = getCurrentSession()
+				.createQuery(hql).setInteger("clubId", clubId).setFirstResult(
+						(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
+				.setMaxResults(pageInfo.getSize()).list();
+		String hql2 = "select count(*) from Activity where clubId= :clubId";
+		Object uniqueResult = getCurrentSession().createQuery(hql2)
+				.setInteger("clubId", clubId).setFirstResult(
+				(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
+		        .setMaxResults(pageInfo.getSize())
+				.uniqueResult();
+		Long intValue = (new Integer(uniqueResult.toString())).longValue();
+		pageInfo.setTotalCount(intValue);
+		return clubActivity;
 	}
 	
 
