@@ -232,6 +232,12 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		return clublist;
 	}
 	
+	public List<Club> getAlls(){
+		List<Club> clublist = findAll();
+		setName(clublist);
+		return clublist;	
+	}
+	
 	/**
 	 * 为club加上学校名字
 	 * @param list
@@ -239,9 +245,14 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	@SuppressWarnings("unused")
 	private void setName(List<Club> list){
 		School school = null;
+		ClubType type = null;
 		for(Club club:list){
+			type = clubTypeDao.get(club.getTypeId());
 			school = schoolDao.get(club.getSchoolId());
 			club.setSchoolName(school.getName());
+			club.setTypeName(type.getName());
 		}
 	}
+
+	
 }

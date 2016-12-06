@@ -50,7 +50,7 @@ public class ClubController extends BaseController{
 		logger.debug("REST request to get all club");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Club> clubList = clubService.findAll();
+		List<Club> clubList = clubService.getAlls();
 		result.getResultParm().put("club", clubList);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
@@ -228,5 +228,4 @@ public class ClubController extends BaseController{
 		result.getResultParm().put("clublist", clublist);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
-	
 }
