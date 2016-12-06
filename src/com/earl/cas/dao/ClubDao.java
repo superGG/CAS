@@ -41,4 +41,11 @@ public interface ClubDao extends BaseDao<Club> {
 	 */
 	@Override
 	List<Club> findAll(PageInfo pageInfo);
+	/**
+	 * 模糊查询根据名字获取社团
+	 * @param search
+	 * @return
+	 */
+	List<Club> getBySearch(String search,PageInfo pageInfo);
+	
 }
