@@ -129,8 +129,9 @@ h2{
 }
 
 #clubList{
-	width: 72%;
 	position: relative;
+	width: 72%;
+	min-height: 200px;
 	padding: 0;
 	margin: auto;
 	list-style: none;
@@ -171,6 +172,9 @@ h2{
 	width: 94%;
 	margin: 3% auto;
 }
+.clubBox .info-area .info-area_box{
+	padding: 0 20px;
+}
 .clubBox .info-area h3{
 	margin: 0;
 	overflow: hidden;
@@ -204,6 +208,7 @@ h2{
 }
 #activity{
 	width: 100%;
+	min-height: 200px;
 	margin: auto;
 	padding-bottom: 20px; 
 }
@@ -244,9 +249,12 @@ h2{
     white-space: nowrap;
 }
 #activeList .active-title{
-	width: 67%;
+	width: 51%;
 }
 #activeList .active-club{
+	width: 15%;
+}
+#activeList .active-school{
 	width: 15%;
 }
 #activeList .active-time{
