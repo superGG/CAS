@@ -47,5 +47,21 @@ public interface ClubDao extends BaseDao<Club> {
 	 * @return
 	 */
 	List<Club> getBySearch(String search,PageInfo pageInfo);
+	/**
+	 * 通过学校找到社团
+	 * @param search
+	 * @param pageInfo 
+	 * @return
+	 */
+	List<Club> getBySchoolId(int schoolId, PageInfo pageInfo);
+	/**
+	 * 通过模糊查询和学校ID获得社团
+	 * @param search
+	 * @param id
+	 * @return
+	 */
+	Club getBySearchAndSchool(String search, Integer id);
+
+
 	
 }
