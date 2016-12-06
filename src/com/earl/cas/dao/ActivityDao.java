@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.entity.Activity;
+import com.earl.cas.vo.PageInfo;
 
 public interface ActivityDao extends BaseDao<Activity> {
 
@@ -17,10 +18,15 @@ public interface ActivityDao extends BaseDao<Activity> {
 	 */
 	Activity findDetail(int id);
 
-	/**
-	 * 根据社团Id删除申请书
+	/*
+	 * 根据社团Id删除社团
 	 * 
 	 * @param clubId
 	 */
 	void deleteByClubId(int clubId);
+	
+	/*
+	 * 根据社团id查找社团活动
+	 */
+	List<Activity> findByClubId(Integer clubId, PageInfo pageInfo);
 }

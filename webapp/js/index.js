@@ -65,13 +65,25 @@ function playByBtn(){
 
 //初始化滚动条
 function initClubNav() {
-	var list = ["广东海洋大学","岭南师范大学","广东海洋大学寸金学院","广东医学院","广州大学","广东工业大学","东莞理工学院","肇庆学院"];
-	var str="";
-	for (var i=0; i <list.length; i++) {
-		str+="<li><a href=\"javascript:\">"+list[i]+"</a></li>";
-	}
-	$("#orgList>ul").append(str);
-	initClubNavBtn();//初始化点击事件
+	var url="/ClubSystem/school/getAlls";
+	$.get(url, function (data) {
+		if (data.serviceResult) {
+			var listDate = data.resultParm.school;
+			var str="";
+			for (var i=0; i <listDate.length; i++) {
+				str+="<li><a href=\"javascript:\">"+listDate[i].name+"</a></li>";
+			}
+			$("#orgList>ul").append(str);
+			initClubNavBtn();//初始化点击事件
+		}
+	});
+	// var list = ["广东海洋大学","岭南师范大学","广东海洋大学寸金学院","广东医学院","广州大学","广东工业大学","东莞理工学院","肇庆学院"];
+	// var str="";
+	// for (var i=0; i <list.length; i++) {
+	// 	str+="<li><a href=\"javascript:\">"+list[i]+"</a></li>";
+	// }
+	// $("#orgList>ul").append(str);
+	// initClubNavBtn();//初始化点击事件
 }
 //点击向后滚动组织栏
 function nextBtn() {
@@ -96,17 +108,35 @@ function initClubNavBtn() {
 		if ($(this).html()=="全部") {
 			//显示全部
 			//获取数据
-			var listDate = {"clubs":[{"title":"网球社","proprieter":"张三","population":"50","position":"广东海洋大学","pic":"../images/001.jpg"},
-							{"title":"篮球社","proprieter":"李四","population":"20","position":"广州大学","pic":"../images/002.png"},
-							{"title":"足球社","proprieter":"王五","population":"30","position":"广东海洋大学","pic":"../images/003.jpg"},
-							{"title":"排球社","proprieter":"小七","population":"100","position":"广东海洋大学","pic":"../images/004.jpg"},
-							{"title":"乒乓球社","proprieter":"吴六","population":"33","position":"广东海洋大学","pic":"../images/001.jpg"},
-							{"title":"散打社","proprieter":"老九","population":"50","position":"广东海洋大学","pic":"../images/003.jpg"}]};
-			showClubList(listDate);
+			var url="/ClubSystem/club/getAlls";
+			var parm = "indexPageNum=1&size=6"
+			$.get(url,parm,function (data) {
+				console.log(data);
+				if (data.serviceResult) {
+					var listDate = data.resultParm.club;
+					showClubList(listDate);
+				}
+			});
+			// var listDate = {"clubs":[{"title":"网球社","proprieter":"张三","population":"50","position":"广东海洋大学","pic":"../images/001.jpg"},
+			// 				{"title":"篮球社","proprieter":"李四","population":"20","position":"广州大学","pic":"../images/002.png"},
+			// 				{"title":"足球社","proprieter":"王五","population":"30","position":"广东海洋大学","pic":"../images/003.jpg"},
+			// 				{"title":"排球社","proprieter":"小七","population":"100","position":"广东海洋大学","pic":"../images/004.jpg"},
+			// 				{"title":"乒乓球社","proprieter":"吴六","population":"33","position":"广东海洋大学","pic":"../images/001.jpg"},
+			// 				{"title":"散打社","proprieter":"老九","population":"50","position":"广东海洋大学","pic":"../images/003.jpg"}]};
+			// showClubList(listDate);
 		}else{
 			//显示指定
-			var listDate = {"clubs":[{"title":"网球社","proprieter":"张三","population":"50","position":"广东海洋大学","pic":"../images/001.jpg"}]};
-			showClubList(listDate);
+			var url="/ClubSystem/club/getBySchoolName";
+			var parm = "schoolName="+$(this).html()+"&size=6&indexPageNum=1";
+			$.get(url, parm, function (data) {
+				console.log(data);
+				if (data.serviceResult) {
+					var listDate = data.resultParm.clublist;
+					showClubList(listDate);
+				}
+			});
+			// var listDate = {"clubs":[{"title":"网球社","proprieter":"张三","population":"50","position":"广东海洋大学","pic":"../images/001.jpg"}]};
+			// showClubList(listDate);
 		}
 	});
 	$("#all a").trigger("click");//显示全部
@@ -114,30 +144,49 @@ function initClubNavBtn() {
 //显示社团列表
 function showClubList(listDate) {
 	var str = "";
-	for (var i = 0; i <listDate.clubs.length; i++) {
-		str+="<li class=\"clubBox\"><a href=\"javascript:\"><div class=\"imgBox\"><img src=\""+listDate.clubs[i].pic+"\"></div>";
-		str+="<div class=\"info-area\"><h3>"+listDate.clubs[i].title+"</h3>";
-		str+="<span class=\"proprieter\">"+listDate.clubs[i].proprieter+"</span>";
-		str+="<span class=\"associator\">"+listDate.clubs[i].population+"</span>";
-		str+="<span class=\"position\">"+listDate.clubs[i].position+"</span></div></a></li>";
+	console.log(listDate);
+	for (var i = 0; i <listDate.length; i++) {
+		str+="<li class=\"clubBox\"><a href=\"club/clubDetail.html?clubId="+listDate[i].id+"\"><div class=\"imgBox\"><img src=\"/ClubSystem"+listDate[i].badge+"\"></div>";
+		str+="<div class=\"info-area\"><div class='info-area_box'><h3>"+listDate[i].name+"</h3>";
+		str+="<span class=\"proprieter\">"+listDate[i].leader+"</span>";
+		str+="<span class=\"associator\">"+listDate[i].number+"</span>";
+		str+="<span class=\"position\">"+listDate[i].schoolName+"</span></div></div></a></li>";
 	}
 	$("#clubList").html(str);
 }
 
 //显示活动列表
 function showActiviity(){
-	var listDate = {"activitys":[{"title":"网球比赛","club":"网球社","time":"2016-11-22"},
-							{"title":"篮球比赛","club":"篮球社","time":"2016-11-22"},
-							{"title":"足球社比赛","club":"足球社","time":"2016-11-22"},
-							{"title":"排球社比赛","club":"排球社","time":"2016-11-22"},
-							{"title":"乒乓球比赛","club":"乒乓球社","time":"2016-11-22"},
-							{"title":"散打社比赛","club":"散打社","time":"2016-11-22"}]};
-	var str = "";
-	for (var i = 0; i <listDate.activitys.length; i++) {
-		str+="<li><span class=\"active-title\"><a href=\""+""+"\">"+listDate.activitys[i].title+"</a></span>";
-		str+="<span class=\"active-club\"><a href=\""+""+"\">"+listDate.activitys[i].club+"</a></span>";
-		str+="<span class=\"active-time\">"+listDate.activitys[i].time+"</span></li>";
-	}
-	$("#activeList ul").html(str);
+	var url = "/ClubSystem/activity/getAlls";
+	var parm ="indexPageNum=1&size=6";
+	$.get(url, parm, function (data) {
+		console.log(data);
+		if (data.serviceResult) {
+			var listDate = data.resultParm.activity;
+			var str = "";
+			for (var i = 0; i <listDate.length; i++) {
+				str+="<li><span class=\"active-title\"><a href=\""+""+"\">"+listDate[i].title+"</a></span>";
+				str+="<span class=\"active-club\"><a href=\""+""+"\">"+listDate[i].clubName+"</a></span>";
+				str+="<span class=\"active-school\"><a href=\""+""+"\">"+listDate[i].schoolName+"</a></span>";
+				var time = listDate[i].createtime.split(" ")[0];
+				str+="<span class=\"active-time\">"+time+"</span></li>";
+			}
+			$("#activeList ul").html(str);
+		}
+		// body...
+	});
+	// var listDate = {"activitys":[{"title":"网球比赛","club":"网球社","time":"2016-11-22"},
+	// 						{"title":"篮球比赛","club":"篮球社","time":"2016-11-22"},
+	// 						{"title":"足球社比赛","club":"足球社","time":"2016-11-22"},
+	// 						{"title":"排球社比赛","club":"排球社","time":"2016-11-22"},
+	// 						{"title":"乒乓球比赛","club":"乒乓球社","time":"2016-11-22"},
+	// 						{"title":"散打社比赛","club":"散打社","time":"2016-11-22"}]};
+	// var str = "";
+	// for (var i = 0; i <listDate.activitys.length; i++) {
+	// 	str+="<li><span class=\"active-title\"><a href=\""+""+"\">"+listDate.activitys[i].title+"</a></span>";
+	// 	str+="<span class=\"active-club\"><a href=\""+""+"\">"+listDate.activitys[i].club+"</a></span>";
+	// 	str+="<span class=\"active-time\">"+listDate.activitys[i].time+"</span></li>";
+	// }
+	// $("#activeList ul").html(str);
 }
 

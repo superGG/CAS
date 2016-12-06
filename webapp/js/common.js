@@ -21,9 +21,8 @@ function showMask() {
 //显示登录面板
 function showLoginFrame() {
     showMask();
-    if ($("#loginFrame").length>0 ||$("#registerFrame").length>0) {
+    if ($("#loginFrame").length>0) {
       $("#loginFrame").remove();
-      $("#registerFrame").remove();
     }
     var formStr = "<div id='loginFrame'><div class='hd'><a class='close'></a><div id='login-tab' class='tab-active'>登录</div><div id='register-tab'>注册</div></div>";
     formStr+="<form id='loginForm' class='' method='POST'>";
@@ -38,17 +37,22 @@ function showLoginFrame() {
     formStr+="<div class='form-input login-input-verifiCode'><label class='input-icon icon-verifiCode'></label><input name='verifyCode' class='input input-verifiCode' type='text' maxlength='4' placeholder='验证码'><img src='../../verifyCode/N2Qz.jpg' id='rVerifiImg' title='点击换一张'></div>";
     formStr+="<div id='register-btn'>注册</div></form></div>";
     $("body").append(formStr);
-    setFrameWH();
+    setFrameWH("loginFrame");
     initLoginFrameBtn();
     getCheckCode("verifiImg");
+}
+// 显示注册
+function showRegisterFrame(){
+  showLoginFrame();
+  $("#register-tab").click();
 }
 //设置遮幕宽高
 function setMaskWH() {
   $("#mask").width($(document).width()).height($(document).height());
 }
 //设置弹出面板宽高
-function setFrameWH() {
-   $("#loginFrame").css({"left":($(window).width()- $("#loginFrame").width())/2,"top":($(window).height()- $("#loginFrame").height())/2})
+function setFrameWH(frameId) {
+   $("#"+frameId).css({"left":($(window).width()- $("#"+frameId).width())/2,"top":($(window).height()- $("#"+frameId).height())/2})
 }
 
 // 页面按钮点击事件
@@ -130,6 +134,7 @@ function register() {
   console.log(sendData);
   $.post(url,sendData,function (data) {
     alert(data.resultInfo);
+    location.reload();
   });
 }
 

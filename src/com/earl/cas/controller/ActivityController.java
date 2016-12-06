@@ -92,7 +92,7 @@ public class ActivityController extends BaseController {
 		result.setServiceResult(true);
 		activityService.updateActivity(activity);
 		result.setResultInfo("更新成功");
-		result.getResultParm().put("activity", activityService.findByClubId(activity.getId()));
+		result.getResultParm().put("activity", activityService.findDetail(activity.getId()));
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
@@ -122,11 +122,11 @@ public class ActivityController extends BaseController {
 	 * @author 祝
 	 */
 	@RequestMapping(value = "/getClubActivity",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> getClubActivity(Activity activity,PageInfo pageInfo){
+	public ResponseEntity<ResultMessage> getClubActivity(Integer clubId,PageInfo pageInfo){
 		logger.debug("通过社团id查找社团活动");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Activity> clubActivityList = activityService.findByClubId(activity, pageInfo);
+		List<Activity> clubActivityList = activityService.findByClubId(clubId, pageInfo);
 		result.getResultParm().put("activity", clubActivityList);
 		result.getResultParm().put("total",pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
