@@ -229,6 +229,7 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		Club club = new Club();
 		club.setTypeId(clubTypeDao.getByName(typeName).getId());
 		List<Club> clublist = clubDao.findByGivenCriteria(club, pageInfo);
+		setNumber(clublist);
 		setName(clublist);
 		return clublist;
 	}
