@@ -232,8 +232,8 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		return clublist;
 	}
 	
-	public List<Club> getAlls(){
-		List<Club> clublist = findAll();
+	public List<Club> getAlls(PageInfo pageInfo){
+		List<Club> clublist = clubDao.findAll(pageInfo);
 		setName(clublist);
 		return clublist;	
 	}

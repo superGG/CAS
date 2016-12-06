@@ -107,7 +107,8 @@ public interface ClubService extends BaseService<Club> {
 	List<Club> getByTypeName(String typeName, PageInfo pageInfo);
 	/**
 	 * 找到所有的club
+	 * @param pageInfo 
 	 * @return
 	 */
-	List<Club> getAlls();
+	List<Club> getAlls(PageInfo pageInfo);
 }
