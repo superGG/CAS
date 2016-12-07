@@ -166,6 +166,7 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 				// 获得社团人数
 				Long number = userclubDao.getNumberByclubId(club.getId());
 				club.setNumber(number);
+				setName(clublist);
 				clublist.add(club);
 			}
 		}
