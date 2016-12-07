@@ -61,6 +61,11 @@ public interface ClubDao extends BaseDao<Club> {
 	 * @return
 	 */
 	Club getBySearchAndSchool(String search, Integer id);
+	/**
+	 * 根据热度进行排序
+	 * @param pageInfo
+	 */
+	List<Club> getByRank(PageInfo pageInfo);
 
 
 	

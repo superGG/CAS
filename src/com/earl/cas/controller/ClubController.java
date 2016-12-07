@@ -256,4 +256,17 @@ public class ClubController extends BaseController{
 		result.getResultParm().put("clublist", clublist);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
+	
+	/**
+	 * 获取所有->根据热度排行
+	 */
+	@RequestMapping(value = "/getAllsByRank", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getAllsByRank(PageInfo pageInfo) {
+		logger.debug("REST request to get all club By Rank");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Club> clubList = clubService.getAllsByRank(pageInfo);
+		result.getResultParm().put("club", clubList);
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
 }
