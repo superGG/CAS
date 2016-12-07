@@ -16,10 +16,6 @@ function getClubList(index) {
 }
 //显示社团列表
 function showClubList(listData) {
-	if (listData.length==0) {
-		$(".loadMore").html("已经没有了！").attr("onclick","javascipt:void(0);");
-		return;
-	}
 	var str = "";
 	for (var i = 0; i <listData.length; i++) {
 		var color=""
@@ -31,13 +27,17 @@ function showClubList(listData) {
 			case 4:color="myyellow" ;break;
 			default:color="myzise" ;break;
 		}
-		str+="<li class=\"clubBox "+color+"\"><a href=\"club/clubDetail.html?clubId="+listData[i].id+"\"><div class=\"imgBox\"><img src=\"/ClubSystem"+listData[i].badge+"\"></div>";
+		str+="<li class=\"clubBox "+color+"\"><a href=\"clubDetail.html?clubId="+listData[i].id+"\"><div class=\"imgBox\"><img src=\"/ClubSystem"+listData[i].badge+"\"></div>";
 		str+="<div class=\"info-area\"><div class='info-area_box'><h3>"+listData[i].name+"</h3>";
 		str+="<span class=\"proprieter\">"+listData[i].leader+"</span>";
 		str+="<span class=\"associator\">"+listData[i].number+"</span>";
 		str+="<span class=\"position\">"+listData[i].schoolName+"</span></div></div></a></li>";
 	}
 	$("#clubList").append(str);
+	if (listData.length<6) {
+		$(".loadMore").html("已经没有了！").attr("onclick","javascipt:void(0);");
+		return;
+	}
 }
 //加载社团
 function loadMore(index) {
@@ -69,9 +69,6 @@ function findClubByType(tpyeName,index){
 		if (data.serviceResult) {
 			var listData=data.resultParm.clublist;
 			var str="";
-			if (listData.length==0) {
-				$(".loadMore").html("已经没有了！").attr("onclick","javascipt:void(0);");
-			};
 			for (var i = 0; i <listData.length; i++) {
 				var color=""
 				switch(i%6){
@@ -82,7 +79,7 @@ function findClubByType(tpyeName,index){
 					case 4:color="myyellow" ;break;
 					default:color="myzise" ;break;
 				}
-				str+="<li class=\"clubBox "+color+"\"><a href=\"club/clubDetail.html?clubId="+listData[i].id+"\"><div class=\"imgBox\"><img src=\"/ClubSystem"+listData[i].badge+"\"></div>";
+				str+="<li class=\"clubBox "+color+"\"><a href=\"clubDetail.html?clubId="+listData[i].id+"\"><div class=\"imgBox\"><img src=\"/ClubSystem"+listData[i].badge+"\"></div>";
 				str+="<div class=\"info-area\"><div class='info-area_box'><h3>"+listData[i].name+"</h3>";
 				str+="<span class=\"proprieter\">"+listData[i].leader+"</span>";
 				str+="<span class=\"associator\">"+listData[i].number+"</span>";
@@ -93,7 +90,107 @@ function findClubByType(tpyeName,index){
 			}else{
 				$("#clubList").append(str);
 			}
-			$(".loadMore").attr("onclick","findClubByType(\""+tpyeName+"\","+(++index)+")");
+			if (listData.length<6) {
+				$(".loadMore").html("已经没有了！").attr("onclick","javascipt:void(0);");
+				return;
+			}else{
+				$(".loadMore").attr("onclick","findClubByType(\""+tpyeName+"\","+(++index)+")").html("加载更多");
+			}
 		}
 	})
+}
+//关键词搜索
+function keySearch(index) {
+	//排除输入框内容有变化但通过加载更多来获取数据的造成混乱
+	if (index==1) {
+		key=$(".club-search input[name='key']").val();
+	}
+	if (key=="") {
+		$("#clubList").html("");//清空面板
+		getClubList(1);
+		$(".loadMore").attr("onclick","loadMore(2)").html("加载更多");
+		return;
+	}
+	var url="/ClubSystem/club/getBySearch";
+	var parm="search="+key+"&size=6&indexPageNum="+index;
+	$.get(url, parm, function (data) {
+		console.log(data);
+		if (data.serviceResult) {
+			var listData = data.resultParm.clublist; 
+			var str="";
+			for (var i = 0; i <listData.length; i++) {
+				var color=""
+				switch(i%6){
+					case 0:color="myblue" ;break;
+					case 1:color="mygreen" ;break;
+					case 2:color="myred" ;break;
+					case 3:color="myoringe" ;break;
+					case 4:color="myyellow" ;break;
+					default:color="myzise" ;break;
+				}
+				str+="<li class=\"clubBox "+color+"\"><a href=\"clubDetail.html?clubId="+listData[i].id+"\"><div class=\"imgBox\"><img src=\"/ClubSystem"+listData[i].badge+"\"></div>";
+				str+="<div class=\"info-area\"><div class='info-area_box'><h3>"+listData[i].name+"</h3>";
+				str+="<span class=\"proprieter\">"+listData[i].leader+"</span>";
+				str+="<span class=\"associator\">"+listData[i].number+"</span>";
+				str+="<span class=\"position\">"+listData[i].schoolName+"</span></div></div></a></li>";
+			}
+			if (index==1) {
+				$("#clubList").html(str);
+			}else{
+				$("#clubList").append(str);
+			}
+			if (listData.length<6) {
+				$(".loadMore").html("已经没有了！").attr("onclick","javascipt:void(0);");
+				return;
+			}else{
+				$(".loadMore").attr("onclick","keySearch("+(++index)+")").html("加载更多");
+			}
+		}
+	})
+}
+//获取最新社团,页面默认为最新的排序
+function getNewClubList() {
+	$("#clubList").html("");//清空面板
+	getClubList(1);
+	$(".loadMore").attr("onclick","loadMore(2)").html("加载更多");
+	return;
+}
+//获取热门社团按人数
+function getClubListByNum(index) {
+	$(".loadMore").attr("onclick","getClubListByNum(2)").html("加载更多");
+	var url="/ClubSystem/club/getAllsByRank";
+	var parm="size=6&indexPageNum="+index;
+	$.get(url,parm,function (data) {
+	 	if (data.serviceResult) {
+	 		var listData = data.resultParm.club;
+	 		var str="";
+			for (var i = 0; i <listData.length; i++) {
+				var color=""
+				switch(i%6){
+					case 0:color="myblue" ;break;
+					case 1:color="mygreen" ;break;
+					case 2:color="myred" ;break;
+					case 3:color="myoringe" ;break;
+					case 4:color="myyellow" ;break;
+					default:color="myzise" ;break;
+				}
+				str+="<li class=\"clubBox "+color+"\"><a href=\"clubDetail.html?clubId="+listData[i].id+"\"><div class=\"imgBox\"><img src=\"/ClubSystem"+listData[i].badge+"\"></div>";
+				str+="<div class=\"info-area\"><div class='info-area_box'><h3>"+listData[i].name+"</h3>";
+				str+="<span class=\"proprieter\">"+listData[i].leader+"</span>";
+				str+="<span class=\"associator\">"+listData[i].number+"</span>";
+				str+="<span class=\"position\">"+listData[i].schoolName+"</span></div></div></a></li>";
+			}
+			if (index==1) {
+				$("#clubList").html(str);
+			}else{
+				$("#clubList").append(str);
+			}
+			if (listData.length<6) {
+				$(".loadMore").html("已经没有了！").attr("onclick","javascipt:void(0);");
+				return;
+			}else{
+				$(".loadMore").attr("onclick","getClubListByNum("+(++index)+")").html("加载更多");
+			}
+	 	}
+	});
 }

@@ -267,6 +267,7 @@ public class ClubController extends BaseController{
 		result.setServiceResult(true);
 		List<Club> clubList = clubService.getAllsByRank(pageInfo);
 		result.getResultParm().put("club", clubList);
+		result.getResultParm().put("totalCount",pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 }

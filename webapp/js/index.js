@@ -162,13 +162,13 @@ function showActiviity(){
 	$.get(url, parm, function (data) {
 		console.log(data);
 		if (data.serviceResult) {
-			var listDate = data.resultParm.activity;
+			var listData = data.resultParm.activity;
 			var str = "";
-			for (var i = 0; i <listDate.length; i++) {
-				str+="<li><span class=\"active-title\"><a href=\""+""+"\">"+listDate[i].title+"</a></span>";
-				str+="<span class=\"active-club\"><a href=\""+""+"\">"+listDate[i].clubName+"</a></span>";
-				str+="<span class=\"active-school\"><a href=\""+""+"\">"+listDate[i].schoolName+"</a></span>";
-				var time = listDate[i].createtime.split(" ")[0];
+			for (var i = 0; i <listData.length; i++) {
+				str+="<li><span class=\"active-title\"><a href=\"club/clubDetail.html?clubId="+listData[i].clubId+"&activityId="+listData[i].id+"\">"+listData[i].title+"</a></span>";
+				str+="<span class=\"active-club\"><a href=\"club/clubDetail.html?clubId="+listData[i].clubId+"\">"+listData[i].clubName+"</a></span>";
+				str+="<span class=\"active-school\"><a href=\"club/clubDetail.html?clubId="+listData[i].clubId+"\">"+listData[i].schoolName+"</a></span>";
+				var time = listData[i].createtime.split(" ")[0];
 				str+="<span class=\"active-time\">"+time+"</span></li>";
 			}
 			$("#activeList ul").html(str);

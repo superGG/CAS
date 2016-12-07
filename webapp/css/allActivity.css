@@ -65,7 +65,7 @@
 	border-bottom: 1px solid #ccc;
 	transition: box-shadow linear .2s;
 }
-.activityList li:hover,.activity-title:hover,.activity-club:hover,.activity-time:hover,#loadMoreActivity:hover{
+.activityList li:hover,.activity-title:hover,.activity-club:hover,.activity-time:hover,.activity-school:hover,#loadMoreActivity:hover{
 	box-shadow: 0px 0px 10px #2f4fec;
 }
 .activityList li a{
@@ -80,19 +80,26 @@
     white-space: nowrap;
 }
 .activity-title{
-	width: 59%;
-	padding-left: 10px; 
+	width: 47%;
 }
-
+.activity-title a{
+	padding-left: 20px; 
+}
 .activity-club{
-	width: 24%;
-	padding-left: 10px; 
+	width: 18%;
+	text-align: center;
+}
+.activity-school{
+	width: 18%;
+	text-align: center;
 }
 .activity-time{
-	width: 13%;
+	width: 16%;
 	text-align: right;
 }
-
+.activity-time a{
+	padding-right: 20px;
+}
 #loadMoreActivity{
 	width: 20%;
 	padding: 10px;

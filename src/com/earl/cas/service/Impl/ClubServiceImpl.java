@@ -282,7 +282,11 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		setNumber(list);
 		rank(list);
 		pageInfo.setTotalCount((long)list.size());
-		list.subList((pageInfo.getIndexPageNum()-1)*pageInfo.getSize(),pageInfo.getSize()*pageInfo.getIndexPageNum());
+		if(pageInfo.getSize()*pageInfo.getIndexPageNum()>list.size()){
+			list = list.subList((pageInfo.getIndexPageNum()-1)*pageInfo.getSize(),list.size());
+		}else{
+			list = list.subList((pageInfo.getIndexPageNum()-1)*pageInfo.getSize(),pageInfo.getSize()*pageInfo.getIndexPageNum());
+		}
 		return list;		
 	}
 

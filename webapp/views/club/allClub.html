@@ -31,7 +31,7 @@
 			<div class="main-top">
 				<div class="club-search">
 					<input class="search-key" type="text" name="key" placeholder="输入关键词">
-					<button class="search-btn" type="submit" name="search">搜索</button>
+					<button class="search-btn" name="search" onclick="keySearch(1)">搜索</button>
 				</div>
 				<div class="club-type">
 					<span class="club-type-list-top">类型:</span>
@@ -40,8 +40,8 @@
 				<div class="club-ranking">
 					<span class="club-ranking-list-top">排行:</span>
 					<ul class="club-ranking-list">
-						<li><a href="">最新</a></li>
-						<li><a href="">热门</a></li>
+						<li><a href="javascript:void(0)" onclick="getNewClubList();">最新</a></li>
+						<li><a href="javascript:void(0)" onclick="getClubListByNum(1)">热门</a></li>
 					</ul>
 				</div>
 			</div>

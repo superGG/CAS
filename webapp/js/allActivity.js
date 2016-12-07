@@ -9,15 +9,15 @@ function showActivityList(index){
 	$.get(url, parm, function(data){
 		if (data.serviceResult) {
 			var str="";
-			var lsit = data.resultParm.activity;
-			for (var i = 0; i <lsit.length; i++) {
-				str+="<li><div class='activity-title'><a href='clubDetail.html/clubId="+lsit[i].clubId+"&activityId="+lsit[i].id+"'>"+lsit[i].title+"</a></div>";
-				str+="<div class='activity-club'><a href='clubDetail.html/clubId="+lsit[i].clubId+"'>"+lsit[i].clubName+"</a></div>";
-				str+="<div class='activity-time'><a href='clubDetail.html/clubId="+lsit[i].clubId+"'>"+lsit[i].createtime+"</a></div></li>";
+			var listData = data.resultParm.activity;
+			for (var i = 0; i <listData.length; i++) {
+				str+="<li><div class='activity-title'><a href='clubDetail.html?clubId="+listData[i].clubId+"&activityId="+listData[i].id+"'>"+listData[i].title+"</a></div>";
+				str+="<div class='activity-club'><a href='clubDetail.html?clubId="+listData[i].clubId+"'>"+listData[i].clubName+"</a></div>";
+				str+="<div class='activity-school'><a href='clubDetail.html?clubId="+listData[i].clubId+"'>"+listData[i].schoolName+"</a></div>";
+				var time = listData[i].createtime.split(" ")[0];
+				str+="<div class='activity-time'><a href='clubDetail.html?clubId="+listData[i].clubId+"'>"+time+"</a></div></li>";
 			}
 			$(".activity .activityList").append(str);
-		}else{
-			alert(data.resultInfo);
 		}
 	})
 }
