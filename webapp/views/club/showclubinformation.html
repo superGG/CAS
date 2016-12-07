@@ -10,11 +10,8 @@
 		<link rel="stylesheet" type="text/css" href="../../css/common.css">
 		
 		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="../../js/showclubinformation.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
-
-		<script type="text/javascript">
-			$(document).ready();
-		</script>
 	</head>
 	<body>
 		<div class="top">
@@ -68,24 +65,24 @@
 				</div>
 				<div class="stxq_box">
 					<div class="stxq_box_top">
-						<img src="../../images/clubbadge.jpg" width="200px" height="200px">
+						<img id="badge" src="../../images/clubbadge.jpg" width="200px" height="200px">
 						<div class="stxq_details">
 							<div class="stxq_details_header">
-								<h1 style="font-family:微软雅黑;margin:0;">吉他社</h1>
-								<span class="ccdate" style="margin-left:25px;margin-top:15px;">创建时间：1999-11-15<span>
+								<h1 style="font-family:微软雅黑;margin:0;" id="name">吉他社</h1>
+								<span class="ccdate" style="margin-left:25px;margin-top:15px;" id="createtime">创建时间：1999-11-15<span>
 							</div>
 							<div class="stxq_details_mid">
 								<div class="stxq_details_item">
 									<p style="color:#999;">社长</p>
-									<p style="color:#666;">郑烁彬</p>
+									<p style="color:#666;" id="leader">郑烁彬</p>
 								</div>
 								<div class="stxq_details_item">
 									<p style="color:#999;">社团类型</p>
-									<p style="color:#666;">音乐</p>
+									<p style="color:#666;" id="type">音乐</p>
 								</div>
 								<div class="stxq_details_item" style="border-right:0;">
 									<p style="color:#999;">规模</p>
-									<p style="color:#666;">5500人</p>
+									<p style="color:#666;" id="number">5500人</p>
 								</div>
 							</div>
 						</div>
@@ -95,7 +92,7 @@
 						<div class="stxq_main_left">
 							<label for="intro_box" style="font-family:微软雅黑;">社团简介</label>
 							<div class="club_info_box" id="intro_box">
-								<p>&nbsp;&nbsp;&nbsp;&nbsp;由当届校园最著名的情歌王子郑烁彬创立，创建伊始，立即引起校园轰动，吸引了大把大把的学生纷纷加入。
+								<p id="introduce">&nbsp;&nbsp;&nbsp;&nbsp;由当届校园最著名的情歌王子郑烁彬创立，创建伊始，立即引起校园轰动，吸引了大把大把的学生纷纷加入。
 								更有甚者，许多高中毕业生都是为了情歌王子郑烁彬，慕名而来，
 								所以造成了郑烁彬的那个时代，广东海洋大学的报读人数如火山爆发似得增长
 								，增长的人数中90%是女同学，剩下的10%都是基佬。如今，

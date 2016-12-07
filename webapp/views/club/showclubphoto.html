@@ -69,13 +69,13 @@
 			});
 			function showMask(){
 				$("body").css("overflow-y","hidden");
-				$("#mask").css("height",$(document.body).height());     
-				$("#mask").css("width",$(document.body).outerWidth(true));     
-				$("#mask").show();
+				$("#myMask").css("height",$(document.body).height());     
+				$("#myMask").css("width",$(document.body).outerWidth(true));     
+				$("#myMask").show();
 			} 
 			function hideMask(){ 
 				$(".photo_mask_main img").remove();
-				$("#mask").hide();
+				$("#myMask").hide();
 				$("body").css("overflow-y","visible");
 			}
 			function showImg(photoList){
@@ -163,7 +163,7 @@
 			</div>
 		</div>
 
-		<div id="mask" class="photo_mask">
+		<div id="myMask" class="photo_mask">
 			<button onclick="hideMask()"><img src="../../images/close.png" width="30px" height="30px"></button>
 			<div class="photo_mask_main">
 				
