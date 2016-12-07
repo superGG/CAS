@@ -1,6 +1,5 @@
 $(document).ready(function(){
-	index = 1;
-	showActivityList(index);
+	showActivityList(1);
 })
 
 function showActivityList(index){
@@ -9,6 +8,7 @@ function showActivityList(index){
 	$.get(url, parm, function(data){
 		if (data.serviceResult) {
 			var str="";
+			var total = data.resultParm.total;
 			var listData = data.resultParm.activity;
 			for (var i = 0; i <listData.length; i++) {
 				str+="<li><div class='activity-title'><a href='clubDetail.html?clubId="+listData[i].clubId+"&activityId="+listData[i].id+"'>"+listData[i].title+"</a></div>";
@@ -18,6 +18,10 @@ function showActivityList(index){
 				str+="<div class='activity-time'><a href='clubDetail.html?clubId="+listData[i].clubId+"'>"+time+"</a></div></li>";
 			}
 			$(".activity .activityList").append(str);
+			if (listData.length<9||$(".activityList li").length==total) {
+				$("#loadMoreActivity").html("已经没有了！").attr("onclick","javascipt:void(0);");
+				return;
+			}
 		}
 	})
 }
@@ -36,7 +40,7 @@ function searchActivity() {
 	var key = $("input[name='key']").val();
 	getActivityList(key);
 }
-function loadMoreActivity() {
-	index++;
+function loadMoreActivity(index) {
 	showActivityList(index);
+	$("#loadMoreActivity").attr("onclick","loadMoreActivity("+(++index)+")");
 }

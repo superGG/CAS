@@ -19,7 +19,7 @@
 					<li><a href="../index.html" >首页</a></li>
 					<li><a href="allClub.html">社团</a></li>
 					<li><a class="active" href="allActivity.html">活动</a></li>
-					<li><a href="../massage/massage.html">留言板</a></li>
+					<li><a href="../message/message.html">留言板</a></li>
 				</ul>
 			</div>
 			<div class="login">
@@ -30,13 +30,13 @@
 		<div class="main">
 			<div class="activity">
 				<div class="activity-top">
-					<div class="activity-filtrate">
+					<!-- <div class="activity-filtrate">
 						<span>筛选:</span>
 						<select class="activity-select" onchange="selectChange();">
 							<option value="1">最新</option>
 							<option value="2">热度</option>
 						</select>
-					</div>
+					</div> -->
 					<div class="activity-search">
 						<input class="search-key" type="text" name="key" placeholder="输入关键词">
 						<button class="search-btn" type="submit" name="search" onclick="searchActivity()">搜索</button>
@@ -44,7 +44,7 @@
 				</div>
 				<ul class="activityList">
 				</ul>
-				<div id="loadMoreActivity" onclick="loadMoreActivity()">加载更多</div>
+				<div id="loadMoreActivity" onclick="loadMoreActivity(2)">加载更多</div>
 			</div>
 		</div>
 		<div class="footer">
