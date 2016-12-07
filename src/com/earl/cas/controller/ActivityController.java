@@ -165,5 +165,21 @@ public class ActivityController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 		
 	}
-
+	
+	/**
+	 * 模糊查询活动(根据不完整的主题查询）
+	 * @param input
+	 * 	 * @param pageInfo
+	 *               必须含有 indexPageNum\size
+	 */
+	@RequestMapping(value = "/searchByInput",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> searchByInput(String input,PageInfo pageInfo){
+		logger.debug("通过社团id查找社团活动");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Activity> clubActivityList = activityService.findByInput(input, pageInfo);
+		result.getResultParm().put("activity", clubActivityList);
+		result.getResultParm().put("total",pageInfo.getTotalCount());
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
 }

@@ -55,7 +55,7 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements
 	 */
 	@Override
 	public List<Activity> findAllActivity(PageInfo pageInfo) {
-		List<Activity> allList = activityDao.findAll(pageInfo);
+		List<Activity> allList = activityDao.findAllActivity(pageInfo);
 		if (!allList.isEmpty()) {
 			return setName(allList);
 		} else {
@@ -152,6 +152,21 @@ public List<Activity> findByClubName(String clubName) {
 	}
 }
  
+/*
+ * 模糊查询，根据输入的不完整的活动主题查找活动
+ * (non-Javadoc)
+ * @see com.earl.cas.service.ActivityService#findByInput(java.lang.String, com.earl.cas.vo.PageInfo)
+ */
+@Override
+public List<Activity> findByInput(String input, PageInfo pageInfo) {
+	List<Activity> findByInputList = activityDao.findByInput(input, pageInfo);
+	if(!findByInputList.isEmpty()){
+		return setName(findByInputList);
+	} else{
+		throw new DomainSecurityException("类似该主题的活动不存在 ");			
+	}
+}
+
 /*
  * 将学校名字和社团名字加入到社团活动中去
  */

@@ -20,8 +20,6 @@ public interface ActivityDao extends BaseDao<Activity> {
 
 	/*
 	 * 根据社团Id删除社团
-	 * 
-	 * @param clubId
 	 */
 	void deleteByClubId(int clubId);
 	
@@ -29,4 +27,14 @@ public interface ActivityDao extends BaseDao<Activity> {
 	 * 根据社团id查找社团活动
 	 */
 	List<Activity> findByClubId(Integer clubId, PageInfo pageInfo);
+	
+	/*
+	 * 查找所有社团活动
+	 */
+	List<Activity> findAllActivity(PageInfo pageInfo);
+
+	/*
+	 * 模糊查询，根据不完整的主题查找活动
+	 */
+	List<Activity> findByInput(String input, PageInfo pageInfo);
 }
