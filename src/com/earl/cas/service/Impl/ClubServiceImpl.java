@@ -1,6 +1,8 @@
 package com.earl.cas.service.Impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -272,14 +274,16 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 			setNumber(clublist);
 			return clublist;
 		}
-		// List<Club> clublistforschool = clubDao
-		// .getBySchoolName(search, pageInfo);
-		// List<School> schoolList = schoolDao.getBySearch(search);
-
-		// compare(clublist, clublistforschool);
-		// setName(clublist);
-		// setNumber(clublist);
-		// return clublist;
+	}
+	
+	public List<Club> getAllsByRank(PageInfo pageInfo){
+		List<Club> list = clubDao.findAll();
+		setName(list);
+		setNumber(list);
+		rank(list);
+		pageInfo.setTotalCount((long)list.size());
+		list.subList((pageInfo.getIndexPageNum()-1)*pageInfo.getSize(),pageInfo.getSize()*pageInfo.getIndexPageNum());
+		return list;		
 	}
 
 	/**
@@ -317,14 +321,17 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	/**
 	 * 根据number进行排行
 	 */
-	private List<Club> rank(List<Club> list) {
-		List<Club> clublist = new ArrayList<Club>();
-		for (Club club : list) {
-
-		}
-		return list;
-
+	private void rank(List<Club> list) {
+	 Collections.sort(list,new Comparator<Club>(){ 
+				@Override
+				public int compare(Club club1, Club club2) {
+					// TODO Auto-generated method stub
+					 return club2.getNumber().compareTo(club1.getNumber()); 
+				} 
+	        }); 
 	}
+	
+
 
 	/**
 	 * club进行比较

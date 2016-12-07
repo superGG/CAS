@@ -123,5 +123,11 @@ public interface ClubService extends BaseService<Club> {
 	 * @return
 	 */
 	List<Club> getBySearch(String serach,PageInfo pageInfo);
+	/**
+	 * 根据热度进行排序
+	 * @param pageInfo
+	 * @return
+	 */
+	List<Club> getAllsByRank(PageInfo pageInfo);
 	
 }
