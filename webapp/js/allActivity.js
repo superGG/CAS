@@ -25,20 +25,20 @@ function showActivityList(index){
 		}
 	})
 }
-function getActivityList(key){
-	switch(key){
-		case "1":console.log("全部");break;
-		case "2":console.log("最新");break;
-		default: console.log(key);break;
-	}
-}
-function selectChange(){
-	getActivityList($('.activity-select option:selected').val());
-}
+// function getActivityList(key){
+// 	switch(key){
+// 		case "1":console.log("全部");break;
+// 		case "2":console.log("最新");break;
+// 		default: console.log(key);break;
+// 	}
+// }
+// function selectChange(){
+// 	getActivityList($('.activity-select option:selected').val());
+// }
 
 function searchActivity() {
 	var key = $("input[name='key']").val();
-	getActivityList(key);
+	// getActivityList(key);
 }
 function loadMoreActivity(index) {
 	showActivityList(index);
