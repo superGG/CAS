@@ -40,6 +40,11 @@ Activity findByClubId(Integer id);
  */
 List<Activity> findByClubName(String clubName);
 
+/*
+ * 模糊查询，根据输入的不完整的title查询活动
+ */
+List<Activity> findByInput(String input, PageInfo pageInfo);
+
 
 
 }
