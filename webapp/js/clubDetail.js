@@ -12,15 +12,21 @@ $(window).resize(function(){
 });
 function intiClubDtail(){
 	parm = window.location.search.split("?")[1];
-	var url = "/ClubSystem/club/getClubDetail";
+	var url = "/ClubSystem/club/getById";
 	$.get(url,parm,function(data){
 		console.log(data);
 		if (data.serviceResult) {
-			$(".club-logo img").attr("src","/ClubSystem/"+data.resultParm.clubDetail.logoPath);
-			$(".club-info .club-style").html(data.resultParm.clubDetail.clubStyle);
-			$(".club-info .club-position").html(data.resultParm.clubDetail.clubPosition);
-			$(".club-info .club-count").html(data.resultParm.clubDetail.clubCount);
-			$(".clubDetai-content .club-introduction p").html(data.resultParm.clubDetail.ClubProfile);
+			var str="";
+			var clubData = data.resultParm.club;
+			$(".club-logo img").attr("src","/ClubSystem/"+clubData.badge);
+			$(".club-info h3").html(clubData.name);
+			$(".club-info .club-style").html(clubData.typeName);
+			$(".club-info .club-school").html(clubData.schoolName);
+			$(".club-info .club-count").html(clubData.number);
+			$(".club-info .club-leader").html(clubData.leader);
+			$(".club-info .club-phone").html(clubData.phone);
+			$(".club-info .club-email").html(clubData.email);
+			$(".clubDetai-content .club-introduction p").html(clubData.introduce);
 		}
 	});
 }
@@ -31,28 +37,28 @@ function intiClubDetailBtn(){
 	$(".info-tab").click(function (){
 		$(".clubDetai-bar ul li.active").removeClass("active");
 		$(this).addClass("active");
-		$(".clubDetai-bar ul .arrows").css("left","11%");
+		$(".clubDetai-bar ul .arrows").css("left","14.3%");
 		$(".clubDetai-content div").not(".club-introduction").remove();
 		$(".clubDetai-content .club-introduction").show();
 	});
 	$(".activity-tab").click(function (){
 		$(".clubDetai-bar ul li.active").removeClass("active");
 		$(this).addClass("active");
-		$(".clubDetai-bar ul .arrows").css("left","36%");
+		$(".clubDetai-bar ul .arrows").css("left","47.3%");
 		$(".clubDetai-content .club-introduction").hide();
 		showClubActivity();
 	});
-	$(".member-tab").click(function (){
-		$(".clubDetai-bar ul li.active").removeClass("active");
-		$(this).addClass("active");
-		$(".clubDetai-bar ul .arrows").css("left","61%");
-		$(".clubDetai-content .club-introduction").hide();
-		showClubMember();
-	});
+	// $(".member-tab").click(function (){
+	// 	$(".clubDetai-bar ul li.active").removeClass("active");
+	// 	$(this).addClass("active");
+	// 	$(".clubDetai-bar ul .arrows").css("left","61%");
+	// 	$(".clubDetai-content .club-introduction").hide();
+	// 	showClubMember();
+	// });
 	$(".album-tab").click(function (){
 		$(".clubDetai-bar ul li.active").removeClass("active");
 		$(this).addClass("active");
-		$(".clubDetai-bar ul .arrows").css("left","86%");
+		$(".clubDetai-bar ul .arrows").css("left","80.3%");
 		$(".clubDetai-content .club-introduction").hide();
 		showClubAlbum();
 	});
@@ -64,11 +70,11 @@ function showClubActivity(clubId) {
 	$(".clubDetai-content").append(str);
 
 }
-function showClubMember(clubId) {
-	var str = "<div class='club-member'>成员</div>";
-	$(".clubDetai-content div").not(".club-introduction").remove();
-	$(".clubDetai-content").append(str);
-}
+// function showClubMember(clubId) {
+// 	var str = "<div class='club-member'>成员</div>";
+// 	$(".clubDetai-content div").not(".club-introduction").remove();
+// 	$(".clubDetai-content").append(str);
+// }
 function showClubAlbum(clubId) {
 	var str = "<div class='club-album'></div>";
 	$(".clubDetai-content div").not(".club-introduction").remove();

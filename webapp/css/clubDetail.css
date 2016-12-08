@@ -15,13 +15,14 @@
 	float: left;
 	width: 45%;
 	height: 215px;
+	background-color: #e4c6f1;
 	border: 1px solid #ccc;
 	text-align:center;
 }
 .club-logo img{
-	width: 50%;
-	height:100%;
-	margin: auto;
+	width: 96%;
+	height:92%;
+	margin: 2%;
 }
 .club-info{
 	position: relative;
@@ -31,13 +32,13 @@
 	margin-left: 1px;
 	border:1px solid #ccc;
 }
-.club-info h2{
+.club-info h3{
 	text-align:center;
 }
 .club-info-item{
 	float: left;
 	width: 33.3%;
-	margin: auto;
+	margin: 3px auto;
 	text-align: center;
 }
 .item-title{
@@ -72,7 +73,7 @@
 }
 .clubDetai-bar ul li{
 	float: left;
-	width: 24%;
+	width: 32.3%;
 	height: 40px;
 	margin-left:1px; 
 	line-height: 40px;
@@ -95,7 +96,7 @@
 	padding: 10px;
 	background-color: #fff;
 }
-.club-introduction,.club-activity,.club-member,.club-album{
+.club-introduction,.club-activity,.club-album{
 	width: 100%;
 	border:1px solid #ccc;
 }
@@ -107,7 +108,7 @@
 	position: absolute;
 	display: block;
 	width: 0px;
-	left: 11%;
+	left: 14.3%;
 	top: 40px;
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;

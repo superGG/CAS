@@ -14,7 +14,7 @@ body{
 	z-index: 100;
 	min-width: 710px;
 	position: fixed;
-	/*瑙ｅ喅fixed鎶栧姩*/
+	/*去除fixed抖动*/
 	-webkit-transform: translateZ(0);
 }
 .top .logobox{
@@ -112,7 +112,7 @@ body{
 	color: #000;
 	text-decoration:none;
 }
-/*椤佃剼*/
+/*页脚*/
 .footer{
 	width: 100%;
 	padding: 20px 0px;
@@ -122,13 +122,13 @@ body{
 	clear: both;
 }
 
-/*鐧诲綍妗嗙浉鍏�/
+/*遮幕*/
 #mask{
     position: fixed;
     width: 100%;
     background-color: #000;
-    opacity: 0.75;              /*閫忔槑搴�/
-    filter: alpha(opacity=75);  /*鍏煎IE*/
+    opacity: 0.75;             /*透明度*/
+    filter: alpha(opacity=75);  /*ie浏览器*/
     left: 0;
     top: 0;
     z-index: 99;
@@ -254,7 +254,6 @@ body{
     cursor: pointer;
 }
 
-/*娉ㄥ唽椤甸潰*/
 .icon-name{
 	background-position: -2px -89px;
 }
@@ -269,7 +268,7 @@ body{
 	line-height: 33px;
 	cursor: pointer;
 }
-/*涓汉涓績 鍔犲叆鐨勭ぞ鍥�绀惧洟绠＄悊common*/
+
 .lwd_main{
 	padding: 20px 0 20px 0;
 	width: 990px;
@@ -357,6 +356,4 @@ body{
 
 .sidebar_left .sidebar_left_module a.curr b img{
 	 margin-top: -34px; 
-	
 }
-/*end*/

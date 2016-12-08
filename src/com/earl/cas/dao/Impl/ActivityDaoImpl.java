@@ -85,4 +85,50 @@ public class ActivityDaoImpl extends BaseDaoImpl<Activity> implements
 		return clubActivity;
 	}
 
+	/*
+	 * 查找所有活动
+	 * (non-Javadoc)
+	 * @see com.earl.cas.dao.ActivityDao#findAllActivity(com.earl.cas.vo.PageInfo)
+	 */
+	@Override
+	public List<Activity> findAllActivity(PageInfo pageInfo) {
+		String hql = "from Activity order by createtime desc";
+		@SuppressWarnings("unchecked")
+		List<Activity> allActivity = getCurrentSession()
+				.createQuery(hql)
+				.setFirstResult(
+						(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
+				.setMaxResults(pageInfo.getSize()).list();
+		String hql2 = "select count(*) from Activity";
+		Object uniqueResult = getCurrentSession()
+				.createQuery(hql2)
+				.uniqueResult();
+		Long intValue = (new Integer(uniqueResult.toString())).longValue();
+		pageInfo.setTotalCount(intValue);
+		return allActivity;
+	}
+		
+/*模糊查询，根据输入不完整的活动主题查找活动
+ * (non-Javadoc)
+ * @see com.earl.cas.dao.ActivityDao#findByInput(java.lang.String, com.earl.cas.vo.PageInfo)
+ */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Activity> findByInput(String input, PageInfo pageInfo) {
+		String hql = "from Activity where title like :input order by createtime desc ";
+		List<Activity> list =getCurrentSession()
+				.createQuery(hql)
+				.setString("input", "%" + input + "%") //"%"任意匹配符
+				.setFirstResult(
+						(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
+				.setMaxResults(pageInfo.getSize()).list();
+				
+		String hql2 = "select count(*) from Activity where title like :input";
+		Object uniqueResult = getCurrentSession().createQuery(hql2)
+				.setString("input", "%" + input + "%").uniqueResult();
+		Long intValue = (new Integer(uniqueResult.toString())).longValue();
+		pageInfo.setTotalCount(intValue);
+		return list;
+	}
+
 }
