@@ -13,6 +13,13 @@ import com.earl.cas.entity.Photo;
  */
 @Repository("photoDao")
 public class PhotoDaoImpl extends BaseDaoImpl<Photo> implements PhotoDao {
-
+	
+	public Long getPhotoNumByAlbumId(int albumId){
+		String hql = "select count(*) from Photo where albumId = :albumId";
+		Object uniqueResult = getCurrentSession().createQuery(hql)
+				.setInteger("albumId", albumId).uniqueResult();
+		Long intValue = (new Integer(uniqueResult.toString())).longValue();
+		return intValue;
+	}
 
 }

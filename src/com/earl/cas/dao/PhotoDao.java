@@ -5,6 +5,7 @@ import com.earl.cas.entity.Photo;
 
 
 public interface PhotoDao extends BaseDao<Photo>{
-
-    
+	
+	Long getPhotoNumByAlbumId(int albumId);
+	
 }

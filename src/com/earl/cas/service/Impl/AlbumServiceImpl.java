@@ -13,6 +13,7 @@ import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
 import com.earl.cas.dao.AlbumDao;
 import com.earl.cas.dao.ClubDao;
+import com.earl.cas.dao.PhotoDao;
 import com.earl.cas.entity.Album;
 import com.earl.cas.entity.Club;
 import com.earl.cas.service.AlbumService;
@@ -36,7 +37,10 @@ public class AlbumServiceImpl extends BaseServiceImpl<Album> implements
 	
 	@Autowired
 	private ClubDao clubDao;
-
+	
+	@Autowired
+	private PhotoDao photoDao;
+	
 	@Override
 	protected BaseDao<Album> getDao() {
 		return albumDao;
@@ -49,6 +53,8 @@ public class AlbumServiceImpl extends BaseServiceImpl<Album> implements
 		List<Album> list = albumDao.getByClubId(id);
 		Club club = clubDao.get(id);
 		for(Album album : list) {
+			Long photoNum = photoDao.getPhotoNumByAlbumId(album.getId());
+			album.setPhotoNumber(photoNum);
 			album.setClubName(club.getName());
 			albumList.add(album);
 		}

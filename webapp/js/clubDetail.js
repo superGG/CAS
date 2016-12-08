@@ -1,6 +1,5 @@
 $(document).ready(function () {
 	intiClubDtail();
-	intiClubDetailBtn();
 })
 $(window).resize(function(){
     if ($("#applyFrame").length>0) {
@@ -11,6 +10,7 @@ $(window).resize(function(){
     }
 });
 function intiClubDtail(){
+	intiClubDetailBtn();
 	parm = window.location.search.split("?")[1];
 	var url = "/ClubSystem/club/getById";
 	$.get(url,parm,function(data){
@@ -29,6 +29,22 @@ function intiClubDtail(){
 			$(".clubDetai-content .club-introduction p").html(clubData.introduce);
 		}
 	});
+	//判断是否是进入活动
+	if (parm.indexOf("activityId")!=-1) {
+		var activityId=parm.split("activityId=")[1];
+		//跳转到activiy-tab;
+		$(".clubDetai-bar ul li.active").removeClass("active");
+		$(".activity-tab").addClass("active");
+		$(".clubDetai-bar ul .arrows").css("left","47.3%");
+		$(".clubDetai-content .club-introduction").hide();
+		var str = "<div class='club-activity'><ul></ul></div>";
+		$(".clubDetai-content div").not(".club-introduction").remove();
+		$(".clubDetai-content").append(str);	
+		if (activityId!="") {
+			activityId=activityId.split("&")[0];
+			showActivity(activityId);
+		}
+	}
 }
 function intiClubDetailBtn(){
 	$(".apply-btn").click(function(){
@@ -46,7 +62,10 @@ function intiClubDetailBtn(){
 		$(this).addClass("active");
 		$(".clubDetai-bar ul .arrows").css("left","47.3%");
 		$(".clubDetai-content .club-introduction").hide();
-		showClubActivity();
+		var str = "<div class='club-activity'><ul></ul></div>";
+		$(".clubDetai-content div").not(".club-introduction").remove();
+		$(".clubDetai-content").append(str);
+		showClubActivity(1);
 	});
 	// $(".member-tab").click(function (){
 	// 	$(".clubDetai-bar ul li.active").removeClass("active");
@@ -64,11 +83,35 @@ function intiClubDetailBtn(){
 	});
 }
 
-function showClubActivity(clubId) {
-	var str = "<div class='club-activity'>活动</div>";
-	$(".clubDetai-content div").not(".club-introduction").remove();
-	$(".clubDetai-content").append(str);
-
+function showClubActivity(index) {
+	var url="/ClubSystem/activity/getClubActivity";
+	var mparm = parm+"&indexPageNum="+index+"&size=6";
+	$.get(url, mparm, function (data) {
+		if (data.serviceResult) {
+			var total = data.resultParm.total;
+			var listData = data.resultParm.activity;
+			var str="";
+			for (var i = 0; i <listData.length; i++) {
+				str+="<li><span class=\"active-title\"><a href=\"clubDetail.html?clubId="+listData[i].clubId+"&activityId="+listData[i].id+"\">"+listData[i].title+"</a></span>";
+				var time = listData[i].createtime.split(" ")[0];
+				str+="<span class=\"active-time\">"+time+"</span></li>";
+			}
+			$(".club-activity ul").html(str);
+		}
+	})
+}
+function showActivity(activityId) {
+	var url="/ClubSystem/activity/getDetails";
+	var mparm = "id="+activityId;
+	$.get(url, mparm, function (data) {
+		if (data.serviceResult) {
+			var activityData = data.resultParm.activity;
+			console.log(activityData);
+			var str='<div class="activity_content">'+activityData.content+'</div>';
+			console.log(activityData.content);
+			$(".club-activity").html(str);	
+		}
+	})
 }
 // function showClubMember(clubId) {
 // 	var str = "<div class='club-member'>成员</div>";
@@ -82,25 +125,29 @@ function showClubAlbum(clubId) {
 	getClubAlbumList(clubId);
 }
 
-function getClubDetailData(){
-
-}
 function getClubAlbumList(clubId){
-	var url = "";
-	// $.get(url, data, success);
-	showClubAlbumList();
+	var url = "/ClubSystem/album/getByClub";
+	var mparm = parm.split("&")[0];
+	mparm ="id="+mparm.split("=")[1];
+	$.get(url, mparm, function (data) {
+		console.log(data);
+		if (data.serviceResult) {
+			var listData = data.resultParm.albumList;
+			showClubAlbumList(listData);
+		}
+	})
 }
 function showClubAlbumList(albumList){
-	var albumList = [{"albumId":"1","clubId":"2","albumName":"美好时光","albumPath":"../../images/001.jpg","photoCount":"19"},
-					{"albumId":"2","clubId":"2","albumName":"校园","albumPath":"../../images/002.png","photoCount":"19"},
-					{"albumId":"3","clubId":"2","albumName":"社会","albumPath":"../../images/003.jpg","photoCount":"19"},
-					{"albumId":"4","clubId":"2","albumName":"美好时光","albumPath":"../../images/004.jpg","photoCount":"19"},
-					{"albumId":"5","clubId":"2","albumName":"美好时光","albumPath":"../../images/001.jpg","photoCount":"19"}];
+	// var albumList = [{"albumId":"1","clubId":"2","albumName":"美好时光","albumPath":"../../images/001.jpg","photoCount":"19"},
+	// 				{"albumId":"2","clubId":"2","albumName":"校园","albumPath":"../../images/002.png","photoCount":"19"},
+	// 				{"albumId":"3","clubId":"2","albumName":"社会","albumPath":"../../images/003.jpg","photoCount":"19"},
+	// 				{"albumId":"4","clubId":"2","albumName":"美好时光","albumPath":"../../images/004.jpg","photoCount":"19"},
+	// 				{"albumId":"5","clubId":"2","albumName":"美好时光","albumPath":"../../images/001.jpg","photoCount":"19"}];
 	var str="<ul>";
 	for (var i = 0; i < albumList.length; i++) {
-		str+="<li><div class='club-album-box' data-albumid='"+albumList[i].albumId+"' data-clubid='"+albumList[i].clubId+"' data-albumname='"+albumList[i].albumName+"' data-albumpath='"+albumList[i].albumPath+"' data-photocount='"+albumList[i].photoCount+"'>";
-		str+="<img src='"+albumList[i].albumPath+"'>";
-		str+="<span class='photo-count'>"+albumList[i].photoCount+"</span><span>"+albumList[i].albumName+"</span></div></li>";
+		str+="<li><div class='club-album-box' data-albumid='"+albumList[i].id+"' data-clubid='"+albumList[i].clubId+"' data-albumname='"+albumList[i].name+"' data-albumpath='"+albumList[i].path+"' data-photocount='"+albumList[i].photoNumber+"'>";
+		str+="<img src='/ClubSystem/"+albumList[i].path+"'>";
+		str+="<span class='photo-count'>"+albumList[i].photoNumber+"</span><span>"+albumList[i].name+"</span></div></li>";
 	}
 	str+="<ul>";
 	$(".clubDetai-content .club-album").append(str);

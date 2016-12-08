@@ -153,6 +153,47 @@
 	background-color: #12b7f5;
 	cursor: pointer;
 }
+/*活动*/
+.club-activity{
+	width: 100%;
+	margin: auto;
+}
+.club-activity ul{
+	width: 50%;
+	margin: auto;
+	padding: 0;
+	list-style: none;
+	overflow: hidden;
+}
+.club-activity ul li{
+	padding: 0 10px;
+	border-bottom: 1px solid #999;
+	overflow: hidden;
+}
+.club-activity ul li:hover{
+	background-color: #ccc;
+}
+.club-activity a{
+	text-decoration: none;
+}
+.club-activity .activeList-head{
+	width: 100%;
+}
+.club-activity span{
+	float: left;
+	padding: 1% 1% 1% 0;
+	font-family: KaiTi;
+	overflow: hidden;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.club-activity .active-title{
+	width: 70%;
+}
+.club-activity .active-time{
+	width: 28%;
+	text-align: right;
+}
 
 /*相册样式*/
 .club-album ul{

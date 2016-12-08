@@ -154,7 +154,7 @@ body{
 .close:hover{
 	background-position: 0px -24px;
 }
-.login-tip{
+.login-tip,.register-tip{
 	width: 100%;
 	text-align: center;
 	color: red;

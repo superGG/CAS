@@ -46,6 +46,9 @@ public class Album implements Serializable
 	//社团名称
 	private String ClubName;
 	
+	//相册照片总数
+	private Long PhotoNumber;
+	
 	public Album() {
 	}
 
@@ -109,6 +112,15 @@ public class Album implements Serializable
 
 	public void setClubName(String clubName) {
 		ClubName = clubName;
+	}
+	
+	@Transient
+	public Long getPhotoNumber() {
+		return PhotoNumber;
+	}
+
+	public void setPhotoNumber(Long photoNumber) {
+		PhotoNumber = photoNumber;
 	}
 
 	@Override

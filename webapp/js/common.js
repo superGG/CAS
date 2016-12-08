@@ -25,16 +25,16 @@ function showLoginFrame() {
       $("#loginFrame").remove();
     }
     var formStr = "<div id='loginFrame'><div class='hd'><a class='close'></a><div id='login-tab' class='tab-active'>登录</div><div id='register-tab'>注册</div></div>";
-    formStr+="<form id='loginForm' class='' method='POST'>";
-    formStr+="<div class='form-input'><label class='input-icon icon-account'></label><input name='account' class='input' type='text' placeholder='账号'></div>"
-    formStr+="<div class='form-input'><label class='input-icon icon-password'></label><input name='password' class='input' type='password' placeholder='密码'></div>";
-    formStr+="<div class='form-input login-input-verifiCode'><label class='input-icon icon-verifiCode'></label><input name='verifyCode' class='input input-verifiCode' type='text' maxlength='4' placeholder='验证码'><img src='../../verifyCode/N2Qz.jpg' id='verifiImg' title='点击换一张'></div>";
+    formStr+="<form id='loginForm' class='' method='POST'><div class='login-tip'></div>";
+    formStr+="<div class='form-input'><label class='input-icon icon-account'></label><input name='account' class='input' type='text' maxlength='16' placeholder='账号'></div>"
+    formStr+="<div class='form-input'><label class='input-icon icon-password'></label><input name='password' class='input' type='password' maxlength='16' placeholder='密码'></div>";
+    formStr+="<div class='form-input login-input-verifiCode'><label class='input-icon icon-verifiCode'></label><input name='verifyCode' class='input input-verifiCode' type='text' maxlength='4' placeholder='验证码'><img src='' id='verifiImg' title='点击换一张'></div>";
     formStr+="<div id='login-btn'>登录</div></form>";
-    formStr+="<form id='registerForm' class='' method='POST'>";
-    formStr+="<div class='form-input'><label class='input-icon icon-account'></label><input name='account' class='input' type='text' placeholder='账号'></div>"
-    formStr+="<div class='form-input'><label class='input-icon icon-password'></label><input name='password' class='input' type='password' placeholder='密码'></div>"
+    formStr+="<form id='registerForm' class='' method='POST'><div class='register-tip'></div>";
+    formStr+="<div class='form-input'><label class='input-icon icon-account'></label><input name='account' class='input' type='text' maxlength='16' placeholder='账号:至少6位'></div>"
+    formStr+="<div class='form-input'><label class='input-icon icon-password'></label><input name='password' class='input' type='password' maxlength='16' placeholder='密码:至少6位'></div>"
     formStr+="<div class='form-input'><label class='input-icon icon-password'></label><input name='password2' class='input' type='password' placeholder='再次输入密码'></div>"
-    formStr+="<div class='form-input login-input-verifiCode'><label class='input-icon icon-verifiCode'></label><input name='verifyCode' class='input input-verifiCode' type='text' maxlength='4' placeholder='验证码'><img src='../../verifyCode/N2Qz.jpg' id='rVerifiImg' title='点击换一张'></div>";
+    formStr+="<div class='form-input login-input-verifiCode'><label class='input-icon icon-verifiCode'></label><input name='verifyCode' class='input input-verifiCode' type='text' maxlength='4' placeholder='验证码'><img src='' id='rVerifiImg' title='点击换一张'></div>";
     formStr+="<div id='register-btn'>注册</div></form></div>";
     $("body").append(formStr);
     setFrameWH("loginFrame");
@@ -82,22 +82,93 @@ function initLoginFrameBtn(){
     getCheckCode("rVerifiImg");
   });
   $("#login-btn").click(function () {
-    $("#loginForm .login-tip").remove();
-    login();
+    $("#loginForm .login-tip").html("");
+    if (verifyLoginData()) {
+      login();
+    }
   });
   $("#register-btn").click(function () {
-    register();
+    if(verifyRegisterData()){
+      register();
+    }
   });
 }
 
 //获取验证码
 function getCheckCode(id) {
-  var url ="/ClubSystem/users/getImgVerifyCode";
-  $.get(url,function (data) {
+  // var url ="/ClubSystem/users/getImgVerifyCode";
+  // $.get(url,function (data) {
+  //   $("#"+id).attr("src","/ClubSystem/"+data.resultParm.path);
+  // });
+  $.ajax({url:"/ClubSystem/users/getImgVerifyCode",async:false,type:'GET',success:function (data) {
     $("#"+id).attr("src","/ClubSystem/"+data.resultParm.path);
-  });
+  }});
 }
 
+//校验登陆数据
+function verifyLoginData() {
+  var account=$("#loginFrame .form-input input[name='account']");
+  var psw = $("#loginFrame .form-input input[name='password']");
+  var verifyCode=$("#loginFrame .form-input input[name='verifyCode']");
+  var pattern = new RegExp("[`~!\\s@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+
+  if (pattern.test(account.val())) {
+    account.focus();
+    $("#loginForm .login-tip").html("×用户名位不能含有空格或特殊符号");
+    return false;
+  }
+  if(account.val().trim().length<6|| account.val().trim().length > 16){
+    account.focus();
+    $("#loginForm .login-tip").html("×用户名位6-16字符");
+    return false;
+  }
+  if (psw.val().length<6) {
+    psw.focus();
+    $("#loginForm .login-tip").html("×密码至少6位");
+    return false;
+  }
+  if (verifyCode.val().replace(" ","").length<4) {
+    verifyCode.focus();
+    $("#loginForm .login-tip").html("×请输入4位验证码");
+    return false;
+  }
+  return true;
+}
+//校验注册数据
+function verifyRegisterData() {
+  var account=$("#registerForm .form-input input[name='account']");
+  var psw = $("#registerForm .form-input input[name='password']");
+  var psw2 = $("#registerForm .form-input input[name='password2']");
+  var verifyCode=$("#registerForm .form-input input[name='verifyCode']");
+  var pattern = new RegExp("[`~!\\s@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+
+  if (pattern.test(account.val())) {
+    account.focus();
+    $("#registerForm .register-tip").html("×用户名位不能含有空格或特殊符号");
+    return false;
+  }
+  if(account.val().trim().length<6|| account.val().trim().length > 16){
+    account.focus();
+    $("#registerForm .register-tip").html("×用户名位6-16字符");
+    return false;
+  }
+  if (psw.val().length<6) {
+    psw.focus();
+    $("#registerForm .register-tip").html("×密码至少6位");
+    return false;
+  }
+  if(psw.val()!=psw2.val()){
+    psw2.focus();
+    $("#registerForm .register-tip").html("×两次密码不一致");
+    return false;
+  }
+  if (verifyCode.val().replace(" ","").length<4) {
+    verifyCode.focus();
+    $("#registerForm .register-tip").html("×请输入4位验证码");
+    return false;
+  }
+  return true;
+}
 //登录提交
 function login() {
   var url ="/ClubSystem/users/login";
@@ -111,7 +182,7 @@ function login() {
       document.cookie="USER="+escape(mCookies)+"; path=/ClubSystem/; expires="+date.toGMTString();
       location.reload();
     }else{
-      $("#loginForm").prepend("<div class='login-tip'>"+data.resultInfo+"</div>");
+      $("#loginForm .login-tip").html(data.resultInfo);
     }
   });
 }
