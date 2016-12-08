@@ -119,6 +119,8 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		club.setTypeName(typename);
 		Long number = userclubDao.getNumberByclubId(club.getId());
 		club.setNumber(number);
+		School school = schoolDao.get(club.getSchoolId());
+		club.setSchoolName(school.getName());
 		return club;
 	}
 
@@ -128,13 +130,15 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		club.setNumber(number);
 		String typename = clubTypeDao.get(club.getTypeId()).getName();
 		club.setTypeName(typename);
+		School school = schoolDao.get(club.getSchoolId());
+		club.setSchoolName(school.getName());
 		return club;
 	}
 
 	public void updateMyclub(Club club, MultipartFile file,
 			HttpServletRequest request, String typeName) {
 		if (club.getId() != null) {
-			if (!file.isEmpty()) {
+			if (file!=null) {
 				logger.info("file不为空，开始处理上传社徽");
 				String shehuipath = FileUploadUtil.NewFileUpload(request, file,
 						"shehuipath");
@@ -142,9 +146,9 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 				club.setBadge(shehuipath);
 			}
 			// 获得职位Id
-			ClubType clubtype = clubTypeDao.getByName(typeName);
-			club.setTypeId(clubtype.getId());
-			clubDao.updateWithNotNullProperties(club);
+				ClubType clubtype = clubTypeDao.getByName(typeName);
+				club.setTypeId(clubtype.getId());
+				clubDao.updateWithNotNullProperties(club);
 		} else {
 			throw new DomainSecurityException("找不到社团ID");
 		}

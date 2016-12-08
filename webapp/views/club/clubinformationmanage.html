@@ -10,6 +10,7 @@
 		<link href="../../css/table_style.css" rel="stylesheet" type="text/css">
 		
 		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="../../js/clubinformationmanage.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
@@ -34,7 +35,7 @@
 			<div class="lwd_main_nav">
 				<div class="header_photo">
 					<img src="../../images/ccbg.jpg">
-					<p>梁伟栋</p>
+					<p id="name">梁伟栋</p>
 				</div>
 				<div class="sidebar_left">
 					<div class="sidebar_left_module">
@@ -66,9 +67,9 @@
 				</div>
 				<form id="clubinfo" action="#" method="#" style="margin-top:20px;">
 						<div class="psinfo_pic" style="position:absolute;margin-left:440px;margin-top:10px;">
-							<img src="../../images/clubbadge.jpg" id="clubbadge" name="clubbadge" width="180px" height="180px"><br>
+							<img id="badge" src="../../images/clubbadge.jpg" id="clubbadge" name="clubbadge" width="180px" height="180px"><br>
 							<button id="changeheader" aciton="#" style="margin-left:30px;">修改社徽</button>
-							<button id="changeheader" aciton="#" style="margin-left:30px;">保存</button>
+							<button id="update" aciton="#" style="margin-left:30px;">保存</button>
 						</div>
 						<table style="padding-left:50px;float:left;">
 							<tr>
@@ -80,37 +81,34 @@
 								<td><input type="text" name="clubname" id="clubname" placeholder="社团名称"></td>
 							</tr>
 							<tr>
-								<td><label for="clubtype">社团类型</label></td>
-								<td><select name="clubtype" id="clubtype">  
-									<option value ="1">Volvo</option>  
-									<option value ="2">Saab</option>  
-									<option value="3">Opel</option>  
-									<option value="4">Audi</option>  
+								<td><label for="type">社团类型</label></td>
+								<td><select name="type" id="type">  
+									
 								</select></td>  
 							</tr>
 							<tr>
-								<td><label for="captain">社长</label></td>
-								<td><input type="text" placeholder="社长" name="captain" id="captain"></td>
+								<td><label for="leader">社长</label></td>
+								<td><input type="text" placeholder="社长" name="leader" id="leader"></td>
 							</tr>
 							<tr>
-								<td><label for="createdate">创建日期</label></td>
-								<td><input type="text" placeholder="创建日期" name="createdate" id="createdate" disabled="disabled"></td>
+								<td><label for="createtime">创建日期</label></td>
+								<td><input type="text" placeholder="创建日期" name="createtime" id="createtime" disabled="disabled"></td>
 							</tr>
 							<tr>
 								<td><label for="membernumber">成员人数</label></td>
-								<td><input type="text" placeholder="成员人数" name="membernumber" id="membernumber" disabled="disabled"></td>
+								<td><input type="text" placeholder="成员人数" name="number" id="number" disabled="disabled"></td>
 							</tr>
 							<tr>
-								<td><label for="clubphone">社团电话</label></td>
-								<td><input type="text" placeholder="社团联系电话" name="clubphone" id="clubphone"></td>
+								<td><label for="phone">社团电话</label></td>
+								<td><input type="text" placeholder="社团联系电话" name="phone" id="phone" maxlength="11"></td>
 							</tr>
 							<tr>
-								<td><label for="clubemail">社团邮箱</label></td>
-								<td><input type="text" placeholder="社团邮箱" name="clubemail" id="clubemail"></td>
+								<td><label for="email">社团邮箱</label></td>
+								<td><input type="text" placeholder="社团邮箱" name="email" id="email"></td>
 							</tr>
 							<tr>
-								<td style="vertical-align:top;"><label for="clubprofile">社团简介</label></td>
-								<td><textarea rows="10" cols="50" placeholder="社团简介" name="clubprofile" id="clubprofile"></textarea></td>
+								<td style="vertical-align:top;"><label for="profile">社团简介</label></td>
+								<td><textarea rows="10" cols="50" placeholder="社团简介" name="profile" id="profile"></textarea></td>
 							</tr>
 						</table>
 				</form>
