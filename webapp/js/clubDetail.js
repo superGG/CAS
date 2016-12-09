@@ -10,6 +10,7 @@ $(window).resize(function(){
     }
 });
 function intiClubDtail(){
+	userData = getCookieUserData();//提取用户信息;
 	intiClubDetailBtn();
 	parm = window.location.search.split("?")[1];
 	var url = "/ClubSystem/club/getById";
@@ -30,6 +31,7 @@ function intiClubDtail(){
 			$(".club-info .club-phone").html(clubData.phone);
 			$(".club-info .club-email").html(clubData.email);
 			$(".clubDetai-content .club-introduction p").html(clubData.introduce);
+			isApplyOrJoin();//判断是否已加入社团或提交了申请
 		}
 	});
 	//判断是否是进入活动
@@ -224,7 +226,7 @@ function showApplyTable(){
 	if ($(".applyFrame").length>0) {
 		$(".applyFrame").remove();
 	}
-	var userData = getCookieUserData();
+	
 	if (userData==null) {
 		showLoginFrame();
 		return;
@@ -270,5 +272,30 @@ function initApplyFrameBtn(){
 	$(".apply_cancel").click(function(){
 		$("#applyFrame").remove();
 		$("#mask").remove();
+	})
+}
+
+//判断是否已加入社团或提交了申请
+function isApplyOrJoin(){
+	var url="/ClubSystem/apply/displayAllClubApply";
+	// var mparm = "detailId="+userData.id;
+	var mparm = "detailId="+clubId;
+	$.get(url, mparm, function (data){
+		if (data.serviceResult) {
+			var listData = data.resultParm.apply;
+			var statue = -1;
+			for (var i = 0; i <listData.length; i++) {
+				if (userData.id==listData[i].detailId) {
+					statue = listData[i].statue;
+				}
+			}
+			switch(statue){
+				case 0:$(".apply-btn").html("进入社团").unbind();break;
+				case 2:$(".apply-btn").css("background-color","#ccc").html("申请书已提交，等待审核").unbind();break;
+				default:break;
+			}
+		}else{
+			console.log(data.resultInfo);
+		}
 	})
 }

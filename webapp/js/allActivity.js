@@ -26,7 +26,7 @@ function showActivityList(index) {
 				$("#loadMoreActivity").html("已经没有了！").attr("onclick", "javascipt:void(0);");
 				return;
 			}else{
-				$("#loadMoreActivity").html("加载更多！").attr("onclick", "loadMoreActivity(" + (++index) + ")");
+				$("#loadMoreActivity").html("加载更多").attr("onclick", "loadMoreActivity(" + (++index) + ")");
 			}
 		}
 	})
