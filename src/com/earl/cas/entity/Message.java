@@ -57,6 +57,17 @@ public class Message implements Serializable
 	//子留言数量
 	private Integer sonSize;
 	
+	//头像路径
+	private String headPath;
+	
+	public String getHeadPath() {
+		return headPath;
+	}
+
+	public void setHeadPath(String headPath) {
+		this.headPath = headPath;
+	}
+
 	private List<Message> sonList;
 	
 	public Message() {
