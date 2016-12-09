@@ -66,5 +66,12 @@ public interface ApplyDao extends BaseDao<Apply> {
 	 * @param clubId
 	 */
 	Apply getByDetailIdAndClubId(int detailId, int clubId);
+	/**
+	 * 根据detailId和clubId获得申请书 获取最新的
+	 * @param detailId
+	 * @param clubId
+	 * @return
+	 */
+	List<Apply> getByDetailIdAndClubId_desc(int detailId, int clubId);
 
 }

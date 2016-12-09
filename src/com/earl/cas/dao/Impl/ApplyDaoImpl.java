@@ -102,4 +102,12 @@ public class ApplyDaoImpl extends BaseDaoImpl<Apply> implements ApplyDao {
 				.setInteger("detailId", detailId).setInteger("clubId", clubId)
 				.uniqueResult();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Apply> getByDetailIdAndClubId_desc(int detailId, int clubId) {
+		String hql = "from Apply where detailId = :detailId and clubId = :clubId order by createtime desc";
+		return getCurrentSession().createQuery(hql)
+				.setInteger("detailId", detailId).setInteger("clubId", clubId)
+				.list();
+	}
 }

@@ -293,4 +293,13 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 			throw new DomainSecurityException("社团不存在，无法提交申请书");
 		}
 	}
+	
+	public Apply getByDetailIdAndClubId(int detailId, int clubId){
+		Apply apply = null;
+		List<Apply>  applylist =  applyDao.getByDetailIdAndClubId_desc(detailId,clubId);
+		if(applylist!=null){
+			return applylist.get(0);
+		}
+		else throw new DomainSecurityException("无法找到申请书");
+	}
 }

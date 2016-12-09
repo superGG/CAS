@@ -298,5 +298,19 @@ public class ApplyController extends BaseController {
 		result.getResultParm().put("apply", memberlist);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-	
+	/**
+	 * 根据detailId和clubId获取社团申请书，根据时间排序，传回statue 
+	 * @param detailId  写申请书的用户的ID
+	 * @param clubId  社团Id
+	 */
+	@RequestMapping(value = "/getStatue", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> getStatue(int detailId,int clubId) {
+		logger.debug("REST request to get statue");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		Apply apply = applyService.getByDetailIdAndClubId(detailId,clubId);
+		int statue = apply.getStatue();
+		result.getResultParm().put("statue（0通过，1拒绝，2未审核）", statue);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 }
