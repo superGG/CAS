@@ -277,18 +277,11 @@ function initApplyFrameBtn(){
 
 //判断是否已加入社团或提交了申请
 function isApplyOrJoin(){
-	var url="/ClubSystem/apply/displayAllClubApply";
-	// var mparm = "detailId="+userData.id;
-	var mparm = "detailId="+clubId;
+	var url="/ClubSystem/apply/getStatue";
+	var mparm = "detailId="+userData.id+"&clubId="+clubId;
 	$.get(url, mparm, function (data){
 		if (data.serviceResult) {
-			var listData = data.resultParm.apply;
-			var statue = -1;
-			for (var i = 0; i <listData.length; i++) {
-				if (userData.id==listData[i].detailId) {
-					statue = listData[i].statue;
-				}
-			}
+			var statue = data.resultParm.statue;
 			switch(statue){
 				case 0:$(".apply-btn").html("进入社团").unbind();break;
 				case 2:$(".apply-btn").css("background-color","#ccc").html("申请书已提交，等待审核").unbind();break;

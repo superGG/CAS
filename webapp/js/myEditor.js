@@ -1,16 +1,10 @@
-$(document).ready(function () {
-	intiEditor();
-
-})
-
-
+//条用此接口才能生效
 function intiEditor(){
 	intiEditorBtn();
 }
 
 function showExpression(index){
 	window.event.stopPropagation();
-	console.log($(".expression-panel").length);
 	if($(".expression-panel").length!=0){
 		$(".expression-panel").remove();
 	};
@@ -38,7 +32,6 @@ function getExpression(){
 function initExpressionEvent(index){
 	$(index).parent().siblings(".expression-panel").find("ul li").click(function (){
 		var eindex = $(this).index();
-		console.log(eindex);
 		var epStr="<img src='../../images/expression/"+(eindex+1)+".gif'>";
 		$(index).parent().siblings(".editorContent").append(epStr);
 
@@ -51,7 +44,6 @@ function initExpressionEvent(index){
 }
 function intiEditorBtn(){
 	$(".editorContent").focus(function(){
-		console.log($(".editorContent.isOpen").length);
 		if ($(".editorContent.isOpen").length!=0) {
 			$(".editorContent.isOpen").siblings(".toolBar").hide();
 			$(".editorContent.isOpen").siblings(".comment_post").hide();

@@ -195,7 +195,8 @@ function loginOut(){
   //将userId这个cookie删除 
   var oldCookie = document.cookie;
   document.cookie=oldCookie+"; path=/ClubSystem/; expires="+date.toGMTString();
-  location.reload();
+  // location.reload();
+  window.location.href="../index.html";
 }
 
 //注册提交

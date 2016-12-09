@@ -57,6 +57,9 @@ public class Message implements Serializable
 	//子留言数量
 	private Integer sonSize;
 	
+	//头像路径
+	private String headPath;
+	
 	private List<Message> sonList;
 	
 	public Message() {
@@ -162,6 +165,15 @@ public class Message implements Serializable
 		this.sonList = sonList;
 	}
 
+	@Transient
+	public String getHeadPath() {
+		return headPath;
+	}
+
+	public void setHeadPath(String headPath) {
+		this.headPath = headPath;
+	}
+	
 	@Override
 	public String toString() {
 		return "Message [id=" + id + ", fatherId=" + fatherId + ", detailId="

@@ -114,11 +114,9 @@ li{
 	background-position: 1px -200px;
 }
 .static_comment_box{
-	width:640px;
-	height:30px;
 	border:2px solid rgba(39, 174, 91, .6);
 	clear:both;
-	padding:10px;
+	padding:0px;
 }
 .static_comment_box p{
 	font-size:12px;
