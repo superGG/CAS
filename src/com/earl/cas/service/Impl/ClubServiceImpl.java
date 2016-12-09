@@ -135,23 +135,38 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		return club;
 	}
 
-	public void updateMyclub(Club club, MultipartFile file,
-			HttpServletRequest request, String typeName) {
-		if (club.getId() != null) {
-			if (file!=null) {
-				logger.info("file不为空，开始处理上传社徽");
-				String shehuipath = FileUploadUtil.NewFileUpload(request, file,
-						"shehuipath");
-				logger.info("上传社徽访问地址：" + shehuipath);
-				club.setBadge(shehuipath);
-			}
+	public void updateMyclub(Club club, String typeName) {
+		
+//			if (file!=null) {
+//				logger.info("file不为空，开始处理上传社徽");
+//				String shehuipath = FileUploadUtil.NewFileUpload(request, file,
+//						"shehuipath");
+//				logger.info("上传社徽访问地址：" + shehuipath);
+//				club.setBadge(shehuipath);
+//			}
 			// 获得职位Id
+		if (club.getId() != null) {
 				ClubType clubtype = clubTypeDao.getByName(typeName);
 				club.setTypeId(clubtype.getId());
-				clubDao.updateWithNotNullProperties(club);
+				clubDao.updateWithNotNullProperties(club);	
+				School school = schoolDao.getByName(club.getSchoolName());
+				club.setSchoolName(school.getName());		
 		} else {
 			throw new DomainSecurityException("找不到社团ID");
 		}
+	}
+	
+	public void updateBadge(MultipartFile file, HttpServletRequest request,int clubId){
+				String path=null;
+				Club club = clubDao.get(clubId);
+			if (file!=null) {
+				logger.info("file不为空，开始处理上传社徽");
+				 path = FileUploadUtil.NewFileUpload(request, file,
+						"shehuipath");
+				logger.info("上传社徽访问地址：" + path);
+			}
+			club.setBadge(path);
+			clubDao.updateWithNotNullProperties(club);	
 	}
 
 	public List<Club> getMyClubList(int detailId) {

@@ -35,7 +35,7 @@
 			<div class="lwd_main_nav">
 				<div class="header_photo">
 					<img src="../../images/ccbg.jpg">
-					<p id="name">梁伟栋</p>
+					<p id="userName">梁伟栋</p>
 				</div>
 				<div class="sidebar_left">
 					<div class="sidebar_left_module">
@@ -65,26 +65,30 @@
 						<li><a href="positionmanage.html">职位管理</a></li>
 					</ul>
 				</div>
-				<form id="clubinfo" action="#" method="#" style="margin-top:20px;">
+						
+						<input type="text" name="typeName" id="typeName" style="display:none;">  
 						<div class="psinfo_pic" style="position:absolute;margin-left:440px;margin-top:10px;">
-							<img id="badge" src="../../images/clubbadge.jpg" id="clubbadge" name="clubbadge" width="180px" height="180px"><br>
-							<button id="changeheader" aciton="#" style="margin-left:30px;">修改社徽</button>
-							<button id="update" aciton="#" style="margin-left:30px;">保存</button>
+							<img id="badge" src="../../images/clubbadge.jpg" id="clubbadge" name="clubbadge" width="180px" height="180px"><br><br>
+							<form id="uploadForm">
+								<input type="file" name="file" accept="images" id="uploadImg" style="display:none;">
+								<input type="text" name="clubId" id="id" style="display:none;">
+							</form>
+							<label for="uploadImg" class="upload_btn" style="margin-left:30px;margin-top:5px;">修改社徽</label>
+							<button id="update" style="margin-left:30px;margin-top:10px;">保存</button>
 						</div>
 						<table style="padding-left:50px;float:left;">
 							<tr>
-								<td><label for="school">归属学校</label></td>
-								<td><input type="text" name="school" id="school" placeholder="归属学校" disabled="disabled"></td>
+								<td><label for="schoolName">归属学校</label></td>
+								<td><input type="text" name="schoolName" id="schoolName" placeholder="归属学校" disabled="disabled"></td>
 							</tr>
 							<tr>
-								<td><label for="clubname">社团名称</label></td>
-								<td><input type="text" name="clubname" id="clubname" placeholder="社团名称"></td>
+								<td><label for="name">社团名称</label></td>
+								<td><input type="text" name="name" id="name" placeholder="社团名称"></td>
 							</tr>
 							<tr>
 								<td><label for="type">社团类型</label></td>
-								<td><select name="type" id="type">  
-									
-								</select></td>  
+								<td><select id="type">  
+								</select></td>
 							</tr>
 							<tr>
 								<td><label for="leader">社长</label></td>
@@ -95,7 +99,7 @@
 								<td><input type="text" placeholder="创建日期" name="createtime" id="createtime" disabled="disabled"></td>
 							</tr>
 							<tr>
-								<td><label for="membernumber">成员人数</label></td>
+								<td><label for="number">成员人数</label></td>
 								<td><input type="text" placeholder="成员人数" name="number" id="number" disabled="disabled"></td>
 							</tr>
 							<tr>
@@ -107,11 +111,10 @@
 								<td><input type="text" placeholder="社团邮箱" name="email" id="email"></td>
 							</tr>
 							<tr>
-								<td style="vertical-align:top;"><label for="profile">社团简介</label></td>
-								<td><textarea rows="10" cols="50" placeholder="社团简介" name="profile" id="profile"></textarea></td>
+								<td style="vertical-align:top;"><label for="introduce">社团简介</label></td>
+								<td><textarea rows="10" cols="50" placeholder="社团简介" name="introduce" id="introduce"></textarea></td>
 							</tr>
 						</table>
-				</form>
 			</div>
 		</div>
 		<div class="footer">

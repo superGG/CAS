@@ -83,11 +83,16 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		}
 	}
 
+	@SuppressWarnings("null")
 	public void update(int id, int statue) {
 		Apply apply = new Apply();
 		apply.setId(id);
 		apply.setStatue(statue);
 		applyDao.updateWithNotNullProperties(apply);
+		Userclub userclub = new Userclub();
+		userclub.setApplyId(id);
+		userclub.setClubId(applyDao.get(id).getClubId());
+		userclubDao.save(userclub);
 	}
 
 	public List<Member> getMember(int detaliId) {
