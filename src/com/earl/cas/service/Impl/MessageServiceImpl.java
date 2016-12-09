@@ -91,6 +91,7 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 		for(Message message : messageList){
 			UserDetails userDetail = userDetailsDao.get(message.getDetailId());
 			message.setUserName(userDetail.getName());
+			message.setHeadPath(userDetail.getHeadPath());
 			twoMessageList.add(message);
 		}
 		return twoMessageList;

@@ -60,14 +60,6 @@ public class Message implements Serializable
 	//头像路径
 	private String headPath;
 	
-	public String getHeadPath() {
-		return headPath;
-	}
-
-	public void setHeadPath(String headPath) {
-		this.headPath = headPath;
-	}
-
 	private List<Message> sonList;
 	
 	public Message() {
@@ -173,6 +165,15 @@ public class Message implements Serializable
 		this.sonList = sonList;
 	}
 
+	@Transient
+	public String getHeadPath() {
+		return headPath;
+	}
+
+	public void setHeadPath(String headPath) {
+		this.headPath = headPath;
+	}
+	
 	@Override
 	public String toString() {
 		return "Message [id=" + id + ", fatherId=" + fatherId + ", detailId="
