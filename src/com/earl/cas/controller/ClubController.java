@@ -5,6 +5,7 @@ package com.earl.cas.controller;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.earl.cas.commons.BaseController;
+import com.earl.cas.dao.UserclubDao;
 import com.earl.cas.entity.Club;
 import com.earl.cas.entity.UserDetails;
 import com.earl.cas.exception.DomainSecurityException;
@@ -39,6 +41,9 @@ public class ClubController extends BaseController{
 	private final Logger logger = LoggerFactory.getLogger(ClubController.class);
 	@Autowired
 	private ClubService clubService;
+	
+	@Resource
+	private UserclubDao userclubDao;
 
 	private ResultMessage result = null;
 	
@@ -161,13 +166,34 @@ public class ClubController extends BaseController{
 	 * 更新社团信息
 	 */
 	@RequestMapping(value = "/updateMyClub",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> update(Club club, MultipartFile file, HttpServletRequest request,String typeName) {
+	public ResponseEntity<ResultMessage> update(Club club, String typeName) {
 		logger.debug("REST request to update myclub");
 		result = new ResultMessage();
-		clubService.updateMyclub(club,file,request,typeName);
+		clubService.updateMyclub(club,typeName);
 		result.setServiceResult(true);
 		result.setResultInfo("更新成功");
-		result.getResultParm().put("club", clubService.findById(club.getId()));
+		Club club2 = clubService.findById(club.getId());
+		Long number = userclubDao.getNumberByclubId(club2.getId());
+		club2.setNumber(number);
+		result.getResultParm().put("club", club2);
+		
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	/**
+	 * 更新社徽
+	 */
+	@RequestMapping(value = "/updateBadge",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> updateBadge(MultipartFile file, HttpServletRequest request,int clubId) {
+		logger.debug("REST request to update myclub");
+		result = new ResultMessage();
+		clubService.updateBadge(file,request,clubId);
+		result.setServiceResult(true);
+		result.setResultInfo("更新成功");
+		Club club2 = clubService.findById(clubId);
+		Long number = userclubDao.getNumberByclubId(club2.getId());
+		club2.setNumber(number);
+		result.getResultParm().put("club", club2);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	/**

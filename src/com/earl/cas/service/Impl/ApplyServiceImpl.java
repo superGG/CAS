@@ -83,11 +83,16 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		}
 	}
 
+	@SuppressWarnings("null")
 	public void update(int id, int statue) {
 		Apply apply = new Apply();
 		apply.setId(id);
 		apply.setStatue(statue);
 		applyDao.updateWithNotNullProperties(apply);
+		Userclub userclub = new Userclub();
+		userclub.setApplyId(id);
+		userclub.setClubId(applyDao.get(id).getClubId());
+		userclubDao.save(userclub);
 	}
 
 	public List<Member> getMember(int detaliId) {
@@ -287,5 +292,14 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		else{
 			throw new DomainSecurityException("社团不存在，无法提交申请书");
 		}
+	}
+	
+	public Apply getByDetailIdAndClubId(int detailId, int clubId){
+		Apply apply = null;
+		List<Apply>  applylist =  applyDao.getByDetailIdAndClubId_desc(detailId,clubId);
+		if(applylist!=null){
+			return applylist.get(0);
+		}
+		else throw new DomainSecurityException("无法找到申请书");
 	}
 }

@@ -47,8 +47,9 @@ public interface ClubService extends BaseService<Club> {
 	 * @param file
 	 * @param request
 	 * @param typeName 
+	 * @return 
 	 */
-	void updateMyclub(Club club, MultipartFile file, HttpServletRequest request, String typeName);
+	void updateMyclub(Club club, String typeName);
 	/**
 	 * 获取已经加入的社团信息
 	 * @param clubId
@@ -129,5 +130,11 @@ public interface ClubService extends BaseService<Club> {
 	 * @return
 	 */
 	List<Club> getAllsByRank(PageInfo pageInfo);
+	/**
+	 * 更新社徽
+	 * @param file
+	 * @param request
+	 */
+	void updateBadge(MultipartFile file, HttpServletRequest request,int clubId);
 	
 }

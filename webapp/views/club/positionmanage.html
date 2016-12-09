@@ -10,6 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="../../css/table_style.css">
 		
 		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="../../js/positionmanage.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
@@ -70,22 +71,15 @@
 					</button>
 					<input type="text" id="position_name"  placeholder="请输入新建职位名称" style="float:right;" />
 						
-				<table class="memberlist" id="position_table">
+				<table class="memberlist" >
 					<tr style="background:#999;color:#fff;height:42px;">
 						<th style="width:101px;"><strong>#</strong></th>
 						<th style="width:184px;"><strong>职位</strong></th>
 						<th><strong>操作</strong></th>
 					</tr>
-					
-					<tr id="1">
-						<td >1</td>
-						<td id="position">社长</td>
-						<td><button class="bige_btn" id="edit">修改</button>
-							<button class="bige_btn" id="remove">删除</button>
-						</td>
-					</tr>
-					
-				
+					<tbody id="position_table">
+						
+					</tbody>
 					
 				</table>
 			</div>
@@ -101,35 +95,6 @@
 			<div xmlns:wb="http://open.weibo.com/wb">
 				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
 			</div>
-		</div>
-		
-			<script>                       
-				 var statu = 0;           
-				 var edit = document.getElementById('edit');          
-				 var item = document.getElementById('position');                     
-				 var item_value = item.innerHTML;     
-				 edit.onclick =function(){
-					if(statu == 0){
-						edit.innerHTML= '保存';                                    
-						item.innerHTML = '<input type="text" style="margin:0;padding:3px 0;text-align:center;width:100px;" id="item_input" value="'+item_value+'">';
-						statu = 1;                
-					}
-					else{
-						edit.innerHTML= '修改';                           
-						item_value = document.getElementById('item_input').value; 
-						item.innerHTML = item_value;            
-						statu = 0
-					}               
-					return false;     
-				} ;
-				$("#position_add").click(function(){
-					var position =$("#position_name").val();
-					$("#position_table").append('<tr><td>2</td><td id="position">'+position+'</td><td><button class="bige_btn" id="edit">修改</button> <button class="bige_btn">删除</button></td></tr>');
-					$("#position_name").val("");
-				});
-				$("#remove").click(function(){
-					$("#1").remove();
-				});
-			</script>   
+		</div>   
 	</body>
 </html>

@@ -100,6 +100,13 @@ public interface ApplyService extends BaseService<Apply> {
 	 * @param schoolName 
 	 */
 	void createApply(String clubName, Apply apply, String schoolName);
+	/**
+	 * 根据detailId和clubId获取社团申请书
+	 * @param detailId
+	 * @param clubId
+	 * @return
+	 */
+	Apply getByDetailIdAndClubId(int detailId, int clubId);
 
 
 
