@@ -65,6 +65,7 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 		for(Message index : fatherList){
 			UserDetails userDetail = userDetailsDao.get(index.getDetailId());
 			List<Message> sonList = messageDao.findDetail(index.getId());
+			index.setHeadPath(userDetail.getHeadPath());
 			index.setUserName(userDetail.getName());
 			index.setSonSize(sonList.size());
 			index.setSonList(setUserName(sonList));
