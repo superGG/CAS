@@ -10,6 +10,7 @@ $(window).resize(function(){
     }
 });
 function intiClubDtail(){
+	userData = getCookieUserData();//提取用户信息;
 	intiClubDetailBtn();
 	parm = window.location.search.split("?")[1];
 	var url = "/ClubSystem/club/getById";
@@ -18,6 +19,9 @@ function intiClubDtail(){
 		if (data.serviceResult) {
 			var str="";
 			var clubData = data.resultParm.club;
+			clubId=clubData.id;//全局变量给申请表用
+			clubName=clubData.name;
+			schoolName=clubData.schoolName;
 			$(".club-logo img").attr("src","/ClubSystem/"+clubData.badge);
 			$(".club-info h3").html(clubData.name);
 			$(".club-info .club-style").html(clubData.typeName);
@@ -27,6 +31,7 @@ function intiClubDtail(){
 			$(".club-info .club-phone").html(clubData.phone);
 			$(".club-info .club-email").html(clubData.email);
 			$(".clubDetai-content .club-introduction p").html(clubData.introduce);
+			isApplyOrJoin();//判断是否已加入社团或提交了申请
 		}
 	});
 	//判断是否是进入活动
@@ -91,15 +96,20 @@ function showClubActivity(index) {
 			var total = data.resultParm.total;
 			var listData = data.resultParm.activity;
 			var str="";
-			for (var i = 0; i <listData.length; i++) {
-				str+="<li><span class=\"active-title\"><a href=\"clubDetail.html?clubId="+listData[i].clubId+"&activityId="+listData[i].id+"\">"+listData[i].title+"</a></span>";
-				var time = listData[i].createtime.split(" ")[0];
-				str+="<span class=\"active-time\">"+time+"</span></li>";
+			if (listData.length==0) {
+				str+="<h3 style='text-align:center;'>没有活动</h3>";
+			}else{
+				for (var i = 0; i <listData.length; i++) {
+					str+="<li><span class=\"active-title\"><a href=\"clubDetail.html?clubId="+listData[i].clubId+"&activityId="+listData[i].id+"\">"+listData[i].title+"</a></span>";
+					var time = listData[i].createtime.split(" ")[0];
+					str+="<span class=\"active-time\">"+time+"</span></li>";
+				}
 			}
 			$(".club-activity ul").html(str);
 		}
 	})
 }
+
 function showActivity(activityId) {
 	var url="/ClubSystem/activity/getDetails";
 	var mparm = "id="+activityId;
@@ -108,7 +118,6 @@ function showActivity(activityId) {
 			var activityData = data.resultParm.activity;
 			console.log(activityData);
 			var str='<div class="activity_content">'+activityData.content+'</div>';
-			console.log(activityData.content);
 			$(".club-activity").html(str);	
 		}
 	})
@@ -138,16 +147,15 @@ function getClubAlbumList(clubId){
 	})
 }
 function showClubAlbumList(albumList){
-	// var albumList = [{"albumId":"1","clubId":"2","albumName":"美好时光","albumPath":"../../images/001.jpg","photoCount":"19"},
-	// 				{"albumId":"2","clubId":"2","albumName":"校园","albumPath":"../../images/002.png","photoCount":"19"},
-	// 				{"albumId":"3","clubId":"2","albumName":"社会","albumPath":"../../images/003.jpg","photoCount":"19"},
-	// 				{"albumId":"4","clubId":"2","albumName":"美好时光","albumPath":"../../images/004.jpg","photoCount":"19"},
-	// 				{"albumId":"5","clubId":"2","albumName":"美好时光","albumPath":"../../images/001.jpg","photoCount":"19"}];
 	var str="<ul>";
-	for (var i = 0; i < albumList.length; i++) {
-		str+="<li><div class='club-album-box' data-albumid='"+albumList[i].id+"' data-clubid='"+albumList[i].clubId+"' data-albumname='"+albumList[i].name+"' data-albumpath='"+albumList[i].path+"' data-photocount='"+albumList[i].photoNumber+"'>";
-		str+="<img src='/ClubSystem/"+albumList[i].path+"'>";
-		str+="<span class='photo-count'>"+albumList[i].photoNumber+"</span><span>"+albumList[i].name+"</span></div></li>";
+	if (albumList.length==0) {
+		str+="<h3 style='text-align:center;'>没有相册</h3>";
+	}else{
+		for (var i = 0; i < albumList.length; i++) {
+			str+="<li><div class='club-album-box' data-albumid='"+albumList[i].id+"' data-clubid='"+albumList[i].clubId+"' data-albumname='"+albumList[i].name+"' data-albumpath='"+albumList[i].path+"' data-photocount='"+albumList[i].photoNumber+"'>";
+			str+="<img src='/ClubSystem/"+albumList[i].path+"'>";
+			str+="<span class='photo-count'>"+albumList[i].photoNumber+"</span><span>"+albumList[i].name+"</span></div></li>";
+		}
 	}
 	str+="<ul>";
 	$(".clubDetai-content .club-album").append(str);
@@ -155,24 +163,27 @@ function showClubAlbumList(albumList){
 		console.log();
 		var dataSet = document.querySelectorAll(".club-album-box")[$(this).parents("li").index()].dataset;
 		console.log(dataSet);
-		var url = "/ClubSystem/getPhotoList";
-		var parm = "ClubId="+dataSet.clubid+"&UserId="+dataSet.userid+"&AlbumId="+dataSet.albumid;
-		// $.get(url, parm, function (data) {
-		// 	console.log(data);
-		// 	if (data.serviceResult) {
-		// 		showPhotoList(data.resultParm.photoList,dataSet);
-		// 	}
-		// })
-		showPhotoList();
+		var url = "/ClubSystem/photo/getAllAlbumPhoto";
+		var mparm = "albumId="+dataSet.albumid;
+		$.get(url, mparm, function (data) {
+			console.log(data);
+			if (data.serviceResult) {
+				showPhotoList(data.resultParm.photoList,dataSet);
+			}
+		})
 	});
 }
 function showPhotoList(photoList,dataSet){
 	var pStr="<div class='photo_list'><div class='photo_list_hd'><div class='photo_list_hd_albumImg'>";
-    pStr+="<img src='E:\\GitHub\\CAS\\webapp\\images\\001.jpg'></div>";
-    pStr+="<div class='photo_list_hd_albumName'>123</div></div>";
+    pStr+="<img src='/ClubSystem/"+dataSet.albumpath+"'></div>";
+    pStr+="<div class='photo_list_hd_albumName'>"+dataSet.albumname+"</div></div>";
     pStr+="<div class='photo_list_bd'><ul>";
-    for (var i =0; i <3; i++) {
-    	pStr+= "<li><img src='E:\\GitHub\\CAS\\webapp\\images\\00"+(i+1)+".jpg'></li>";
+    if (photoList.length==0){
+    	pStr+= "<h3 style='text-align:center;'>没有照片</h3>";
+    }else{
+    	for (var i =0; i <photoList.length; i++) {
+    		pStr+= "<li><img src='/ClubSystem/"+photoList[i].path+"'></li>";
+    	}
     }
     pStr+="</ul></div></div>";
     $(".club-album").html(pStr);
@@ -215,8 +226,7 @@ function showApplyTable(){
 	if ($(".applyFrame").length>0) {
 		$(".applyFrame").remove();
 	}
-	var userData = getCookieUserData();
-	console.log(userData==null);
+	
 	if (userData==null) {
 		showLoginFrame();
 		return;
@@ -224,17 +234,19 @@ function showApplyTable(){
 	var formStr="";
 	formStr+="<div id='applyFrame'>";
     formStr+="<form id='applyForm' method='POST'><table>";
-    formStr+="<input type='hidden' name='ClubId' value='"+parm.split("=")[1]+"'>";
-    formStr+="<input type='hidden' name='UserId' value='"+userData.id+"'>";
+    formStr+="<input type='hidden' name='ClubId' value='"+clubId+"'>";
+    formStr+="<input type='hidden' name='detailId' value='"+userData.id+"'>";
+    formStr+="<tr><td>社团</td><td><input type='hidden' name='clubName' value='"+clubName+"'/>"+clubName+"</td>";
+    formStr+="<td>学校</td><td><input type='hidden' name='schoolName' value='"+schoolName+"'/>"+schoolName+"</td>";
+    formStr+="<td rowspan='5'><img src='/ClubSystem"+userData.headPath+"' style='width: 100px;border:1px solid #ccc' /></td></tr>";
     formStr+="<tr><td>申请人</td><td>"+userData.name+"</td>";
-    formStr+="<td>民族</td><td><input type='text' name='nation' value='' /></td>";
-    formStr+="<td rowspan='4'><img src='/ClubSystem"+userData.headPath+"' style='width: 100px;border:1px solid #ccc' /></td></tr>";
-    formStr+="<tr><td>真实姓名</td><td><input type='text' name='Name' value='' /></td><td>性别</td><td><input type='text' name='Sex'  value='' /></td></tr>";
-    formStr+="<tr><td>专业班级</td><td><input type='text' name='MajorClass'  value='' /></td><td>年龄</td><td><input type='text' name='Age' value='' /></td></tr>";     
-    formStr+="<tr><td>邮箱</td><td><input type='text' name='Email' value='' /></td><td>电话</td><td><input type='text' name='Phone' value='' /></td></tr>";          
-    formStr+="<tr><td>爱好</td><td colspan='5'><textarea name='Hobby'></textarea></td></tr>";                
-    formStr+="<tr><td>个人简介</td><td colspan='5'><textarea name='Introuduce'></textarea></td></tr>";    
-    formStr+="<tr><td>申请理由</td><td colspan='5'><textarea name='ApplyReason'></textarea></td></tr>";        
+    formStr+="<td>民族</td><td><input type='text' name='nation' value='' /></td></tr>";
+    formStr+="<tr><td>真实姓名</td><td><input type='text' name='name' value='' /></td><td>性别</td><td><select name='sex'><option value='1'>男</option><option value='0'>女</option></select></td></tr>";
+    formStr+="<tr><td>专业班级</td><td><input type='text' name='majorClass'  value='' /></td><td>年龄</td><td><input type='text' name='age' value='' /></td></tr>";     
+    formStr+="<tr><td>邮箱</td><td><input type='text' name='email' value='' /></td><td>电话</td><td><input type='text' name='phone' value='' /></td></tr>";          
+    formStr+="<tr><td>爱好</td><td colspan='5'><textarea name='hobby'></textarea></td></tr>";                
+    formStr+="<tr><td>个人简介</td><td colspan='5'><textarea name='introduce'></textarea></td></tr>";    
+    formStr+="<tr><td>申请理由</td><td colspan='5'><textarea name='reason'></textarea></td></tr>";        
     formStr+="<tr><td colspan='6'><div class='apply_post'>提交</div><div class='apply_cancel'>取消</div></td></tr></table></form></div>";
     $("body").append(formStr);
     setFrameWH("applyFrame");
@@ -242,13 +254,13 @@ function showApplyTable(){
 }
 function initApplyFrameBtn(){
 	$(".apply_post").click(function(){
-		var url="/ClubSystem/";
+		var url="/ClubSystem/apply/createApply";
 		var sendData = $("#applyForm").serialize();
 		console.log(sendData);
 		$.post(url,sendData,function(data){
 			console.log(data);
 			if (data.serviceResult) {
-
+				$(".apply-btn").css("background-color","#ccc").html(data.resultInfo).unbind();
 			}else{
 				alert(data.resultInfo);
 			}
@@ -256,8 +268,34 @@ function initApplyFrameBtn(){
 		$("#applyFrame").remove();
 		$("#mask").remove();
 	});
+
 	$(".apply_cancel").click(function(){
 		$("#applyFrame").remove();
 		$("#mask").remove();
+	})
+}
+
+//判断是否已加入社团或提交了申请
+function isApplyOrJoin(){
+	var url="/ClubSystem/apply/displayAllClubApply";
+	// var mparm = "detailId="+userData.id;
+	var mparm = "detailId="+clubId;
+	$.get(url, mparm, function (data){
+		if (data.serviceResult) {
+			var listData = data.resultParm.apply;
+			var statue = -1;
+			for (var i = 0; i <listData.length; i++) {
+				if (userData.id==listData[i].detailId) {
+					statue = listData[i].statue;
+				}
+			}
+			switch(statue){
+				case 0:$(".apply-btn").html("进入社团").unbind();break;
+				case 2:$(".apply-btn").css("background-color","#ccc").html("申请书已提交，等待审核").unbind();break;
+				default:break;
+			}
+		}else{
+			console.log(data.resultInfo);
+		}
 	})
 }
