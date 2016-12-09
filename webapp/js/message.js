@@ -2,31 +2,34 @@ $(document).ready(function () {
 	getMessageList();
 })
 
-function getMessageList() {
-	var url = "/ClubSystem/message/getMessageList";
+function getMessageList(index) {
+	index=1;
+	var url = "/ClubSystem/message/getOneMessgae";
+	var mparm = "indexPageNum="+index+"&size=4";
+	console.log(mparm);
 	$.get(url,function (data) {
-		console.log(data.serviceResult+";"+data);
+		console.log(data);
 		if (data.serviceResult) {
-			var list = data.resultParm.messageList;
+			var listData = data.resultParm.message;
 			var mStr = "";
-			for (var i = 0; i < list.length; i++) {
-				mStr+="<div class='comment_item'><div class='img_radius'><img src='../../images/"+list[i].headPath+"' width='100%' height='100%'></div>";
-				mStr+="<div class='item_main'><div class='item_row_one'><b>"+list[i].name+"</b><span>"+list[i].time+"</span></div>";
-				mStr+="<div class='item_row_tow'><p>"+list[i].content+"</p></div>";
-				mStr+="<div class='item_row_three'><a href='#'><i class='icon-m icon-response-m'></i><label>评论"+list[i].count+"条</label></a>";
-				mStr+="<a href='#'><i class='icon-m icon-response-m'></i><label>评论"+list[i].like+"条</label></a></div>";
+			for (var i = 0; i < listData.length; i++) {
+				mStr+="<div class='comment_item'><div class='img_radius'><img src='../../images/"+listData[i].headPath+"' width='100%' height='100%'></div>";
+				mStr+="<div class='item_main'><div class='item_row_one'><b>"+listData[i].userName+"</b><span>"+listData[i].createtime+"</span></div>";
+				mStr+="<div class='item_row_tow'><p>"+listData[i].content+"</p></div>";
+				mStr+="<div class='item_row_three'><a href='#'><i class='icon-m icon-response-m'></i><label>评论"+listData[i].sonSize+"条</label></a>";
+				mStr+="<a href='#'><i class='icon-m icon-response-m'></i><label>评论"+listData[i].like+"条</label></a></div>";
 				mStr+="<div class='item_row_four'><div class='editor'>";
 				mStr+="<div class='editorContent' contenteditable='true'></div>";
 				mStr+="<div class='toolBar'><span class='expression' title='表情' onclick='showExpression(this)'></span></div>";
 				mStr+="<button class='comment_post' onclick='comment_post(this)'>提交评论</button>";
 				mStr+="<button class='comment_cancel' onclick='comment_cancel(this)'>取消</button></div>";
-				for (var  j= 0; j < list[i].respone.length; j++) {
+				for (var  j= 0; j < listData[i].sonList.length; j++) {
 					mStr+="<div class='response_item'>";
-					mStr+="<div class='response_item_img'><img src='"+list[i].respone[j].headPath+"' width='100%' height='100%'></div>";
+					mStr+="<div class='response_item_img'><img src='"+listData[i].sonList[j].headPath+"' width='100%' height='100%'></div>";
 					mStr+="<div class='response_item_main'>";
-					mStr+="<p><b>"+list[i].respone[j].name+"</b>"+list[i].respone[j].content+"</p>";
-					mStr+="<p class='create_date'>"list[i].respone[j].time"<a href='#'><i class='icon-m icon-praise-m-green'></i>";
-					mStr+="<label>"+list[i].respone[j].like+"</label></a></p></div></div>";
+					mStr+="<p><b>"+listData[i].sonList[j].userName+"</b>"+listData[i].sonList[j].content+"</p>";
+					mStr+="<p class='create_date'>"+listData[i].sonList[j].createtime+"<a href='#'><i class='icon-m icon-praise-m-green'></i>";
+					mStr+="<label>"+listData[i].sonList[j].like+"</label></a></p></div></div>";
 				}
 				mStr+="</div></div></div>";
 			}
