@@ -310,7 +310,7 @@ public class ApplyController extends BaseController {
 		result.setServiceResult(true);
 		Apply apply = applyService.getByDetailIdAndClubId(detailId,clubId);
 		int statue = apply.getStatue();
-		result.getResultParm().put("statue（0通过，1拒绝，2未审核）", statue);
+		result.getResultParm().put("statue", statue);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 }
