@@ -11,7 +11,7 @@ function showMemberList(memberList){
 }
 function initMemberList(index){
 	var url = "/ClubSystem/apply/displayPageMember";
-	var parm = "detailId=4&indexPageNum="+index+"&size=6";
+	var parm = "detailId=2&indexPageNum="+index+"&size=6";
 	$.get(url,parm,function(data){
 		console.log(data);
 		if(data.serviceResult){
