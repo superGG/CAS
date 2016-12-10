@@ -111,6 +111,8 @@ public class MessageController extends BaseController {
 		if (message.getFatherId() == null) { //如果是父留言
 			message.setFatherId(0);
 		}
+		message.setBad(0);//新留言初始化踩赞位0
+		message.setGood(0);
 		messageService.save(message);
 		result.setServiceResult(true);
 		result.setResultInfo("添加成功");

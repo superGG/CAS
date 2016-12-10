@@ -80,6 +80,9 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 		Message message = messageDao.get(id);
 		UserDetails userDetail = userDetailsDao.get(message.getDetailId());
 		message.setUserName(userDetail.getName());
+		message.setHeadPath(userDetail.getHeadPath());//添加用户头像到留言
+		List<Message> sonList = messageDao.findDetail(id);
+		message.setSonSize(sonList.size());//添加子留言数量到这条信息
 		return message;
 	}
 	
