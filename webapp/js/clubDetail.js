@@ -15,7 +15,6 @@ function intiClubDtail(){
 	parm = window.location.search.split("?")[1];
 	var url = "/ClubSystem/club/getById";
 	$.get(url,parm,function(data){
-		console.log(data);
 		if (data.serviceResult) {
 			var str="";
 			var clubData = data.resultParm.club;
@@ -116,7 +115,6 @@ function showActivity(activityId) {
 	$.get(url, mparm, function (data) {
 		if (data.serviceResult) {
 			var activityData = data.resultParm.activity;
-			console.log(activityData);
 			var str='<div class="activity_content">'+activityData.content+'</div>';
 			$(".club-activity").html(str);	
 		}
@@ -139,7 +137,6 @@ function getClubAlbumList(clubId){
 	var mparm = parm.split("&")[0];
 	mparm ="id="+mparm.split("=")[1];
 	$.get(url, mparm, function (data) {
-		console.log(data);
 		if (data.serviceResult) {
 			var listData = data.resultParm.albumList;
 			showClubAlbumList(listData);
@@ -160,13 +157,10 @@ function showClubAlbumList(albumList){
 	str+="<ul>";
 	$(".clubDetai-content .club-album").append(str);
 	$(".club-album-box img").click(function(){
-		console.log();
 		var dataSet = document.querySelectorAll(".club-album-box")[$(this).parents("li").index()].dataset;
-		console.log(dataSet);
 		var url = "/ClubSystem/photo/getAllAlbumPhoto";
 		var mparm = "albumId="+dataSet.albumid;
 		$.get(url, mparm, function (data) {
-			console.log(data);
 			if (data.serviceResult) {
 				showPhotoList(data.resultParm.photoList,dataSet);
 			}
@@ -188,8 +182,6 @@ function showPhotoList(photoList,dataSet){
     pStr+="</ul></div></div>";
     $(".club-album").html(pStr);
     $(".photo_list_bd ul li img").click(function(){
-    	console.log($(this).parent().index());
-    	console.log($(this).attr("src"));
     	$(".photo_list_bd ul li.photo_acive").removeClass("photo_acive");
     	$(this).parent().addClass("photo_acive");
     	showBigPhoto($(this).parent().index(),$(this).attr("src"));
@@ -256,9 +248,7 @@ function initApplyFrameBtn(){
 	$(".apply_post").click(function(){
 		var url="/ClubSystem/apply/createApply";
 		var sendData = $("#applyForm").serialize();
-		console.log(sendData);
 		$.post(url,sendData,function(data){
-			console.log(data);
 			if (data.serviceResult) {
 				$(".apply-btn").css("background-color","#ccc").html(data.resultInfo).unbind();
 			}else{
@@ -277,6 +267,9 @@ function initApplyFrameBtn(){
 
 //判断是否已加入社团或提交了申请
 function isApplyOrJoin(){
+	if (userData==null) {
+		return;
+	}
 	var url="/ClubSystem/apply/getStatue";
 	var mparm = "detailId="+userData.id+"&clubId="+clubId;
 	$.get(url, mparm, function (data){

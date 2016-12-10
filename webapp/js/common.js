@@ -174,7 +174,6 @@ function login() {
   var url ="/ClubSystem/users/login";
   var sendData = $("#loginForm").serialize();
   $.post(url,sendData,function (data) {
-    console.log(data.serviceResult);
     if (data.serviceResult) {
     	var userDatail = data.resultParm.userDetail;
     	setCookieUserData(userDatail);
@@ -188,14 +187,13 @@ function login() {
 function loginOut(){
 	delectCookieUserData();
   // location.reload();
-  window.location.href="../index.html";
+  window.location.href="/ClubSystem/views/index.html";
 }
 
 //注册提交
 function register() {
   var url ="/ClubSystem/users/register";
   var sendData = $("#registerForm").serialize();
-  console.log(sendData);
   $.post(url,sendData,function (data) {
     alert(data.resultInfo);
     location.reload();
@@ -208,7 +206,7 @@ function showUser(){
   if (userData!=null) {
     var str = "<div class='userImg'><img src='/ClubSystem"+userData.headPath+"'></div>";
     str += "<div class='userName'>"+userData.name+"</div>";
-    str += "<div class='list'><li><a href='user/personalcenter.html?"+userData.name+"'>个人中心</a></li>";
+    str += "<div class='list'><li><a href='/ClubSystem/views/user/personalcenter.html?"+userData.name+"'>个人中心</a></li>";
     str +="<li><a href='javaScript:loginOut()'>退出</a></li></div>"
     $(".top .login").addClass("user").removeClass("login").html(str);
   }
