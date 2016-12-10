@@ -26,7 +26,8 @@ function editPosition(which){
 		var oldName = $(which).parent().parent().children(".position").text();
 		$(which).text("保存");  
 		$(which).parent().parent().children(".position").text("");
-		$(which).parent().parent().children(".position").append('<input type="text" autofocus style="margin:0;padding:3px 0;text-align:center;width:100px;" id="item_input" value="'+oldName+'">');
+		$(which).parent().parent().children(".position").append('<input type="text" onblur="toSave()" style="margin:0;padding:3px 0;text-align:center;width:100px;" id="item_input" value="'+oldName+'">');
+		$(which).parent().parent().children(".position").children("input").focus();
 		statu = 1;                
 	}
 	else{
@@ -47,6 +48,9 @@ function editPosition(which){
 	}               
 	return false;     
 } ;
+function toSave(){
+	
+}
 function positionAdd(){
 	$("#position_add").click(function(){
 		if($("#position_name").val()!=""){

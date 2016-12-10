@@ -46,7 +46,7 @@ function showClubType(typeList){
 //修改社团文本信息
 function updateClub(){
 	$("#update").click(function(){		
-		var index = document.getElementById('type').selectedIndex
+		var index = document.getElementById('type').selectedIndex;
 		var id = clubId;
 		var name = document.getElementById('name').value;
 		var school = document.getElementById('schoolName').value;
