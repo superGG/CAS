@@ -155,3 +155,12 @@ textarea{
 	padding:6px !important;
 	margin:4px auto;
 }
+.noMore{
+	margin:10px 1% 0 1%;
+	padding:8px 0;
+	width:98%;
+	background:#ccc;
+	font-family:Î¢ÈíÑÅºÚ;
+	display:inline-block;
+	text-align:center;
+}

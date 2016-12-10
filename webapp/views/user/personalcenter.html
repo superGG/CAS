@@ -42,7 +42,7 @@
 							<b><img src="../../images/man.png"></b>
 							个人信息
 						</a>
-						<a href="../club/showjoinedclubs.html">
+						<a href="../club/showjoinedclubs.html?id=2">
 							<b><img src="../../images/club.png"></b>
 							我加入的社团
 						</a>
@@ -62,10 +62,10 @@
 							<img src="../../images/icon4.jpg" id="portrait" name="portrait" width="150px" height="150px"><br><br>
 							<form id="uploadForm">
 								<input type="file" name="file" accept="image/*" id="uploadHead" style="display:none;">
-								<input type="text" name="id" style="display:none;">
+								<input type="text" name="id" id="id" style="display:none;">
 							</form>
 							<label for="uploadHead" class="upload_btn" style="margin-left:20px;margin-top:5px;">修改头像</label>
-							<button style="margin-left:20px;margin-top:10px;"">保存</button>
+							<button style="margin-left:20px;margin-top:10px;"" onclick="updateDetails()">保存</button>
 							<br><br>
 							<button style="margin-left:20px;" onclick="showUpdatePassword()">修改密码</button>
 						</div>

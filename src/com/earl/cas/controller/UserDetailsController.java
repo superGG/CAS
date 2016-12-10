@@ -63,7 +63,7 @@ public class UserDetailsController extends BaseController {
 			throw new DomainSecurityException("用户详情id不能为空");
 		}
 		result = new ResultMessage();
-		if (!file.isEmpty()) {
+		if (file!=null) {
 			logger.info("file不为空，开始处理上传头像");
 			String headPath = FileUploadUtil.NewFileUpload(request, file,"headpath");
 			logger.info("上传头像访问地址："+ headPath);

@@ -11,14 +11,15 @@ function showMemberList(memberList){
 }
 function initMemberList(index){
 	var url = "/ClubSystem/apply/displayPageMember";
-	var parm = "detailId=6&indexPageNum="+index+"&size=6";
+	var parm = "detailId=4&indexPageNum="+index+"&size=6";
 	$.get(url,parm,function(data){
 		console.log(data);
 		if(data.serviceResult){
 			var memberList = data.resultParm.memberlist;
 			showMemberList(memberList);
 		}else{
-			alert("没有更多数据了！");
+			$("#more").remove();
+			$(".lwd_main_iframe").append('<div class="noMore">没有更多数据...</div>');
 		}
 	});
 }
