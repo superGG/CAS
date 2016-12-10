@@ -118,7 +118,7 @@ public class Message implements Serializable
 		this.createtime = createtime;
 	}
 
-	@Generated(GenerationTime.INSERT)
+//	@Generated(GenerationTime.INSERT)
 	@Column(name = "good")
 	public Integer getGood() {
 		return this.good;
@@ -128,7 +128,7 @@ public class Message implements Serializable
 		this.good = good;
 	}
 
-	@Generated(GenerationTime.INSERT)
+//	@Generated(GenerationTime.INSERT)
 	@Column(name = "bad")
 	public Integer getBad() {
 		return this.bad;

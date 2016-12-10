@@ -19,13 +19,14 @@
 	width: 20px;
 	height: 20px;
 	border:1px solid #ccc;
-	background:url("../images/photo-scan-layer.png")no-repeat -490px -34px;
-}
-.editor .toolBar .expression:hover{
-	border:1px solid #fff;
-	background-position: -490px -52px;
+	background:url("../images/face_smile.png")no-repeat;
+	background-size: 100% 100%;
 	cursor: pointer;
 }
+/*.editor .toolBar .expression:hover{
+	border:1px solid #fff;
+	background-position: -490px -52px;
+}*/
 .expression-panel{
 	position: absolute;
 	border:1px solid #ccc; 

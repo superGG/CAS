@@ -56,9 +56,9 @@ function intiEditorBtn(){
 		$(this).siblings(".comment_cancel").show();
 	});
 }
-function comment_post(index) {
+function comment_post(index,fatherId) {
 	var comment = $(index).siblings(".editorContent").html();
-	console.log(comment);
+	post_data(comment,fatherId,index);
 	$(index).siblings(".editorContent").html("");
 	$(index).siblings(".toolBar").hide();
 	$(index).siblings(".comment_cancel").hide();

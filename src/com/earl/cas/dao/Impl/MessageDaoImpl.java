@@ -39,7 +39,7 @@ public class MessageDaoImpl extends BaseDaoImpl<Message> implements MessageDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Message> findDetail(int fatherId) {
-		String hql = "from Message where fatherId= :fatherId ";
+		String hql = "from Message where fatherId= :fatherId order by createtime desc";
 		List<Message> detaillist = (List<Message>) getCurrentSession()
 				.createQuery(hql).setInteger("fatherId", fatherId).list();
 		return detaillist;
