@@ -10,43 +10,8 @@
 		<link href="../../css/album.css" rel="stylesheet" type="text/css">
 
 		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="../../js/albummanage.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
-
-		<script type="text/javascript">
-			var albumList = {"album":[{"id":"1","title":"逝去的时光","createtime":"2016-12-5","cover":"../../images/ccbg.jpg"},
-			{"id":"2","title":"社团招新","createtime":"2016-12-5","cover":"../../images/001.jpg"},
-			{"id":"3","title":"烧烤","createtime":"2016-12-5","cover":"../../images/003.jpg"},
-			{"id":"4","title":"社团bb大赛","createtime":"2016-12-5","cover":"../../images/004.jpg"},
-			{"id":"5","title":"昔日","createtime":"2016-12-5","cover":"../../images/004.jpg"},
-			{"id":"6","title":"那些年","createtime":"2016-12-5","cover":"../../images/003.jpg"},
-			{"id":"7","title":"开会照片","createtime":"2016-12-5","cover":"../../images/004.jpg"}]};
-			$(document).ready(function(){
-					showAlbumList(albumList);
-					var timer;
-					var album;
-					$(".album_action").css("visibility","visible")
-					$(".album_action").hide();
-					$(".album").hover(function(){
-						clearTimeout(timer);
-						album = $(this).attr("id");
-						timer=setTimeout(function(){
-							$("#"+album+"_action").slideDown("fast");
-							$("#"+album+"_name").animate({height:'60px'},"fast");
-						},100);
-					},function(){
-						clearTimeout(timer);
-						$("#"+album+"_action").slideUp("fast");
-						$("#"+album+"_name").animate({height:'30px'},"fast");
-					});
-			});
-			function showAlbumList(albumList){
-				for(var i=0; i<albumList.album.length; i++){
-					$(".lwd_main_iframe").append('<div class="album" id="'+albumList.album[i].id+'"><div class="album_pic"><img src="'+albumList.album[i].cover+'" width="150px" height="100px"></div><div class="album_name" id="'+albumList.album[i].id+'_name">	<span style="font-size:12px;">'+albumList.album[i].title+'</span><span style="font-size:12px;position:absolute;right:5px;">'+albumList.album[i].createtime+'</span></div><div id="'+albumList.album[i].id+'_action" class="album_action"><a href="albuminformation.html"><button>进入相册</button></a> <button>删除相册</button></div></div>');
-				}
-			}
-		</script>
-		
-		
 	</head>
 	<body>
 		<div class="top">
@@ -100,27 +65,10 @@
 						<li><a href="positionmanage.html">职位管理</a></li>
 					</ul>			
 				</div>
-				<div class="album" style="display:block;">
-					<a href="#" class="album_a" id="album_a">
-						<img src="../../images/icon17.png" style="position:absolute;margin-top:40px;margin-left:50px;">
-						<span style="position:absolute;bottom:10px;left:45px;">创建相册</span>
-					</a>
-				</div>
-				<div id="albumcreate" class="albumcreate" >
-					<table border="0"  style="text-align:center; margin:0 auto 0" >
-						<tr>
-							<td>
-								<input type="text" id="name" name="name"  maxlength="8" 
-								placeholder="请填写社团名称" required="required" style="margin:10px 15px 0 10px; padding:5px;">
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" style="padding:5px 0 0 0;">
-								<button type="submit" class="sb_btn" onclick="addAlbum()">确定</button>
-								<button id="close" class="sb_btn">取消</button>
-							</td>
-						</tr>
-					</table>
+				<br>
+				<div class="albumcreate">
+					<input type="text" id="album_name" maxlength="8" placeholder="请填写社相册名称" required="required" style="padding:5px;">
+					<button class="sb_btn" onclick="albumAdd()">创建</button>
 				</div>
 			</div>
 		</div>
@@ -135,13 +83,5 @@
 				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
 			</div>
 		</div>
-		<script>
-			$("#album_a").click(function(){
-				$("#albumcreate").show();
-			});
-			$("#close").click(function(){
-				$("#albumcreate").hide();
-			});
-		</script>
 	</body>
 </html>

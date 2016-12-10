@@ -175,11 +175,9 @@ function login() {
   var sendData = $("#loginForm").serialize();
   $.post(url,sendData,function (data) {
     if (data.serviceResult) {
-      var date=new Date(); 
-      date.setTime(date.getTime()+1800*1000); 
-      var mCookies = JSON.stringify(data.resultParm.userDetail);
-      document.cookie="USER="+escape(mCookies)+"; path=/ClubSystem/; expires="+date.toGMTString();
-      location.reload();
+    	var userDatail = data.resultParm.userDetail;
+    	setCookieUserData(userDatail);
+    	location.reload();
     }else{
       $("#loginForm .login-tip").html(data.resultInfo);
     }
@@ -187,13 +185,7 @@ function login() {
 }
 //退出登录
 function loginOut(){
-  //获取当前时间 
-  var date=new Date(); 
-  //将date设置为过去的时间 
-  date.setTime(date.getTime()-1800*1000);
-  //将userId这个cookie删除 
-  var oldCookie = document.cookie;
-  document.cookie=oldCookie+"; path=/ClubSystem/; expires="+date.toGMTString();
+	delectCookieUserData();
   // location.reload();
   window.location.href="/ClubSystem/views/index.html";
 }
@@ -219,7 +211,16 @@ function showUser(){
     $(".top .login").addClass("user").removeClass("login").html(str);
   }
 }
-
+//删除Cookie
+function delectCookieUserData(){
+	//获取当前时间 
+	  var date=new Date(); 
+	  //将date设置为过去的时间 
+	  date.setTime(date.getTime()-1800*1000);
+	  //将userId这个cookie删除 
+	  var oldCookie = document.cookie;
+	  document.cookie=oldCookie+"; path=/ClubSystem/; expires="+date.toGMTString();
+}
 //获取登录Cookie
 function getCookieUserData() {
   var strCookie = document.cookie;
@@ -232,4 +233,12 @@ function getCookieUserData() {
       return JSON.parse(unescape(userData));
     }
   }
+}
+
+//设置Cookie
+function setCookieUserData(data){
+	var date=new Date(); 
+    date.setTime(date.getTime()+1800*1000); 
+    var mCookies = JSON.stringify(data);
+    document.cookie="USER="+escape(mCookies)+"; path=/ClubSystem/; expires="+date.toGMTString();
 }

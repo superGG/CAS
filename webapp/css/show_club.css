@@ -82,3 +82,12 @@ a{
 	text-decoration:none;
 	color:#fff;
 }
+.noMore{
+	margin:10px 1% 0 1%;
+	padding:8px 0;
+	width:98%;
+	background:#ccc;
+	font-family:Î¢ÈíÑÅºÚ;
+	display:inline-block;
+	text-align:center;
+}

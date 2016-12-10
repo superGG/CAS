@@ -19,7 +19,7 @@ function initUserInformation(){
 	 $("#phone").val(userData.phone);
 	 $("#email").val(userData.email);
 	 $("#hobby").text(userData.hobby);
-	 $("#singnation").text(userData.hobby);
+	 $("#singnation").text(userData.singnation);
 }
 function updatePassword(){
 	var account = $("#account").val();
@@ -74,7 +74,8 @@ function doUpload() {
 	         cache: false,  
 	         contentType: false,  
 	         processData: false,  
-	         success: function (data) {  	               
+	         success: function (data) { 
+	        	 console.log(data);
 		     },  
 	         error: function (data) {  
 	             alert(data.resultInfo);  
@@ -85,6 +86,33 @@ function doUpload() {
 	 }
 }
 function updateDetails(){
+	var id = getCookieUserData().id;
+	var name = document.getElementById('name').value;
+	var sex;
+	 if($('input:radio[name="sex"]:checked').attr("id")=="male"){
+		 sex = 1;
+	 }
+	 else{
+		 sex = 0;
+	 }
+	var phone = document.getElementById('phone').value;
+	var email = document.getElementById('email').value;
+	var hobby = document.getElementById('hobby').value;
+	var singnation = document.getElementById('singnation').value;
+	
 	var url = "/ClubSystem/userDetails/update";
-	var parm = 
+	var parm = "id="+id+"&name="+name+"&sex="+sex+"&phone="+phone+"&email="+email+"&hobby="+hobby+"&singnation="+singnation;
+	$.post(url,parm,function(data){
+		if(data.serviceResult){
+			var newUserData = data.resultParm.userDetail;
+			console.log(data);
+			delectCookieUserData();//删除cookie
+			setCookieUserData(newUserData);//设置更新后的cookie
+			doUpload();
+			initUserInformation();
+			alert(data.resultInfo);
+		}else{
+			alert(data.resultInfo);
+		}
+	});
 }

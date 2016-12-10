@@ -14,7 +14,7 @@ function initClubList(){
 			var clubList = data.resultParm.club;
 			showClubList(clubList);
 		}else{
-			alert(data.resultInfo);
+			$(".lwd_main_iframe").append('<div class="noMore">您还没有加入社团，赶紧去申请吧！</div>');
 		}
 	});
 }
