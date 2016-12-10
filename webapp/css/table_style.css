@@ -138,3 +138,20 @@ textarea{
 .upload_btn:hover{
 	background:#37a1cc;
 }
+.update_password_box{
+	position:absolute;
+	width:200px;
+	padding:20px;
+	background:#fff;
+	top:150px;
+	left:200px;
+	box-shadow:0 5px 5px #666;
+	text-align:center;
+}
+.update_password_box table{
+	margin:auto;
+}
+.update_password_box input{
+	padding:6px !important;
+	margin:4px auto;
+}

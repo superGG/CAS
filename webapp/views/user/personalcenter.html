@@ -6,6 +6,10 @@
 		<link href="../../css/table_style.css" rel="stylesheet" type="text/css">
         <link rel='icon' href='../../images/titile_logo.ico' type='image/x-ico' />
 		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		
+		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="../../js/common.js"></script>
+		<script type="text/javascript" src="../../js/personalcenter.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
@@ -30,7 +34,7 @@
 			<div class="lwd_main_nav">
 				<div class="header_photo">
 					<img id="head" src="../../images/icon4.jpg">
-					<p>梁伟栋</p>
+					<p id="userName">梁伟栋</p>
 				</div>
 				<div class="sidebar_left">
 					<div class="sidebar_left_module">
@@ -49,16 +53,21 @@
 					</div>
 				</div>
 			</div>
-			<div class="lwd_main_iframe">
+			<div class="lwd_main_iframe" style="position:relative;">
 				<div class="psinfo_header">
 					<h3>个人基本信息</h3>
 				</div>
-					<form id="psinfo" action="#" method="#" style="margin-top:20px;">
+				<br><br>
 						<div class="psinfo_pic">
-							<img src="../../images/icon4.jpg" id="portrait" name="portrait"><br>
-							<button id="changeheader" aciton="#">修改头像</button>
-							<button id="changeheader" aciton="#">修改密码</button>
-							<button id="changeheader" aciton="#">保存</button>
+							<img src="../../images/icon4.jpg" id="portrait" name="portrait" width="150px" height="150px"><br><br>
+							<form id="uploadForm">
+								<input type="file" name="file" accept="image/*" id="uploadHead" style="display:none;">
+								<input type="text" name="id" style="display:none;">
+							</form>
+							<label for="uploadHead" class="upload_btn" style="margin-left:20px;margin-top:5px;">修改头像</label>
+							<button style="margin-left:20px;margin-top:10px;"">保存</button>
+							<br><br>
+							<button style="margin-left:20px;" onclick="showUpdatePassword()">修改密码</button>
 						</div>
 						<table style="padding-left:50px;float:right;">
 							<tr>
@@ -67,11 +76,7 @@
 							</tr>
 							<tr>
 								<td><label for="sex">性别</label></td>
-								<td><input type="radio" name="sex" id="male" checked="checked" >男<input type="radio" name="sex" id="female">女</td>
-							</tr>
-							<tr>
-								<td><label for="age">年龄</label></td>
-								<td><input type="text" placeholder="年龄" name="age" id="age"></td>
+								<td><input type="radio" name="sex" id="male">男<input type="radio" name="sex" id="female">女</td>
 							</tr>
 							<tr>
 								<td><label for="phone">联系电话</label></td>
@@ -90,7 +95,6 @@
 								<td><textarea rows="5" cols="50" placeholder="个性签名" name="singnation" id="singnation"></textarea></td>
 							</tr>
 						</table>
-				</form>
 			</div>
 		</div>
         <div class="footer">
