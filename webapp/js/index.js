@@ -6,7 +6,7 @@ $(document).ready(function(){
 
 //获取照片墙资源
 function getPhotoList() {
-	var imgList = ["../images/001.jpg","../images/002.png","../images/003.jpg","../images/004.jpg"];
+	var imgList = ["../images/001.jpg","../images/young.png","../images/003.jpg","../images/004.jpg"];
 	initPhotoWall(imgList);//初始化照片墙
 	playPhotoWall(0);//滚动照片墙
 	playByBtn();//初始化照片按钮
@@ -17,10 +17,10 @@ function initPhotoWall(imgList) {
 	var strBtn = "";
 	showindex = imgList.length+2;
 	//生成照片墙元素
-	strPhoto+="<li style=\"display:block;z-index:"+showindex+";opacity:1;\"><a href=\"\"><img src=\""+imgList[0]+"\"></a></li>";
-	strBtn+="<li><a href=\"javascript:\" class=\"btnActive\"></a></li>";
+	strPhoto+="<li style=\"display:block;z-index:"+showindex+";opacity:1;\"><a href=\"javascript:void(0)\"><img src=\""+imgList[0]+"\"></a></li>";
+	strBtn+="<li><a href=\"javascript:void(0)\" class=\"btnActive\"></a></li>";
 	for (var i = 1; i <imgList.length; i++) {
-		strPhoto+="<li style=\"display:none;z-index:"+(imgList.length-i)+";opacity:0;\"><a href=\"\"><img src=\""+imgList[i]+"\"></a></li>";
+		strPhoto+="<li style=\"display:none;z-index:"+(imgList.length-i)+";opacity:0;\"><a href=\"javascript:void(0)\"><img src=\""+imgList[i]+"\"></a></li>";
 		strBtn+="<li><a href=\"javascript:\"></a></li>";
 	}
 	$("#photoWall").prepend(strPhoto);
@@ -111,7 +111,6 @@ function initClubNavBtn() {
 			var url="/ClubSystem/club/getAlls";
 			var parm = "indexPageNum=1&size=6";
 			$.get(url,parm,function (data) {
-				console.log(data);
 				if (data.serviceResult) {
 					var listDate = data.resultParm.club;
 					showClubList(listDate);
@@ -129,7 +128,6 @@ function initClubNavBtn() {
 			var url="/ClubSystem/club/getBySchoolName";
 			var parm = "schoolName="+$(this).html()+"&size=6&indexPageNum=1";
 			$.get(url, parm, function (data) {
-				console.log(data);
 				if (data.serviceResult) {
 					var listDate = data.resultParm.clublist;
 					showClubList(listDate);
@@ -144,7 +142,6 @@ function initClubNavBtn() {
 //显示社团列表
 function showClubList(listDate) {
 	var str = "";
-	console.log(listDate);
 	for (var i = 0; i <listDate.length; i++) {
 		str+="<li class=\"clubBox\"><a href=\"club/clubDetail.html?clubId="+listDate[i].id+"\"><div class=\"imgBox\"><img src=\"/ClubSystem"+listDate[i].badge+"\"></div>";
 		str+="<div class=\"info-area\"><div class='info-area_box'><h3>"+listDate[i].name+"</h3>";
@@ -160,7 +157,6 @@ function showActiviity(){
 	var url = "/ClubSystem/activity/getAlls";
 	var parm ="indexPageNum=1&size=6";
 	$.get(url, parm, function (data) {
-		console.log(data);
 		if (data.serviceResult) {
 			var listData = data.resultParm.activity;
 			var str = "";
