@@ -5,7 +5,6 @@ package com.earl.cas.controller;
 
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -20,12 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.earl.cas.commons.BaseController;
-import com.earl.cas.dao.UserclubDao;
 import com.earl.cas.entity.Club;
-import com.earl.cas.entity.UserDetails;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ClubService;
-import com.earl.cas.util.FileUploadUtil;
 import com.earl.cas.vo.PageInfo;
 import com.earl.cas.vo.ResultMessage;
 
@@ -42,9 +38,6 @@ public class ClubController extends BaseController{
 	@Autowired
 	private ClubService clubService;
 	
-	@Resource
-	private UserclubDao userclubDao;
-
 	private ResultMessage result = null;
 	
 	/**
@@ -162,6 +155,7 @@ public class ClubController extends BaseController{
 		result.getResultParm().put("club", club);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
+	
 	/**
 	 * 更新社团信息
 	 */
@@ -173,8 +167,8 @@ public class ClubController extends BaseController{
 		result.setServiceResult(true);
 		result.setResultInfo("更新成功");
 		Club club2 = clubService.findById(club.getId());
-		Long number = userclubDao.getNumberByclubId(club2.getId());
-		club2.setNumber(number);
+//		Long number = userclubDao.getNumberByclubId(club2.getId());  //TODO  获取社团人数
+//		club2.setNumber(number);
 		result.getResultParm().put("club", club2);
 		
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
@@ -191,8 +185,8 @@ public class ClubController extends BaseController{
 		result.setServiceResult(true);
 		result.setResultInfo("更新成功");
 		Club club2 = clubService.findById(clubId);
-		Long number = userclubDao.getNumberByclubId(club2.getId());
-		club2.setNumber(number);
+//		Long number = userclubDao.getNumberByclubId(club2.getId());//TODO  获取社团人数
+//		club2.setNumber(number);
 		result.getResultParm().put("club", club2);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
@@ -226,18 +220,6 @@ public class ClubController extends BaseController{
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
-	/**
-	 * 退出社团
-	 */
-	@RequestMapping(value = "/quit", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> quit(int detailId,int clubId) {
-		logger.debug("REST request to quit club");
-		result = new ResultMessage();
-		result.setServiceResult(true);
-		clubService.quit(detailId,clubId);
-		result.setResultInfo("退出成功");
-		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
-	}
 	
 	/**
 	 * 根据学校找到社团

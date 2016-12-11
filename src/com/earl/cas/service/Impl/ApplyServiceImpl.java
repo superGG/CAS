@@ -1,6 +1,8 @@
 package com.earl.cas.service.Impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -15,11 +17,9 @@ import com.earl.cas.dao.ApplyDao;
 import com.earl.cas.dao.ClubDao;
 import com.earl.cas.dao.PositionDao;
 import com.earl.cas.dao.SchoolDao;
-import com.earl.cas.dao.UserclubDao;
 import com.earl.cas.entity.Apply;
 import com.earl.cas.entity.Club;
 import com.earl.cas.entity.Position;
-import com.earl.cas.entity.Userclub;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ApplyService;
 import com.earl.cas.vo.Member;
@@ -37,9 +37,6 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 
 	@Resource
 	private SchoolDao schoolDao;
-
-	@Resource
-	private UserclubDao userclubDao;
 
 	@Resource
 	private ClubDao clubDao;
@@ -87,11 +84,13 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		Apply apply = new Apply();
 		apply.setId(id);
 		apply.setStatue(statue);
+		if (statue == 0) { //如果同意申请，更新创建时间代表 成员入社时间
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HHmmss");
+			String createtime = sdf.format(date);
+			apply.setCreatetime(createtime);
+		}
 		applyDao.updateWithNotNullProperties(apply);
-		Userclub userclub = new Userclub();
-		userclub.setApplyId(id);
-		userclub.setClubId(applyDao.get(id).getClubId());
-		userclubDao.save(userclub);
 	}
 
 	public List<Member> getMember(int detailId, PageInfo pageInfo) {
@@ -176,7 +175,6 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		String memberName;
 		int clubId;
 		int i = 1; // 计数标记
-		Userclub userclub;
 		Position position;
 		// 获得对应的club
 		Club club = clubDao.getClubByuserDetailId(detailId);
@@ -192,9 +190,8 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 				memberName = apply.getName(); // 从申请书中获得成员名字
 				member.setId(i); // 编号
 				member.setName(memberName);
-				userclub = userclubDao.getUserclubByApplyId(apply.getId()); // 获得成员社团关联表
-				member.setCreatetime(userclub.getCreatetime()); // userclub上的加入时间
-				position = positionDao.get(userclub.getPositionId()); // 根据具体职位Id获得职位
+				member.setCreatetime(apply.getCreatetime()); // userclub上的加入时间
+				position = positionDao.get(apply.getPositionId()); // 根据具体职位Id获得职位
 																		// //
 																		// 提取出职位名字
 				member.setPosition(position.getName());
