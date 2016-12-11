@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-12-11 17:19:14
+Date: 2016-12-11 23:26:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -51,11 +51,12 @@ CREATE TABLE `album` (
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `path` varchar(255) DEFAULT NULL COMMENT '封面路径',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of album
 -- ----------------------------
+INSERT INTO `album` VALUES ('1', '1', '相册', '2016-12-11 22:38:59', '/images/001.jpg');
 
 -- ----------------------------
 -- Table structure for apply
@@ -203,11 +204,12 @@ CREATE TABLE `photo` (
   `path` varchar(255) DEFAULT NULL COMMENT '图片路径',
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of photo
 -- ----------------------------
+INSERT INTO `photo` VALUES ('2', '1', null, '/photo/网球协会/相册/demoUploadDSC_1938.JPG', '2016-12-11 22:42:14');
 
 -- ----------------------------
 -- Table structure for position
@@ -269,24 +271,6 @@ INSERT INTO `user` VALUES ('48', 'Kellan2', 'e10adc3949ba59abbe56e057f20f883e', 
 INSERT INTO `user` VALUES ('49', 'kellan124', 'e10adc3949ba59abbe56e057f20f883e', '2016-11-30 17:04:11');
 INSERT INTO `user` VALUES ('50', 'Kellan23', 'e10adc3949ba59abbe56e057f20f883e', '2016-11-30 17:09:54');
 INSERT INTO `user` VALUES ('51', 'kellan123456', '25f9e794323b453885f5181f1b624d0b', '2016-12-02 16:25:41');
-
--- ----------------------------
--- Table structure for userclub
--- ----------------------------
-DROP TABLE IF EXISTS `userclub`;
-CREATE TABLE `userclub` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '成员编号',
-  `club_id` int(11) DEFAULT NULL COMMENT '社团编号',
-  `apply_id` int(11) DEFAULT NULL COMMENT '申请表编号',
-  `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `position_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of userclub
--- ----------------------------
-INSERT INTO `userclub` VALUES ('1', '1', '1', '2016-12-06 16:56:16', '1');
 
 -- ----------------------------
 -- Table structure for user_details

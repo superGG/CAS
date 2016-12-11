@@ -1,4 +1,5 @@
 /.settings/
+/.externalToolBuilders
 /.project
 /*.iml
 /*.log.* 
