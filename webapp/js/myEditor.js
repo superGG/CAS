@@ -57,7 +57,7 @@ function intiEditorBtn(){
 	});
 }
 function comment_post(index,fatherId) {
-	var comment = $(index).siblings(".editorContent").html();
+	var comment = $(index).siblings(".editorContent").html().toString();
 	post_data(comment,fatherId,index);
 	$(index).siblings(".editorContent").html("");
 	$(index).siblings(".toolBar").hide();

@@ -10,6 +10,7 @@
 		<link href="../../css/table_style.css" rel="stylesheet" type="text/css">
 		
 		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="../../js/memberinformation.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 
 		
@@ -66,64 +67,63 @@
 						<li><a href="positionmanage.html">职位管理</a></li>
 					</ul>			
 				</div>
-		
-				
-					<form id="psinfo" action="#" method="#" style="margin-top:20px;">
-						<div class="psinfo_pic">
-							<img src="../../images/icon4.jpg" id="portrait" name="portrait"><br>
-							<button  onclick="del()">删除成员</button>
-							<button  onclick="set()">保存</button>
-							<a href="membermanage.html">返回</a>
-						</div>
-						<table style="padding-left:50px;float:right;">
-							<tr>
-								<td><label for="name">姓名</label></td>
-								<td><input type="text" name="name" id="name" placeholder="姓名" readonly></td>
-							</tr>	
-							<tr>
-								<td><label for="age">年龄</label></td>
-								<td><input type="text" name="age" id="age" placeholder="年龄" readonly></td>
-							</tr>	
-							<tr>
-								<td><label for="major_class">专业班级</label></td>
-								<td><input type="text" name="major_class" id="major_class" placeholder="专业班级" readonly></td>
-							</tr>
-							<tr>
-								<td><label for="">职位</label></td>
-								<td><select name="" id="" style="width:182px" >
-										<option>社员</option>
-										<option>社长</option>
-										<option>部长</option>
-										<option>副部长</option>
-								</select></td>
-							</tr>
-							<tr>
-								<td><label for="createtime">入社时间</label></td>
-								<td><input type="text" placeholder="入社时间" name="createtime" id="createtime" readonly></td>
-							</tr>							
-							<tr>
-								<td><label for="nation">民族</label></td>
-								<td><input type="text" placeholder="民族" name="nation" id="nation" readonly></td>
-							</tr>							
-							<tr>
-								<td><label for="phone">电话</label></td>
-								<td><input type="text" placeholder="电话" name="phone" id="phone" readonly></td>
-							</tr>							
-							<tr>
-								<td><label for="email">邮箱</label></td>
-								<td><input type="text" placeholder="email" name="email" id="email" readonly></td>
-							</tr>	
-							<tr>
-								<td><label for="hobby">爱好</label></td>
-								<td><textarea rows="5" cols="50" placeholder="爱好" name="hobby" id="hobby" readonly></textarea></td>
-							</tr>
-							<tr>
-								<td><label for="introduce">个人简介</label></td>
-								<td><textarea rows="5" cols="50" placeholder="个人简介" name="introduce" id="introduce" readonly></textarea></td>
-							</tr>
-			
-						</table>
-				</form>
+				<br>
+				<div class="psinfo_pic">
+					<img src="../../images/icon4.jpg" id="portrait" name="portrait"><br>
+					<button  onclick="del()">删除成员</button>
+					<button  onclick="updatePosition()">保存</button>
+					<button  onclick="back()">返回</button>
+				</div>
+				<table style="padding-left:50px;float:right;">
+				<tr>
+					<td><label for="name">姓名</label></td>
+					<td><input type="text" name="name" id="name" placeholder="姓名" readonly></td>
+				</tr>
+				<tr>
+					<td><label for="sex">年龄</label></td>
+					<td><input type="text" name="sex" id="sex" placeholder="性别" readonly></td>
+				</tr>	
+				<tr>
+					<td><label for="age">年龄</label></td>
+					<td><input type="text" name="age" id="age" placeholder="年龄" readonly></td>
+				</tr>	
+				<tr>
+					<td><label for="major_class">专业班级</label></td>
+					<td><input type="text" name="major_class" id="major_class" placeholder="专业班级" readonly></td>
+				</tr>
+				<tr>
+					<td><label for="">职位</label></td>
+					<td>
+						<select id="position" style="width:182px" >
+							
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="createtime">入社时间</label></td>
+					<td><input type="text" placeholder="入社时间" name="createtime" id="createtime" readonly></td>
+				</tr>							
+				<tr>
+					<td><label for="nation">民族</label></td>
+					<td><input type="text" placeholder="民族" name="nation" id="nation" readonly></td>
+				</tr>							
+				<tr>
+					<td><label for="phone">电话</label></td>
+					<td><input type="text" placeholder="电话" name="phone" id="phone" readonly></td>
+				</tr>							
+				<tr>
+					<td><label for="email">邮箱</label></td>
+					<td><input type="text" placeholder="email" name="email" id="email" readonly></td>
+				</tr>	
+				<tr>
+					<td><label for="hobby">爱好</label></td>
+					<td><textarea rows="5" cols="50" placeholder="爱好" name="hobby" id="hobby" readonly></textarea></td>
+				</tr>
+				<tr>
+					<td><label for="introduce">个人简介</label></td>
+					<td><textarea rows="5" cols="50" placeholder="个人简介" name="introduce" id="introduce" readonly></textarea></td>
+				</tr>
+			</table>
 			</div>
 		</div>
 		<div class="footer">
@@ -136,14 +136,6 @@
 			<div xmlns:wb="http://open.weibo.com/wb">
 				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
 			</div>
-		</div>
-		<script>
-			function del(){
-				confirm("确定要删除该成员？")
-			}
-			function set(){
-				alert("保存成功。")
-			}
-		</script>		
+		</div>		
 	</body>
 </html>

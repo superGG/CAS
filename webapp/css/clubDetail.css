@@ -35,10 +35,14 @@
 .club-info h3{
 	text-align:center;
 }
+.club-info  .club-info-row{
+	padding-top: 5px;
+	clear: both;;
+}
 .club-info-item{
 	float: left;
 	width: 33.3%;
-	margin: 3px auto;
+	margin: auto;
 	text-align: center;
 }
 .item-title{
@@ -158,10 +162,13 @@
 	width: 100%;
 	margin: auto;
 }
+.activity_detail{
+	padding: 10px;
+}
 .club-activity ul{
 	width: 50%;
 	margin: auto;
-	padding: 0;
+	padding: 10px 0;
 	list-style: none;
 	overflow: hidden;
 }
@@ -179,7 +186,7 @@
 .club-activity .activeList-head{
 	width: 100%;
 }
-.club-activity span{
+.club-activity ul li span{
 	float: left;
 	padding: 1% 1% 1% 0;
 	font-family: KaiTi;
@@ -193,6 +200,16 @@
 .club-activity .active-time{
 	width: 28%;
 	text-align: right;
+}
+.club-activity .loadMoreActivity{
+	width: 200px;
+	height: 30px;
+	line-height: 30px;
+	margin:10px auto;
+	color: #fff;
+	background-color: #12b7f5;
+	text-align: center;
+	cursor: pointer;
 }
 
 /*相册样式*/

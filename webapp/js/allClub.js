@@ -7,7 +7,6 @@ function getClubList(index) {
 	var url="/ClubSystem/club/getAlls";
 	var parm="size=6&indexPageNum="+index;
 	$.get(url, parm, function (data) {
-		console.log(data);
 		if (data.serviceResult) {
 			var listData = data.resultParm.club;
 			showClubList(listData);
@@ -65,7 +64,6 @@ function findClubByType(tpyeName,index){
 	var url="/ClubSystem/club/getByTypeName"
 	var parm = "typeName="+tpyeName+"&size=6&indexPageNum="+index;
 	$.get(url, parm, function(data){
-		console.log(data);
 		if (data.serviceResult) {
 			var listData=data.resultParm.clublist;
 			var str="";
@@ -114,7 +112,6 @@ function keySearch(index) {
 	var url="/ClubSystem/club/getBySearch";
 	var parm="search="+key+"&size=6&indexPageNum="+index;
 	$.get(url, parm, function (data) {
-		console.log(data);
 		if (data.serviceResult) {
 			var listData = data.resultParm.clublist; 
 			var str="";

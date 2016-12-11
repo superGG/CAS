@@ -9,6 +9,7 @@
 		<link href="../../css/create_club.css" rel="stylesheet" type="text/css">
 
 		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="../../js/tocreateclub.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
@@ -54,10 +55,10 @@
 			</div>
 			<div class="lwd_main_iframe" style="background-image:url('../../images/ccbg.jpg');background-size:100% 100%;">
 				<div class="cc_button">
-					<a href="#"  id="clubcreateclick"><b>创建社团</b></a>
+					<a href="#" onclick="showTable()"><b>创建社团</b></a>
 				</div>
 				<div  id="applytable" class="applytable">
-					<button id="applytableclose" style="float:right;background-color:white; margin:0;padding:0;display:inline-block;">
+					<button  onclick="closeTable()" style="float:right;background-color:white; margin:0;padding:0;display:inline-block;">
 						<div style="background:#999;padding:0 0 10px 10px;border-radius:0 0 0 40px">
 							<img src="../../images/close.png " width="20px" height="20px">
 						</div>
@@ -80,28 +81,22 @@
 								</tr>
 								<tr>
 									<td>
-										<label for="type">社团类型</label>
+										<label for="typeName">社团类型</label>
 									</td>
 									<td>
-										<input type="text" name="type" list="mydatalist" placeholder="社团类型">
-											<datalist id="mydatalist">
-												<option value="文艺">文艺</option>
-												<option value="体育">体育</option>
-												<option value="社交">社交</option>
-											</datalist>
+										<select id="typeName" style="padding:5px;width:150px;">
+											
+										</select>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<label for="school">学校</label>
+										<label for="schoolName">学校</label>
 									</td>
 									<td>
-										<input type="text" name="school" list="mydatalist1" placeholder="学校">
-											<datalist id="mydatalist1">
-												<option value="广东海洋大学">广东海洋大学</option>
-												<option value="中山大学">中山大学</option>
-												<option value="北京大学">北京大学</option>
-											</datalist>
+										<select id="schoolName" style="padding:5px;width:150px;">
+											
+										</select>
 									</td>
 								</tr>
 								<tr>
@@ -145,19 +140,5 @@
 				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
 			</div>
 		</div>
-		<div class="loadingDiv">
-		</div>
-		<script>
-			$("#clubcreateclick").click(function(){
-				$("#applytable").show();
-				$(".loadingDiv").show();
-				
-			});
-			$("#applytableclose").click(function(){
-				$("#applytable").hide();
-				$(".loadingDiv").hide();
-		
-			});
-		</script>
 	</body>
 </html>

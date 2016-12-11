@@ -15,7 +15,6 @@ function intiClubDtail(){
 	parm = window.location.search.split("?")[1];
 	var url = "/ClubSystem/club/getById";
 	$.get(url,parm,function(data){
-		console.log(data);
 		if (data.serviceResult) {
 			var str="";
 			var clubData = data.resultParm.club;
@@ -67,7 +66,7 @@ function intiClubDetailBtn(){
 		$(this).addClass("active");
 		$(".clubDetai-bar ul .arrows").css("left","47.3%");
 		$(".clubDetai-content .club-introduction").hide();
-		var str = "<div class='club-activity'><ul></ul></div>";
+		var str = "<div class='club-activity'><ul></ul><div class='loadMoreActivity' onclick='showClubActivity(2)'>加载更多</div></div>";
 		$(".clubDetai-content div").not(".club-introduction").remove();
 		$(".clubDetai-content").append(str);
 		showClubActivity(1);
@@ -96,16 +95,23 @@ function showClubActivity(index) {
 			var total = data.resultParm.total;
 			var listData = data.resultParm.activity;
 			var str="";
-			if (listData.length==0) {
-				str+="<h3 style='text-align:center;'>没有活动</h3>";
-			}else{
-				for (var i = 0; i <listData.length; i++) {
-					str+="<li><span class=\"active-title\"><a href=\"clubDetail.html?clubId="+listData[i].clubId+"&activityId="+listData[i].id+"\">"+listData[i].title+"</a></span>";
-					var time = listData[i].createtime.split(" ")[0];
-					str+="<span class=\"active-time\">"+time+"</span></li>";
-				}
+			for (var i = 0; i <listData.length; i++) {
+				str+="<li><span class=\"active-title\"><a href=\"clubDetail.html?clubId="+listData[i].clubId+"&activityId="+listData[i].id+"\">"+html_decode(listData[i].title)+"</a></span>";
+				var time = listData[i].createtime.split(" ")[0];
+				str+="<span class=\"active-time\">"+time+"</span></li>";
 			}
-			$(".club-activity ul").html(str);
+			if (index==1) {
+				$(".club-activity ul").html(str);
+			}else{
+				$(".club-activity ul").append(str);
+			}
+			if (listData.length<6) {
+				$(".loadMoreActivity").attr("onclick","javascript:void(0)").css({"background-color":"#ccc","cursor":"default"}).html("已经没了！");
+			}else{
+				$(".loadMoreActivity").attr("onclick","showClubActivity("+(++index)+")").html("加载更多");
+			}
+		}else{
+			$(".loadMoreActivity").attr("onclick","javascript:void(0)").css({"background-color":"#ccc","cursor":"default"}).html("已经没了！");
 		}
 	})
 }
@@ -116,8 +122,7 @@ function showActivity(activityId) {
 	$.get(url, mparm, function (data) {
 		if (data.serviceResult) {
 			var activityData = data.resultParm.activity;
-			console.log(activityData);
-			var str='<div class="activity_content">'+activityData.content+'</div>';
+			var str='<div class="activity_detail">'+html_decode(activityData.content)+'</div>';
 			$(".club-activity").html(str);	
 		}
 	})
@@ -139,7 +144,6 @@ function getClubAlbumList(clubId){
 	var mparm = parm.split("&")[0];
 	mparm ="id="+mparm.split("=")[1];
 	$.get(url, mparm, function (data) {
-		console.log(data);
 		if (data.serviceResult) {
 			var listData = data.resultParm.albumList;
 			showClubAlbumList(listData);
@@ -160,13 +164,10 @@ function showClubAlbumList(albumList){
 	str+="<ul>";
 	$(".clubDetai-content .club-album").append(str);
 	$(".club-album-box img").click(function(){
-		console.log();
 		var dataSet = document.querySelectorAll(".club-album-box")[$(this).parents("li").index()].dataset;
-		console.log(dataSet);
 		var url = "/ClubSystem/photo/getAllAlbumPhoto";
 		var mparm = "albumId="+dataSet.albumid;
 		$.get(url, mparm, function (data) {
-			console.log(data);
 			if (data.serviceResult) {
 				showPhotoList(data.resultParm.photoList,dataSet);
 			}
@@ -188,8 +189,6 @@ function showPhotoList(photoList,dataSet){
     pStr+="</ul></div></div>";
     $(".club-album").html(pStr);
     $(".photo_list_bd ul li img").click(function(){
-    	console.log($(this).parent().index());
-    	console.log($(this).attr("src"));
     	$(".photo_list_bd ul li.photo_acive").removeClass("photo_acive");
     	$(this).parent().addClass("photo_acive");
     	showBigPhoto($(this).parent().index(),$(this).attr("src"));
@@ -256,9 +255,7 @@ function initApplyFrameBtn(){
 	$(".apply_post").click(function(){
 		var url="/ClubSystem/apply/createApply";
 		var sendData = $("#applyForm").serialize();
-		console.log(sendData);
 		$.post(url,sendData,function(data){
-			console.log(data);
 			if (data.serviceResult) {
 				$(".apply-btn").css("background-color","#ccc").html(data.resultInfo).unbind();
 			}else{
@@ -277,6 +274,9 @@ function initApplyFrameBtn(){
 
 //判断是否已加入社团或提交了申请
 function isApplyOrJoin(){
+	if (userData==null) {
+		return;
+	}
 	var url="/ClubSystem/apply/getStatue";
 	var mparm = "detailId="+userData.id+"&clubId="+clubId;
 	$.get(url, mparm, function (data){
@@ -291,4 +291,28 @@ function isApplyOrJoin(){
 			console.log(data.resultInfo);
 		}
 	})
+}
+
+//替换转义
+function html_encode(str) {
+    var s = "";
+    if (str.length == 0)
+        return "";
+    s=str.replace(/%/g,"[p];");
+    s=s.replace(/&/g,"[a];");
+    s=s.replace(/\+/g,"[ad];");
+    return s;
+}
+//替换转义
+function html_decode(str) {
+	var s = "";
+	if (str.length == 0) {
+		return "";
+	}
+	s = str.replace(/&lt;/g, "<");
+	s = s.replace(/&gt;/g, ">");
+	s=s.replace(/\[p\];/g,"%");
+    s=s.replace(/\[a\];/g,"&");
+    s=s.replace(/\[ad\];/g,"+");
+	return s;
 }
