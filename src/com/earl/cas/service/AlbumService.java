@@ -16,6 +16,11 @@ public interface AlbumService extends BaseService<Album> {
 	 */
 	List<Album> getByClubId(Integer id);
 
+	/*
+	 * 根据Id获取详情.
+	 */
+	Album findById(Integer id);
+
 	
 
 }

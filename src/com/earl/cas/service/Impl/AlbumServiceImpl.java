@@ -61,4 +61,14 @@ public class AlbumServiceImpl extends BaseServiceImpl<Album> implements
 		return albumList;
 	}
 
+	@Override
+	public Album findById(Integer id) {
+		Album album = albumDao.get(id);
+		Club club = clubDao.get(id);
+		Long photoNum = photoDao.getPhotoNumByAlbumId(album.getId());
+		album.setPhotoNumber(photoNum);
+		album.setClubName(club.getName());
+		return album;
+	}
+
 }

@@ -101,8 +101,8 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 
 	}
 
-	public Club getClubByuserDetailId(int id) {
-		Club club = clubDao.getClubByuserDetailId(id);
+	public Club getClubByuserDetailId(int detailId) {
+		Club club = clubDao.getClubByuserDetailId(detailId);
 		if (club != null) {
 			return club;
 		} else {

@@ -34,7 +34,7 @@ public interface ClubService extends BaseService<Club> {
 	 * @param id
 	 * @return
 	 */
-	Club getClubByuserDetailId(int id);
+	Club getClubByuserDetailId(int detailId);
 	/**
 	 * 获取自己的社团信息
 	 * @param detailId

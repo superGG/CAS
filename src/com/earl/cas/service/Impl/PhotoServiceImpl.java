@@ -87,7 +87,8 @@ public class PhotoServiceImpl extends BaseServiceImpl<Photo> implements
 						String fileName = "demoUpload"
 								+ file.getOriginalFilename();
 						// 定义上传路径
-						String path = rootPath + "/photo/" + club.getName()+ "/" + album.getName()+"/"+ fileName;
+						String db_path = "/photo/" + club.getName()+ "/" + album.getName()+"/"+ fileName;
+						String path = rootPath + db_path;
 //						String path = rootPath + "/photo/"+ fileName;
 						logger.info("文件保存路径：" + path);
 						File localFile = new File(path);
@@ -96,7 +97,7 @@ public class PhotoServiceImpl extends BaseServiceImpl<Photo> implements
 						//保存到数据库
 						photo_db = new Photo();
 						photo_db.setAlbumId(album.getId());
-						photo_db.setPath(path);
+						photo_db.setPath(db_path);
 						photoDao.save(photo_db);
 						list.add(photo_db);
 					}
