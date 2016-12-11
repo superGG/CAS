@@ -19,9 +19,9 @@ import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ApplyService;
 import com.earl.cas.service.ClubService;
 import com.earl.cas.service.UserclubService;
+import com.earl.cas.vo.Member;
 import com.earl.cas.vo.PageInfo;
 import com.earl.cas.vo.ResultMessage;
-import com.earl.cas.vo.Member;
 /**
  * Apply的controller.
  * 
@@ -52,16 +52,16 @@ public class ApplyController extends BaseController {
 	 * POST->创建申请书
 	 */
 	@RequestMapping(value = "/createApply", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> createApply(int detailId,Apply apply,String clubName,String schoolName) {
+	public ResponseEntity<ResultMessage> createApply(Apply apply,String clubName,String schoolName) {
 		logger.debug("REST request to create a apply");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		apply.setDetailId(detailId);
 		applyService.createApply(clubName,apply,schoolName);
 		result.setResultInfo("申请书已提交，等待审核");
 		result.getResultParm().put("apply", applyService.findById(apply.getId()));
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	
 	/**
 	 * GET /apply -> get all the apply
 	 */
@@ -103,22 +103,24 @@ public class ApplyController extends BaseController {
 	}
 
 	/**
-	 * 查看自己社团的全部入社申请书->申请书管理列表
+	 * 查看自己社团的全部入社申请书->未审核的成员列表
 	 */
 	@RequestMapping(value = "/displayClubApply", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> displayClubApply(int detailId) {
 		logger.debug("REST request to display club apply");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-
 		// 获取用户创建的社团
 		Club club = clubService.getClubByuserDetailId(detailId);
-
-		// 通过clubId获得对应社团的申请书
-		List<Apply> applylist = applyService.getClubApply(club.getId());
+		// 通过clubId获得对应社团的“等待审核”申请书
+		Apply apply = new Apply();
+		apply.setClubId(club.getId());
+		apply.setStatue(2);//待审核状态
+		List<Apply> applylist = applyService.findByGivenCreteria(apply);
 		result.getResultParm().put("apply", applylist);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	
 	/**
 	 * 查看自己社团的已通过审核的入社申请书->申请书管理列表
 	 */
@@ -127,10 +129,8 @@ public class ApplyController extends BaseController {
 		logger.debug("REST request to display club apply which statue is OK");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-
 		// 获取用户创建的社团
 		Club club = clubService.getClubByuserDetailId(detailId);
-
 		// 通过clubId获得对应社团的已经通过的申请书
 		List<Apply> applylist = applyService.getClubApplyIsOk(club.getId());
 		result.getResultParm().put("apply", applylist);
@@ -180,9 +180,6 @@ public class ApplyController extends BaseController {
 		result.setServiceResult(true);
 		// 获取用户创建的社团
 		Club club = clubService.getClubByuserDetailId(detailId);
-		if(club==null){
-			throw new DomainSecurityException("该用户未创建社团");
-		}
 		// 通过clubId获得对应社团的未审核的申请书
 		List<Apply> applylist = applyService.getClubApply(club.getId(),statue);
 		result.getResultParm().put("apply", applylist);
@@ -229,6 +226,7 @@ public class ApplyController extends BaseController {
 		result.setResultInfo("该成员已从社团中剔除");
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	
 	/**
 	 * 修改成员职位
 	 * 逻辑关系
@@ -236,17 +234,35 @@ public class ApplyController extends BaseController {
 	 * 传递参数是一个positionName->list<position>比较获得position->positionID
 	 * 要更新userclub必须要有userclubId或者是applyId，因此传递参数有一个是applyId
 	 */
-	@RequestMapping(value = "/updateposition", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> updatePosition(int detailId,int applyId,String positionName) {
-		logger.debug("REST request to update a menberPosition");
-		result = new ResultMessage();
-		result.setServiceResult(true);
-		userclubService.updatePosition(detailId,applyId,positionName);
-		result.setResultInfo("职位更新成功");
-		result.getResultParm().put("apply", applyService.findById(applyId));
-		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+//	@RequestMapping(value = "/updateposition", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<ResultMessage> updatePosition(int detailId,int applyId,String positionName) {
+//		logger.debug("REST request to update a menberPosition");
+//		result = new ResultMessage();
+//		result.setServiceResult(true);
+//		userclubService.updatePosition(detailId,applyId,positionName);
+//		result.setResultInfo("职位更新成功");
+//		result.getResultParm().put("apply", applyService.findById(applyId));
+//		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+//	
+//	}
 	
+	@RequestMapping(value="/updateposition", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> updatePosition(Apply apply){
+		result = new ResultMessage();
+		if (apply.getId() == null) {
+			throw new DomainSecurityException("数据有误");
+		}
+		int update = applyService.updatePosition(apply);
+		result.setResultInfo("更新成功");
+		result.setServiceResult(true);
+		if (update == 0) {
+			result.setResultInfo("更新失败");
+			result.setServiceResult(false);
+		}
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
+	
+	
 	/**
 	 * 查看成员列表
 	 */
@@ -259,6 +275,7 @@ public class ApplyController extends BaseController {
 		result.getResultParm().put("memberlist", memberlist);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	
 	/**
 	 * 查看成员列表->分页查询
 	 */

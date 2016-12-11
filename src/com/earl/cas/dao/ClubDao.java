@@ -29,7 +29,7 @@ public interface ClubDao extends BaseDao<Club> {
 	 * @param id
 	 * @return
 	 */
-	Club getClubByuserDetailId(int id);
+	Club getClubByuserDetailId(int detailId);
 
 	/**
 	 * 通过学校和名字精确找到社团

@@ -74,4 +74,12 @@ public interface ApplyDao extends BaseDao<Apply> {
 	 */
 	List<Apply> getByDetailIdAndClubId_desc(int detailId, int clubId);
 
+	/**
+	 * 更新成员职位
+	 *@author 宋.
+	 * @param apply
+	 * @return
+	 */
+	int updatePosition(Apply apply);
+
 }

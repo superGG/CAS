@@ -47,7 +47,7 @@ public interface ApplyService extends BaseService<Apply> {
 	 * @param id
 	 * @return
 	 */
-	List<Apply> getClubApplyIsOk(int id);
+	List<Apply> getClubApplyIsOk(int clubId);
 	/**
 	 * 获得已审核的入社申请列表
 	 * @param id
@@ -107,6 +107,11 @@ public interface ApplyService extends BaseService<Apply> {
 	 * @return
 	 */
 	Apply getByDetailIdAndClubId(int detailId, int clubId);
+
+	/*
+	 * 更新社团成员职位
+	 */
+	int updatePosition(Apply apply);
 
 
 

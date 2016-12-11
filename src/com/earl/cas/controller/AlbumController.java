@@ -68,6 +68,7 @@ public class AlbumController extends BaseController {
 		result = new ResultMessage();
 		result.setResultInfo("添加失败");
 		result.setServiceResult(false);
+		album.setPath("/images/001.jpg");
 		Integer save = albumService.save(album);
 		if (save != 0) {
 			result.setResultInfo("添加成功");

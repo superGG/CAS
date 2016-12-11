@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
@@ -35,10 +34,10 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 
 	@Resource
 	private ApplyDao applyDao;
-	
+
 	@Resource
 	private SchoolDao schoolDao;
-	
+
 	@Resource
 	private UserclubDao userclubDao;
 
@@ -58,17 +57,18 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 			apply.setStatue(1);
 			if (!applyDao.update(apply)) {
 				throw new DomainSecurityException("更新失败");
-			} else {
-				// 同意后创建新的用户社团关联对象，职位默认为0
-				Userclub uc = new Userclub();
-				uc.setApplyId(apply.getId());
-				uc.setClubId(apply.getClubId());
-				uc.setPositionId(0);
-				// 进行保存
-				if (userclubDao.save(uc) < 1) {
-					throw new DomainSecurityException("保存userclub失败");
-				}
-			}
+			} 
+//			else {
+//				// 同意后创建新的用户社团关联对象，职位默认为0
+//				Userclub uc = new Userclub();
+//				uc.setApplyId(apply.getId());
+//				uc.setClubId(apply.getClubId());
+//				uc.setPositionId(0);
+//				// 进行保存
+//				if (userclubDao.save(uc) == 0) {
+//					throw new DomainSecurityException("保存userclub失败");
+//				}
+//			}
 		} else {
 			throw new DomainSecurityException("该成员已在社团");
 		}
@@ -83,7 +83,6 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		}
 	}
 
-	@SuppressWarnings("null")
 	public void update(int id, int statue) {
 		Apply apply = new Apply();
 		apply.setId(id);
@@ -103,7 +102,6 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		String name;
 		Userclub userclub;
 		Position position;
-		// session中有userDetailId ->clubId
 		Club club = clubDao.getClubByuserDetailId(detaliId);
 		if (club != null) {
 			clubId = club.getId();
@@ -132,11 +130,7 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 				memberlist.add(member);
 			}
 		}
-		if (memberlist != null) {
-			return memberlist;
-		} else {
-			throw new DomainSecurityException("该社团没有成员");
-		}
+		return memberlist;
 	}
 
 	public List<Member> getMember(int detailId, PageInfo pageInfo) {
@@ -179,11 +173,7 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 				memberlist.add(member);
 			}
 		}
-		if (memberlist != null) {
-			return memberlist;
-		} else {
-			throw new DomainSecurityException("该社团没有成员");
-		}
+		return memberlist;
 	}
 
 	public Apply getMemberDetail(int applyId) {
@@ -200,12 +190,28 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		return apply;
 	}
 
-	public List<Apply> getClubApplyIsOk(int id) {
-		List<Apply> list = applyDao.getApplyByClubIdStatusIsOk(id);
-		if (list == null) {
-			logger.info("不存在已通过的申请书");
+	public List<Apply> getClubApplyIsOk(int clubId) {
+		List<Apply> applyList = new ArrayList<Apply>();
+		List<Apply> applyList_NO_Position = new ArrayList<Apply>();
+		Apply apply = new Apply();
+		apply.setClubId(clubId);
+		apply.setStatue(0);
+		Position position;
+		List<Apply> list = applyDao.findByGivenCriteria(apply);
+		for(Apply index : list) {
+			if(index.getPositionId()!=null){
+				position = positionDao.get(index.getPositionId());
+				index.setPositionName(position.getName());
+				applyList.add(index);
+			} else {
+				applyList_NO_Position.add(index);
+			}
 		}
-		return list;
+		applyList.addAll(applyList_NO_Position);//将有职位显示在前面
+		if (list.isEmpty()) {
+			logger.info("不存在已通过的成员");
+		}
+		return applyList;
 	}
 
 	public List<Apply> getClubApplyHasExam(int id) {
@@ -278,28 +284,48 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 	}
 
 	public Apply findById(Integer id) {
-		return applyDao.get(id);
+		Apply apply = applyDao.get(id);
+		if (apply.getPositionId()!=null) {
+			Position position = positionDao.get(apply.getPositionId());
+			apply.setPositionName(position.getName());
+		}
+		return apply;
 	}
 
-	public void createApply(String clubName, Apply apply,String schoolName) {
-		
-	Club club = clubDao.getByNameAndSchool(clubName,schoolDao.getByName(schoolName).getId());
+	public void createApply(String clubName, Apply apply, String schoolName) {
+		Club club = clubDao.getByNameAndSchool(clubName,
+				schoolDao.getByName(schoolName).getId());
 		if (club != null) {
 			apply.setStatue(2);
 			apply.setClubId(club.getId());
 			applyDao.save(apply);
-		}
-		else{
+		} else {
 			throw new DomainSecurityException("社团不存在，无法提交申请书");
 		}
 	}
-	
-	public Apply getByDetailIdAndClubId(int detailId, int clubId){
-		Apply apply = null;
-		List<Apply>  applylist =  applyDao.getByDetailIdAndClubId_desc(detailId,clubId);
-		if(applylist!=null){
+
+	public Apply getByDetailIdAndClubId(int detailId, int clubId) {
+		List<Apply> applylist = applyDao.getByDetailIdAndClubId_desc(detailId,
+				clubId);
+		if (applylist != null) {
 			return applylist.get(0);
+		} else
+			throw new DomainSecurityException("无法找到申请书");
+	}
+	
+	/*
+	 * 给社团成员set上职位名称(不是每个成员都具有positionId)
+	 */
+	private Apply setPositionName(Apply apply){
+		if (apply.getPositionId()!=null) {
+			Position position = positionDao.get(apply.getPositionId());
+			apply.setPositionName(position.getName());
 		}
-		else throw new DomainSecurityException("无法找到申请书");
+		return apply;
+	}
+
+	@Override
+	public int updatePosition(Apply apply) {
+		return applyDao.updatePosition(apply);
 	}
 }

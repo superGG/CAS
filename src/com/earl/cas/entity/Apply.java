@@ -4,8 +4,6 @@ package com.earl.cas.entity;
 
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,6 +39,9 @@ public class Apply implements Serializable {
 
 	// 用户
 	private Integer detailId;
+	
+	//职位id
+	private Integer positionId;
 
 	// 真实姓名
 	private String name;
@@ -135,6 +136,15 @@ public class Apply implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@Column(name = "position_id")
+	public Integer getPositionId() {
+		return positionId;
+	}
+
+	public void setPositionId(Integer positionId) {
+		this.positionId = positionId;
 	}
 
 	@Column(name = "sex")
