@@ -6,7 +6,8 @@ $(document).ready(function(){
 
 //获取照片墙资源
 function getPhotoList() {
-	var imgList = ["../images/001.jpg","../images/young.png","../images/003.jpg","../images/004.jpg"];
+	var imgList = ["../images/PhotoWall/PhotoWall0.jpg","../images/PhotoWall/PhotoWall1.png",
+					"../images/PhotoWall/PhotoWall2.png","../images/PhotoWall/PhotoWall3.png"];
 	initPhotoWall(imgList);//初始化照片墙
 	playPhotoWall(0);//滚动照片墙
 	playByBtn();//初始化照片按钮

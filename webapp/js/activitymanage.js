@@ -137,10 +137,15 @@ function getMyCreateClub() {
 	clubId='';
 	var url="/ClubSystem/club/getMyClub";
 	var mparm = "detailId="+userData.id;
+
 	$.get(url, mparm, function (data) {
+		console.log(data);
 		if (data.serviceResult) {
 			clubId = data.resultParm.club.id;
 			showClubActivity(1);
+		}else{
+			alert("请先创建社团");
+			window.location.href="tocreateclub.html";
 		}
 	})
 }
