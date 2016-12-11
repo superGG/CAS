@@ -5,7 +5,7 @@ $(document).ready(function(){
 });
 function initMemberInformation(){
 	var url = "/ClubSystem/apply/memberDetail";
-	var parm = "applyId=8";
+	var parm = "applyId=9";
 	$.get(url,parm,function(data){
 		if(data.serviceResult){
 			var member = data.resultParm.apply;
@@ -27,7 +27,7 @@ function initMemberInformation(){
 			$("#introduce").val(member.introduce);
 			
 			var positionUrl = "/ClubSystem/position/getNameByClubId";
-			var positionParm = "clubId="+member.clubId;
+			var positionParm = "id="+member.clubId;
 			
 			$.get(positionUrl,positionParm,function(data){
 				if(data.serviceResult){
@@ -51,7 +51,7 @@ function showClubPosition(positionList){
 function updatePosition(){
 	var index = document.getElementById('position').selectedIndex;
 	var positionName = document.getElementById('position').options[index].text;
-	var url = "/ClubSystem/apply/updatePosition";
+	var url = "/ClubSystem/apply/updateposition";
 	var parm = "detailId="+detailId+"&applyId="+memberId+"&positionName="+positionName;
 	$.post(url,parm,function(data){
 		if(data.serviceResult){

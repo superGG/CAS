@@ -26,11 +26,15 @@ function editPosition(which){
 		var oldName = $(which).parent().parent().children(".position").text();
 		$(which).text("保存");  
 		$(which).parent().parent().children(".position").text("");
-		$(which).parent().parent().children(".position").append('<input type="text" onblur="toSave()" style="margin:0;padding:3px 0;text-align:center;width:100px;" id="item_input" value="'+oldName+'">');
+		$(which).parent().parent().children(".position").append('<input type="text" style="margin:0;padding:3px 0;text-align:center;width:100px;" id="item_input" value="'+oldName+'">');
 		$(which).parent().parent().children(".position").children("input").focus();
 		statu = 1;                
 	}
 	else{
+		if($(which).parent().siblings(".position").find("input").length<=0){
+			alert("请先保存！");
+			return;
+		}
 		var newName = $(which).parent().parent().children(".position").children().val();
 		var url = "/ClubSystem/position/update";
 		var parm = "id="+$(which).parent().parent().attr("id")+"&name="+newName;
@@ -48,9 +52,7 @@ function editPosition(which){
 	}               
 	return false;     
 } ;
-function toSave(){
-	
-}
+
 function positionAdd(){
 	$("#position_add").click(function(){
 		if($("#position_name").val()!=""){
@@ -73,6 +75,10 @@ function positionAdd(){
 }
 
 function positionDelete(which){
+	if($("#position_table input").length>0){
+		alert("请先保存！");
+		return;
+	}
 	var url =  "/ClubSystem/position/delete";
 	var parm = "positionId="+$(which).parent().parent().attr("id");
 	$.post(url,parm,function(data){
