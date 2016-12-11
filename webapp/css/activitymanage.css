@@ -1,0 +1,93 @@
+
+.top_tab {
+	height: 30px;
+	line-height: 30px;
+	padding: 10px 0 0 10px;
+}
+.cmm_head_nav>div>a{
+	color: #fff;
+	background-color: #12b7f5;
+}
+.cmm_head_nav>div>a:hover{
+	border: none;
+}
+.activity_list ul{
+	padding: 10px 0;
+	margin:0;
+}
+.activity_list_item{
+	width: 80%;
+	padding: 0 10px;
+	margin: 5px auto; 
+	overflow: hidden;
+}
+.activity_list_item:hover{
+	box-shadow: 0px 0px 10px #2f4fec;
+}
+.item_title,.item_time,.item_btn{
+	float: left;
+	height: 30px;
+	border-bottom: 1px solid #ccc;
+	line-height: 30px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.item_title{
+	width: 50%;
+}
+.item_time{
+	width: 30%;
+}
+.item_btn{
+	width: 20%;
+}
+.item_btn a{
+	display: inline-block;
+	width: 60px;
+	height: 25px;
+	margin-left: 3px;
+	color: #fff;
+	line-height:25px;
+	background-color: #12b7f5;
+	text-align: center;
+}
+.createFrame,.upDataFrame{
+	margin-top: 30px;
+}
+#saveActivity{
+	width: 200px;
+    height: 30px;
+    margin: 20px auto;
+	color: #fff;
+	background-color: #12b7f5;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+.activity_title{
+	width: 80%;
+    height: 30px;
+    padding: 10px;
+}
+input[name="activity_title"]{
+	width: 80%;
+    height: 20px;
+    margin-left: 10px
+}
+.activity_content .content_lebel{
+	padding: 10px;
+}
+.cmm_content .showDetail{
+	padding: 20px 10px;
+}
+.cmm_content  .loadMoreActivity{
+	width: 200px;
+	height: 30px;
+	line-height: 30px;
+	margin:10px auto;
+	text-align: center;
+	color: #fff;
+	background-color: #12b7f5;
+	cursor: pointer;
+}

@@ -66,7 +66,7 @@ function intiClubDetailBtn(){
 		$(this).addClass("active");
 		$(".clubDetai-bar ul .arrows").css("left","47.3%");
 		$(".clubDetai-content .club-introduction").hide();
-		var str = "<div class='club-activity'><ul></ul></div>";
+		var str = "<div class='club-activity'><ul></ul><div class='loadMoreActivity' onclick='showClubActivity(2)'>加载更多</div></div>";
 		$(".clubDetai-content div").not(".club-introduction").remove();
 		$(".clubDetai-content").append(str);
 		showClubActivity(1);
@@ -95,16 +95,23 @@ function showClubActivity(index) {
 			var total = data.resultParm.total;
 			var listData = data.resultParm.activity;
 			var str="";
-			if (listData.length==0) {
-				str+="<h3 style='text-align:center;'>没有活动</h3>";
-			}else{
-				for (var i = 0; i <listData.length; i++) {
-					str+="<li><span class=\"active-title\"><a href=\"clubDetail.html?clubId="+listData[i].clubId+"&activityId="+listData[i].id+"\">"+listData[i].title+"</a></span>";
-					var time = listData[i].createtime.split(" ")[0];
-					str+="<span class=\"active-time\">"+time+"</span></li>";
-				}
+			for (var i = 0; i <listData.length; i++) {
+				str+="<li><span class=\"active-title\"><a href=\"clubDetail.html?clubId="+listData[i].clubId+"&activityId="+listData[i].id+"\">"+html_decode(listData[i].title)+"</a></span>";
+				var time = listData[i].createtime.split(" ")[0];
+				str+="<span class=\"active-time\">"+time+"</span></li>";
 			}
-			$(".club-activity ul").html(str);
+			if (index==1) {
+				$(".club-activity ul").html(str);
+			}else{
+				$(".club-activity ul").append(str);
+			}
+			if (listData.length<6) {
+				$(".loadMoreActivity").attr("onclick","javascript:void(0)").css({"background-color":"#ccc","cursor":"default"}).html("已经没了！");
+			}else{
+				$(".loadMoreActivity").attr("onclick","showClubActivity("+(++index)+")").html("加载更多");
+			}
+		}else{
+			$(".loadMoreActivity").attr("onclick","javascript:void(0)").css({"background-color":"#ccc","cursor":"default"}).html("已经没了！");
 		}
 	})
 }
@@ -115,7 +122,7 @@ function showActivity(activityId) {
 	$.get(url, mparm, function (data) {
 		if (data.serviceResult) {
 			var activityData = data.resultParm.activity;
-			var str='<div class="activity_content">'+activityData.content+'</div>';
+			var str='<div class="activity_detail">'+html_decode(activityData.content)+'</div>';
 			$(".club-activity").html(str);	
 		}
 	})
@@ -284,4 +291,28 @@ function isApplyOrJoin(){
 			console.log(data.resultInfo);
 		}
 	})
+}
+
+//替换转义
+function html_encode(str) {
+    var s = "";
+    if (str.length == 0)
+        return "";
+    s=str.replace(/%/g,"[p];");
+    s=s.replace(/&/g,"[a];");
+    s=s.replace(/\+/g,"[ad];");
+    return s;
+}
+//替换转义
+function html_decode(str) {
+	var s = "";
+	if (str.length == 0) {
+		return "";
+	}
+	s = str.replace(/&lt;/g, "<");
+	s = s.replace(/&gt;/g, ">");
+	s=s.replace(/\[p\];/g,"%");
+    s=s.replace(/\[a\];/g,"&");
+    s=s.replace(/\[ad\];/g,"+");
+	return s;
 }
