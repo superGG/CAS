@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>社团管理-活动管理</title>
+		<link rel='icon' href='../../images/titile_logo.ico' type='image/x-ico' />
+
+		<link rel="stylesheet" type="text/css" href="../../css/club_common.css">
+		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../../css/apply_deal.css">
+		<link rel="stylesheet" type="text/css" href="../../css/activitymanage.css">
+		
+		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+		<script src="../../js/ckeditor/ckeditor.js" type="text/javascript"></script>
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="top">
+			<div class="logobox">
+				<img id="logo" src="../../images/logo2.png">
+			</div>
+			<div class="nav">
+				<ul>
+					<li><a href="../index.html" >首页</a></li>
+					<li><a href="allClub.html">社团</a></li>
+					<li><a href="allActivity.html">活动</a></li>
+					<li><a href="../message/message.html">留言板</a></li>
+				</ul>
+			</div>
+			<div class="login">
+				<a href="javascript:void(0)" onclick="showLoginFrame()">登录</a>
+				<a href="javascript:void(0)" onclick="showRegisterFrame()">注册</a>
+			</div>
+		</div>
+		<div class="lwd_main">
+			<div class="lwd_main_nav">
+				<div class="header_photo">
+					<img src="../../images/ccbg.jpg">
+					<p>梁伟栋</p>
+				</div>
+				<div class="sidebar_left">
+					<div class="sidebar_left_module">
+						<a href="../user/personalcenter.html">
+							<b><img src="../../images/man.png"></b>
+							个人信息
+						</a>
+						<a href="showjoinedclubs.html">
+							<b><img src="../../images/club.png"></b>
+							我加入的社团
+						</a>
+						<a href="memberapplydeal.html" class="curr">
+							<b><img src="../../images/club.png"></b>
+							我创建的社团
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="lwd_main_iframe">
+				<div class="cmm_head_nav">
+					<ul class="top_navs">
+						<li><a href="memberapplydeal.html">申请处理</a></li>
+						<li><a href="clubinformationmanage.html">社团信息</a></li>
+						<li><a href="albummanage.html">相册管理</a></li>
+						<li><a href="membermanage.html">成员管理</a></li>
+						<li class="curr"><a href="activitymanage.html">活动管理</a></li>
+						<li><a href="positionmanage.html">职位管理</a></li>
+					</ul>
+					<div class="top_tab">
+						<a href="javascript:void(0)" onclick="createActivity(this)">创建活动</a>
+					</div>	
+				</div>
+				<div class="cmm_content">
+					<div class="activity_list">
+						<ul>
+						</ul>
+						<div class="loadMoreActivity" onclick="showClubActivity(2)">加载更多</div>
+					</div>
+				</div>
+			</div>
+		<script type="text/javascript" src="../../js/common.js"></script>
+		<script type="text/javascript" src="../../js/activitymanage.js"></script>
+		</div>
+		<div class="footer">
+			<p>
+				Copyright © 2016 Powered by 社团网申_第12组版权所有
+			</p>
+			<p>
+				地址：广东海洋大学钟海楼04019 邮政编码：524000　电话：18344094195
+			</p>
+			<div xmlns:wb="http://open.weibo.com/wb">
+				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
+			</div>
+		</div>
+	</body>
+</html>

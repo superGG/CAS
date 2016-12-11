@@ -104,7 +104,6 @@ public class MessageController extends BaseController {
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> saveMessage(Message message){
 		logger.debug("REST request to save message");
-		System.err.print("1233"+message.getContent());
 		if(StringUtils.isBlank(message.getContent())){//判断评论内容是否为空
 			throw new DomainSecurityException("评论内容不能为空");
 		}
