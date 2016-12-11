@@ -53,16 +53,14 @@
 ul{
 	-webkit-padding-start: 0;
 }
-li{
-	list-style:none;
-	display:inline-block;
-}
+
 .main_left_tool_bar ul li{
 	float:left;
 	padding:5px 8px;
 	border-radius:3px;
 	margin-right:3px;
 	cursor:pointer;
+	list-style:none;
 }
 .main_left_tool_bar ul li:hover{
 	background:#e5e5e5;

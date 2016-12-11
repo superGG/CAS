@@ -8,14 +8,12 @@
 		<link rel="stylesheet" type="text/css" href="../../css/common.css">
 		
 		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
-		<script type="text/javascript" src="../../js/common.js"></script>
-		<script type="text/javascript" src="../../js/personalcenter.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
     	<div class="top">
 			<div class="logobox">
-				<img id="logo" src="../../images/logo_school.png">
+				<img id="logo" src="../../images/logo2.png">
 			</div>
 			<div class="nav">
 				<ul>
@@ -26,8 +24,8 @@
 				</ul>
 			</div>
 			<div class="login">
-				<a href="">登录</a>
-				<a href="">注册</a>
+				<a href="javascript:void(0)" onclick="showLoginFrame()">登录</a>
+				<a href="javascript:void(0)" onclick="showRegisterFrame()">注册</a>
 			</div>
 		</div>
 		<div class="lwd_main">
@@ -69,7 +67,7 @@
 							<br><br>
 							<button style="margin-left:20px;" onclick="showUpdatePassword()">修改密码</button>
 						</div>
-						<table style="padding-left:50px;float:right;">
+						<table style="padding-left:25px;float:left;">
 							<tr>
 								<td><label for="name">真实姓名</label></td>
 								<td><input type="text" name="name" id="name" placeholder="真实姓名"></td>
@@ -88,11 +86,11 @@
 							</tr>
 							<tr>
 								<td><label for="hobby">爱好特长</label></td>
-								<td><textarea rows="5" cols="50" placeholder="爱好特长" name="hobby" id="hobby"></textarea></td>
+								<td><textarea rows="5" cols="40" placeholder="爱好特长" name="hobby" id="hobby"></textarea></td>
 							</tr>
 							<tr>
 								<td><label for="singnation">个性签名</label></td>
-								<td><textarea rows="5" cols="50" placeholder="个性签名" name="singnation" id="singnation"></textarea></td>
+								<td><textarea rows="5" cols="40" placeholder="个性签名" name="singnation" id="singnation"></textarea></td>
 							</tr>
 						</table>
 			</div>
@@ -108,5 +106,7 @@
 				<wb:share-button addition="simple" type="button" language="zh_cn"></wb:share-button>
 			</div>
 		</div>
+		<script type="text/javascript" src="../../js/common.js"></script>
+		<script type="text/javascript" src="../../js/personalcenter.js"></script>
 	</body>
 </html>

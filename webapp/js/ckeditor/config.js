@@ -5,7 +5,7 @@
 
 CKEDITOR.editorConfig = function( config ) {
 	config.image_previewText=' '; //预览区域显示内容
-	config.filebrowserImageUploadUrl= "ImgUpload.action"; //待会要上传的action或servlet
+	config.filebrowserImageUploadUrl= " "; //待会要上传的action或servlet
 	// Define changes to default configuration here. For example:
 	 config.language = 'zh-cn';
 	// config.uiColor = '#AADC6E';
