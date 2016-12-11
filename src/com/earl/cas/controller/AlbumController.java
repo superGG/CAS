@@ -52,6 +52,20 @@ public class AlbumController extends BaseController {
 		result.getResultParm().put("album", albumList);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	
+	/**
+	 * 获取相册详情.
+	 *@author 宋.
+	 * @return
+	 */
+	@RequestMapping(value = "/findById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> findById(Integer id) {
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		Album album = albumService.findById(id);
+		result.getResultParm().put("album", album);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 
 	/**
 	 * 添加相册.

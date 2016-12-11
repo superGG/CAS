@@ -94,54 +94,12 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		userclubDao.save(userclub);
 	}
 
-	public List<Member> getMember(int detaliId) {
-		// 一些容器变量
-		List<Member> memberlist = new ArrayList<Member>();
-		int clubId;
-		int i = 1; // 计数标记
-		String name;
-		Userclub userclub;
-		Position position;
-		Club club = clubDao.getClubByuserDetailId(detaliId);
-		if (club != null) {
-			clubId = club.getId();
-		} else {
-			throw new DomainSecurityException("用户没有创建社团");
-		}
-		// 获得该社团申请书列表
-		List<Apply> applylist = applyDao.getApplyByClubIdStatusIsOk(clubId);
-		// 遍历将信息放进vo类
-		for (Apply apply : applylist) {
-			name = apply.getName(); // 从申请书中获得成员名字
-			Member member = new Member();
-			member.setId(i); // 编号
-			member.setName(name);
-			userclub = userclubDao.getUserclubByApplyId(apply.getId()); // 获得成员社团关联表
-			userclub.getPositionId();
-			member.setCreatetime(userclub.getCreatetime()); // userclub上的加入时间
-			position = positionDao.get(userclub.getPositionId()); // 根据具体职位Id获得职位
-																	// 提取出职位名字
-			member.setPosition(position.getName());
-			member.setTel(apply.getPhone());
-			member.setMajorClass(apply.getMajorClass());
-			member.setApplyId(apply.getId());
-			i++; // 计数器加1
-			if (member != null) {
-				memberlist.add(member);
-			}
-		}
-		return memberlist;
-	}
-
 	public List<Member> getMember(int detailId, PageInfo pageInfo) {
 		// 一些容器变量
 		List<Member> memberlist = new ArrayList<Member>();
 		int clubId;
-		int i = 1; // 计数标记
 		String name;
-		Userclub userclub;
 		Position position;
-		// session中有userDetailId ->clubId
 		Club club = clubDao.getClubByuserDetailId(detailId);
 		if (club != null) {
 			clubId = club.getId();
@@ -157,37 +115,21 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		for (Apply apply : applylist) {
 			name = apply.getName(); // 从申请书中获得成员名字
 			Member member = new Member();
-			member.setId(i); // 编号
 			member.setName(name);
-			userclub = userclubDao.getUserclubByApplyId(apply.getId()); // 获得成员社团关联表
-			// userclub.getPositionId();
-			member.setCreatetime(userclub.getCreatetime()); // userclub上的加入时间
-			position = positionDao.get(userclub.getPositionId()); // 根据具体职位Id获得职位
-																	// 提取出职位名字
+			member.setCreatetime(apply.getCreatetime()); 
+			position = positionDao.get(apply.getPositionId()); // 根据具体职位Id获得职位
 			member.setPosition(position.getName());
 			member.setTel(apply.getPhone());
 			member.setMajorClass(apply.getMajorClass());
 			member.setApplyId(apply.getId());
-			i++; // 计数器加1
-			if (member != null) {
 				memberlist.add(member);
-			}
 		}
 		return memberlist;
 	}
 
 	public Apply getMemberDetail(int applyId) {
 		Apply apply = applyDao.get(applyId);
-		Userclub userclub = userclubDao.getUserclubByApplyId(applyId);
-
-		// 获取成员目前职位
-		int positionId = userclub.getPositionId();
-		// 获得加入的时间
-		String time = userclub.getCreatetime();
-		Position nowPosition = positionDao.get(positionId);
-		apply.setPositionName(nowPosition.getName());
-		apply.setCreatetime(time);
-		return apply;
+		return setPositionName(apply);
 	}
 
 	public List<Apply> getClubApplyIsOk(int clubId) {

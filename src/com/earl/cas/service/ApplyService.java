@@ -30,12 +30,7 @@ public interface ApplyService extends BaseService<Apply> {
 	 * @param statue
 	 */
 	void update(int id, int statue);
-	/**
-	 * 获得社团成员列表
-	 * @param applyId
-	 * @return
-	 */
-	List<Member> getMember(int detaliId);
+
 	/**
 	 * 查看成员详情
 	 * @param applyId
