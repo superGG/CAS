@@ -11,6 +11,8 @@
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
 		<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+		<script type="text/javascript" src="../../js/albuminformation.js"></script>
+		
 		
 	</head>
 	<body>
@@ -66,11 +68,17 @@
 					</ul>			
 				</div>
 				<div class="album_info_tool">
-					<div class="album_cover"><img src="../../images/ccbg.jpg" width="100%" height="100%"></div>
+					<form id="uploadForm_cover">
+						<input type="file" name="file" accept="image/*" id="cover_file" style="display:none;" onchange="updateCover()">
+					</form>
+					<div class="album_cover" onclick="$('#cover_file').click()">
+						<img id="cover" src="../../images/ccbg.jpg" width="100%" height="100%">
+						<div class="album_update_cover">修改封面</div>
+					</div>
 					<div class="album_title">
 						
-						<b>那些逝去的时光</b>
-						<span>共24张</span> <span style="color:#666;">/ &nbsp </span>
+						<b id="album_name">那些逝去的时光</b>
+						<span id="number">共24张</span> <span style="color:#666;">/ &nbsp; </span>
 						<div class="overflow_hidden"> 斗鱼 -每个人的直播平台提供高清、快捷、
 						流畅的视频直播和游戏赛事直播服务,包含英雄联盟lol直播、穿越火线cf直播、
 						dota2直播、美女直播等各类热门游戏赛事直播和各种...
@@ -96,13 +104,13 @@
 								<tr>
 									<td><label for="#">数量</label>
 									</td>
-									<td>共<span id="#">24</span>张
+									<td>共<span id="a_number">24</span>张
 									</td>
 								</tr>
 								<tr>
 									<td><label for="#">时间</label>
 									</td>
-									<td><span id="#">2016-12-3</span>
+									<td><span id="createtime">2016-12-3</span>
 									</td>
 								</tr>
 								<tr>
@@ -111,85 +119,18 @@
 								</tr>
 							</table>
 						</div>
-						<div class="btn_white" id="btn_white" disabled="disabled">更多
-							<div class="more_box" id="more_box">
-								<ul>
-									<li><a href="#">批量管理</a></li>
-									<li><a href="#">设置封面</a></li>
-									<li><a href="#" class="sb_update">编辑相册信息</a></li>
-								</ul>
-							</div>
-						</div>
+						<div class="btn_white" onclick="history.go(-1)">返回</div>
 					</div>
 					
 					<div class="album_button_bar">
-						<input type="file" accept="images" multiple="multiple" class="add_album" id="add_album">
-						<label for="add_album" class="ff"><i class="icon-m icon-photo-upload-m"></i>上传图片</label>
-						<button ><i class="icon-m icon-trash-m"></i>删除相册</button>
+						<form id="uploadForm_photo">
+							<input type="file" accept="image/*" multiple="multiple" class="add_album" name="file" id="photo_file" onchange="photoUpload()">
+						</form>
+						<label for="photo_file" class="ff"><i class="icon-m icon-photo-upload-m"></i>上传图片</label>
+						<button onclick="albumDelete()"><i class="icon-m icon-trash-m"></i>删除相册</button>
 					</div>
 				</div>
-				<div class="album_photo">
-					<div class="photo_item" >
-						<div class="photo_box" id="photo1">
-							<img src="../../images/001.jpg" width="150px" height="120px">
-							<div class="hidden_box" id="photo1_hidden_box" >
-								<a href="#"><i class="icon-m icon-trash-m"></i></a>
-								<a href="#"><i class="icon-m icon-cover-m"></i></a>
-							</div>	
-						</div>
-						<div class="photo_name"><span>风景图</span></div>
-					</div>
-					<div class="photo_item" >
-						<div class="photo_box"  id="photo2">
-							<img src="../../images/001.jpg" width="150px" height="120px">
-							<div class="hidden_box" id="photo2_hidden_box">
-								<a href="#"><i class="icon-m icon-trash-m"></i></a>
-								<a href="#"><i class="icon-m icon-cover-m"></i></a>
-							</div>	
-						</div>
-						<div class="photo_name"><span>风景图</span></div>
-					</div>
-					<div class="photo_item" >
-						<div class="photo_box" id="photo3">
-							<img src="../../images/001.jpg" width="150px" height="120px">
-							<div class="hidden_box" id="photo3_hidden_box">
-								<a href="#"><i class="icon-m icon-trash-m"></i></a>
-								<a href="#"><i class="icon-m icon-cover-m"></i></a>
-							</div>	
-						</div>
-						<div class="photo_name"><span>风景图</span></div>
-					</div>
-					<div class="photo_item" >
-						<div class="photo_box" id="photo4">
-							<img src="../../images/001.jpg" width="150px" height="120px">
-							<div class="hidden_box" id="photo4_hidden_box">
-								<a href="#"><i class="icon-m icon-trash-m"></i></a>
-								<a href="#"><i class="icon-m icon-cover-m"></i></a>
-							</div>	
-						</div>
-						<div class="photo_name"><span>风景图</span></div>
-					</div>
-					<div class="photo_item" >
-						<div class="photo_box" id="photo5">
-							<img src="../../images/001.jpg" width="150px" height="120px">
-							<div class="hidden_box" id="photo5_hidden_box">
-								<a href="#"><i class="icon-m icon-trash-m"></i></a>
-								<a href="#"><i class="icon-m icon-cover-m"></i></a>
-							</div>	
-						</div>
-						<div class="photo_name"><span>风景图</span></div>
-					</div>
-					<div class="photo_item" >
-						<div class="photo_box" id="photo6">
-							<img src="../../images/001.jpg" width="150px" height="120px">
-							<div class="hidden_box" id="photo6_hidden_box">
-								<a href="#"><i class="icon-m icon-trash-m"></i></a>
-								<a href="#"><i class="icon-m icon-cover-m"></i></a>
-							</div>	
-						</div>
-						<div class="photo_name"><span>风景图</span></div>
-					</div>
-						
+				<div class="album_photo">	
 					<div class="sb_box" id="sb_box">
 						<form action="#" method="" id="">
 							<table border="0">
@@ -214,8 +155,10 @@
 						</form>
 					</div>
 				</div>
+				<div class="dot_down" id="more"></div>
 			</div>
 			<div id="loadingDiv" class="loadingDiv" ></div>
+		</div>
 		<div class="footer">
 			<p>
 				Copyright © 2016 Powered by 社团网申_第12组版权所有
@@ -231,40 +174,7 @@
 		
 		
 	<script>
-		$("#btn_white").mouseover(function(){
-			$("#more_box").show();
-		});
-		$("#btn_white").mouseout(function(){
-			$("#more_box").hide();
-		});//更多
-		$("#down").click(function(){
-			$("#down").hide();
-			$("#up").show();
-			$("#sb_more").show();
-		});//下拉查看详细描述
-		$("#up").click(function(){
-			$("#up").hide();
-			$("#down").show();
-			$("#sb_more").hide();
-		});//上去
-		$(".sb_update").click(function(){
-			$("#sb_box").show();
-			$("#sb_more").hide();
-			$('#loadingDiv').css('display','block'); 
-		});//点击编辑相册详情
-		$("#sb_back").click(function(){
-			$("#sb_box").hide();
-			$('#loadingDiv').css('display','none'); 
-		});//点击取消，相册详情隐藏
-		$(".hidden_box").css("visibility","visible");
-		$(".hidden_box").hide();
-			$(".photo_box").mouseover(function(){
-				photo = $(this).attr("id");
-				$("#"+photo+"_hidden_box").show();
-			});
-			$(".photo_box").mouseout(function(){
-				$("#"+photo+"_hidden_box").hide();
-			});
+		
 	</script>
 	</body>
 </html>

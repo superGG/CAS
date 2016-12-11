@@ -66,3 +66,30 @@ textarea,input:disabled{
 	width: 100%;
 	min-height: 700px;
 }
+.noMore{
+	margin:10px 1% 0 1%;
+	padding:8px 0;
+	width:98%;
+	background:#ccc;
+	font-family:Î¢ÈíÑÅºÚ;
+	display:inline-block;
+	text-align:center;
+}
+.dot_down{
+	border-top:20px solid #999;
+	border-left:30px solid transparent;
+	border-right:30px solid transparent;
+	margin:auto;
+	width:0;
+	height:0;
+	cursor:pointer;
+}
+.dot_down:hover{
+	border-top:20px solid #0063af;
+	border-left:30px solid transparent;
+	border-right:30px solid transparent;
+	margin:auto;
+	width:0;
+	height:0;
+	cursor:pointer;
+}
