@@ -106,9 +106,9 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		// 获得社团当前类型
 		String typename = clubTypeDao.get(club.getTypeId()).getName();
 		club.setTypeName(typename);
-		// Long number = userclubDao.getNumberByclubId(club.getId());//TODO
+		// Long number = userclubDao.getNumberByclubId(club.getId());
 		// 获取社团人数
-		// club.setNumber(number);
+		setNumber(club);
 		School school = schoolDao.get(club.getSchoolId());
 		club.setSchoolName(school.getName());
 		return club;
@@ -116,8 +116,9 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 
 	public Club getMyJoinClub(int clubId) {
 		Club club = clubDao.get(clubId);
-		// Long number = userclubDao.getNumberByclubId(clubId);//TODO 获取社团人数
+		// Long number = userclubDao.getNumberByclubId(clubId);
 		// club.setNumber(number);
+		setNumber(club);
 		String typename = clubTypeDao.get(club.getTypeId()).getName();
 		club.setTypeName(typename);
 		School school = schoolDao.get(club.getSchoolId());
@@ -167,8 +168,8 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		for (Apply apply : applyList) {
 			// 获得社团
 			club = clubDao.get(apply.getClubId());
-			// Long number = userclubDao.getNumberByclubId(club.getId());//TODO 获取社团人数
-			// club.setNumber(number);
+			// 设置社团人数
+			setNumber(club);
 			setName(clublist);
 			clublist.add(club);
 		}
@@ -240,7 +241,10 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 
 	public Club getById(int clubId) {
 		Club club = get(clubId);
-//		club.setNumber(userclubDao.getNumberByclubId(club.getId()));//TODO 获取社团人数
+		// 设置社团人数
+		setNumber(club);
+		// club.setNumber(userclubDao.getNumberByclubId(club.getId()));
+
 		ClubType type = clubTypeDao.get(club.getTypeId());
 		School school = schoolDao.get(club.getSchoolId());
 		club.setSchoolName(school.getName());
@@ -295,11 +299,28 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	 * @param clublist
 	 */
 	private void setNumber(List<Club> clublist) {
+		Apply apply = new Apply();
+		apply.setStatue(0);// 设置状态为0：通过申请的
 		for (Club club : clublist) {
-//			club.setNumber(applyDao.getNumberByClubId(club.getId()));//TODO 获取社团人数
-			
+			apply.setClubId(club.getId());
+			List<Apply> applyList = applyDao.findByGivenCriteria(apply);
+			club.setNumber(applyList.size());
 		}
 	}
+
+	/**
+	 * 为社团加上number属性
+	 * 
+	 * @param club
+	 */
+	private void setNumber(Club club) {
+		Apply apply = new Apply();
+		apply.setStatue(0);// 设置状态为0：通过申请的
+		apply.setClubId(club.getId());
+		List<Apply> applyList = applyDao.findByGivenCriteria(apply);
+		club.setNumber(applyList.size());
+	}
+
 
 
 	/**

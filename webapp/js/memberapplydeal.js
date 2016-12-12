@@ -15,8 +15,13 @@ function showApplyList(applyList){
 	
 }
 function initApplyList(){
+	userData = getCookieUserData();
+	if(userData==null){
+		showLoginFrame();
+		return;
+	}
 	var url = "/ClubSystem/apply/displayAllClubApply";
-	var parm = "detailId=1&statue=2";
+	var parm = "detailId="+userData.id+"&statue=2";
 	$.get(url,parm,function(data){
 		if(data.serviceResult){
 			var applyList = data.resultParm.apply;

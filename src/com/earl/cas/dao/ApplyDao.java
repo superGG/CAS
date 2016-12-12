@@ -81,11 +81,6 @@ public interface ApplyDao extends BaseDao<Apply> {
 	 * @return
 	 */
 	int updatePosition(Apply apply);
-	/**
-	 * 获取社团人数
-	 * @param id
-	 * @return
-	 */
-	Long getNumberByClubId(Integer id);
+
 
 }

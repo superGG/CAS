@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.earl.cas.commons.BaseController;
+import com.earl.cas.entity.Apply;
 import com.earl.cas.entity.Club;
 import com.earl.cas.exception.DomainSecurityException;
+import com.earl.cas.service.ApplyService;
 import com.earl.cas.service.ClubService;
 import com.earl.cas.vo.PageInfo;
 import com.earl.cas.vo.ResultMessage;
@@ -35,8 +37,12 @@ import com.earl.cas.vo.ResultMessage;
 @RequestMapping(value = "/club")
 public class ClubController extends BaseController{
 	private final Logger logger = LoggerFactory.getLogger(ClubController.class);
+	
 	@Autowired
 	private ClubService clubService;
+	
+	@Autowired
+	private ApplyService applyService;
 	
 	private ResultMessage result = null;
 	
@@ -167,8 +173,9 @@ public class ClubController extends BaseController{
 		result.setServiceResult(true);
 		result.setResultInfo("更新成功");
 		Club club2 = clubService.findById(club.getId());
-//		Long number = userclubDao.getNumberByclubId(club2.getId());  //TODO  获取社团人数
+//		Long number = userclubDao.getNumberByclubId(club2.getId());  // 获取社团人数
 //		club2.setNumber(number);
+		setNumber(club2);
 		result.getResultParm().put("club", club2);
 		
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
@@ -185,8 +192,9 @@ public class ClubController extends BaseController{
 		result.setServiceResult(true);
 		result.setResultInfo("更新成功");
 		Club club2 = clubService.findById(clubId);
-//		Long number = userclubDao.getNumberByclubId(club2.getId());//TODO  获取社团人数
+//		Long number = userclubDao.getNumberByclubId(club2.getId());//获取社团人数
 //		club2.setNumber(number);
+		setNumber(club2);
 		result.getResultParm().put("club", club2);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
@@ -277,5 +285,18 @@ public class ClubController extends BaseController{
 		result.getResultParm().put("club", clubList);
 		result.getResultParm().put("totalCount",pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	/**
+	 * 为社团加上number属性
+	 * 
+	 * @param club
+	 */
+	private void setNumber(Club club) {
+		Apply apply = new Apply();
+		apply.setStatue(0);// 设置状态为0：通过申请的
+		apply.setClubId(club.getId());
+		List<Apply> applyList = applyService.findByGivenCreteria(apply);
+		club.setNumber(applyList.size());
 	}
 }

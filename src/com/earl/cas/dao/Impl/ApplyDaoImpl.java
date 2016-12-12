@@ -120,7 +120,5 @@ public class ApplyDaoImpl extends BaseDaoImpl<Apply> implements ApplyDao {
 		return update;
 	}
 	
-	Long getNumberByClubId(Integer id){
-		
-	}
+
 }

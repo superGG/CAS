@@ -2,7 +2,6 @@ package com.earl.cas.entity;
 // Generated 2016-11-21 9:28:51 by Hibernate Tools 5.2.0.Beta1
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -63,7 +62,7 @@ public class Club implements Serializable
 	private Integer detailId;
 	
 	//社团人数 不映射进数据库表
-	private Long number;
+	private Integer number;
 	
 	//类型名称 不映射进数据库表
 	private String typeName;
@@ -193,11 +192,11 @@ public class Club implements Serializable
 	
 	
 	@Transient
-	public Long getNumber() {
+	public Integer getNumber() {
 		return number;
 	}
 
-	public void setNumber(Long number) {
+	public void setNumber(Integer number) {
 		this.number = number;
 	}
 	
