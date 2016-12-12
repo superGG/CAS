@@ -7,15 +7,15 @@ $(document).ready(function(){
 });
 function showMemberList(memberList){
 	for(var i = 0; i<memberList.length; i++){
-		$("#membertable").append('<tr id="'+memberList[i].applyId+'"><td>'+(i+1)+'</td><td>'+memberList[i].name+'</td><td>'+memberList[i].position+'</td><td>'+memberList[i].majorClass+'</td><td>'+memberList[i].tel+'</td><td>'+memberList[i].createtime.split(" ")[0]+'</td><td><a href="memberinformation.html"><button>查看</button></a> <button onclick="memberDelete(this)">删除</button></td></tr>');
+		$("#membertable").append('<tr id="'+memberList[i].id+'"><td>'+(i+1)+'</td><td>'+memberList[i].name+'</td><td>'+memberList[i].position+'</td><td>'+memberList[i].majorClass+'</td><td>'+memberList[i].tel+'</td><td>'+memberList[i].createtime.split(" ")[0]+'</td><td><a href="memberinformation.html?applyId='+memberList[i].id+'"><button>查看</button></a> <button onclick="memberDelete(this)">删除</button></td></tr>');
 	}
 }
 function initMemberList(index){
-	var url = "/ClubSystem/apply/displayPageMember";
-	var parm = "detailId="+getCookieUserData().id+"&indexPageNum="+index+"&size=6";
+	var url = "/ClubSystem/apply/displayClubApplyIsOk";
+	var parm = "detailId="+getCookieUserData().id;
 	$.get(url,parm,function(data){
 		if(data.serviceResult){
-			var memberList = data.resultParm.memberlist;
+			var memberList = data.resultParm.apply;
 			showMemberList(memberList);
 			if($("#membertable tr").length >= data.resultParm.totalCount){
 				$("#more").remove();

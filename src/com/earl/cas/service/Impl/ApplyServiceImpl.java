@@ -86,7 +86,7 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		apply.setStatue(statue);
 		if (statue == 0) { //如果同意申请，更新创建时间代表 成员入社时间
 			Date date = new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HHmmss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String createtime = sdf.format(date);
 			apply.setCreatetime(createtime);
 		}
@@ -97,8 +97,6 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		// 一些容器变量
 		List<Member> memberlist = new ArrayList<Member>();
 		int clubId;
-		String name;
-		Position position;
 		Club club = clubDao.getClubByuserDetailId(detailId);
 		if (club != null) {
 			clubId = club.getId();
@@ -112,12 +110,13 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		List<Apply> applylist = applyDao.findByGivenCriteria(applyVo, pageInfo);
 		// 遍历将信息放进vo类
 		for (Apply apply : applylist) {
-			name = apply.getName(); // 从申请书中获得成员名字
+//			name = apply.getName(); // 从申请书中获得成员名字
+			setPositionName(apply);
 			Member member = new Member();
-			member.setName(name);
+			member.setName(apply.getName());
 			member.setCreatetime(apply.getCreatetime()); 
-			position = positionDao.get(apply.getPositionId()); // 根据具体职位Id获得职位
-			member.setPosition(position.getName());
+//			position = positionDao.get(apply.getPositionId()); // 根据具体职位Id获得职位
+			member.setPosition(apply.getName());
 			member.setTel(apply.getPhone());
 			member.setMajorClass(apply.getMajorClass());
 			member.setApplyId(apply.getId());

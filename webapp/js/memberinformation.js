@@ -5,7 +5,8 @@ $(document).ready(function(){
 });
 function initMemberInformation(){
 	var url = "/ClubSystem/apply/memberDetail";
-	var parm = "applyId=9";
+	var parm = "applyId="+getUrlParam('applyId');
+	console.log(parm);
 	$.get(url,parm,function(data){
 		if(data.serviceResult){
 			var member = data.resultParm.apply;
