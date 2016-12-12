@@ -206,7 +206,7 @@ public class ApplyController extends BaseController {
 //		logger.debug("REST request to delete a member");
 //		result = new ResultMessage();
 //		result.setServiceResult(true);
-//		userclubService.deleteByapplyId(applyId);
+//		applyService.setStatue("applyId");
 //		result.setResultInfo("该成员已从社团中剔除");
 //		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 //	}
@@ -229,7 +229,7 @@ public class ApplyController extends BaseController {
 //		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 //	
 //	}
-	
+
 	/**
 	 * 修改成员职位
 	 *@author 宋.

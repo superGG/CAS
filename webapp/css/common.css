@@ -99,6 +99,7 @@ body{
 }
 .top .user .userName{
 	float: left;
+	margin-left: 10px;
     color: #fff;
     line-height: 40px;
 }

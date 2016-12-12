@@ -305,7 +305,6 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 			apply.setClubId(club.getId());
 			List<Apply> applyList = applyDao.findByGivenCriteria(apply);
 			club.setNumber(applyList.size());
-			// club.setNumber(userclubDao.getNumberByclubId(club.getId()));
 		}
 	}
 
@@ -322,9 +321,8 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		club.setNumber(applyList.size());
 	}
 
-	/**
-	 * 学校循环
-	 */
+
+
 	/**
 	 * 为club加上学校名字
 	 * 

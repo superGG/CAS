@@ -12,10 +12,10 @@ function showActivityList(index) {
 			var listData = data.resultParm.activity;
 			for (var i = 0; i < listData.length; i++) {
 				str += "<li><div class='activity-title'><a href='clubDetail.html?clubId=" + listData[i].clubId + "&activityId=" + listData[i].id + "'>" + listData[i].title + "</a></div>";
-				str += "<div class='activity-club'><a href='clubDetail.html?clubId=" + listData[i].clubId + "'>" + listData[i].clubName + "</a></div>";
-				str += "<div class='activity-school'><a href='clubDetail.html?clubId=" + listData[i].clubId + "'>" + listData[i].schoolName + "</a></div>";
+				str += "<div class='activity-club'><a href='clubDetail.html?clubId=" + listData[i].clubId + "&activityId=" + listData[i].id + "'>" + listData[i].clubName + "</a></div>";
+				str += "<div class='activity-school'><a href='clubDetail.html?clubId=" + listData[i].clubId + "&activityId=" + listData[i].id + "'>" + listData[i].schoolName + "</a></div>";
 				var time = listData[i].createtime.split(" ")[0];
-				str += "<div class='activity-time'><a href='clubDetail.html?clubId=" + listData[i].clubId + "'>" + time + "</a></div></li>";
+				str += "<div class='activity-time'><a href='clubDetail.html?clubId=" + listData[i].clubId + "&activityId=" + listData[i].id + "'>" + time + "</a></div></li>";
 			}
 			if (index==1) {
 				$(".activity .activityList").html(str);
@@ -28,6 +28,9 @@ function showActivityList(index) {
 			}else{
 				$("#loadMoreActivity").html("加载更多").attr("onclick", "loadMoreActivity(" + (++index) + ")");
 			}
+		}else{
+			$(".activity .activityList").html("");
+			$("#loadMoreActivity").html("没有数据").attr("onclick", "javascipt:void(0);");
 		}
 	})
 }
@@ -58,10 +61,10 @@ function searchActivity(index) {
 			var listData = data.resultParm.activity;
 			for (var i = 0; i < listData.length; i++) {
 				str += "<li><div class='activity-title'><a href='clubDetail.html?clubId=" + listData[i].clubId + "&activityId=" + listData[i].id + "'>" + listData[i].title + "</a></div>";
-				str += "<div class='activity-club'><a href='clubDetail.html?clubId=" + listData[i].clubId + "'>" + listData[i].clubName + "</a></div>";
-				str += "<div class='activity-school'><a href='clubDetail.html?clubId=" + listData[i].clubId + "'>" + listData[i].schoolName + "</a></div>";
+				str += "<div class='activity-club'><a href='clubDetail.html?clubId=" + listData[i].clubId + "&activityId=" + listData[i].id + "'>" + listData[i].clubName + "</a></div>";
+				str += "<div class='activity-school'><a href='clubDetail.html?clubId=" + listData[i].clubId + "&activityId=" + listData[i].id + "'>" + listData[i].schoolName + "</a></div>";
 				var time = listData[i].createtime.split(" ")[0];
-				str += "<div class='activity-time'><a href='clubDetail.html?clubId=" + listData[i].clubId + "'>" + time + "</a></div></li>";
+				str += "<div class='activity-time'><a href='clubDetail.html?clubId=" + listData[i].clubId + "&activityId=" + listData[i].id + "'>" + time + "</a></div></li>";
 			}
 			if (index==1) {
 				$(".activity .activityList").html(str);
@@ -76,7 +79,7 @@ function searchActivity(index) {
 			}
 		}else{
 			$(".activity .activityList").html("");
-			$("#loadMoreActivity").html("已经没有了！").attr("onclick", "javascipt:void(0);");
+			$("#loadMoreActivity").html("没有数据").attr("onclick", "javascipt:void(0);");
 		}
 	})
 }

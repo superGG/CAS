@@ -5,8 +5,14 @@ $(document).ready(function(){
 	updateClub();
 });
 function initClubInformation(){
+	userData = getCookieUserData();
+	if (userData==null) {
+		alert("请先登录");
+		showLoginFrame();
+		return;
+	}
 	var url = "/ClubSystem/club/getMyClub";
-	var parm = "detailId=1";
+	var parm = "detailId="+userData.id;
 	var typeUrl = "/ClubSystem/clubtype/getAlls";
 	$.get(url,parm,function(data){
 		if(data.serviceResult){

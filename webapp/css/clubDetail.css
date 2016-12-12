@@ -44,6 +44,7 @@
 	width: 33.3%;
 	margin: auto;
 	text-align: center;
+	overflow-wrap: break-word;
 }
 .item-title{
 	display: block;

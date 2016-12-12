@@ -82,4 +82,5 @@ public interface ApplyDao extends BaseDao<Apply> {
 	 */
 	int updatePosition(Apply apply);
 
+
 }
