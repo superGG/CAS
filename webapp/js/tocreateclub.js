@@ -46,3 +46,24 @@ function showTypeList(typeList){
 		$("#typeName").append('<option value="'+typeList[i].name+'">'+typeList[i].name+'</option>');
 	}
 }
+function createClub(){
+	var userDate = getCookieUserData();
+	var detaliId = userDate.id;
+	var schoolIndex = document.getElementById('schoolName').selectedIndex;
+	var schoolName = document.getElementById('schoolName').options[schoolIndex].text;
+	var typeIndex = document.getElementById('typeName').selectedIndex;
+	var typeName = document.getElementById('typeName').options[typeIndex].text;
+	var name = $("#name").val();
+	var phone = $("#phone").val();
+	var introduce = $("#reason").val();
+	var url = "/ClubSystem/club/create";
+	var parm = "detailId="+detaliId+"&schoolName="+schoolName+"&clubType="+typeName+"&name="+name+"&phone="+phone+"&introduce="+introduce;
+	$.post(url,parm,function(data){
+		if(data.serviceResult){
+			alert(data.resultInfo);
+			location.href ="/ClubSystem/views/club/clubinformationmanage.html";
+		}else{
+			alert(data.resultInfo);
+		}
+	});
+}
