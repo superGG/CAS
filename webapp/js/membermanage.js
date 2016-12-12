@@ -12,7 +12,7 @@ function showMemberList(memberList){
 }
 function initMemberList(index){
 	var url = "/ClubSystem/apply/displayPageMember";
-	var parm = "detailId=2&indexPageNum="+index+"&size=6";
+	var parm = "detailId="+getCookieUserData().id+"&indexPageNum="+index+"&size=6";
 	$.get(url,parm,function(data){
 		if(data.serviceResult){
 			var memberList = data.resultParm.memberlist;

@@ -94,7 +94,7 @@ public class UserDetailsController extends BaseController {
 		userDetailsService.updateWithNotNullProperties(userDetail);
 		result.setServiceResult(true);
 		result.setResultInfo("上传头像成功");
-		//result.getResultParm().put("userDetail", userDetailsService.get(userDetail.getId()));
+		result.getResultParm().put("headPath", userDetailsService.get(userDetail.getId()).getHeadPath());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 

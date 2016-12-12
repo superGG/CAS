@@ -34,7 +34,7 @@
 		<div class="lwd_main">
 			<div class="lwd_main_nav">
 				<div class="header_photo">
-					<img src="../../images/ccbg.jpg">
+					<img id="head" src="../../images/ccbg.jpg">
 					<p id="userName">梁伟栋</p>
 				</div>
 				<div class="sidebar_left">
@@ -70,7 +70,7 @@
 						<div class="psinfo_pic" style="position:absolute;margin-left:440px;margin-top:10px;">
 							<img id="badge" src="../../images/clubbadge.jpg" id="clubbadge" name="clubbadge" width="180px" height="180px"><br><br>
 							<form id="uploadForm">
-								<input type="file" name="file" accept="image/*" id="uploadImg" style="display:none;">
+								<input type="file" name="file" accept="image/*" id="uploadImg" onchange="doUpload()" style="display:none;">
 								<input type="text" name="clubId" id="id" style="display:none;">
 							</form>
 							<label for="uploadImg" class="upload_btn" style="margin-left:30px;margin-top:5px;">修改社徽</label>
@@ -129,5 +129,6 @@
 			</div>
 		</div>
 		<script type="text/javascript" src="../../js/common.js"></script>
+		<script type="text/javascript" src="../../js/clubCommon.js"></script>
 	</body>
 </html>
