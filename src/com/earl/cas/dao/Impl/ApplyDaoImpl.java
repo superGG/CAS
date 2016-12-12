@@ -119,4 +119,8 @@ public class ApplyDaoImpl extends BaseDaoImpl<Apply> implements ApplyDao {
 				.setInteger("id", apply.getId()).executeUpdate();
 		return update;
 	}
+	
+	Long getNumberByClubId(Integer id){
+		
+	}
 }

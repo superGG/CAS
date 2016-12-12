@@ -296,13 +296,12 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	 */
 	private void setNumber(List<Club> clublist) {
 		for (Club club : clublist) {
-//			club.setNumber(userclubDao.getNumberByclubId(club.getId()));//TODO 获取社团人数
+//			club.setNumber(applyDao.getNumberByClubId(club.getId()));//TODO 获取社团人数
+			
 		}
 	}
 
-	/**
-	 * 学校循环
-	 */
+
 	/**
 	 * 为club加上学校名字
 	 * 
