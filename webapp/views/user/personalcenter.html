@@ -59,8 +59,7 @@
 						<div class="psinfo_pic">
 							<img src="../../images/icon4.jpg" id="portrait" name="portrait" width="150px" height="150px"><br><br>
 							<form id="uploadForm">
-								<input type="file" name="file" accept="image/*" id="uploadHead" style="display:none;">
-								<input type="text" name="id" id="id" style="display:none;">
+								<input type="file" name="file" accept="image/*" id="uploadHead"  onchange="doUpload()" style="display:none;">
 							</form>
 							<label for="uploadHead" class="upload_btn" style="margin-left:20px;margin-top:5px;">修改头像</label>
 							<button style="margin-left:20px;margin-top:10px;"" onclick="updateDetails()">保存</button>

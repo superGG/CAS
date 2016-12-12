@@ -64,7 +64,6 @@ function updateClub(){
 		var updateParm = "id="+id+"&schoolName="+school+"&name="+name+"&typeName="+typeName+"&phone="+phone+"&email="+email+"&introduce="+introduce;
 		$.post(updateUrl,updateParm,function(data){
 			if(data.serviceResult){
-				doUpload();
 				$("#type option").remove();
 				initClubInformation();
 				alert(data.resultInfo);
@@ -106,7 +105,8 @@ function doUpload() {
 	         cache: false,  
 	         contentType: false,  
 	         processData: false,  
-	         success: function (data) {  	               
+	         success: function (data) {  
+	        	 alert(data.resultInfo); 
 		     },  
 	         error: function (data) {  
 	             alert(data.resultInfo);  
