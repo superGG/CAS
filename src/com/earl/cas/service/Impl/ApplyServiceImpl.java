@@ -54,8 +54,8 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 	}
 
 	public void update(Apply apply) {
-		if (apply.getStatue() != 1) { // 判断申请表状态
-			apply.setStatue(1);
+		if (apply.getStatue() != 0) { // 判断申请表状态
+			apply.setStatue(0);
 			if (!applyDao.update(apply)) {
 				throw new DomainSecurityException("更新失败");
 			} else {
