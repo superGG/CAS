@@ -44,10 +44,10 @@ public class ClubDaoImpl extends BaseDaoImpl<Club> implements ClubDao {
 		}
 	}
 
-	public Club getClubByuserDetailId(int id) {
-		String hql = "from Club where detailId = :id";
+	public Club getClubByuserDetailId(int detailId) {
+		String hql = "from Club where detailId = :detailId";
 		Club club = (Club) getCurrentSession().createQuery(hql)
-				.setInteger("id", id).uniqueResult();
+				.setInteger("detailId", detailId).uniqueResult();
 		return club;
 	}
 

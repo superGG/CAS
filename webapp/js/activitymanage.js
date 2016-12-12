@@ -55,8 +55,7 @@ function changeActivity(id){
 	var mparm = "id="+id;
 	$.get(url, mparm, function(data){
 		if (data.serviceResult) {
-			var aData = data.resultParm.activity;
-			console.log(aData);
+			var aData = data.resultParm.activity
 			var str='<div class="upDataFrame"><div class="activity_title"><span>活动标题</span><input type="text" name="activity_title"/></div><div class="activity_content"><div class="content_lebel">活动内容</div><div id="editor"></div></div><div id="saveActivity"onclick="updataActivity('+id+')">保存</div></div>';
 			$(".cmm_content").append(str);
 			if (editor){
@@ -138,12 +137,15 @@ function getMyCreateClub() {
 	clubId='';
 	var url="/ClubSystem/club/getMyClub";
 	var mparm = "detailId="+userData.id;
+
 	$.get(url, mparm, function (data) {
+		console.log(data);
 		if (data.serviceResult) {
 			clubId = data.resultParm.club.id;
 			showClubActivity(1);
 		}else{
-			alert(data.ResultInfo);
+			alert("请先创建社团");
+			window.location.href="tocreateclub.html";
 		}
 	})
 }

@@ -84,6 +84,7 @@ body{
 .top .user .list{
 	position: absolute;
 	display: none;
+	width: 90px;
 	top: 40px;
 	background-color: #fff;
 }

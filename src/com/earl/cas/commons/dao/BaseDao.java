@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import com.earl.cas.entity.Apply;
 import com.earl.cas.vo.PageInfo;
 
 public interface BaseDao<T> {
@@ -61,6 +62,5 @@ public interface BaseDao<T> {
 	void updateWithNotNullProperties(T object);
 
 	List<T> findLikeGivenCreteria(T object, PageInfo pageInfo);
-
 
 }

@@ -163,15 +163,16 @@ public class UserController extends BaseController {
 	/**
 	 * 更改密码.
 	 *@author 宋.
-	 * @param account 账号
+	 * @param detailId 用户详情id
 	 * @param oldPassword 旧密码
 	 * @param newPassword 新密码
 	 * @return
 	 */
 	@RequestMapping(value="/updatePassword" , method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> updatePassword(String account, String oldPassword,String newPassword){
+	public ResponseEntity<ResultMessage> updatePassword(Integer detailId, String oldPassword,String newPassword){
 		result = new ResultMessage();
-		User user = userService.findByAccount(account);
+		UserDetails userDetail = userDetailsService.get(detailId);
+		User user = userService.get(userDetail.getUserId());
 		if (!user.getPassword().equals(MD5Util.md5(oldPassword))) {
 			throw new DomainSecurityException("旧密码错误");
 		}

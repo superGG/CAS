@@ -3,9 +3,7 @@ package com.earl.cas.service.Impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -22,16 +20,13 @@ import com.earl.cas.dao.ActivityDao;
 import com.earl.cas.dao.ApplyDao;
 import com.earl.cas.dao.ClubDao;
 import com.earl.cas.dao.ClubTypeDao;
-import com.earl.cas.dao.MessageDao;
 import com.earl.cas.dao.PositionDao;
 import com.earl.cas.dao.SchoolDao;
 import com.earl.cas.dao.UserDetailsDao;
-import com.earl.cas.dao.UserclubDao;
 import com.earl.cas.entity.Apply;
 import com.earl.cas.entity.Club;
 import com.earl.cas.entity.ClubType;
 import com.earl.cas.entity.School;
-import com.earl.cas.entity.Userclub;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ClubService;
 import com.earl.cas.util.FileUploadUtil;
@@ -52,18 +47,12 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 			.getLogger(ClubServiceImpl.class);
 
 	@Resource
-	private UserclubDao userclubDao;
-
-	@Resource
 	private SchoolDao schoolDao;
 
 	@Resource
 	private ActivityDao activityDao;
 	@Resource
 	private ApplyDao applyDao;
-
-	@Resource
-	private MessageDao messageDao;
 
 	@Resource
 	private ClubDao clubDao;
@@ -101,8 +90,8 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 
 	}
 
-	public Club getClubByuserDetailId(int id) {
-		Club club = clubDao.getClubByuserDetailId(id);
+	public Club getClubByuserDetailId(int detailId) {
+		Club club = clubDao.getClubByuserDetailId(detailId);
 		if (club != null) {
 			return club;
 		} else {
@@ -117,8 +106,9 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		// 获得社团当前类型
 		String typename = clubTypeDao.get(club.getTypeId()).getName();
 		club.setTypeName(typename);
-		Long number = userclubDao.getNumberByclubId(club.getId());
-		club.setNumber(number);
+		// Long number = userclubDao.getNumberByclubId(club.getId());//TODO
+		// 获取社团人数
+		// club.setNumber(number);
 		School school = schoolDao.get(club.getSchoolId());
 		club.setSchoolName(school.getName());
 		return club;
@@ -126,8 +116,8 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 
 	public Club getMyJoinClub(int clubId) {
 		Club club = clubDao.get(clubId);
-		Long number = userclubDao.getNumberByclubId(clubId);
-		club.setNumber(number);
+		// Long number = userclubDao.getNumberByclubId(clubId);//TODO 获取社团人数
+		// club.setNumber(number);
 		String typename = clubTypeDao.get(club.getTypeId()).getName();
 		club.setTypeName(typename);
 		School school = schoolDao.get(club.getSchoolId());
@@ -136,58 +126,51 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	}
 
 	public void updateMyclub(Club club, String typeName) {
-		
-//			if (file!=null) {
-//				logger.info("file不为空，开始处理上传社徽");
-//				String shehuipath = FileUploadUtil.NewFileUpload(request, file,
-//						"shehuipath");
-//				logger.info("上传社徽访问地址：" + shehuipath);
-//				club.setBadge(shehuipath);
-//			}
-			// 获得职位Id
+
+		// if (file!=null) {
+		// logger.info("file不为空，开始处理上传社徽");
+		// String shehuipath = FileUploadUtil.NewFileUpload(request, file,
+		// "shehuipath");
+		// logger.info("上传社徽访问地址：" + shehuipath);
+		// club.setBadge(shehuipath);
+		// }
+		// 获得职位Id
 		if (club.getId() != null) {
-				ClubType clubtype = clubTypeDao.getByName(typeName);
-				club.setTypeId(clubtype.getId());
-				clubDao.updateWithNotNullProperties(club);	
-				School school = schoolDao.getByName(club.getSchoolName());
-				club.setSchoolName(school.getName());		
+			ClubType clubtype = clubTypeDao.getByName(typeName);
+			club.setTypeId(clubtype.getId());
+			clubDao.updateWithNotNullProperties(club);
+			School school = schoolDao.getByName(club.getSchoolName());
+			club.setSchoolName(school.getName());
 		} else {
 			throw new DomainSecurityException("找不到社团ID");
 		}
 	}
-	
-	public void updateBadge(MultipartFile file, HttpServletRequest request,int clubId){
-				String path=null;
-				Club club = clubDao.get(clubId);
-			if (file!=null) {
-				logger.info("file不为空，开始处理上传社徽");
-				 path = FileUploadUtil.NewFileUpload(request, file,
-						"shehuipath");
-				logger.info("上传社徽访问地址：" + path);
-			}
-			club.setBadge(path);
-			clubDao.updateWithNotNullProperties(club);	
+
+	public void updateBadge(MultipartFile file, HttpServletRequest request,
+			int clubId) {
+		String path = null;
+		Club club = clubDao.get(clubId);
+		if (file != null) {
+			logger.info("file不为空，开始处理上传社徽");
+			path = FileUploadUtil.NewFileUpload(request, file, "shehuipath");
+			logger.info("上传社徽访问地址：" + path);
+		}
+		club.setBadge(path);
+		clubDao.updateWithNotNullProperties(club);
 	}
 
 	public List<Club> getMyClubList(int detailId) {
 		List<Club> clublist = new ArrayList<Club>();
 		// 根据detailId获取所有已经通过申请的申请书
 		List<Apply> applyList = applyDao.getBydetailIdStatueIsOk(detailId);
-		// 根据申请书Id获取所有的userclub里面的clubId
-		Userclub uc;
 		Club club;
 		for (Apply apply : applyList) {
-
-			uc = userclubDao.getUserclubByApplyId(apply.getId());
-			if (uc != null) {
-				// 获得社团
-				club = clubDao.get(uc.getClubId());
-				// 获得社团人数
-				Long number = userclubDao.getNumberByclubId(club.getId());
-				club.setNumber(number);
-				setName(clublist);
-				clublist.add(club);
-			}
+			// 获得社团
+			club = clubDao.get(apply.getClubId());
+			// Long number = userclubDao.getNumberByclubId(club.getId());//TODO 获取社团人数
+			// club.setNumber(number);
+			setName(clublist);
+			clublist.add(club);
 		}
 		return clublist;
 	}
@@ -199,7 +182,6 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	public void delete(int clubId) {
 		logger.info("级联删除");
 		applyDao.deleteByClubId(clubId);
-		userclubDao.deleteByClubId(clubId);
 		positionDao.deleteByClubId(clubId);
 		activityDao.deleteByClubId(clubId);
 		clubDao.deleteById(clubId);
@@ -231,13 +213,6 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		}
 	}
 
-	public void quit(int detailId, int clubId) {
-		Apply apply = applyDao.getByDetailIdAndClubId(detailId, clubId);
-		Userclub userclub = userclubDao.getUserclubByApplyId(apply.getId());
-		userclubDao.delete(userclub);
-		applyDao.delete(apply);
-	}
-
 	public List<Club> getBySchoolName(String name, PageInfo pageInfo) {
 		Club club = new Club();
 		club.setSchoolId(schoolDao.getByName(name).getId());
@@ -265,7 +240,7 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 
 	public Club getById(int clubId) {
 		Club club = get(clubId);
-		club.setNumber(userclubDao.getNumberByclubId(club.getId()));
+//		club.setNumber(userclubDao.getNumberByclubId(club.getId()));//TODO 获取社团人数
 		ClubType type = clubTypeDao.get(club.getTypeId());
 		School school = schoolDao.get(club.getSchoolId());
 		club.setSchoolName(school.getName());
@@ -295,19 +270,23 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 			return clublist;
 		}
 	}
-	
-	public List<Club> getAllsByRank(PageInfo pageInfo){
+
+	public List<Club> getAllsByRank(PageInfo pageInfo) {
 		List<Club> list = clubDao.findAll();
 		setName(list);
 		setNumber(list);
 		rank(list);
-		pageInfo.setTotalCount((long)list.size());
-		if(pageInfo.getSize()*pageInfo.getIndexPageNum()>list.size()){
-			list = list.subList((pageInfo.getIndexPageNum()-1)*pageInfo.getSize(),list.size());
-		}else{
-			list = list.subList((pageInfo.getIndexPageNum()-1)*pageInfo.getSize(),pageInfo.getSize()*pageInfo.getIndexPageNum());
+		pageInfo.setTotalCount((long) list.size());
+		if (pageInfo.getSize() * pageInfo.getIndexPageNum() > list.size()) {
+			list = list.subList(
+					(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize(),
+					list.size());
+		} else {
+			list = list.subList(
+					(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize(),
+					pageInfo.getSize() * pageInfo.getIndexPageNum());
 		}
-		return list;		
+		return list;
 	}
 
 	/**
@@ -316,9 +295,8 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	 * @param clublist
 	 */
 	private void setNumber(List<Club> clublist) {
-		// TODO Auto-generated method stub]
 		for (Club club : clublist) {
-			club.setNumber(userclubDao.getNumberByclubId(club.getId()));
+//			club.setNumber(userclubDao.getNumberByclubId(club.getId()));//TODO 获取社团人数
 		}
 	}
 
@@ -330,7 +308,6 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	 * 
 	 * @param list
 	 */
-	@SuppressWarnings("unused")
 	private void setName(List<Club> list) {
 		School school = null;
 		ClubType type = null;
@@ -346,24 +323,21 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	 * 根据number进行排行
 	 */
 	private void rank(List<Club> list) {
-	 Collections.sort(list,new Comparator<Club>(){ 
-				@Override
-				public int compare(Club club1, Club club2) {
-					// TODO Auto-generated method stub
-					 return club2.getNumber().compareTo(club1.getNumber()); 
-				} 
-	        }); 
+		Collections.sort(list, new Comparator<Club>() {
+			@Override
+			public int compare(Club club1, Club club2) {
+				return club2.getNumber().compareTo(club1.getNumber());
+			}
+		});
 	}
-	
-
 
 	/**
 	 * club进行比较
 	 */
-	
+
 	private void compare(List<Club> clublist, List<Club> clublistforschool) {
-		//List<Club> temp = new ArrayList<Club>();
-		if (clublist.size()>0) {
+		// List<Club> temp = new ArrayList<Club>();
+		if (clublist.size() > 0) {
 			for (Club club_first : clublist) {
 				for (Club club_second : clublistforschool) {
 					if (club_first.getId() == club_second.getId()) {
