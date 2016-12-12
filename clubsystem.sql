@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-12-11 23:26:11
+Date: 2016-12-12 09:57:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,18 +29,6 @@ CREATE TABLE `activity` (
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of activity
--- ----------------------------
-INSERT INTO `activity` VALUES ('1', '1', '测试活动', '测试活动内容', '2016-12-06 15:19:15');
-INSERT INTO `activity` VALUES ('2', '1', '测试活动2', '测试活动内同', '2016-12-06 16:25:48');
-INSERT INTO `activity` VALUES ('3', '1', '测试活动', '测试活动内容3', '2016-12-06 16:26:06');
-INSERT INTO `activity` VALUES ('4', '1', '测试活动内容', '测试活动内容4', '2016-12-06 16:26:28');
-INSERT INTO `activity` VALUES ('5', '1', '测试活动内容', '测试活动内容5', '2016-12-06 16:26:46');
-INSERT INTO `activity` VALUES ('6', '1', '测试活动', '测试活动内容6', '2016-12-06 16:27:01');
-INSERT INTO `activity` VALUES ('7', '1', '测试活动', '测试活动内', '2016-12-06 16:27:28');
-INSERT INTO `activity` VALUES ('8', '1', '顶顶顶', '顶顶顶', '2016-12-06 16:51:12');
-
--- ----------------------------
 -- Table structure for album
 -- ----------------------------
 DROP TABLE IF EXISTS `album`;
@@ -52,11 +40,6 @@ CREATE TABLE `album` (
   `path` varchar(255) DEFAULT NULL COMMENT '封面路径',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of album
--- ----------------------------
-INSERT INTO `album` VALUES ('1', '1', '相册', '2016-12-11 22:38:59', '/images/001.jpg');
 
 -- ----------------------------
 -- Table structure for apply
@@ -83,11 +66,6 @@ CREATE TABLE `apply` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of apply
--- ----------------------------
-INSERT INTO `apply` VALUES ('1', '7', '宋文光', '410654146@qq.com', '', '16', '汉', '网球', '18320489492', '软件1133', '很帅', '2016-12-06 17:00:24', '1', '我爱网球', '0', '1');
-
--- ----------------------------
 -- Table structure for club
 -- ----------------------------
 DROP TABLE IF EXISTS `club`;
@@ -107,11 +85,6 @@ CREATE TABLE `club` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of club
--- ----------------------------
-INSERT INTO `club` VALUES ('1', '1', '网球协会', '宋文光', '2016-12-06 15:18:32', '水粉笔少部分is部分is的那份神农大丰三大你', '18320489492', '410654146@qq.com', '1', '/images/003.jpg', '6');
-
--- ----------------------------
 -- Table structure for clubcreate
 -- ----------------------------
 DROP TABLE IF EXISTS `clubcreate`;
@@ -127,10 +100,6 @@ CREATE TABLE `clubcreate` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of clubcreate
--- ----------------------------
-
--- ----------------------------
 -- Table structure for club_type
 -- ----------------------------
 DROP TABLE IF EXISTS `club_type`;
@@ -140,11 +109,6 @@ CREATE TABLE `club_type` (
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of club_type
--- ----------------------------
-INSERT INTO `club_type` VALUES ('1', '体育类', '2016-12-06 10:37:23');
 
 -- ----------------------------
 -- Table structure for message
@@ -162,38 +126,6 @@ CREATE TABLE `message` (
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of message
--- ----------------------------
-INSERT INTO `message` VALUES ('1', '8', '测试留言', '2016-12-01 11:02:05', '0', '0', '0');
-INSERT INTO `message` VALUES ('2', '8', '测试留言1', '2016-12-01 11:02:25', '0', '0', '0');
-INSERT INTO `message` VALUES ('3', '8', '测试留言2', '2016-12-01 11:02:29', '0', '0', '0');
-INSERT INTO `message` VALUES ('4', '7', '测试子留言', '2016-12-01 11:03:17', '3', '0', '0');
-INSERT INTO `message` VALUES ('5', '6', '测试子留言3', '2016-12-01 11:03:37', '3', '0', '0');
-INSERT INTO `message` VALUES ('6', '5', '测试子留言2', '2016-12-01 11:03:57', '2', '0', '0');
-INSERT INTO `message` VALUES ('7', '5', '测试子留言2', '2016-12-01 11:03:59', '2', '0', '0');
-INSERT INTO `message` VALUES ('8', '4', '测试子留言1', '2016-12-01 11:04:13', '1', '0', '0');
-INSERT INTO `message` VALUES ('9', '4', '测试子留言1', '2016-12-01 11:04:15', '1', '0', '0');
-INSERT INTO `message` VALUES ('10', '4', '测试子留言1', '2016-12-01 11:36:12', '1', '0', '0');
-INSERT INTO `message` VALUES ('11', '4', '测试子留言1', '2016-12-01 11:37:54', '1', '0', '0');
-INSERT INTO `message` VALUES ('12', '4', '测试子留言1', '2016-12-01 11:46:30', '1', '0', '0');
-INSERT INTO `message` VALUES ('13', '4', '测试父留言4', '2016-12-01 15:40:01', '0', '0', '0');
-INSERT INTO `message` VALUES ('14', '4', '测试父留言5', '2016-12-01 15:40:04', '0', '0', '0');
-INSERT INTO `message` VALUES ('15', '4', '测试父留言6', '2016-12-01 15:40:07', '0', '0', '0');
-INSERT INTO `message` VALUES ('16', '4', '测试父留言7', '2016-12-01 15:40:10', '0', '0', '0');
-INSERT INTO `message` VALUES ('17', '4', '测试父留言8', '2016-12-01 15:40:13', '0', '0', '0');
-INSERT INTO `message` VALUES ('18', '4', '测试父留言9', '2016-12-01 15:40:16', '0', '0', '0');
-INSERT INTO `message` VALUES ('19', '4', '测试父留言10', '2016-12-01 15:40:20', '0', '0', '0');
-INSERT INTO `message` VALUES ('20', '4', '测试父留言11', '2016-12-01 15:40:23', '0', '0', '0');
-INSERT INTO `message` VALUES ('21', '4', '测试父留言12', '2016-12-01 15:40:25', '0', '0', '0');
-INSERT INTO `message` VALUES ('22', '4', '测试父留言13', '2016-12-01 15:40:28', '0', '0', '0');
-INSERT INTO `message` VALUES ('23', '4', '测试父留言14', '2016-12-01 15:40:30', '0', '0', '0');
-INSERT INTO `message` VALUES ('24', '4', '测试父留言15', '2016-12-01 15:40:33', '0', '0', '0');
-INSERT INTO `message` VALUES ('25', '4', '测试父留言16', '2016-12-01 15:40:35', '0', '0', '0');
-INSERT INTO `message` VALUES ('26', '4', '测试子留言1', '2016-12-01 22:33:25', '1', '2', '0');
-INSERT INTO `message` VALUES ('27', '6', '测试子留言1', '2016-12-02 15:52:17', '1', '0', '0');
-INSERT INTO `message` VALUES ('28', '6', '测试子留言1', '2016-12-02 15:52:50', '1', '0', '0');
-
--- ----------------------------
 -- Table structure for photo
 -- ----------------------------
 DROP TABLE IF EXISTS `photo`;
@@ -205,11 +137,6 @@ CREATE TABLE `photo` (
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of photo
--- ----------------------------
-INSERT INTO `photo` VALUES ('2', '1', null, '/photo/网球协会/相册/demoUploadDSC_1938.JPG', '2016-12-11 22:42:14');
 
 -- ----------------------------
 -- Table structure for position
@@ -224,11 +151,6 @@ CREATE TABLE `position` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of position
--- ----------------------------
-INSERT INTO `position` VALUES ('1', '1', '2016-12-06 16:56:40', '社长');
-
--- ----------------------------
 -- Table structure for school
 -- ----------------------------
 DROP TABLE IF EXISTS `school`;
@@ -238,17 +160,6 @@ CREATE TABLE `school` (
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of school
--- ----------------------------
-INSERT INTO `school` VALUES ('1', '1海洋大学', '2016-11-28 16:26:11');
-INSERT INTO `school` VALUES ('2', '广东海洋大学', '2016-11-28 22:29:14');
-INSERT INTO `school` VALUES ('3', '广东海洋大学', '2016-11-28 22:47:18');
-INSERT INTO `school` VALUES ('4', '广东海洋大学', '2016-11-28 23:08:58');
-INSERT INTO `school` VALUES ('10', '广东海洋大学', '2016-11-29 09:15:53');
-INSERT INTO `school` VALUES ('11', '广东海洋大学', '2016-11-29 09:21:03');
-INSERT INTO `school` VALUES ('12', '广东海洋大学', '2016-11-29 10:37:09');
 
 -- ----------------------------
 -- Table structure for user
@@ -261,16 +172,6 @@ CREATE TABLE `user` (
   `createtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of user
--- ----------------------------
-INSERT INTO `user` VALUES ('46', 'kellan123', 'e10adc3949ba59abbe56e057f20f883e', '2016-11-30 11:06:12');
-INSERT INTO `user` VALUES ('47', 'Kellan', 'e10adc3949ba59abbe56e057f20f883e', '2016-11-30 16:56:56');
-INSERT INTO `user` VALUES ('48', 'Kellan2', 'e10adc3949ba59abbe56e057f20f883e', '2016-11-30 16:59:59');
-INSERT INTO `user` VALUES ('49', 'kellan124', 'e10adc3949ba59abbe56e057f20f883e', '2016-11-30 17:04:11');
-INSERT INTO `user` VALUES ('50', 'Kellan23', 'e10adc3949ba59abbe56e057f20f883e', '2016-11-30 17:09:54');
-INSERT INTO `user` VALUES ('51', 'kellan123456', '25f9e794323b453885f5181f1b624d0b', '2016-12-02 16:25:41');
 
 -- ----------------------------
 -- Table structure for user_details
@@ -290,13 +191,3 @@ CREATE TABLE `user_details` (
   `createtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of user_details
--- ----------------------------
-INSERT INTO `user_details` VALUES ('4', '46', '用户46', '', null, null, null, null, '/headpath/aaa.jpg', '1', '2016-11-30 11:06:13');
-INSERT INTO `user_details` VALUES ('5', '47', '用户47', '', null, null, null, null, '/headpath/aaa.jpg', '1', '2016-11-30 16:56:58');
-INSERT INTO `user_details` VALUES ('6', '48', '用户48', '', null, null, null, null, '/headpath/aaa.jpg', '1', '2016-11-30 16:59:59');
-INSERT INTO `user_details` VALUES ('7', '49', '用户49', '', null, null, null, null, '/headpath/aaa.jpg', '1', '2016-11-30 17:04:11');
-INSERT INTO `user_details` VALUES ('8', '50', '用户50', '', null, null, null, null, '/headpath/aaa.jpg', '1', '2016-11-30 17:09:54');
-INSERT INTO `user_details` VALUES ('9', '51', '用户51', '', null, null, null, null, '/headpath/aaa.jpg', '1', '2016-12-02 16:25:41');
