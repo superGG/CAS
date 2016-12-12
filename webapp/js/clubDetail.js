@@ -111,7 +111,7 @@ function showClubActivity(index) {
 				$(".loadMoreActivity").attr("onclick","showClubActivity("+(++index)+")").html("加载更多");
 			}
 		}else{
-			$(".loadMoreActivity").attr("onclick","javascript:void(0)").css({"background-color":"#ccc","cursor":"default"}).html("已经没了！");
+			$(".loadMoreActivity").attr("onclick","javascript:void(0)").css({"background-color":"#ccc","cursor":"default"}).html("没有数据");
 		}
 	})
 }

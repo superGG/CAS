@@ -65,7 +65,7 @@
 	border-bottom: 1px solid #ccc;
 	transition: box-shadow linear .2s;
 }
-.activityList li:hover,.activity-title:hover,.activity-club:hover,.activity-time:hover,.activity-school:hover,#loadMoreActivity:hover{
+.activityList li:hover{
 	box-shadow: 0px 0px 10px #2f4fec;
 }
 .activityList li a{

@@ -20,9 +20,9 @@ function showMessageList(listData) {
 		mStr += "<div class='comment_item'><div class='img_radius'><img src='../.." + listData[i].headPath + "' width='100%' height='100%'></div>";
 		mStr += "<div class='item_main'><div class='item_row_one'><b>" + listData[i].userName + "</b><span>" + listData[i].createtime + "</span></div>";
 		mStr += "<div class='item_row_tow'><p>" + html_decode(listData[i].content) + "</p></div>";
-		mStr += "<div class='item_row_three'><a href='javascipt:void(0);'><i class='icon-m icon-response-m'></i><label>" + listData[i].sonSize + "</label></a>";
+		mStr += "<div class='item_row_three'><a href='javascipt:void(0);'><i class='icon-m icon-response-m' onclick='showEditor(this)'></i><label>" + listData[i].sonSize + "</label></a>";
 		mStr += "<a href='javascipt:void(0);'><i class='icon-m icon-praise-m' onclick='giveLike(this," + listData[i].id + ")'></i><label>" + listData[i].good + "</label></a></div>";
-		mStr += "<div class='item_row_four'><div class='editor'>";
+		mStr += "<div class='item_row_four'><div class='editor' style='display:none;'>";
 		mStr += "<div class='editorContent' contenteditable='true'></div>";
 		mStr += "<div class='toolBar'><span class='expression' title='表情' onclick='showExpression(this)'></span></div>";
 		mStr += "<button class='comment_post' onclick='comment_post(this," + listData[i].id + ")'>提交评论</button>";
@@ -45,6 +45,10 @@ function showMessageList(listData) {
 		mStr+= "</div></div></div>";
 	}
 	$(".main_left_main .loadMoreMessage").before(mStr);
+	if(listData.length==0){
+		$(".loadMoreMessage").html("没有数据").attr("onclick", "javascipt:void(0);").css("cursor","default");
+		return;
+	}
 	if (listData.length<4) {
 		$(".loadMoreMessage").html("已经没有了！").attr("onclick", "javascipt:void(0);").css("cursor","default");
 	}
@@ -71,9 +75,9 @@ function post_data(commentData, fatherId, tihsClick) {
 				mStr += "<div class='comment_item'><div class='img_radius'><img src='../.." + mdata.headPath + "' width='100%' height='100%'></div>";
 				mStr += "<div class='item_main'><div class='item_row_one'><b>" + mdata.userName + "</b><span>" + mdata.createtime + "</span></div>";
 				mStr += "<div class='item_row_tow'><p>" + html_decode(mdata.content) + "</p></div>";
-				mStr += "<div class='item_row_three'><a href='javascipt:void(0);'><i class='icon-m icon-response-m'></i><label>" + mdata.sonSize + "</label></a>";
+				mStr += "<div class='item_row_three'><a href='javascipt:void(0);'><i class='icon-m icon-response-m' onclick='showEditor(this)'></i><label>" + mdata.sonSize + "</label></a>";
 				mStr += "<a href='javascipt:void(0);'><i class='icon-m icon-praise-m' onclick='giveLike(this," + mdata.id + ")'></i><label>" + mdata.good + "</label></a></div>";
-				mStr += "<div class='item_row_four'><div class='editor'>";
+				mStr += "<div class='item_row_four'><div class='editor' style='display:none;'>";
 				mStr += "<div class='editorContent' contenteditable='true'></div>";
 				mStr += "<div class='toolBar'><span class='expression' title='表情' onclick='showExpression(this)'></span></div>";
 				mStr += "<button class='comment_post' onclick='comment_post(this," + mdata.id + ")'>提交评论</button>";
@@ -123,7 +127,10 @@ function showMoresMessage(thisClick){
 		$(thisClick).html("已经没有了！").attr("onclick", "javascipt:void(0);").css("cursor","default");
 	}
 }
-
+//显示输入框
+function showEditor(thisClick) {
+	$(thisClick).parents(".item_row_three").siblings(".item_row_four").find(".editor").show();
+}
 //点赞
 function giveLike(thisClick,id){
 	var num = $(thisClick).siblings("label").html();
