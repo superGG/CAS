@@ -9,3 +9,4 @@
 /bin
 /webapp/WEB-INF/classes/
 /resources/applicationContext.xml
+/resources/db.properties
