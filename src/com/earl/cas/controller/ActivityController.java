@@ -1,8 +1,11 @@
 package com.earl.cas.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -208,13 +211,23 @@ public class ActivityController extends BaseController {
 	 * 活动上出啊图片.
 	 */
 	@RequestMapping(value = "/upload",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> update(MultipartFile file, HttpServletRequest request) {
-		result = new ResultMessage();
-		String path = FileUploadUtil.NewFileUpload(request, file,"activity");
+	public void update(MultipartFile upload, HttpServletRequest request,HttpServletResponse response) {
+		String path = FileUploadUtil.NewFileUpload(request, upload,"activity");
 		logger.info("上传图片访问地址："+ path);
-		result.setServiceResult(true);
-		result.setResultInfo("上传成功");
-		result.getResultParm().put("path", path);
-		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+		response.setContentType("text/html;charset=UTF-8");
+		String CKEditorFuncNum = request.getParameter("CKEditorFuncNum");
+		PrintWriter out;
+		String s = "<script type=\"text/javascript\">window.parent.CKEDITOR.tools.callFunction("+CKEditorFuncNum+", '"+"/ClubSystem/"+path+"');</script>";
+		try {
+			out = response.getWriter();
+			out.print(s);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+//		result.setServiceResult(true);
+//		result.setResultInfo("上传成功");
+//		result.getResultParm().put("path", path);
+//		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 }
