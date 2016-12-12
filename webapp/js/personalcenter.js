@@ -1,12 +1,10 @@
 $(document).ready(function(){
 	initUserInformation();
-	uploadImg();
 });
 function initUserInformation(){
 	 var userData = getCookieUserData();
-	 console.log(userData);
 	 $("#head").attr("src","../.."+userData.headPath);
-	 $("#id").val(userData.id);
+	 id = userData.id;
 	 $("#userName").text(userData.name);
 	 $("#portrait").attr("src","../.."+userData.headPath);
 	 $("#name").val(userData.name);
@@ -22,12 +20,10 @@ function initUserInformation(){
 	 $("#singnation").text(userData.singnation);
 }
 function updatePassword(){
-	var account = $("#account").val();
 	var oldPassword = $("#old_password").val();
 	var newPassword = $("#new_password").val();
 	var url = "/ClubSystem/users/updatePassword";
-	var parm = "account="+account+"&oldPassword="+oldPassword+"&newPassword="+newPassword;
-	console.log(account+"-"+oldPassword+"-"+newPassword);
+	var parm = "detailId="+id+"&oldPassword="+oldPassword+"&newPassword="+newPassword;
 	$.post(url,parm,function(data){
 		if(data.serviceResult){
 			alert(data.resultInfo);
@@ -37,53 +33,38 @@ function updatePassword(){
 	});
 }
 function showUpdatePassword(){
-	$(".lwd_main_iframe").append('<div class="update_password_box"><table><tr><td><input type="text" name="account" id="account" placeholder="帐号"></td></tr><tr><td><input type="password" name="oldPassword" id="old_password" placeholder="旧密码"></td></tr><tr><td><input type="password" placeholder="新密码" name="newPassword" id="new_password"></td></tr><tr><td><button onclick="updatePassword();removeBox();">确定</button> <button onclick="removeBox()">取消</button></td></tr></table></div>');
+	$(".lwd_main_iframe").append('<div class="update_password_box"><table><tr><td><input type="password" name="oldPassword" id="old_password" placeholder="旧密码"></td></tr><tr><td><input type="password" placeholder="新密码" name="newPassword" id="new_password"></td></tr><tr><td><button onclick="updatePassword();removeBox();">确定</button> <button onclick="removeBox()">取消</button></td></tr></table></div>');
 }
 function removeBox(){
 	$(".update_password_box").remove();
 }
-function uploadImg(){
-	$("#uploadHead").change(function(){
-		objUrl = getObjectURL(this.files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
-		if (objUrl) {
-			$("#portrait").attr("src", objUrl) ;
-		}
-	});
-}
-//建立一個可存取到該file的url
-function getObjectURL(file) {
-	var url = null ;
-	if (window.createObjectURL!=undefined) { // basic
-		url = window.createObjectURL(file) ;
-	} else if (window.URL!=undefined) { // mozilla(firefox)
-		url = window.URL.createObjectURL(file) ;
-	} else if (window.webkitURL!=undefined) { // webkit or chrome
-		url = window.webkitURL.createObjectURL(file) ;
-	}
-	return url ;
-}
 //修改社徽
 function doUpload() {
 	 var formData = new FormData($( "#uploadForm" )[0]);  
-	 if($("#uploadHead").val() != ''){
-	    $.ajax({  
-	         url: '/ClubSystem/userDetails/updateUserImage' ,  
-	         type: 'POST',  
-	         data: formData,  
-	         async: false,  
-	         cache: false,  
-	         contentType: false,  
-	         processData: false,  
-	         success: function (data) { 
-	        	 console.log(data);
-		     },  
-	         error: function (data) {  
-	             alert(data.resultInfo);  
-	         }  
-	   }); 
-	 }else{
-		 console.log("不更改头像，只更新文本信息。");
-	 }
+	 formData.append("id",id);
+    $.ajax({  
+         url: '/ClubSystem/userDetails/updateUserImage' ,  
+         type: 'POST',  
+         data: formData,  
+         async: false,  
+         cache: false,  
+         contentType: false,  
+         processData: false,  
+         success: function (data) { 
+        	 alert(data.resultInfo);  
+        	 var oldUserData = getCookieUserData();
+ 			 delectCookieUserData();//删除cookie
+ 			 var newUserData = oldUserData;
+ 			 newUserData.headPath = data.resultParm.headPath;
+ 			 console.log(data.resultParm.headPath);
+ 			 setCookieUserData(newUserData);//设置更新后的cookie
+ 			 $(".userImg img").attr("src","../.."+data.resultParm.headPath);
+ 			 initUserInformation();
+	     },  
+         error: function (data) {  
+             alert(data.resultInfo);  
+         }  
+   }); 
 }
 function updateDetails(){
 	var id = getCookieUserData().id;
@@ -104,11 +85,11 @@ function updateDetails(){
 	var parm = "id="+id+"&name="+name+"&sex="+sex+"&phone="+phone+"&email="+email+"&hobby="+hobby+"&singnation="+singnation;
 	$.post(url,parm,function(data){
 		if(data.serviceResult){
-			var newUserData = data.resultParm.userDetail;
 			console.log(data);
+			var newUserData = data.resultParm.userDetail;
 			delectCookieUserData();//删除cookie
 			setCookieUserData(newUserData);//设置更新后的cookie
-			doUpload();
+			$(".user .userName").text(data.resultParm.userDetail.name);
 			initUserInformation();
 			alert(data.resultInfo);
 		}else{

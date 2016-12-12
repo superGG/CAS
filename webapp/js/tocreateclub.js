@@ -61,7 +61,7 @@ function createClub(){
 	$.post(url,parm,function(data){
 		if(data.serviceResult){
 			alert(data.resultInfo);
-			location.href ="/ClubSystem/views/club/clubinformationmanage.html";
+			window.location.href ="/ClubSystem/views/club/clubinformationmanage.html";
 		}else{
 			alert(data.resultInfo);
 		}
