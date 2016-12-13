@@ -10,8 +10,6 @@
 		<link rel="stylesheet" type="text/css" href="../../css/album.css">
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
-		<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
-		<script type="text/javascript" src="../../js/albuminformation.js"></script>
 		
 		
 	</head>
@@ -78,13 +76,15 @@
 					<div class="album_title">
 						
 						<b id="album_name">那些逝去的时光</b>
-						<span id="number">共24张</span> <span style="color:#666;">/ &nbsp; </span>
-						<div class="overflow_hidden"> 斗鱼 -每个人的直播平台提供高清、快捷、
+						<span>共<e id="number">24</e>张/</span>
+						<a href=javascript:void(0); class="sb_update">编辑相册信息</a>
+						<!-- <span style="position:absolute;color:#666;top: 7px;left: 219px;"> &nbsp; / &nbsp; </span> -->
+						<!-- <div class="overflow_hidden"> 斗鱼 -每个人的直播平台提供高清、快捷、
 						流畅的视频直播和游戏赛事直播服务,包含英雄联盟lol直播、穿越火线cf直播、
 						dota2直播、美女直播等各类热门游戏赛事直播和各种...
 						</div>
-						<a href="#"><i class="icon-m icon-down-arrow-m" id="down"></i></a>
-						<a href="#" ><i class="icon-m icon-up-arrow-m" id="up" ></i></a>
+						<a href=javascript:void(0);><i class="icon-m icon-down-arrow-m" id="down"></i></a>
+						<a href=javascript:void(0); ><i class="icon-m icon-up-arrow-m" id="up" ></i></a>
 						<div class="sb_more" id="sb_more">
 							<table >
 								<colgroup span="2">
@@ -93,7 +93,7 @@
 									
 								</colgroup>
 								<tr>
-									<td valign="top"><label for="#">描述</label>
+									<td valign="top"><label for=javascript:void(0);>描述</label>
 									</td>
 									<td><span id="" >情圣梁伟栋风流史，
 									斗鱼 -每个人的直播平台提供高清、快捷、流畅的视频直播和游戏赛事直播服务,包含英雄联盟lol直播、穿越火线cf直播、
@@ -102,24 +102,24 @@
 								</tr>
 								
 								<tr>
-									<td><label for="#">数量</label>
+									<td><label for=javascript:void(0);>数量</label>
 									</td>
 									<td>共<span id="a_number">24</span>张
 									</td>
 								</tr>
 								<tr>
-									<td><label for="#">时间</label>
+									<td><label for=javascript:void(0);>时间</label>
 									</td>
 									<td><span id="createtime">2016-12-3</span>
 									</td>
 								</tr>
 								<tr>
-									<td colspan="2"><a href="#" class="sb_update">编辑相册信息</a>
+									<td colspan="2"><a href=javascript:void(0); class="sb_update">编辑相册信息</a>
 									</td>
 								</tr>
 							</table>
-						</div>
-						<div class="btn_white" onclick="history.go(-1)">返回</div>
+						</div> -->
+						<div class="btn_white" onclick="window.location.href='/ClubSystem/views/club/albummanage.html'">返回</div>
 					</div>
 					
 					<div class="album_button_bar">
@@ -132,23 +132,20 @@
 				</div>
 				<div class="album_photo">	
 					<div class="sb_box" id="sb_box">
-						<form action="#" method="" id="">
+						<form method="POST">
 							<table border="0">
 								<tr>
-									<td>名称
-									</td>
-									<td><input type="text" placeholder="相册名称">
-									</td>
+									<td>名称</td>
+									<td><input type="text" name="name" placeholder="相册名称"></td>
 								</tr>
-								<tr>
-									<td>描述
-									</td>
-									<td><textarea rows="4" cols="21" placeholder="相册描述" style="padding:3px 5px;"></textarea>
-									</td>
-								</tr>
+								<!-- <tr>
+									<td>描述</td>
+									<td><textarea rows="4" cols="21" placeholder="相册描述" style="padding:3px 5px;"></textarea></td>
+								</tr> -->
 								<tr >
-									<td colspan="2" ><button type="submit">确定</button>
-										<button id="sb_back">取消</button>
+									<td colspan="2" >
+										<input type="button" id="updateAlbum" value="确定" onclick="updataAlbum()" />
+										<input type="button" id="sb_back" value="取消" />
 									</td>
 								</tr>
 							</table>
@@ -172,5 +169,6 @@
 		</div>
 		<script type="text/javascript" src="../../js/common.js"></script>
 		<script type="text/javascript" src="../../js/clubCommon.js"></script>
+		<script type="text/javascript" src="../../js/albuminformation.js"></script>
 	</body>
 </html>

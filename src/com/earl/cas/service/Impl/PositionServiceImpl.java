@@ -70,5 +70,8 @@ public class PositionServiceImpl extends BaseServiceImpl<Position> implements
 	public Position findById(Integer id){
 		return	positionDao.get(id);
 	}
-
+	
+	public Position getByClubIdAndName(Integer clubId, String name){
+		return positionDao.getByClubIdAndName(clubId,name);
+	}
 }

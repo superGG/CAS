@@ -64,7 +64,7 @@ public class AlbumServiceImpl extends BaseServiceImpl<Album> implements
 	@Override
 	public Album findById(Integer id) {
 		Album album = albumDao.get(id);
-		Club club = clubDao.get(id);
+		Club club = clubDao.get(album.getClubId());
 		Long photoNum = photoDao.getPhotoNumByAlbumId(album.getId());
 		album.setPhotoNumber(photoNum);
 		album.setClubName(club.getName());

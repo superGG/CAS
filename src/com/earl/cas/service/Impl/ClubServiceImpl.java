@@ -3,11 +3,15 @@ package com.earl.cas.service.Impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.beanutils.BeanMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -27,6 +31,7 @@ import com.earl.cas.entity.Apply;
 import com.earl.cas.entity.Club;
 import com.earl.cas.entity.ClubType;
 import com.earl.cas.entity.School;
+import com.earl.cas.entity.UserDetails;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ClubService;
 import com.earl.cas.util.FileUploadUtil;
@@ -204,7 +209,8 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		if (detailId == null) {
 			throw new DomainSecurityException("请先登录");
 		}
-		club.setLeader(userdetailsDao.get(detailId).getName());
+		UserDetails ud = userdetailsDao.get(detailId);
+		club.setLeader(ud.getName());
 		club.setDetailId(detailId);
 		School school = schoolDao.getByName(schoolName);
 		ClubType clubtype = clubTypeDao.getByName(clubType);
@@ -212,6 +218,7 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 			club.setTypeId(clubtype.getId());
 			club.setSchoolId(school.getId());
 			clubDao.save(club);
+			createApply(ud,club.getId());
 		} else {
 			throw new DomainSecurityException("社团已存在");
 		}
@@ -355,7 +362,6 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	/**
 	 * club进行比较
 	 */
-
 	private void compare(List<Club> clublist, List<Club> clublistforschool) {
 		// List<Club> temp = new ArrayList<Club>();
 		if (clublist.size() > 0) {
@@ -376,4 +382,19 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 			}
 		}
 	}
+	/**
+	 * 创建社团时默认把自己放进社团成员里面
+	 */
+	private void createApply(UserDetails ud,int clubId){
+		Apply apply = new Apply();
+		apply.setClubId(clubId);
+		apply.setDetailId(ud.getId());
+		apply.setName(ud.getName());
+//		apply.setPhone(ud.getPhone());
+//		apply.setHobby(ud.getHobby());
+//		apply.setSex(ud.getSex());
+		apply.setStatue(0);
+		applyDao.save(apply);
+	}
+
 }

@@ -44,7 +44,7 @@ textarea{
 .psinfo_pic>a:hover{
 	background:#ccc;
 }
-.psinfo_pic>button{
+.psinfo_pic>button,.set-btn{
 	width:116px;
 	height:30px;
 	line-height:30px;
@@ -55,6 +55,9 @@ textarea{
 	margin-top:2px;
 }
 .psinfo_pic>button:hover{
+	background:#37a1cc;
+}
+.set-btn:hover{
 	background:#37a1cc;
 }
 .table_header{
