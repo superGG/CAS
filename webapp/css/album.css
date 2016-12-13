@@ -483,3 +483,12 @@
 	margin: 0 0 0 48px;
     padding: 3px 5px;
 }
+.loadMorePhoto{
+	width:200px;
+	height: 30px;
+	line-height: 30px;
+	margin:10px auto; 
+	background-color: #12b7f5;
+	text-align: center;
+	cursor: pointer;
+}

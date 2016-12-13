@@ -25,13 +25,13 @@ body{
 }
 
 #logo{
-	-webkit-animation:logoMove 3s 1;
+	/*-webkit-animation:logoMove 3s 1;*/
 	position: relative;
 }
-@keyframes logoMove{
+/*@keyframes logoMove{
 	0% {left:-1000px;}
 	100% {left:0px;}
-}
+}*/
 
 .top .nav{
 	width: 50%;
