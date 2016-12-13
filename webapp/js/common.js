@@ -197,7 +197,9 @@ function register() {
   $.post(url,sendData,function (data) {
     alert(data.resultInfo);
     // location.reload();
-     $("#login-tab").click();
+    if(data.serviceResult){ 
+      $("#login-tab").click();
+    }
   });
 }
 

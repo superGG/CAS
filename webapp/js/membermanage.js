@@ -4,7 +4,7 @@ $(document).ready(function(){
 });
 function showMemberList(memberList){
 	for(var i = 0; i<memberList.length; i++){
-		$("#membertable").append('<tr id="'+memberList[i].id+'"><td>'+(i+1)+'</td><td>'+memberList[i].name+'</td><td>'+memberList[i].positionName+'</td><td>'+memberList[i].majorClass+'</td><td>'+memberList[i].tel+'</td><td>'+memberList[i].createtime.split(" ")[0]+'</td><td><a href="memberinformation.html?applyId='+memberList[i].id+'"><button>查看</button></a> <button onclick="memberDelete(this)">删除</button></td></tr>');
+		$("#membertable").append('<tr id="'+memberList[i].id+'"><td>'+(i+1)+'</td><td>'+memberList[i].name+'</td><td>'+memberList[i].positionName+'</td><td>'+memberList[i].majorClass+'</td><td>'+memberList[i].phone+'</td><td>'+memberList[i].createtime.split(" ")[0]+'</td><td><a href="memberinformation.html?applyId='+memberList[i].id+'"><button>查看</button></a> <button onclick="memberDelete(this)">删除</button></td></tr>');
 	}
 }
 function initMemberList(){

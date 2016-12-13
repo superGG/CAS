@@ -28,6 +28,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 			HttpServletResponse arg1, Object arg2, Exception arg3)
 			throws Exception {
 		
+	}
+
+	@Override
+	public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1,
+			Object arg2, ModelAndView arg3) throws Exception {
 		Map<String, String[]> parameterMap = arg0.getParameterMap();
 
 		for (Entry<String, String[]> entry : parameterMap.entrySet()) {
@@ -42,11 +47,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 				logger.info(entry.getKey() + " : " +tmpBuilder.toString());
 			}
 		}
-	}
-
-	@Override
-	public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1,
-			Object arg2, ModelAndView arg3) throws Exception {
 	}
 
 	@Override

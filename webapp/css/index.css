@@ -188,7 +188,8 @@
 .info-area .proprieter{
 	display: inline-block;
 	background:url("../images/proprieter.png")-9px -8px no-repeat;
-	background-size: 35px 33px;
+	background-size: 18px 17px;
+    background-position: 0px 0px;
 	padding-left: 18px; 
 }
 
@@ -196,14 +197,16 @@
 	display: inline-block;
 	float: right;
 	background:url("../images/associator.png")-9px -8px no-repeat;
-	background-size: 35px 33px;
+	background-size: 19px 17px;
+    background-position: 0px 0px;
 	padding-left: 18px; 
 }
 .info-area .position{
 	clear: both;
 	display: block;
 	background:url("../images/map.png")no-repeat;
-	background-size: 25px 18px;
+	background-size: 22px 18px;
+    background-position: 0px 0px;
 	padding-left: 25px; 
 }
 #activity{
