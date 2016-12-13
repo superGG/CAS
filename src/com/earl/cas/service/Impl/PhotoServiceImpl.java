@@ -84,8 +84,7 @@ public class PhotoServiceImpl extends BaseServiceImpl<Photo> implements
 					if (myFileName.trim() != "") {
 						System.out.println(myFileName);
 						// 重命名上传后的文件名
-						String fileName = "demoUpload"
-								+ file.getOriginalFilename();
+						String fileName = file.getOriginalFilename();
 						// 定义上传路径
 						String db_path = "/photo/" + club.getName()+ "/" + album.getName()+"/"+ fileName;
 						String path = rootPath + db_path;
@@ -96,8 +95,10 @@ public class PhotoServiceImpl extends BaseServiceImpl<Photo> implements
 						file.transferTo(localFile);
 						//保存到数据库
 						photo_db = new Photo();
+						String photoName = fileName.split("\\.")[0];
 						photo_db.setAlbumId(album.getId());
 						photo_db.setPath(db_path);
+						photo_db.setContent(photoName);
 						photoDao.save(photo_db);
 						list.add(photo_db);
 					}

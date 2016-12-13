@@ -3,26 +3,28 @@ var albumId;
 $(document).ready(function(){
 	index = 1;
 	initAlbumInformation();
-	initPhoto(index);
+	
 	morePhoto(index);
 	ShowOrHide();
 	detailShowOrHide();
 });
 //初始画相册信息
 function initAlbumInformation(){
-	var url = "";
-	var parm = "";
+	var mAlbumId = getUrlParam("albumId");
+	var url = "/ClubSystem/album/findById";
+	var parm = "id="+mAlbumId;
 	$.get(url,parm,function(data){
 		if(data.serviceResult){
-			var album = data.resultParm.alubm;
+			var album = data.resultParm.album;
 			albumId = album.id;
-			$("#cover").text("../.."+album.path);
+			$("#cover").attr("src","/ClubSystem"+album.path);
 			$("#album_name").text(album.name);
-			$("#number").text(album.number);
-			$("#a_number").text(album.number);
+			$("#number").text(album.photoNumber);
+			$("#a_number").text(album.photoNumber);
 			$("#createtime").text(album.createtime.split(" ")[0]);
+			initPhoto(index);
 		}else{
-//			alert(data.resultInfo);
+			alert(data.resultInfo);
 		}
 	});
 }
@@ -36,7 +38,7 @@ function albumDelete(){
 		console.log(parm);
 		$.get(url,parm,function(data){
 			if(data.serviceResult){
-				history.go(-1);
+				window.location.href="/ClubSystem/views/club/albummanage.html";
 			}else{
 				alert(data.resultInfo);
 			}
@@ -48,7 +50,7 @@ function albumDelete(){
 //初始化相册的相片
 function initPhoto(index){
 	var url = "/ClubSystem/photo/getAlbumPhoto";
-	var parm = "albumId=1&size=12&indexPageNum="+index;
+	var parm = "albumId="+albumId+"&size=12&indexPageNum="+index;
 	$.get(url,parm,function(data){
 		if(data.serviceResult){
 			var photoList = data.resultParm.photoList;
@@ -65,7 +67,7 @@ function initPhoto(index){
 }
 function showPhoto(photoList){
 	for(var i = 0;i<photoList.length;i++){
-		$(".album_photo").append('<div id="'+photoList[i].id+'" class="photo_item" onmouseenter="showBox(this)" onmouseleave="hideBox(this)"><div class="photo_box" id="'+photoList[i].id+'"><img src="../..'+photoList[i].path.split("\\")[7]+'" width="150px" height="120px"><div class="hidden_box" id="hidden_box" ><a href="#" onclick="photoDelete(this)" title="删除照片"><i class="icon-m icon-trash-m"></i></a>  <a href="#" title="设为封面"><i class="icon-m icon-cover-m"></i></a></div>	</div><div class="photo_name" onclick="showInput(this)"><span>'+photoList[i].content+'</span></div></div>');
+		$(".album_photo").append('<div id="'+photoList[i].id+'" class="photo_item" onmouseenter="showBox(this)" onmouseleave="hideBox(this)"><div class="photo_box" id="'+photoList[i].id+'"><img src="/ClubSystem'+photoList[i].path+'" width="150px" height="120px"><div class="hidden_box" id="hidden_box" ><a href=javascript:void(0); onclick="photoDelete(this)" title="删除照片"><i class="icon-m icon-trash-m"></i></a>  <a href=javascript:void(0); onclick="setCover('+photoList[i].id+')" title="设为封面"><i class="icon-m icon-cover-m"></i></a></div>	</div><div class="photo_name"><span onclick="showInput(this)">'+photoList[i].content+'</span></div></div>');
 	}
 }
 function morePhoto(index){
@@ -83,6 +85,7 @@ function photoDelete(which){
 		$.post(url,parm,function(data){
 			if(data.serviceResult){
 				$(which).parent().parent().parent().remove();
+				$("#number").text(parseInt($("#number").text())-1);
 			}else{
 				alert(data.resultInfo);
 			}
@@ -94,8 +97,8 @@ function photoDelete(which){
 }
 function photoUpload(){
 	var photoFormData = new FormData($( "#uploadForm_photo" )[0]);
-	photoFormData.append("clubId",2);
-	photoFormData.append("albumId",1);
+	// photoFormData.append("clubId",);
+	photoFormData.append("albumId",albumId);
 	$.ajax({  
 	   url: '/ClubSystem/photo/upload',  
 	   type: 'POST',  
@@ -105,8 +108,13 @@ function photoUpload(){
 	   contentType: false,  
 	   processData: false,  
 	   success: function (data) { 
-		   $(".album_photo").children().remove();
-		   initPhoto(1);
+		   // $(".album_photo").children().remove();
+		   // initPhoto(1);
+		   var photoList = data.resultParm.photoList;
+		    for(var i = 0;i<photoList.length;i++){
+				$(".album_photo").prepend('<div id="'+photoList[i].id+'" class="photo_item" onmouseenter="showBox(this)" onmouseleave="hideBox(this)"><div class="photo_box" id="'+photoList[i].id+'"><img src="/ClubSystem'+photoList[i].path+'" width="150px" height="120px"><div class="hidden_box" id="hidden_box" ><a href=javascript:void(0); onclick="photoDelete(this)" title="删除照片"><i class="icon-m icon-trash-m"></i></a>  <a href="javascript:void(0);" onclick="setCover('+photoList[i].id+')" title="设为封面"><i class="icon-m icon-cover-m"></i></a></div>	</div><div class="photo_name"><span onclick="showInput(this)">'+photoList[i].content+'</span></div></div>');
+			}
+			$("#number").text(parseInt($("#number").text())+photoList.length);
 	   },  
 	   error: function (data) {  
 	      alert(data.resultInfo);  
@@ -153,7 +161,7 @@ function hideBox(which){
 }
 function updateCover(){
 	var coverFormData = new FormData($( "#uploadForm_cover" )[0]); 
-	coverFormData.append("id",1);
+	coverFormData.append("id",albumId);
 	$.ajax({  
          url: '/ClubSystem/album/update' ,  
          type: 'POST',  
@@ -172,31 +180,61 @@ function updateCover(){
    }); 
 }
 function showInput(which){
-	var oldName = $(which).children().text();
-	$(which).children().remove();
-	$(which).append('<input type="text" style="width:147.5px;height:25px;" id="new_name" maxlength="8" value="'+oldName+'">');
-	$(which).children().val("").focus().val(oldName);
-	$(which).children().keydown(function(e){
+	var oldName = $(which).text();
+	$(which).after('<input type="text" style="width:147.5px;height:25px;" id="new_name" maxlength="8" value="'+oldName+'">');
+	$(which).next().focus().val(oldName);
+	$(which).remove();
+	$("#new_name").keydown(function(e){
 		if(e.keyCode==13){
-			var newName = $(which).children().val();
-			$(which).children("input").remove();
-			$(which).append('<span>'+newName+'</span>');
-			
+			var newName = $(this).val();
+			$(this).children("input").remove();
+			$(this).append('<span>'+newName+'</span>');
 			var url = "/ClubSystem/photo/update";
-			var parm = "id="+$(which).parent().attr("id")+"&content="+newName;
+			var parm = "id="+$(this).parents(".photo_item").attr("id")+"&content="+newName;
 			$.post(url,parm,function(data){
 				if(data.serviceResult){
-					
+					$("#new_name").before('<span onclick="showInput(this)">'+data.resultParm.photo.content+'</span>');
+					$("#new_name").remove();
 				}else{
 					alert(data.resultInfo);
 				}
 			});
 		}
 	});
-	$(which).children().blur(function(){
-		$(which).children().remove();
-		$(which).append('<span>'+oldName+'</span>');
-	});
+	$("#new_name").blur(function () {
+		$(this).before('<span onclick="showInput(this)">'+oldName+'</span>');
+		$(this).remove();
+	})
+	// $(which).children().blur(function(){
+	// 	$(which).children().remove();
+	// 	$(which).append('<span>'+oldName+'</span>');
+	// });
 }
 
-	
+//更新相册名字
+function updataAlbum(){
+	// var name = $("#sb_box input[name='updateAlbum']").val();
+	var url = "/ClubSystem/album/update";
+	var parm = $("#sb_box form").serialize()+"&id="+albumId;
+	$.post(url,parm,function(data){
+		if (data.serviceResult) {
+			var album = data.resultParm.album;
+			$("#album_name").text(album.name);
+			$("#sb_back").click();
+		}
+	});
+
+}
+//设置为封面
+function setCover(id){
+	var mPath = $(".photo_box#"+id+" img").attr("src");
+	mPath = mPath.split("ClubSystem")[1];
+	var url="/ClubSystem/album/update";
+	var parm = "id="+albumId+"&path="+mPath;
+	$.post(url,parm,function(data){
+		if (data.serviceResult) {
+			var album = data.resultParm.album;
+			$(".album_cover #cover").attr("src","/ClubSystem"+album.path);
+		}
+	});
+}
