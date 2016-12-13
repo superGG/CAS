@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	initUserLeft();
+	setPositionHref();
 });
 function initUserLeft(){
 	 var userData = getCookieUserData();
@@ -16,6 +17,18 @@ function getUrlParam(name) {
     	return null; //返回参数值
     }
 }
-function setPositionFref(){
-	
+function setPositionHref(){
+	var url = "/ClubSystem/club/getMyClub";
+	var parm = "detailId="+getCookieUserData().id;
+	$.get(url,parm,function(data){
+		if(data.serviceResult){
+			$("#positionhref").attr("href","positionmanage.html?clubId="+data.resultParm.club.id);
+		}else{
+		}
+	});
+}
+function setMyJoinedClubHref(){
+	$("#clubdetailhref").attr("href","showclubinformation.html?clubId="+getUrlParam("clubId"));
+	$("#clubalbumhref").attr("href","showclubalbums.html?clubId="+getUrlParam("clubId"));
+	$("#clubactivityhref").attr("href","showclubactivity.html?clubId="+getUrlParam("clubId"));
 }

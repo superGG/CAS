@@ -30,7 +30,7 @@ function intiClubDtail(){
 			$(".club-info .club-phone").html(clubData.phone);
 			$(".club-info .club-email").html(clubData.email);
 			$(".clubDetai-content .club-introduction p").html(clubData.introduce);
-			isApplyOrJoin();//判断是否已加入社团或提交了申请
+			isApplyOrJoin(clubId);//判断是否已加入社团或提交了申请
 		}
 	});
 	//判断是否是进入活动
@@ -273,7 +273,7 @@ function initApplyFrameBtn(){
 }
 
 //判断是否已加入社团或提交了申请
-function isApplyOrJoin(){
+function isApplyOrJoin(clubId){
 	if (userData==null) {
 		return;
 	}
@@ -283,7 +283,7 @@ function isApplyOrJoin(){
 		if (data.serviceResult) {
 			var statue = data.resultParm.statue;
 			switch(statue){
-				case 0:$(".apply-btn").html("进入社团").unbind();break;
+				case 0:$(".apply-btn").html("进入社团").unbind().click(function(){window.location.href="/ClubSystem/views/club/showclubinformation.html?clubId="+clubId;});break;
 				case 2:$(".apply-btn").css("background-color","#ccc").html("申请书已提交，等待审核").unbind();break;
 				default:break;
 			}

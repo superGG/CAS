@@ -1,4 +1,3 @@
-var clubId;
 $(document).ready(function(){
 	initClubPosition();
 	positionAdd();
@@ -9,9 +8,8 @@ function showClubPosition(positionList){
 	}
 }
 function initClubPosition(){
-	var id = getClubIdByDetailId();
 	var url = "/ClubSystem/position/getByClubId";
-	var parm = "id="+clubId;
+	var parm = "id="+getUrlParam("clubId");
 	$.get(url,parm,function(data){
 		if(data.serviceResult){
 			var positionList = data.resultParm.position;
@@ -59,7 +57,7 @@ function positionAdd(){
 		if($("#position_name").val()!=""){
 			var positionName = $("#position_name").val();
 			var url = "/ClubSystem/position/save";
-			var parm = "clubId="+clubId+"&name="+positionName;
+			var parm = "clubId="+getUrlParam("clubId")+"&name="+positionName;
 			$.post(url,parm,function(data){
 				if(data.serviceResult){
 					$("#position_table tr").remove();
