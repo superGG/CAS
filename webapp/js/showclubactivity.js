@@ -1,6 +1,7 @@
 var index;
 $(document).ready(function(){
 	index = 1;
+	setMyJoinedClubHref();
 	initActivityList(index);
 	moreActivity(index);
 });
@@ -12,7 +13,7 @@ function showActivityList(activityList){
 }
 function initActivityList(index){
 	var url = "/ClubSystem/activity/getClubActivity";
-	var parm = "indexPageNum="+index+"&size=6&clubId=1";
+	var parm = "indexPageNum="+index+"&size=6&clubId="+getUrlParam("clubId");
 	$.get(url,parm,function(data){
 		console.log(index+data);
 		if(data.serviceResult){
