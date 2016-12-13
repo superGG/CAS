@@ -21,13 +21,13 @@ function albumAdd(){
 	var albumName=$("#album_name").val();
 	if(albumName!=""){
 		var url = "/ClubSystem/album/save";
-		var parm = "name="+albumName+"&clubId="+clubId;
+		var parm = "name="+html_encode(albumName)+"&clubId="+clubId;
 		$.post(url,parm,function(data){
 			if(data.serviceResult){
 				alert(data.resultInfo);
 				var albumData = data.resultParm.album;
 				$("#album_name").val("");
-				$(".lwd_main_iframe").append('<div class="album" id="'+albumData.id+'" onmouseenter="mouseOver(this)" onmouseleave="mouseOut(this)"><div class="album_pic"><img src="../..'+albumData.path+'" width="150px" height="100px"></div><div class="album_name" id="'+albumData.id+'_name">	<span style="font-size:12px;">'+albumData.name+'</span><span style="font-size:12px;position:absolute;right:5px;">'+albumData.createtime.split(" ")[0]+'</span></div><div id="'+albumData.id+'_action" class="album_action"><a href="albuminformation.html?albumId='+albumData.id+'"><button>进入相册</button></a> <button onclick="albumDelete(this)">删除相册</button></div></div>');
+				$(".lwd_main_iframe").append('<div class="album" id="'+albumData.id+'" onmouseenter="mouseOver(this)" onmouseleave="mouseOut(this)"><div class="album_pic"><img src="../..'+albumData.path+'" width="150px" height="100px"></div><div class="album_name" id="'+albumData.id+'_name">	<span style="font-size:12px;">'+html_decode(albumData.name)+'</span><span style="font-size:12px;position:absolute;right:5px;">'+albumData.createtime.split(" ")[0]+'</span></div><div id="'+albumData.id+'_action" class="album_action"><a href="albuminformation.html?albumId='+albumData.id+'"><button>进入相册</button></a> <button onclick="albumDelete(this)">删除相册</button></div></div>');
 			}else{
 				alert(data.resultInfo);
 			}
