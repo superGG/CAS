@@ -15,6 +15,10 @@ public interface AlbumDao extends BaseDao<Album>{
 	 * @return
 	 */
 	List<Album> getByClubId(Integer id);
-
+	/**
+	 * 删除社团相册
+	 * @param clubId
+	 */
+	void deleteByClubId(int clubId);
     
 }
