@@ -144,26 +144,3 @@ function giveLike(thisClick,id){
 	})
 }
 
-//替换转义
-function html_encode(str) {
-    var s = "";
-    if (str.length == 0)
-        return "";
-    s=str.replace(/%/g,"[p];");
-    s=s.replace(/&/g,"[a];");
-    s=s.replace(/\+/g,"[ad];");
-    return s;
-}
-//替换转义
-function html_decode(str) {
-	var s = "";
-	if (str.length == 0) {
-		return "";
-	}
-	s = str.replace(/&lt;/g, "<");
-	s = s.replace(/&gt;/g, ">");
-	s=s.replace(/\[p\];/g,"%");
-    s=s.replace(/\[a\];/g,"&");
-    s=s.replace(/\[ad\];/g,"+");
-	return s;
-}

@@ -53,7 +53,7 @@ function searchActivity(index) {
 		return;
 	}
 	var url = "/ClubSystem/activity/searchByInput";
-	var mparm = "input="+key+"&size=9&indexPageNum=" + index;
+	var mparm = "input="+html_encode(key)+"&size=9&indexPageNum=" + index;
 	$.get(url, mparm, function(data) {
 		if (data.serviceResult) {
 			var str = "";

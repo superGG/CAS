@@ -142,7 +142,7 @@ function keySearch(index) {
 		return;
 	}
 	var url = "/ClubSystem/club/getBySearch";
-	var parm = "search=" + key + "&size=6&indexPageNum=" + index;
+	var parm = "search=" + html_encode(key) + "&size=6&indexPageNum=" + index;
 	$.get(url, parm, function(data) {
 		if (data.serviceResult) {
 			var listData = data.resultParm.clublist;
