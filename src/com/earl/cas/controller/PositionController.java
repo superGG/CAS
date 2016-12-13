@@ -33,7 +33,7 @@ public class PositionController extends BaseController {
 
 	@Autowired
 	private PositionService positionService;
-	
+
 	private ResultMessage result = null;
 
 	/**
@@ -48,8 +48,10 @@ public class PositionController extends BaseController {
 		result.getResultParm().put("position", positionList);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+
 	/**
-	 * GET /position -> get all the position  分页查询
+	 * GET /position -> get all the position 分页查询
+	 * 
 	 * @param PageInfo
 	 */
 	@RequestMapping(value = "/getPageAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -61,8 +63,6 @@ public class PositionController extends BaseController {
 		result.getResultParm().put("position", positionList);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-
-	
 
 	/**
 	 * GET /position -> 通过社团ID获得职位信息
@@ -76,7 +76,7 @@ public class PositionController extends BaseController {
 		result.getResultParm().put("position", positionList);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * GET /position -> 通过社团ID获得职位名字
 	 */
@@ -98,11 +98,19 @@ public class PositionController extends BaseController {
 		logger.debug("REST request to save position");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		positionService.save(position);
-		result.setResultInfo("添加成功");
-		result.getResultParm().put("position",positionService.findById(position.getId()));
+		if (positionService.getByClubIdAndName(position.getClubId(),
+				position.getName()) != null) {
+			result.setResultInfo("该职位已存在");
+		}
+		else{
+			positionService.save(position);
+			result.setResultInfo("添加成功");
+			result.getResultParm().put("position",
+					positionService.findById(position.getId()));
+		}
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+
 	/**
 	 * 更新社团职位
 	 */
@@ -113,9 +121,11 @@ public class PositionController extends BaseController {
 		result.setServiceResult(true);
 		positionService.update(position);
 		result.setResultInfo("更新成功");
-		result.getResultParm().put("position",positionService.findById(position.getId()));
+		result.getResultParm().put("position",
+				positionService.findById(position.getId()));
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+
 	/**
 	 * 删除职位
 	 */
