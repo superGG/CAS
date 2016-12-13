@@ -84,7 +84,7 @@ body{
 .top .user .list{
 	position: absolute;
 	display: none;
-	width: 90px;
+	width: 120px;
 	top: 40px;
 	background-color: #fff;
 }
@@ -106,9 +106,13 @@ body{
 .top .user .list li{
 	list-style-type: none;
 	padding: 5px 10px;
+	height:30px;
+	line-height:30px;
+	text-align:center;
 }
 .top .user .list li:hover{
 	background-color: #12b7f5;
+	color:#fff;
 }
 .top .user .list li a{
 	color: #000;

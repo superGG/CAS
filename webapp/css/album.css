@@ -315,6 +315,8 @@
 	width:150px;
 	text-align:center;
 	line-height:29px;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .photo_name span{
 	font-size:15px;
@@ -420,7 +422,7 @@
 	font-family:微软雅黑;
 	z-index:110;
 	width:22%;
-	min-height:195px;
+	min-height:120px;
 	background:#fff;
 	position:absolute;
 	top:260px;
@@ -469,4 +471,15 @@
 	position:absolute;
 	top:8px;
 	left:228px;
+}
+/*.album_title #number{
+	position: absolute;
+	width: 70px;
+    top: 8px;
+    left: 155px;
+    text-align: right;
+}*/
+.sb_box #sb_back,.sb_box #updateAlbum{
+	margin: 0 0 0 48px;
+    padding: 3px 5px;
 }

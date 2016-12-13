@@ -128,7 +128,7 @@ public class AlbumController extends BaseController {
 		if (album.getId() == 0) {
 			throw new DomainSecurityException("id不能为空");
 		}
-		if (!file.isEmpty()) {
+		if (file!=null) {
 			logger.info("file不为空，开始处理上传相册封面");
 			String path = FileUploadUtil.NewFileUpload(request, file, "album");
 			logger.info("上传相册封面访问地址：" + path);

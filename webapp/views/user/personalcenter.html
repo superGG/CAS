@@ -62,7 +62,6 @@
 								<input type="file" name="file" accept="image/*" id="uploadHead"  onchange="doUpload()" style="display:none;">
 							</form>
 							<label for="uploadHead" class="upload_btn" style="margin-left:20px;margin-top:5px;">修改头像</label>
-							<button style="margin-left:20px;margin-top:10px;"" onclick="updateDetails()">保存</button>
 							<br><br>
 							<button style="margin-left:20px;" onclick="showUpdatePassword()">修改密码</button>
 						</div>
@@ -90,6 +89,10 @@
 							<tr>
 								<td><label for="singnation">个性签名</label></td>
 								<td><textarea rows="5" cols="40" placeholder="个性签名" name="singnation" id="singnation"></textarea></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td align="center"><button style="margin-left:30px;margin-top:25px;"" onclick="updateDetails()" class="set-btn">保存</button></td>
 							</tr>
 						</table>
 			</div>
