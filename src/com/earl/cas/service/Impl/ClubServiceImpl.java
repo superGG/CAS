@@ -26,7 +26,6 @@ import com.earl.cas.dao.UserDetailsDao;
 import com.earl.cas.entity.Apply;
 import com.earl.cas.entity.Club;
 import com.earl.cas.entity.ClubType;
-import com.earl.cas.entity.Position;
 import com.earl.cas.entity.School;
 import com.earl.cas.entity.UserDetails;
 import com.earl.cas.exception.DomainSecurityException;
@@ -203,7 +202,6 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 
 	public void create(Integer detailId, Club club, String schoolName,
 			String clubType) {
-		Position position = new Position();
 		if (detailId == null) {
 			throw new DomainSecurityException("请先登录");
 		}
@@ -216,7 +214,7 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 			club.setTypeId(clubtype.getId());
 			club.setSchoolId(school.getId());
 			clubDao.save(club);
-			createApplyAndPosition(ud,position,club.getId());
+			createApply(ud,club.getId());
 		} else {
 			throw new DomainSecurityException("社团已存在");
 		}
@@ -383,15 +381,11 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	/**
 	 * 创建社团时默认把自己放进社团成员里面
 	 */
-	private void createApplyAndPosition(UserDetails ud,Position position,int clubId){
-		position.setName("社长");
-		position.setClubId(clubId);
-		positionDao.save(position);
+	private void createApply(UserDetails ud,int clubId){
 		Apply apply = new Apply();
 		apply.setClubId(clubId);
 		apply.setDetailId(ud.getId());
 		apply.setName(ud.getName());
-		apply.setPositionId(position.getId());
 		if(ud.getPhone()!=null){
 			apply.setPhone(ud.getPhone());
 		}
