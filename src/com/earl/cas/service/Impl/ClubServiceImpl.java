@@ -327,7 +327,7 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	 * @param list
 	 */
 	private List<Club> setName(List<Club> list) {
-		List<Club> newList = new ArrayList<>();
+		List<Club> newList = new ArrayList<Club>();
 		School school = null;
 		ClubType type = null;
 		for (Club club : list) {

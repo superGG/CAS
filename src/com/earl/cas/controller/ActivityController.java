@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Activity;
-import com.earl.cas.entity.UserDetails;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ActivityService;
 import com.earl.cas.util.FileUploadUtil;

@@ -2,13 +2,11 @@ package com.earl.cas.dao.Impl;
 
 import java.util.List;
 
-import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.earl.cas.commons.dao.BaseDaoImpl;
 import com.earl.cas.dao.ClubTypeDao;
 import com.earl.cas.entity.ClubType;
-import com.earl.cas.entity.Position;
 
 /**
  * clubTypeDao的实现类
