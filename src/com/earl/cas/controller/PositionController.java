@@ -68,7 +68,7 @@ public class PositionController extends BaseController {
 	 * GET /position -> 通过社团ID获得职位信息
 	 */
 	@RequestMapping(value = "/getByClubId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> getByClubId(int id) {
+	public ResponseEntity<ResultMessage> getByClubId(Integer id) {
 		logger.debug("REST request to get club position");
 		result = new ResultMessage();
 		result.setServiceResult(true);

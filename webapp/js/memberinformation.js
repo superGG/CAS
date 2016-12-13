@@ -5,7 +5,7 @@ $(document).ready(function(){
 });
 function initMemberInformation(){
 	var url = "/ClubSystem/apply/memberDetail";
-	var parm = "applyId=9";
+	var parm = "applyId="+getUrlParam('applyId');
 	$.get(url,parm,function(data){
 		if(data.serviceResult){
 			var member = data.resultParm.apply;
@@ -26,7 +26,7 @@ function initMemberInformation(){
 			$("#createtime").val(member.createtime.split(" ")[0]);
 			$("#introduce").val(member.introduce);
 			
-			var positionUrl = "/ClubSystem/position/getNameByClubId";
+			var positionUrl = "/ClubSystem/position/getByClubId";
 			var positionParm = "id="+member.clubId;
 			
 			$.get(positionUrl,positionParm,function(data){
@@ -44,15 +44,15 @@ function initMemberInformation(){
 }
 function showClubPosition(positionList){
 	for(var i = 0;i<positionList.length;i++){
-		$("#position").append('<option value ="'+(i+1)+'">'+positionList[i]+'</option>');
+		$("#position").append('<option value ="'+positionList[i].id+'">'+positionList[i].name+'</option>');
 	}
 }
 //修改职位
 function updatePosition(){
 	var index = document.getElementById('position').selectedIndex;
-	var positionName = document.getElementById('position').options[index].text;
+	var positionId = document.getElementById('position').options[index].getAttribute("value");
 	var url = "/ClubSystem/apply/updateposition";
-	var parm = "detailId="+detailId+"&applyId="+memberId+"&positionName="+positionName;
+	var parm = "id="+memberId+"&positionId="+positionId;
 	$.post(url,parm,function(data){
 		if(data.serviceResult){
 			initMemberInformation();

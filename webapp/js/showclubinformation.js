@@ -1,9 +1,10 @@
 $(document).ready(function(){
+	setMyJoinedClubHref();
 	initClubInformation();
 });
 function initClubInformation(){
 	var url = "/ClubSystem/club/getMyJoinClub";
-	var parm = "clubId=2";
+	var parm = "clubId="+getUrlParam("clubId");
 	$.get(url,parm,function(data){
 		if(data.serviceResult){
 			var club = data.resultParm.club;

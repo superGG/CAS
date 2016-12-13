@@ -28,6 +28,7 @@ function initApplyList(){
 			showApplyList(applyList);
 		}else{
 			alert(data.resultInfo);
+			window.location.href ="/ClubSystem/views/club/tocreateclub.html";
 		}
 	});
 }
@@ -54,6 +55,7 @@ function applyRefuce(which){
 	var applyId = $(which).parent().parent().attr("id");
 	var url = "/ClubSystem/apply/isAgree";
 	var parm = "applyId="+applyId+"&statue=1";
+	console.log(parm);
 	$.post(url,parm,function(data){
 		if(data.serviceResult){
 			$(".cmm_head_nav #"+applyId).remove();

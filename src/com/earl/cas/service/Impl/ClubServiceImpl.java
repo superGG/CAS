@@ -165,15 +165,18 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		// 根据detailId获取所有已经通过申请的申请书
 		List<Apply> applyList = applyDao.getBydetailIdStatueIsOk(detailId);
 		Club club;
+		if (applyList.isEmpty()) {
+			throw new DomainSecurityException("该用户没有加入社团");
+		}
 		for (Apply apply : applyList) {
 			// 获得社团
 			club = clubDao.get(apply.getClubId());
 			// 设置社团人数
 			setNumber(club);
-			setName(clublist);
 			clublist.add(club);
 		}
-		return clublist;
+		
+		return setName(clublist);
 	}
 
 	public Club findById(Integer id) {
@@ -219,8 +222,7 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		club.setSchoolId(schoolDao.getByName(name).getId());
 		List<Club> clublist = clubDao.findByGivenCriteria(club, pageInfo);
 		setNumber(clublist);
-		setName(clublist);
-		return clublist;
+		return setName(clublist);
 	}
 
 	public List<Club> getByTypeName(String typeName, PageInfo pageInfo) {
@@ -228,15 +230,13 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		club.setTypeId(clubTypeDao.getByName(typeName).getId());
 		List<Club> clublist = clubDao.findByGivenCriteria(club, pageInfo);
 		setNumber(clublist);
-		setName(clublist);
-		return clublist;
+		return setName(clublist);
 	}
 
 	public List<Club> getAlls(PageInfo pageInfo) {
 		List<Club> clublist = clubDao.findAll(pageInfo);
-		setName(clublist);
 		setNumber(clublist);
-		return clublist;
+		return setName(clublist);
 	}
 
 	public Club getById(int clubId) {
@@ -265,19 +265,17 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 					compare(clublist, clublist_school);
 				}
 			}
-			setName(clublist);
 			setNumber(clublist);
-			return clublist;
+			return setName(clublist);
 		} else {
-			setName(clublist);
 			setNumber(clublist);
-			return clublist;
+			return setName(clublist);
 		}
 	}
 
 	public List<Club> getAllsByRank(PageInfo pageInfo) {
 		List<Club> list = clubDao.findAll();
-		setName(list);
+		list = setName(list);
 		setNumber(list);
 		rank(list);
 		pageInfo.setTotalCount((long) list.size());
@@ -328,7 +326,8 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	 * 
 	 * @param list
 	 */
-	private void setName(List<Club> list) {
+	private List<Club> setName(List<Club> list) {
+		List<Club> newList = new ArrayList<>();
 		School school = null;
 		ClubType type = null;
 		for (Club club : list) {
@@ -336,7 +335,9 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 			school = schoolDao.get(club.getSchoolId());
 			club.setSchoolName(school.getName());
 			club.setTypeName(type.getName());
+			newList.add(club);
 		}
+		return newList;
 	}
 
 	/**

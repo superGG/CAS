@@ -104,22 +104,22 @@ public class ApplyController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 	
-//	/**
-//	 * 查看自己社团的已通过审核的入社申请书->申请书管理列表
-//	 */
-//	@RequestMapping(value = "/displayClubApplyIsOk", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<ResultMessage> displayClubApplyStatueIsOk(int detailId) {
-//		logger.debug("REST request to display club apply which statue is OK");
-//		result = new ResultMessage();
-//		result.setServiceResult(true);
-//		// 获取用户创建的社团
-//		Club club = clubService.getClubByuserDetailId(detailId);
-//		// 通过clubId获得对应社团的已经通过的申请书
-//		List<Apply> applylist = applyService.getClubApplyIsOk(club.getId());
-//		result.getResultParm().put("apply", applylist);
-//		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
-//	}
-//	
+	/**
+	 * 查看自己社团的已通过审核的入社申请书->申请书管理列表
+	 */
+	@RequestMapping(value = "/displayClubApplyIsOk", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> displayClubApplyStatueIsOk(int detailId) {
+		logger.debug("REST request to display club apply which statue is OK");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		// 获取用户创建的社团
+		Club club = clubService.getClubByuserDetailId(detailId);
+		// 通过clubId获得对应社团的已经通过的申请书
+		List<Apply> applylist = applyService.getClubApplyIsOk(club.getId());
+		result.getResultParm().put("apply", applylist);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	
 //	/**
 //	 * 查看自己社团的已审核的入社申请书->申请书管理列表
 //	 */
