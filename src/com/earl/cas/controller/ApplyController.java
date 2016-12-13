@@ -319,4 +319,25 @@ public class ApplyController extends BaseController {
 		result.getResultParm().put("statue", statue);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	
+	/**
+	 * 修改成员个人信息.
+	 *@author 宋.
+	 * @param apply
+	 * @return
+	 */
+	@RequestMapping(value="/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> update(Apply apply){
+		result = new ResultMessage();
+		if (apply.getId() == null) {
+			throw new DomainSecurityException("数据有误");
+		}
+		applyService.updateWithNotNullProperties(apply);
+		result.setResultInfo("更新成功");
+		result.setServiceResult(true);
+		result.getResultParm().put("apply", applyService.get(apply.getId()));
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	
 }
