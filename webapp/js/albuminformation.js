@@ -36,7 +36,7 @@ function albumDelete(){
 		console.log(parm);
 		$.get(url,parm,function(data){
 			if(data.serviceResult){
-				history.go(-1);
+				window.location.href="/ClubSystem/views/club/membermanage.html";
 			}else{
 				alert(data.resultInfo);
 			}

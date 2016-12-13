@@ -70,12 +70,12 @@ function del(){
 		var url = "/ClubSystem/apply/deleteMember";
 		var parm = "applyId="+memberId;
 		$.post(url,parm,function(data){
-			history.go(-1);
+			window.location.href="/ClubSystem/views/club/membermanage.html";
 		});
 	}else{
 		return false;
 	}  
 }
 function back(){
-	history.go(-1);
+	window.location.href="/ClubSystem/views/club/membermanage.html";
 }
