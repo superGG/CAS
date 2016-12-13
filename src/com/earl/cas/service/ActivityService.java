@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.earl.cas.commons.service.BaseService;
 import com.earl.cas.entity.Activity;
-import com.earl.cas.entity.Message;
 import com.earl.cas.vo.PageInfo;
 
 

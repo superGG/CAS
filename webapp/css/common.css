@@ -87,7 +87,7 @@ body{
 	width: 120px;
 	top: 40px;
 	background-color: #fff;
-	border-radius:0  0  5px 5px;
+	border-radius:0  5px  5px 5px;
 }
 .top .user .userImg{
 	float: left;
@@ -111,10 +111,17 @@ body{
 	line-height:30px;
 	text-align:center;
 }
+.top .user .list li:first-child{
+	border-radius:0  5px  0px 0px;
+}
+.top .user .list li:last-child{
+	border-radius:0  0  5px 5px;
+}
 .top .user .list li:hover{
 	background-color: #12b7f5;
 	
 }
+
 .top .user .list li a{
 	color: #000;
 	text-decoration:none;
