@@ -34,9 +34,10 @@ public interface ApplyService extends BaseService<Apply> {
 	/**
 	 * 查看成员详情
 	 * @param applyId
+	 * @param clubId 
 	 * @return
 	 */
-	Apply getMemberDetail(int applyId);
+	Apply getMemberDetail(Integer detailId, Integer clubId);
 	/**
 	 * 获得已通过审核的入社申请列表
 	 * @param id

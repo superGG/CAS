@@ -283,11 +283,11 @@ public class ApplyController extends BaseController {
 	 * 查看成员详情
 	 */
 	@RequestMapping(value = "/memberDetail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> memberDetail(int applyId) {
+	public ResponseEntity<ResultMessage> memberDetail(Integer detailId, Integer clubId) {
 		logger.debug("REST request to display club member detail");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		Apply apply = applyService.getMemberDetail(applyId);
+		Apply apply = applyService.getMemberDetail(detailId,clubId);
 		result.getResultParm().put("apply", apply);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
