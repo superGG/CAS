@@ -196,7 +196,8 @@ function register() {
   var sendData = $("#registerForm").serialize();
   $.post(url,sendData,function (data) {
     alert(data.resultInfo);
-    location.reload();
+    // location.reload();
+     $("#login-tab").click();
   });
 }
 
@@ -216,7 +217,7 @@ function delectCookieUserData(){
 	//获取当前时间 
 	  var date=new Date(); 
 	  //将date设置为过去的时间 
-	  date.setTime(date.getTime()-1800*1000);
+	  date.setTime(date.getTime()-3600*1000);
 	  //将userId这个cookie删除 
 	  var oldCookie = document.cookie;
 	  document.cookie=oldCookie+"; path=/ClubSystem/; expires="+date.toGMTString();
@@ -238,7 +239,7 @@ function getCookieUserData() {
 //设置Cookie
 function setCookieUserData(data){
 	var date=new Date(); 
-    date.setTime(date.getTime()+1800*1000); 
+    date.setTime(date.getTime()+3600*1000); 
     var mCookies = JSON.stringify(data);
     document.cookie="USER="+escape(mCookies)+"; path=/ClubSystem/; expires="+date.toGMTString();
 }

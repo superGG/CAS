@@ -11,40 +11,6 @@
 
 		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
-
-		<script type="text/javascript">
-			var albumList = {"album":[{"id":"1","title":"逝去的时光","createtime":"2016-12-5","cover":"../../images/ccbg.jpg"},
-			{"id":"2","title":"社团招新","createtime":"2016-12-5","cover":"../../images/001.jpg"},
-			{"id":"3","title":"烧烤","createtime":"2016-12-5","cover":"../../images/003.jpg"},
-			{"id":"4","title":"社团bb大赛","createtime":"2016-12-5","cover":"../../images/004.jpg"},
-			{"id":"5","title":"昔日","createtime":"2016-12-5","cover":"../../images/004.jpg"},
-			{"id":"6","title":"那些年","createtime":"2016-12-5","cover":"../../images/003.jpg"},
-			{"id":"7","title":"开会照片","createtime":"2016-12-5","cover":"../../images/004.jpg"}]};
-			$(document).ready(function(){
-					showAlbumList(albumList);
-					var timer;
-					var album;
-					$(".album_action").css("visibility","visible")
-					$(".album_action").hide();
-					$(".album").hover(function(){
-						clearTimeout(timer);
-						album = $(this).attr("id");
-						timer=setTimeout(function(){
-							$("#"+album+"_action").slideDown("fast");
-							$("#"+album+"_name").animate({height:'60px'},"fast");
-						},100);
-					},function(){
-						clearTimeout(timer);
-						$("#"+album+"_action").slideUp("fast");
-						$("#"+album+"_name").animate({height:'30px'},"fast");
-					});
-			});
-			function showAlbumList(albumList){
-				for(var i=0; i<albumList.album.length; i++){
-					$(".lwd_main_iframe").append('<div class="album" id="'+albumList.album[i].id+'"><div class="album_pic"><img src="'+albumList.album[i].cover+'" width="150px" height="100px"></div><div class="album_name" id="'+albumList.album[i].id+'_name">	<span style="font-size:12px;">'+albumList.album[i].title+'</span><span style="font-size:12px;position:absolute;right:5px;">'+albumList.album[i].createtime+'</span></div><div id="'+albumList.album[i].id+'_action" class="album_action"><a href="showclubphoto.html"><button action="#">进入相册</button></a></div></div>');
-				}
-			}
-		</script>
 	</head>
 	<body>
 		<div class="top">
@@ -111,5 +77,6 @@
 		</div>
 		<script type="text/javascript" src="../../js/common.js"></script>
 		<script type="text/javascript" src="../../js/clubCommon.js"></script>
+		<script type="text/javascript" src="../../js/showclubalbums.js"></script>
 	</body>
 </html>
