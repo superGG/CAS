@@ -32,6 +32,11 @@ public interface PositionService extends BaseService<Position> {
 	 * @return
 	 */
 	Position findById(Integer id);
-
+	/**
+	 * 精确获取社团职位
+	 * @param clubId
+	 * @param name
+	 */
+	Position getByClubIdAndName(Integer clubId, String name);
 
 }

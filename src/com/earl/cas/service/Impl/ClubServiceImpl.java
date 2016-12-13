@@ -26,7 +26,9 @@ import com.earl.cas.dao.UserDetailsDao;
 import com.earl.cas.entity.Apply;
 import com.earl.cas.entity.Club;
 import com.earl.cas.entity.ClubType;
+import com.earl.cas.entity.Position;
 import com.earl.cas.entity.School;
+import com.earl.cas.entity.UserDetails;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ClubService;
 import com.earl.cas.util.FileUploadUtil;
@@ -201,10 +203,12 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 
 	public void create(Integer detailId, Club club, String schoolName,
 			String clubType) {
+		Position position = new Position();
 		if (detailId == null) {
 			throw new DomainSecurityException("请先登录");
 		}
-		club.setLeader(userdetailsDao.get(detailId).getName());
+		UserDetails ud = userdetailsDao.get(detailId);
+		club.setLeader(ud.getName());
 		club.setDetailId(detailId);
 		School school = schoolDao.getByName(schoolName);
 		ClubType clubtype = clubTypeDao.getByName(clubType);
@@ -212,6 +216,7 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 			club.setTypeId(clubtype.getId());
 			club.setSchoolId(school.getId());
 			clubDao.save(club);
+			createApplyAndPosition(ud,position,club.getId());
 		} else {
 			throw new DomainSecurityException("社团已存在");
 		}
@@ -327,7 +332,7 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	 * @param list
 	 */
 	private List<Club> setName(List<Club> list) {
-		List<Club> newList = new ArrayList<>();
+		List<Club> newList = new ArrayList<Club>();
 		School school = null;
 		ClubType type = null;
 		for (Club club : list) {
@@ -355,7 +360,6 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	/**
 	 * club进行比较
 	 */
-
 	private void compare(List<Club> clublist, List<Club> clublistforschool) {
 		// List<Club> temp = new ArrayList<Club>();
 		if (clublist.size() > 0) {
@@ -376,4 +380,29 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 			}
 		}
 	}
+	/**
+	 * 创建社团时默认把自己放进社团成员里面
+	 */
+	private void createApplyAndPosition(UserDetails ud,Position position,int clubId){
+		position.setName("社长");
+		position.setClubId(clubId);
+		positionDao.save(position);
+		Apply apply = new Apply();
+		apply.setClubId(clubId);
+		apply.setDetailId(ud.getId());
+		apply.setName(ud.getName());
+		apply.setPositionId(position.getId());
+		if(ud.getPhone()!=null){
+			apply.setPhone(ud.getPhone());
+		}
+		if(ud.getHobby()!=null){
+			apply.setHobby(ud.getHobby());
+		}
+		if(ud.getSex()!=null){
+			apply.setSex(ud.getSex());
+		}
+		apply.setStatue(0);
+		applyDao.save(apply);
+	}
+
 }

@@ -266,4 +266,16 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 	public int updatePosition(Apply apply) {
 		return applyDao.updatePosition(apply);
 	}
+
+	@Override
+	public void quitClub(int detailId, int clubId) {
+		Apply apply = new Apply();
+		apply.setDetailId(detailId);
+		apply.setClubId(clubId);
+		List<Apply> applyList = applyDao.findByGivenCriteria(apply);
+		if (applyList.isEmpty()) {
+			throw new DomainSecurityException("数据有误（该社团没有该用户）");
+		}
+		applyDao.delete(applyList.get(0));
+	}
 }

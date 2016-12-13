@@ -28,7 +28,7 @@ function initApplyList(){
 			showApplyList(applyList);
 		}else{
 			alert(data.resultInfo);
-			window.location.href ="/ClubSystem/views/club/tocreateclub.html";
+			window.location.href="/ClubSystem/views/club/tocreateclub.html";
 		}
 	});
 }

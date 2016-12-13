@@ -6,10 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.earl.cas.commons.dao.BaseDaoImpl;
 import com.earl.cas.dao.SchoolDao;
-import com.earl.cas.entity.Club;
-import com.earl.cas.entity.ClubType;
 import com.earl.cas.entity.School;
-import com.earl.cas.vo.PageInfo;
 
 /**
  * schoolDao的实现类

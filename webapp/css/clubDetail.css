@@ -235,7 +235,7 @@
 
 .club-album-box img{
 	width: 100%;
-	height: 100%;
+	height: 160px;
 	min-height: 60px;
 	background-color: #dddddd;
 	cursor: pointer;
@@ -309,8 +309,10 @@
 	right: 0px;
 	top: 0px;
 	background: url("../images/close_red.png")no-repeat #ccc;
-	background-size: 40px 40px;
-	cursor: pointer;
+	background-size: 24px 24px;
+    background-position: 15px 0px;
+    cursor: pointer;
+    border-radius: 0 0 0 50px;
 }
 
 #photoFrame .bigPhoto{
@@ -322,7 +324,8 @@
 }
 #photoFrame .bigPhoto img{
 	width: 100%;
-	height: 100%;
+	height: 500px;
+	min-height: 500px;
 	background-color: red;
 }
 #photoFrame .bigPhoto .bigPhoto_prev{
