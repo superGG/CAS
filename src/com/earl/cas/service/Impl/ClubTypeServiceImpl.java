@@ -4,14 +4,15 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
+import com.earl.cas.dao.ClubDao;
 import com.earl.cas.dao.ClubTypeDao;
 import com.earl.cas.entity.Club;
 import com.earl.cas.entity.ClubType;
@@ -33,6 +34,9 @@ public class ClubTypeServiceImpl extends BaseServiceImpl<ClubType> implements
 
 	@Resource
 	private ClubTypeDao clubTypeDao;
+	
+	@Autowired
+	private ClubDao clubDao;
 
 	@Override
 	protected BaseDao<ClubType> getDao() {
@@ -40,6 +44,13 @@ public class ClubTypeServiceImpl extends BaseServiceImpl<ClubType> implements
 	}
 	
 	public int deleteById(Integer id) {
+		logger.info("进入社团类别删除判断");
+		Club club = new Club();
+		club.setTypeId(id);
+		List<Club> list = clubDao.findByGivenCriteria(club);
+		if (!list.isEmpty()) {
+			throw new DomainSecurityException("有社团属于该类别，不能删除");
+		}
 		return clubTypeDao.delete(id);
 	}
 

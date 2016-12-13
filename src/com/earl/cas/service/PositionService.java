@@ -39,5 +39,4 @@ public interface PositionService extends BaseService<Position> {
 	 */
 	Position getByClubIdAndName(Integer clubId, String name);
 
-
 }
