@@ -108,6 +108,11 @@ public interface ApplyService extends BaseService<Apply> {
 	 */
 	int updatePosition(Apply apply);
 
+	/*
+	 * 用户退出社团.
+	 */
+	void quitClub(int detailId, int clubId);
+
 
 
 }

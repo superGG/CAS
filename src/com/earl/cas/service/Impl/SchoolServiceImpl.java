@@ -6,12 +6,15 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
+import com.earl.cas.dao.ClubDao;
 import com.earl.cas.dao.SchoolDao;
+import com.earl.cas.entity.Club;
 import com.earl.cas.entity.School;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.SchoolService;
@@ -31,6 +34,9 @@ public class SchoolServiceImpl extends BaseServiceImpl<School> implements
 
 	@Resource
 	private SchoolDao schoolDao;
+	
+	@Autowired
+	private ClubDao clubDao;
 
 	@Override
 	protected BaseDao<School> getDao() {
@@ -39,6 +45,13 @@ public class SchoolServiceImpl extends BaseServiceImpl<School> implements
 	
 	@Override
 	public int deleteById(Integer id){
+		logger.info("进入删除学校判断");
+		Club club = new Club();
+		club.setSchoolId(id);
+		List<Club> list = clubDao.findByGivenCriteria(club);
+		if (!list.isEmpty()) {
+			throw new DomainSecurityException("该学校被社团引用着，不能删除");
+		}
 		return schoolDao.deleteById(id);
 	}
 	

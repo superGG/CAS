@@ -70,6 +70,7 @@ public class ActivityServiceImpl extends BaseServiceImpl<Activity> implements
 	 */
 	@Override
 	public Activity findDetail(int id) {
+		logger.info("查询活动详情");
 		Activity detail = activityDao.findDetail(id);
 		if (detail == null) {
 			throw new DomainSecurityException("该活动已被删除 或不存在");

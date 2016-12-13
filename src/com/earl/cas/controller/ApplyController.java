@@ -198,18 +198,30 @@ public class ApplyController extends BaseController {
 //		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 //	}
 	
-//	/**
-//	 * 剔除成员->根据申请书Id
-//	 */
-//	@RequestMapping(value = "/deleteMember", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<ResultMessage> deleteMember(int applyId) {
-//		logger.debug("REST request to delete a member");
-//		result = new ResultMessage();
-//		result.setServiceResult(true);
-//		applyService.setStatue("applyId");
-//		result.setResultInfo("该成员已从社团中剔除");
-//		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
-//	}
+	/**
+	 * 剔除成员->根据申请书Id
+	 */
+	@RequestMapping(value = "/deleteMember", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> deleteMember(int applyId) {
+		logger.debug("REST request to delete a member");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		applyService.deleteById(applyId);
+		result.setResultInfo("该成员已从社团中剔除");
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	
+	/**
+	 * 退出社团->根据用户详情Id
+	 */
+	@RequestMapping(value = "/quitClub", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> quitClub(int detailId, int clubId) {
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		applyService.quitClub(detailId,clubId);
+		result.setResultInfo("退出成功");
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 	
 	/**
 	 * 修改成员职位

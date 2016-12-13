@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.earl.cas.entity.Apply;
 import com.earl.cas.vo.PageInfo;
 
 public interface BaseDao<T> {

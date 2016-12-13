@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-12-12 09:57:01
+Date: 2016-12-13 09:55:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -47,7 +47,9 @@ CREATE TABLE `album` (
 DROP TABLE IF EXISTS `apply`;
 CREATE TABLE `apply` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '申请表编号',
+  `club_id` int(11) NOT NULL COMMENT '社团编号',
   `detail_id` int(11) DEFAULT NULL COMMENT '用户编号',
+  `position_id` int(11) DEFAULT NULL COMMENT '社团职位id',
   `name` varchar(255) DEFAULT NULL COMMENT '申请人名称',
   `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
   `sex` bit(1) DEFAULT b'1' COMMENT '1男 0 女',
@@ -58,10 +60,8 @@ CREATE TABLE `apply` (
   `major_class` varchar(255) DEFAULT NULL COMMENT '专业班级',
   `introduce` text COMMENT '个人简介',
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `club_id` int(11) NOT NULL COMMENT '社团编号',
   `reason` text COMMENT '申请理由',
   `statue` int(11) DEFAULT '2' COMMENT '0同意 1拒绝 2未审核',
-  `position_id` int(11) DEFAULT NULL COMMENT '社团职位id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
@@ -72,32 +72,17 @@ DROP TABLE IF EXISTS `club`;
 CREATE TABLE `club` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '社团编号',
   `school_id` int(11) DEFAULT NULL COMMENT '学校编号',
+  `type_id` int(11) DEFAULT NULL COMMENT '社团类型',
+  `detail_id` int(11) DEFAULT NULL COMMENT '创建社团用户',
   `name` varchar(255) DEFAULT NULL COMMENT '社团名称',
   `leader` varchar(255) DEFAULT NULL COMMENT '社长',
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `introduce` text COMMENT '社团简介',
   `phone` varchar(255) DEFAULT NULL COMMENT '社团电话',
   `email` varchar(255) DEFAULT NULL COMMENT '社团邮箱',
-  `type_id` int(11) DEFAULT NULL COMMENT '社团类型',
   `badge` varchar(255) DEFAULT NULL COMMENT '社徽',
-  `detail_id` int(11) DEFAULT NULL COMMENT '创建社团用户',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for clubcreate
--- ----------------------------
-DROP TABLE IF EXISTS `clubcreate`;
-CREATE TABLE `clubcreate` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '申请表编号',
-  `detail_id` int(11) DEFAULT NULL COMMENT '用户编号',
-  `name` varchar(255) DEFAULT NULL COMMENT '申请人名称',
-  `reason` text COMMENT '申请理由',
-  `phone` varchar(255) DEFAULT NULL COMMENT '电话',
-  `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `statue` int(11) DEFAULT NULL COMMENT '0同意 1拒绝 2未审核',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for club_type
@@ -117,9 +102,9 @@ DROP TABLE IF EXISTS `message`;
 CREATE TABLE `message` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '留言编号',
   `detail_id` int(11) DEFAULT NULL COMMENT '用户详情编号',
+  `father_id` int(11) DEFAULT '0' COMMENT '父级留言编号',
   `content` text COMMENT '留言内容',
   `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `father_id` int(11) DEFAULT '0' COMMENT '父级留言编号',
   `good` int(11) NOT NULL DEFAULT '0' COMMENT '点赞次数',
   `bad` int(11) NOT NULL DEFAULT '0' COMMENT '点踩次数',
   PRIMARY KEY (`id`)
@@ -180,6 +165,7 @@ DROP TABLE IF EXISTS `user_details`;
 CREATE TABLE `user_details` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户详情编号',
   `user_id` int(11) unsigned DEFAULT NULL,
+  `role_id` int(11) DEFAULT '0' COMMENT '角色',
   `name` varchar(255) DEFAULT NULL COMMENT '用户名称',
   `sex` bit(1) DEFAULT b'1' COMMENT '1 男  0 女',
   `phone` varchar(255) DEFAULT NULL COMMENT '电话',
@@ -187,7 +173,6 @@ CREATE TABLE `user_details` (
   `hobby` varchar(255) DEFAULT NULL COMMENT '爱好',
   `singnation` varchar(255) DEFAULT NULL COMMENT '个性签名',
   `head_path` varchar(255) DEFAULT NULL COMMENT '头像路径',
-  `role_id` int(11) DEFAULT '0' COMMENT '角色',
   `createtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
