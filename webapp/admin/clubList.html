@@ -356,11 +356,11 @@
 													<input id="number" type="text" class="form-control" readonly="readonly" />
 												</div>
 												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">创建者：</span>
+													<span class="input-group-addon">&nbsp;创建者：</span>
 													<input id="creator" class="form-control" readonly="readonly" />
 												</div>
 												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">电话：</span>
+													<span class="input-group-addon">电&nbsp;&nbsp;话：</span>
 													<input id="phone" class="form-control" readonly="readonly" />
 												</div>
 												<div class="input-group" style="margin-bottom: 5px">
@@ -368,7 +368,7 @@
 													<input id="createtime" class="form-control" readonly="readonly" />
 												</div>
 												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">社徽：</span>
+													<span class="input-group-addon">社&nbsp;&nbsp;徽：</span>
 													<img id="badge" class="img-responsive" alt="社徽" style="width:200px;height: 150px">
 												</div>
 												<div class="input-group" style="margin-bottom: 5px">
@@ -484,6 +484,10 @@
 						if(data.serviceResult){
 							$("#showmessage").html("删除成功").stop().show(500).hide(2000);
 							var index = parseInt($("#index").text());
+							//当删除最后一页的最后一个时，跳转到上一页
+							if ($("#sample-table-2 tbody tr").length==1&&index!=totalPage) {
+								index--;
+							}
 							if (isSearch) {
 								search(index);
 							}else{
@@ -518,7 +522,7 @@
 				function myPage(total,size) {
 					var str = '<button id="first" class="btn btn-xs btn-success">首页</button> <button id="prev" class="btn btn-xs btn-info">上一页</button> <span id="index" class="btn btn-xs btn-warning">1</span> <button id="next" class="btn btn-xs btn-info">下一页</button> <button id="last" class="btn btn-xs btn-success">尾页</button> <span id="total" style="vertical-align: middle;">共0页</span> <input id="inputPage" type="number" min="1" style="width: 50px;vertical-align: top;"> <button id="go" class="btn btn-xs btn-success">GO</button>';
 					$("#myPage").html(str);
-					var totalPage = Math.ceil(total/size);
+					totalPage = Math.ceil(total/size);
 					$("#total").text("共"+totalPage+"页");
 					$("#inputPage").attr("max",totalPage);
 					$("#first").click(function(){
@@ -532,7 +536,7 @@
 					$("#prev").click(function(){
 						var page =  $("#index").text();
 						page = parseInt(page);
-						if(page==1){
+						if(page<=1){
 							return;
 						}
 						console.log(isSearch);
@@ -546,7 +550,7 @@
 					$("#next").click(function(){
 						var page =  $("#index").text();
 						page = parseInt(page);
-						if (page==totalPage) {
+						if (page>=totalPage) {
 							return;
 						}
 						console.log(isSearch);
@@ -559,7 +563,7 @@
 					$("#last").click(function(){
 						var page =  $("#index").text();
 						page = parseInt(page);
-						if(page==totalPage){
+						if(page==totalPage||totalPage==0){
 							return;
 						}
 						console.log(isSearch);

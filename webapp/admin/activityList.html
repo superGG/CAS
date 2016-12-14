@@ -344,7 +344,8 @@
 													<span class="input-group-addon">创建时间：</span>
 													<input id="createtime" class="form-control" readonly="readonly" />
 												</div>
-												<div class="input-group" style="margin-bottom: 5px;overflow: scroll;">
+												<div class="input-group" style="width:100%;margin-bottom: 5px;overflow: scroll;">
+													<div class="input-group-addon" style="width: 100%;height: 30px;display: block;border-right: 1px solid #c3c3c3;">内容</div>
 													<div id="showContent"></div>
 												</div>
 											</div>
@@ -394,7 +395,6 @@
 				size=12;
 				total=0;
 				isSearch=false;
-				// getClubList(1,size);
 				getActivityList(1,size);
 
 				// 结束自定义内容
@@ -486,7 +486,7 @@
 				function myPage(total,size) {
 					var str = '<button id="first" class="btn btn-xs btn-success">首页</button> <button id="prev" class="btn btn-xs btn-info">上一页</button> <span id="index" class="btn btn-xs btn-warning">1</span> <button id="next" class="btn btn-xs btn-info">下一页</button> <button id="last" class="btn btn-xs btn-success">尾页</button> <span id="total" style="vertical-align: middle;">共0页</span> <input id="inputPage" type="number" min="1" style="width: 50px;vertical-align: top;"> <button id="go" class="btn btn-xs btn-success">GO</button>';
 					$("#myPage").html(str);
-					var totalPage = Math.ceil(total/size);
+					totalPage = Math.ceil(total/size);
 					$("#total").text("共"+totalPage+"页");
 					$("#inputPage").attr("max",totalPage);
 					$("#first").click(function(){
