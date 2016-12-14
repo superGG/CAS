@@ -285,4 +285,14 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		}
 		applyDao.delete(applyList.get(0));
 	}
+
+	@Override
+	public Apply getMemberDetail(Integer applyId) {
+		Apply apply = applyDao.get(applyId);
+		if (apply == null) {
+			throw new DomainSecurityException("获取成员信息失败");
+		}
+		return setPositionName(apply);
+	}
+	
 }

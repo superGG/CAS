@@ -114,6 +114,11 @@ public interface ApplyService extends BaseService<Apply> {
 	 */
 	void quitClub(int detailId, int clubId);
 
+	/*
+	 * 查看成员详情
+	 */
+	Apply getMemberDetail(Integer applyId);
+
 
 
 }
