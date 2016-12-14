@@ -33,7 +33,6 @@ import com.earl.cas.vo.ResultMessage;
  * @author Mr.Chen
  *
  */
-
 @RestController
 @RequestMapping(value = "/club")
 public class ClubController extends BaseController{
