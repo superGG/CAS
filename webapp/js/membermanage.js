@@ -1,10 +1,28 @@
 var applyId;
+var positionName;
+var majorClass;
+var phone;
 $(document).ready(function(){
 	initMemberList();
 });
 function showMemberList(memberList){
 	for(var i = 0; i<memberList.length; i++){
-		$("#membertable").append('<tr id="'+memberList[i].id+'"><td>'+(i+1)+'</td><td>'+memberList[i].name+'</td><td>'+memberList[i].positionName+'</td><td>'+memberList[i].majorClass+'</td><td>'+memberList[i].phone+'</td><td>'+memberList[i].createtime.split(" ")[0]+'</td><td><a href="memberinformation.html?applyId='+memberList[i].id+'"><button>查看</button></a> <button onclick="memberDelete(this)">删除</button></td></tr>');
+		if(memberList[i].positionName==undefined){
+			positionName = " ";
+		}else{
+			positionName = memberList[i].positionName;
+		}
+		if(memberList[i].majorClass==undefined){
+			majorClass = " ";
+		}else{
+			majorClass = memberList[i].majorClass;
+		}
+		if(memberList[i].phone==undefined){
+			phone = " ";
+		}else{
+			phone = memberList[i].phone;
+		}
+		$("#membertable").append('<tr id="'+memberList[i].id+'"><td>'+(i+1)+'</td><td>'+memberList[i].name+'</td><td>'+positionName+'</td><td>'+majorClass+'</td><td>'+phone+'</td><td>'+memberList[i].createtime.split(" ")[0]+'</td><td><a href="memberinformation.html?applyId='+memberList[i].id+'"><button>查看</button></a> <button onclick="memberDelete(this)">删除</button></td></tr>');
 		
 	}
 }

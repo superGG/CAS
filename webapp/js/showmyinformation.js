@@ -1,8 +1,75 @@
 var memberId;
+var isValidate;
 $(document).ready(function(){
 	setMyJoinedClubHref();
 	initInformation();
+	//校验表单
+	isValidate = $('#form_prInfo').validate({  
+		onsubmit: false,
+		onkeyup: false, 
+		onfocusout: function(element){
+	       $(element).valid();
+	   },
+	   errorPlacement: function(error, element) {  
+	   		 element.val('');
+		         element.attr("placeholder",error.html());
+	   },
+		rules:{
+			nation:{
+				required:true,
+				chinese:true
+			},
+			name:{
+				required:true,
+				chinese:true,
+				minlength:2,
+				maxlength: 8
+			},
+			major_class:{
+				required:true,
+			},
+			email:{
+				required:true,
+				email:true
+			},
+			phone:{
+				required:true,
+				isPhone:true
+			},
+			age:{
+				required:true,
+				age:true,
+				
+			},
+			reason:{
+				required:true
+			}
+		},
+		messages:{
+			nation:{
+				required:"不能为空!",
+				chinese:"只能输入汉字!"
+			},
+			name:{
+				required:"不能为空!",
+				chinese:"请输入汉字",
+				minlength:"长度不能小于2",
+				maxlength:"长度不能大于8"
+			},
+			major_class:{
+				required:"不能为空!"
+			},
+			email:{
+				required:"不能为空!",
+				email:"example@163.com"
+			},
+			reason:{
+				required:"不能为空!",
+			},
+		}	
+	}); 
 });
+
 function initInformation(){
 	var url = "/ClubSystem/apply/memberDetail";
 	var parm = "clubId="+getUrlParam("clubId")+"&detailId="+getCookieUserData().id;
@@ -30,7 +97,9 @@ function initInformation(){
 		}
 	});
 }
+
 function updateInformation(){
+	//表单验证
 	var name = $("#name").val();
 	var email = $("#email").val();
 	var sex;
@@ -47,12 +116,18 @@ function updateInformation(){
 	var introduce = $("#introduce").val();
 	var url = "/ClubSystem/apply/update";
 	var parm = "id="+memberId+"&name="+name+"&email="+email+"&sex="+sex+"&age="+age+"&majorClass="+majorClass+"&nation="+nation+"&hobby="+hobby+"&phone="+phone+"&introduce="+introduce;
-	$.post(url,parm,function(data){
-		if(data.serviceResult){
-			alert(data.resultInfo);
-			initInformation();
-		}else{
-			alert(data.resultInfo);
-		}
-	});
+	if(isValidate.checkForm()){
+		$.post(url,parm,function(data){
+			if(data.serviceResult){
+				alert(data.resultInfo);
+				initInformation();
+			}else{
+				alert(data.resultInfo);
+			}
+		});
+	}
+	else{
+		alert("请正确填写表单");
+		isValidate.showErrors();
+	}
 }

@@ -1,4 +1,5 @@
 //自定义校验方法
+
 $(document).ready(function() {
  	jQuery.validator.addMethod("age", function(value, element) {   
 		var age = /^(?:[1-9][0-9]?|1[01][0-9]|120)$/;

@@ -121,7 +121,7 @@ function clubDelete(){
 	con = confirm("是否注销？");
 	if(con){
 		var url = "/ClubSystem/club/delete";
-		var parm = "clubId="+getCookieUserData().id;;
+		var parm = "detailId="+getCookieUserData().id;
 		$.post(url,parm,function(data){
 			if(data.serviceResult){
 				alert(data.resultInfo); 
