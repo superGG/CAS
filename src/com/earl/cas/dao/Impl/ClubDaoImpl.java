@@ -76,20 +76,45 @@ public class ClubDaoImpl extends BaseDaoImpl<Club> implements ClubDao {
 		return list;
 	}
 
+//	@SuppressWarnings("unchecked")
+//	public List<Club> getBySearch(String search, PageInfo pageInfo) {
+//		String hql = "from Club where name like :search ";
+//		List<Club> list = getCurrentSession()
+//				.createQuery(hql)
+//				.setString("search", "%" + search + "%")
+//				.setFirstResult(
+//						(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
+//				.setMaxResults(pageInfo.getSize()).list();
+//
+//		String hql2 = "select count(*) from Club where name like :search";
+//		Object uniqueResult = getCurrentSession().createQuery(hql2)
+//				.setString("search", "%" + search + "%").uniqueResult();
+//		Long intValue = (new Integer(uniqueResult.toString())).longValue();
+//		pageInfo.setTotalCount(intValue);
+//		return list;
+//	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Club> getBySearch(String search, PageInfo pageInfo) {
-		String hql = "from Club where name like :search ";
+//		String hql = " select c from Club c, School s where ((c.schoolId = s.id)  and (c.name like :search1 or s.name like :search2))";
+		String hql = "select c from Club c, School s ,ClubType t where (c.schoolId = s.id and c.typeId = t.id)  and (c.name like :search1 or s.name like :search2 or t.name like :search3)";
 		List<Club> list = getCurrentSession()
 				.createQuery(hql)
-				.setString("search", "%" + search + "%")
+				.setString("search1", "%" + search + "%")
+				.setString("search2", "%" + search + "%")
+				.setString("search3", "%" + search + "%")
 				.setFirstResult(
 						(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
 				.setMaxResults(pageInfo.getSize()).list();
 
-		String hql2 = "select count(*) from Club where name like :search";
-		Object uniqueResult = getCurrentSession().createQuery(hql2)
-				.setString("search", "%" + search + "%").uniqueResult();
-		Long intValue = (new Integer(uniqueResult.toString())).longValue();
+		String hql2 = "select c from Club c, School s ,ClubType t where (c.schoolId = s.id and c.typeId = t.id)  and (c.name like :search1 or s.name like :search2 or t.name like :search3)";
+		List<Club> list2 = getCurrentSession()
+				.createQuery(hql2)
+				.setString("search1", "%" + search + "%")
+				.setString("search2", "%" + search + "%")
+				.setString("search3", "%" + search + "%")
+				.list();
+		Long intValue = (long) list2.size();
 		pageInfo.setTotalCount(intValue);
 		return list;
 	}
