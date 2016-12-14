@@ -277,7 +277,7 @@
 
 								<div class="row" style="margin-left: 10%;">
 									<div class="form-search">
-										<span style="font-size: 1.2em;">输入评论内容:</span>
+										<span style="font-size: 1.2em;">输入留言内容or用户名:</span>
 										<span class="input-icon">
 											<input name="search" type="text" placeholder="关键词..." class="nav-search-input"  autocomplete="off" />
 											<i class="icon-search nav-search-icon"></i>
@@ -300,6 +300,7 @@
 														<th>留言ID</th>
 														<th>留言内容</th>
 														<th>发表人</th>
+														<th>点赞次数</th>
 														<th>
 															<i class="icon-time bigger-110 hidden-480"></i>
 															创建时间
@@ -333,19 +334,32 @@
 											<div class="modal-body" style="overflow-y: scroll;height: 500px">
 												<input name="userId" id="userId" type="hidden"/>
 												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">活动标题：</span>
-													<input id="title" class="form-control" readonly="readonly"/>
+													<span class="input-group-addon">留言ID&nbsp;</span>
+													<input id="id" class="form-control" readonly="readonly"/>
 												</div>
 												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">社团名称：</span>
-													<input id="clubName" class="form-control" readonly="readonly"/>
+													<span class="input-group-addon">父留言ID</span>
+													<input id="fatherId" class="form-control" readonly="readonly"/>
 												</div>
 												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">创建时间：</span>
+													<span class="input-group-addon">发表人ID</span>
+													<input id="detailId" class="form-control" readonly="readonly"/>
+												</div>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">发表人&nbsp;</span>
+													<input id="user" class="form-control" readonly="readonly"/>
+												</div>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">发表时间</span>
 													<input id="createtime" class="form-control" readonly="readonly" />
 												</div>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">点赞次数</span>
+													<input id="good" class="form-control" readonly="readonly" />
+												</div>
 												<div class="input-group" style="margin-bottom: 5px;overflow: scroll;">
-													<div id="showContent"></div>
+													<span class="input-group-addon">发表内容</span>
+													<div id="showContent" class="form-control" readonly="readonly"></div>
 												</div>
 											</div>
 										</div><!-- /.modal-content -->
@@ -391,10 +405,9 @@
 		<script type="text/javascript">
 			jQuery(function($) {
 				//开始自定义内容
-				size=3;
+				size=12;
 				total=0;
 				isSearch=false;
-				// getClubList(1,size);
 				getMessageList(1,size);
 
 				// 结束自定义内容
@@ -419,22 +432,25 @@
 					var str='';
 					for(i=0;i<messageList.length;i++){
 						str+='<tr id="activity'+messageList[i].id+'"><td>'+messageList[i].id+'</td>';
-						str+='<td style="max-width:650px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+html_decode(messageList[i].content)+'</td><td>'+messageList[i].userName+'</td><td>'+messageList[i].createtime+'</td>';
-						str+='<td><button class="btn btn-xs btn-success" onclick="showActivityDetail('+messageList[i].id+')">查看</button>&nbsp;';
+						str+='<td style="max-width:350px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><div style="height:25px;">'+html_decode(messageList[i].content)+'</div></td><td>'+messageList[i].userName+'</td><td>'+messageList[i].good+'</td><td>'+messageList[i].createtime+'</td>';
+						str+='<td><button class="btn btn-xs btn-success" onclick="showMessageDetail('+messageList[i].id+')">查看</button>&nbsp;';
 						str+='<button class="btn btn-xs btn-danger" onclick="deleteMessage('+messageList[i].id+')">删除</button></td></tr>';
 					}
-					$("#sample-table-2 tbody").html(str);
+					$("#sample-table-2 tbody").html(html_decode(str));
 				}
-				function showActivityDetail(activityId) {
-					var url = "/ClubSystem/activity/getDetails";
-					var data = "id="+activityId;
+				function showMessageDetail(messageId) {
+					var url = "/ClubSystem/message/findById";
+					var data = "id="+messageId;
 					$.get(url, data, function (data) {
 						if (data.serviceResult) {
-							var activity = data.resultParm.activity;
-							$("#dialog #title").val(activity.title);
-							$("#dialog #clubName").val(activity.clubName);
-							$("#dialog #createtime").val(activity.createtime);
-							$("#dialog #showContent").html(html_decode(activity.content));
+							var message = data.resultParm.message;
+							$("#dialog #id").val(message.id);
+							$("#dialog #fatherId").val(message.fatherId);
+							$("#dialog #detailId").val(message.detailId);
+							$("#dialog #user").val(message.userName);
+							$("#dialog #createtime").val(message.createtime);
+							$("#dialog #good").val(message.good);
+							$("#dialog #showContent").html(html_decode(message.content));
 							$("#dialog").show();	
 						}
 					})
@@ -465,14 +481,14 @@
 						getMessageList(1,size);
 						return;
 					}
-					var data ="input="+$(".form-search input[name='search']").val()+"&indexPageNum="+index+"&size="+size;
-					var url = "/ClubSystem/activity/searchByInput";
+					var data ="search="+$(".form-search input[name='search']").val()+"&indexPageNum="+index+"&size="+size;
+					var url = "/ClubSystem/message/searchAlls";
 					$.get(url,data,function (data) {
 						if (data.serviceResult) {
 							var total = data.resultParm.total;
-							var activityList = data.resultParm.activity;
+							var messageList = data.resultParm.message;
 							console.log(index);
-							showActivityList(activityList);
+							showMessageList(messageList);
 							isSearch=true;
 							myPage(total,size);
 							$("#index").text(index);

@@ -58,7 +58,7 @@ public class AlbumController extends BaseController {
 	/**
 	 * GET /album -> 根据社团名称模糊查询社团相册
 	 */
-	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/searchAll", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> searchAll(String search, PageInfo pageInfo) {
 		logger.debug("REST request to get all album");
 		result = new ResultMessage();
