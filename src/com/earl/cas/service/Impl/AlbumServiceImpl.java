@@ -16,6 +16,7 @@ import com.earl.cas.dao.ClubDao;
 import com.earl.cas.dao.PhotoDao;
 import com.earl.cas.entity.Album;
 import com.earl.cas.entity.Club;
+import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.AlbumService;
 
 /**
@@ -64,6 +65,9 @@ public class AlbumServiceImpl extends BaseServiceImpl<Album> implements
 	@Override
 	public Album findById(Integer id) {
 		Album album = albumDao.get(id);
+		if (album == null) {
+			throw new DomainSecurityException("没有改相册");
+		}
 		Club club = clubDao.get(album.getClubId());
 		Long photoNum = photoDao.getPhotoNumByAlbumId(album.getId());
 		album.setPhotoNumber(photoNum);
