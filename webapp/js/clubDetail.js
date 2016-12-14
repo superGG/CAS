@@ -276,7 +276,6 @@ function showApplyTable(){
     		},
     		name:{
     			required:true,
-    			chinese:true,
     			minlength:2,
     			maxlength: 8
     		},

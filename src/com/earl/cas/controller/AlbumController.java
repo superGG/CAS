@@ -20,6 +20,7 @@ import com.earl.cas.entity.Album;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.AlbumService;
 import com.earl.cas.util.FileUploadUtil;
+import com.earl.cas.vo.PageInfo;
 import com.earl.cas.vo.ResultMessage;
 
 /**
@@ -44,12 +45,27 @@ public class AlbumController extends BaseController {
 	 * GET /album -> get all the album
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> getAll() {
+	public ResponseEntity<ResultMessage> getAll(PageInfo pageInfo) {
 		logger.debug("REST request to get all album");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Album> albumList = albumService.findAll();
+		List<Album> albumList = albumService.getAlls(pageInfo);
 		result.getResultParm().put("album", albumList);
+		result.getResultParm().put("total", pageInfo.getTotalCount());
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	
+	/**
+	 * GET /album -> 根据社团名称模糊查询社团相册
+	 */
+	@RequestMapping(value = "/searchAll", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> searchAll(String search, PageInfo pageInfo) {
+		logger.debug("REST request to get all album");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Album> albumList = albumService.searchAll(search,pageInfo);
+		result.getResultParm().put("album", albumList);
+		result.getResultParm().put("total", pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 	
