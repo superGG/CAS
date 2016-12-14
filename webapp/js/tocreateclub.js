@@ -54,6 +54,8 @@ function createClub(){
 		var name = $("#name").val();
 		var phone = $("#phone").val();
 		var introduce = $("#reason").val();
+		var majorClass = $("#major_class").val();
+		var phone = $("#phone").val();
 //		var url = "/ClubSystem/club/create";
 //		var parm = "detailId="+detaliId+"&schoolName="+schoolName+"&clubType="+typeName+"&name="+name+"&phone="+phone+"&introduce="+introduce;
 //		$.post(url,parm,function(data){
