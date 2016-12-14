@@ -34,5 +34,10 @@ public interface MessageService extends BaseService<Message> {
 	 */
 	List<Message> searchAlls(String search, PageInfo pageInfo);
 
+	/*
+	 * 分页查询留言内容
+	 */
+	List<Message> getAlls(PageInfo pageInfo);
+
 
 }

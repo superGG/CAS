@@ -44,7 +44,7 @@ public class MessageController extends BaseController {
 		logger.debug("REST request to get all message");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Message> messageList = messageService.findAll(pageInfo);
+		List<Message> messageList = messageService.getAlls(pageInfo);
 		result.getResultParm().put("message", messageList);
 		result.getResultParm().put("total", pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);

@@ -17,6 +17,7 @@ import com.earl.cas.commons.BaseController;
 import com.earl.cas.entity.Complain;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ComplainService;
+import com.earl.cas.vo.PageInfo;
 import com.earl.cas.vo.ResultMessage;
 
 /**
@@ -36,16 +37,16 @@ public class ComplainController extends BaseController {
 	private ResultMessage result = null;
 
 	/**
-	 * 查看全部社团类型
+	 * 查看全部举报信息
 	 * @author 祝
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> getAll() {
-		logger.debug("REST request to get all clubType");
+	public  ResponseEntity<ResultMessage> getAll(PageInfo pageInfo) {
+		logger.debug("REST request to get all complain");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Complain> clubTypeList = complainService.findAll();
-		result.getResultParm().put("clubType", clubTypeList);
+		List<Complain> complainList = complainService.findAll(pageInfo);
+		result.getResultParm().put("complainList", complainList);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
@@ -67,7 +68,7 @@ public class ComplainController extends BaseController {
 	
 	
 	/**
-	 * 添加社团类型
+	 * 添加举报信息.
 	 * @param clubtype
 	 *         类型名称name必填
 	 * @author 祝
@@ -76,15 +77,17 @@ public class ComplainController extends BaseController {
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> save(Complain complain) {
 		logger.debug("REST request to delete clubType");
-		//判断社团类型名字是否为空
 		if(StringUtils.isBlank(complain.getContent())){
-			throw new DomainSecurityException("社团类型名字不能为空");
+			throw new DomainSecurityException("举报内容不能为空");
+		}
+		if (complain.getDetailId() == null) {
+			throw new DomainSecurityException("数据有误");
 		}
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		complainService.save(complain);
 		result.setResultInfo("增加成功");
-		result.getResultParm().put("clubtype", complainService.get(complain.getId()));
+		result.getResultParm().put("complain", complainService.get(complain.getId()));
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
