@@ -7,12 +7,12 @@ $(document).ready(function(){
 	isValidate = $('#form_prInfo').validate({  
 		onsubmit: false,
 		onkeyup: false, 
+		debug:true,
 		onfocusout: function(element){
 	       $(element).valid();
 	   },
 	   errorPlacement: function(error, element) {  
-	   		 element.val('');
-		         element.attr("placeholder",error.html());
+		   error.appendTo(element.next());  
 	   },
 		rules:{
 			nation:{
@@ -21,7 +21,6 @@ $(document).ready(function(){
 			},
 			name:{
 				required:true,
-				chinese:true,
 				minlength:2,
 				maxlength: 8
 			},
@@ -39,7 +38,6 @@ $(document).ready(function(){
 			age:{
 				required:true,
 				age:true,
-				
 			},
 			reason:{
 				required:true
@@ -48,11 +46,9 @@ $(document).ready(function(){
 		messages:{
 			nation:{
 				required:"不能为空!",
-				chinese:"只能输入汉字!"
 			},
 			name:{
 				required:"不能为空!",
-				chinese:"请输入汉字",
 				minlength:"长度不能小于2",
 				maxlength:"长度不能大于8"
 			},
@@ -99,7 +95,7 @@ function initInformation(){
 }
 
 function updateInformation(){
-	//表单验证
+	
 	var name = $("#name").val();
 	var email = $("#email").val();
 	var sex;
@@ -129,5 +125,7 @@ function updateInformation(){
 	else{
 		alert("请正确填写表单");
 		isValidate.showErrors();
+		
 	}
 }
+
