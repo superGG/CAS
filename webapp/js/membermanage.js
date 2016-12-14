@@ -1,11 +1,11 @@
 var applyId;
-var positionName;
-var majorClass;
-var phone;
 $(document).ready(function(){
 	initMemberList();
 });
 function showMemberList(memberList){
+	var positionName = " ";
+	var majorClass = " ";
+	var phone = " ";
 	for(var i = 0; i<memberList.length; i++){
 		if(memberList[i].positionName==undefined){
 			positionName = " ";
@@ -31,7 +31,6 @@ function initMemberList(){
 	var parm = "detailId="+getCookieUserData().id;
 	$.get(url,parm,function(data){
 		if(data.serviceResult){
-			console.log(data);
 			var memberList = data.resultParm.apply;
 			showMemberList(memberList);
 		}else{
@@ -43,10 +42,8 @@ function memberDelete(which){
 	var con;
 	con = confirm("确定要删除吗？");
 	if(con){
-		console.log($(which).parent().parent().attr("name"));
 		var url ="/ClubSystem/apply/deleteMember";
 		var parm = "applyId="+$(which).parent().parent().attr("id");
-		console.log($(which).parent().parent().attr("id"));
 		$.post(url,parm,function(data){
 			if(data.serviceResult){
 				$(which).parent().parent().remove();
@@ -59,3 +56,20 @@ function memberDelete(which){
 		return false;
 	}
 }
+function memberSearch(){
+	var name = $("#search").val();
+	var url = "/ClubSystem/apply/searchMember";
+	var parm = "detailId="+getCookieUserData().id+"&name="+name;
+	$.get(url,parm,function(data){
+		if(data.serviceResult){
+			$("#membertable").children("tr").remove();
+			var searchList = data.resultParm.apply;
+			showMemberList(searchList);
+		}else{
+			alert(data.resultInfo);
+		}
+	});
+}
+
+
+

@@ -8,7 +8,6 @@ function initUserInformation(){
 	 $("#userName").text(userData.name);
 	 $("#portrait").attr("src","../.."+userData.headPath);
 	 $("#name").val(userData.name);
-//	 $("#sex").val(userData.sex);
 	 if(userData.sex){
 		 $("#male").attr("checked",true);
 	 }else{
@@ -97,3 +96,4 @@ function updateDetails(){
 		}
 	});
 }
+
