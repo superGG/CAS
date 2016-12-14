@@ -43,6 +43,7 @@ function initMemberInformation(){
 	});
 }
 function showClubPosition(positionList){
+	$("#position").append('<option value="0"> </option>');
 	for(var i = 0;i<positionList.length;i++){
 		$("#position").append('<option value ="'+positionList[i].id+'">'+positionList[i].name+'</option>');
 	}
@@ -52,7 +53,12 @@ function updatePosition(){
 	var index = document.getElementById('position').selectedIndex;
 	var positionId = document.getElementById('position').options[index].getAttribute("value");
 	var url = "/ClubSystem/apply/updateposition";
-	var parm = "id="+memberId+"&positionId="+positionId;
+	var parm;
+	if(positionId == 0){
+		parm = "id="+memberId;
+	}else{
+		parm = "id="+memberId+"&positionId="+positionId;
+	}
 	$.post(url,parm,function(data){
 		if(data.serviceResult){
 			initMemberInformation();
