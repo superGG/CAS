@@ -221,6 +221,7 @@ function showBigPhoto(index,path) {
     });
 }
 function showApplyTable(){
+
 	showMask();
 	if ($(".applyFrame").length>0) {
 		$(".applyFrame").remove();
@@ -249,18 +250,15 @@ function showApplyTable(){
     formStr+="<tr><td colspan='6'><div class='apply_post'>提交</div><div class='apply_cancel'>取消</div></td></tr></table></form></div>";
     $("body").append(formStr);
     setFrameWH("applyFrame");
-    initApplyFrameBtn();
+ 
     
     
     
   //表单验证
-    $().ready(function() {
-
-    	
-    	$( '#applyForm' ).validate({
+ 
+  var isValidate = $('#applyForm').validate({  
     		onsubmit: false,
     		onkeyup: false, 
-    		
     		onfocusout: function(element){
     	        $(element).valid();
     	    },
@@ -320,33 +318,37 @@ function showApplyTable(){
     			reason:{
     				required:"不能为空!",
     			},
-
-    		}
-    	});
-    });
+    		}	
+    	}); 
+  initApplyFrameBtn(isValidate); 
 }
 
-
-function initApplyFrameBtn(){
-	$(".apply_post").click(function(){
-		var url="/ClubSystem/apply/createApply";
-		var sendData = $("#applyForm").serialize();
-		$.post(url,sendData,function(data){
-			if (data.serviceResult) {
-				$(".apply-btn").css("background-color","#ccc").html(data.resultInfo).unbind();
-			}else{
-				alert(data.resultInfo);
+	function initApplyFrameBtn(isValidate){
+		$(".apply_post").click(function(){
+			if(isValidate.checkForm()){
+				
+				var url="/ClubSystem/apply/createApply";
+				var sendData = $("#applyForm").serialize();
+				$.post(url,sendData,function(data){
+					if (data.serviceResult) {
+						$(".apply-btn").css("background-color","#ccc").html(data.resultInfo).unbind();
+					}else{
+						alert(data.resultInfo);
+					}
+				});
+				$("#applyFrame").remove();
+				$("#mask").remove();
+			}
+			else{
+				alert( isValidate.showErrors());
 			}
 		});
-		$("#applyFrame").remove();
-		$("#mask").remove();
-	});
+		$(".apply_cancel").click(function(){
+			$("#applyFrame").remove();
+			$("#mask").remove();
+		});
+	}
 
-	$(".apply_cancel").click(function(){
-		$("#applyFrame").remove();
-		$("#mask").remove();
-	})
-}
 
 //判断是否已加入社团或提交了申请
 function isApplyOrJoin(clubId){
