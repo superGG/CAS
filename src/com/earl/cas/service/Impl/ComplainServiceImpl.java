@@ -65,4 +65,20 @@ public class ComplainServiceImpl extends BaseServiceImpl<Complain> implements
 		return newList;
 	}
 
+
+	@Override
+	public Complain findById(Integer id) {
+		Complain complain = complainDao.get(id);
+		UserDetails userDetail = userDetailsDao.get(complain.getDetailId());
+		complain.setUserName(userDetail.getName());
+		return complain;
+	}
+
+
+	@Override
+	public List<Complain> getByType(Complain complain, PageInfo pageInfo) {
+		List<Complain> list = complainDao.findByGivenCriteria(complain, pageInfo);
+		return setUserName(list);
+	}
+
 }

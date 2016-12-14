@@ -1,6 +1,6 @@
 $(document).ready(function () {
 	intiClubDtail();
-})
+});
 $(window).resize(function(){
     if ($("#applyFrame").length>0) {
       setFrameWH("applyFrame") ;
@@ -113,7 +113,7 @@ function showClubActivity(index) {
 		}else{
 			$(".loadMoreActivity").attr("onclick","javascript:void(0)").css({"background-color":"#ccc","cursor":"default"}).html("没有数据");
 		}
-	})
+	});
 }
 
 function showActivity(activityId) {
@@ -125,7 +125,7 @@ function showActivity(activityId) {
 			var str='<div class="activity_detail">'+html_decode(activityData.content)+'</div>';
 			$(".club-activity").html(str);	
 		}
-	})
+	});
 }
 // function showClubMember(clubId) {
 // 	var str = "<div class='club-member'>成员</div>";
@@ -148,7 +148,7 @@ function getClubAlbumList(clubId){
 			var listData = data.resultParm.albumList;
 			showClubAlbumList(listData);
 		}
-	})
+	});
 }
 function showClubAlbumList(albumList){
 	var str="<ul>";
@@ -171,7 +171,7 @@ function showClubAlbumList(albumList){
 			if (data.serviceResult) {
 				showPhotoList(data.resultParm.photoList,dataSet);
 			}
-		})
+		});
 	});
 }
 function showPhotoList(photoList,dataSet){
@@ -192,7 +192,7 @@ function showPhotoList(photoList,dataSet){
     	$(".photo_list_bd ul li.photo_acive").removeClass("photo_acive");
     	$(this).parent().addClass("photo_acive");
     	showBigPhoto($(this).parent().index(),$(this).attr("src"));
-    })
+    });
 }
 function showBigPhoto(index,path) {
 	showMask();
@@ -257,77 +257,72 @@ function showApplyTable(){
     formStr+="<tr><td colspan='6'><div class='apply_post'>提交</div><div class='apply_cancel'>取消</div></td></tr></table></form></div>";
     $("body").append(formStr);
     setFrameWH("applyFrame");
- 
     
-    
-    
-  //表单验证
- 
-  var isValidate = $('#applyForm').validate({  
-    		onsubmit: false,
-    		onkeyup: false, 
-    		onfocusout: function(element){
-    	        $(element).valid();
-    	    },
-    	    errorPlacement: function(error, element) {  
-    	    		 element.val('');
-        	         element.attr("placeholder",error.html());
-    	    },
-    		rules:{
-    			nation:{
-    				required:true,
-    				chinese:true
-    			},
-    			name:{
-    				required:true,
-    				chinese:true,
-    				minlength:2,
-    				maxlength: 8
-    			},
-    			majorClass:{
-    				required:true,
-    			},
-    			email:{
-    				required:true,
-    				email:true
-    			},
-    			phone:{
-    				required:true,
-    				isPhone:true
-    			},
-    			age:{
-    				required:true,
-    				age:true,
-    				
-    			},
-    			reason:{
-    				required:true
-    			}
+    //表单验证
+    var isValidate = $('#applyForm').validate({  
+    	onsubmit: false,
+    	onkeyup: false, 
+    	onfocusout: function(element){
+    	    $(element).valid();
+    	},
+    	errorPlacement: function(error, element) {  
+    	    element.val('');
+        	element.attr("placeholder",error.html());
+    	},
+    	rules:{
+    		nation:{
+    			required:true,
+    			chinese:true
     		},
-    		messages:{
-    			nation:{
-    				required:"不能为空!",
-    				chinese:"只能输入汉字!"
-    			},
-    			name:{
-    				required:"不能为空!",
-    				chinese:"请输入汉字",
-    				minlength:"长度不能小于2",
-    				maxlength:"长度不能大于8"
-    			},
-    			majorClass:{
-    				required:"不能为空!"
-    			},
-    			email:{
-    				required:"不能为空!",
-    				email:"example@163.com"
-    			},
-    			reason:{
-    				required:"不能为空!",
-    			},
-    		}	
-    	}); 
-  initApplyFrameBtn(isValidate); 
+    		name:{
+    			required:true,
+    			chinese:true,
+    			minlength:2,
+    			maxlength: 8
+    		},
+    		majorClass:{
+    			required:true,
+    		},
+    		email:{
+    			required:true,
+    			email:true
+    		},
+    		phone:{
+    			required:true,
+    			isPhone:true
+    		},
+    		age:{
+    			required:true,
+    			age:true,		
+    		},
+    		reason:{
+    			required:true
+    		}
+    	},
+    	messages:{
+    		nation:{
+    			required:"不能为空!",
+    			chinese:"只能输入汉字!"
+    		},
+    		name:{
+    			required:"不能为空!",
+    			chinese:"请输入汉字",
+    			minlength:"长度不能小于2",
+    			maxlength:"长度不能大于8"
+    		},
+    		majorClass:{
+    			required:"不能为空!"
+    		},
+    		email:{
+    			required:"不能为空!",
+    			email:"example@163.com"
+   			},
+   			reason:{
+   				required:"不能为空!",
+   			},
+   		}	
+   	}); 
+    initApplyFrameBtn(isValidate); 
 }
 
 	function initApplyFrameBtn(isValidate){
@@ -375,7 +370,7 @@ function isApplyOrJoin(clubId){
 		}else{
 			console.log(data.resultInfo);
 		}
-	})
+	});
 }
 //计算图片大小
 function getFixSize(path){

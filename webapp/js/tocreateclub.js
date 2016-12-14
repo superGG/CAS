@@ -6,6 +6,8 @@ function showTable(){
 	$("#applytable").show();
 }
 function closeTable(){
+	$("#schoolName").children().remove();
+	$("#typeName").children().remove();
 	$("#applytable").hide();
 }
 function initTable(){
@@ -81,12 +83,14 @@ function createClub(){
 	         cache: false,  
 	         contentType: false,  
 	         processData: false,  
-	         success: function (data) {  
+	         success: function(data) {  
 	        	 alert(data.resultInfo); 
-	        	 window.location.href ="/ClubSystem/views/club/clubinformationmanage.html";
+	        	 if(data.serviceResult){
+	        		 window.location.href ="/ClubSystem/views/club/clubinformationmanage.html";
+	        	 }
 		     },  
-	         error: function (data) {  
-	             alert(data.resultInfo);  
+	         error: function(data) {  
+	             alert(data.resultInfo);
 	         }  
 	   }); 
 }
