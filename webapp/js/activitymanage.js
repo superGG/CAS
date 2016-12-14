@@ -56,7 +56,7 @@ function changeActivity(id){
 	$.get(url, mparm, function(data){
 		if (data.serviceResult) {
 			var aData = data.resultParm.activity
-			var str='<div class="upDataFrame"><div class="activity_title"><span>活动标题</span><input type="text" name="activity_title"/></div><div class="activity_content"><div class="content_lebel">活动内容</div><div id="editor"></div></div><div id="saveActivity"onclick="updataActivity('+id+')">保存</div></div>';
+			var str='<div class="upDataFrame"><div class="activity_title"><span>活动标题</span><input type="text" required="required" name="activity_title"/></div><div class="activity_content"><div class="content_lebel">活动内容</div><div id="editor"></div></div><div id="saveActivity"onclick="updataActivity('+id+')">保存</div></div>';
 			$(".cmm_content").append(str);
 			if (editor){
 				return;
@@ -76,11 +76,17 @@ function updataActivity(id) {
 	var content = editor.getData();
 	var url="/ClubSystem/activity/update";
 	var mparm = "id="+id+"&title="+html_encode(title)+"&content="+html_encode(content);
-	$.post(url, mparm, function (data) {
-		if (data.serviceResult) {
-			window.location.reload();
-		}
-	})
+	if(title=="" || content==""){
+		alert("标题和内容均不能为空！");
+		return;
+	}
+	else{
+		$.post(url, mparm, function (data) {
+			if (data.serviceResult) {
+				window.location.reload();
+			}
+		})
+	}
 }
 
 function deleteActivity(id){
@@ -127,11 +133,17 @@ function saveActivity(){
 	var content = editor.getData();
 	var url="/ClubSystem/activity/save";
 	var mparm = "clubId="+clubId+"&title="+html_encode(title)+"&content="+html_encode(content);
-	$.post(url, mparm, function (data) {
-		if (data.serviceResult) {
-			window.location.reload();
-		}
-	})
+	if(title=="" || content==""){
+		alert("标题和内容均不能为空！");
+		return;
+	}
+	else{
+		$.post(url, mparm, function (data) {
+			if (data.serviceResult) {
+				window.location.reload();
+			}
+		})
+	}
 }
 function getMyCreateClub() {
 	clubId='';
