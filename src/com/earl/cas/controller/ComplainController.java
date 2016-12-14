@@ -47,6 +47,7 @@ public class ComplainController extends BaseController {
 		result.setServiceResult(true);
 		List<Complain> complainList = complainService.getAlls(pageInfo);
 		result.getResultParm().put("complainList", complainList);
+		result.getResultParm().put("total", pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
@@ -71,7 +72,7 @@ public class ComplainController extends BaseController {
 	 * 添加举报信息.
 	 * @param complain
 	 *         内容content必填
-	 * @author 祝
+	 * @author Kellan
 	 * 
 	 */
 	@RequestMapping(value = "/save",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -86,7 +87,7 @@ public class ComplainController extends BaseController {
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		complainService.save(complain);
-		result.setResultInfo("增加成功");
+		result.setResultInfo("感谢您为良好的网络环境贡献一份力！");
 		result.getResultParm().put("complain", complainService.get(complain.getId()));
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
@@ -108,7 +109,33 @@ public class ComplainController extends BaseController {
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
+	/**
+	 * 获取举报详情.
+	 *@author Kellan.
+	 * @return
+	 */
+	@RequestMapping(value = "/findById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> findById(Integer id) {
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		Complain complain = complainService.findById(id);
+		result.getResultParm().put("complain", complain);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 	
-	
+	/**
+	 * 根据类型查询举报信息
+	 * @param type 举报类型
+	 * @author kellan
+	 */
+	@RequestMapping(value = "/getByType", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getAll(Complain complain, PageInfo pageInfo) {
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Complain> complainList = complainService.getByType(complain,pageInfo);
+		result.getResultParm().put("complainList", complainList);
+		result.getResultParm().put("total", pageInfo.getTotalCount());
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
 	
 }

@@ -106,6 +106,7 @@ public class Complain implements Serializable
 		this.createtime = createtime;
 	}
 	
+	@Generated(GenerationTime.INSERT)
 	@Column(name = "status")
 	public Integer getStatus() {
 		return status;
