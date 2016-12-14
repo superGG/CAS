@@ -341,7 +341,8 @@ function showApplyTable(){
 				$("#mask").remove();
 			}
 			else{
-				alert( isValidate.showErrors());
+				isValidate.showErrors();
+				return;
 			}
 		});
 		$(".apply_cancel").click(function(){
