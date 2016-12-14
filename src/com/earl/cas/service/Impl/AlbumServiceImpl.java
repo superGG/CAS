@@ -84,8 +84,8 @@ public class AlbumServiceImpl extends BaseServiceImpl<Album> implements
 
 	@Override
 	public List<Album> searchAll(String search, PageInfo pageInfo) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Album> list = albumDao.searchAll(search,pageInfo);
+		return setName(list);
 	}
 
 	
