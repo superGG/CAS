@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>社团网申后台管理系统</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- basic styles -->
+		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+		<!-- ace styles -->
+
+		<link rel="stylesheet" href="assets/css/ace.min.css" />
+		<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+		<link rel="stylesheet" href="assets/css/ace-skins.min.css" />
+
+		<!--[if lte IE 8]>
+		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+		<![endif]-->
+
+		<!-- inline styles related to this page -->
+
+		<!-- ace settings handler -->
+
+		<script src="assets/js/ace-extra.min.js"></script>
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+		<!--[if lt IE 9]>
+		<script src="assets/js/html5shiv.js"></script>
+		<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+		<style type="text/css">
+			#sample-table-2 tbody td{
+				vertical-align: inherit;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="navbar navbar-default" id="navbar">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="navbar-container" id="navbar-container">
+				<div class="navbar-header pull-left">
+					<a href="#" class="navbar-brand">
+						<small>
+							<i class="icon-leaf"></i>
+							社团网申后台管理系统
+						</small>
+					</a><!-- /.brand -->
+				</div><!-- /.navbar-header -->
+
+				<div class="navbar-header pull-right" role="navigation">
+					<ul class="nav ace-nav">
+						<!-- 导航栏个人信息菜单 -->
+						<li class="light-blue">
+							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+								<img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
+								<span class="user-info">
+									<small>欢迎光临,</small>
+									王纸张
+								</span>
+
+								<i class="icon-caret-down"></i>
+							</a>
+
+							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+								<li>
+									<a href="#">
+										<i class="icon-cog"></i>
+										设置
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<i class="icon-user"></i>
+										个人资料
+									</a>
+								</li>
+
+								<li class="divider"></li>
+
+								<li>
+									<a href="#">
+										<i class="icon-off"></i>
+										退出
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul><!-- /.ace-nav -->
+				</div><!-- /.navbar-header -->
+			</div><!-- /.container -->
+		</div>
+
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				<div class="sidebar" id="sidebar">
+					<script type="text/javascript">
+						try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+					</script>
+
+					<div class="sidebar-shortcuts" id="sidebar-shortcuts">	
+						<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+							<span class="btn btn-success"></span>
+
+							<span class="btn btn-info"></span>
+
+							<span class="btn btn-warning"></span>
+
+							<span class="btn btn-danger"></span>
+						</div>
+					</div><!-- #sidebar-shortcuts -->
+
+					<!-- 侧边栏 -->
+					<ul class="nav nav-list">
+						<li class="active">
+							<a href="index.html">
+								<i class="icon-dashboard"></i>
+								<span class="menu-text"> 起始页 </span>
+							</a>
+						</li>
+
+						<!-- 社团 -->
+						<li>
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-desktop"></i>
+								<span class="menu-text"> 社团管理 </span>
+
+								<b class="arrow icon-angle-down"></b>
+							</a>
+							<ul class="submenu">
+								<li>
+									<a href="clubList.html">
+										<i class="icon-double-angle-right"></i>
+										社团列表
+									</a>
+								</li>
+
+								<li>
+									<a href="clubType.html">
+										<i class="icon-double-angle-right"></i>
+										社团类型
+									</a>
+								</li>
+
+								<li>
+									<a href="schoolList.html">
+										<i class="icon-double-angle-right"></i>
+										学校列表
+									</a>
+								</li>
+							</ul>
+						</li>
+					
+						<!-- 活动 -->
+						<li>
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-desktop"></i>
+								<span class="menu-text"> 活动管理 </span>
+
+								<b class="arrow icon-angle-down"></b>
+							</a>
+
+							<ul class="submenu">
+								<li>
+									<a href="activityList.html">
+										<i class="icon-double-angle-right"></i>
+										活动列表
+									</a>
+								</li>
+							</ul>
+						</li>
+
+						<!-- 相册 -->
+						<li>
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-desktop"></i>
+								<span class="menu-text"> 相册管理 </span>
+
+								<b class="arrow icon-angle-down"></b>
+							</a>
+
+							<ul class="submenu">
+								<li>
+									<a href="albumList.html">
+										<i class="icon-double-angle-right"></i>
+										相册列表
+									</a>
+								</li>
+								<li>
+									<a href="photoList.html">
+										<i class="icon-double-angle-right"></i>
+										照片列表
+									</a>
+								</li>
+							</ul>
+						</li>
+
+						<!-- 评论 -->
+						<li>
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-desktop"></i>
+								<span class="menu-text"> 评论管理 </span>
+
+								<b class="arrow icon-angle-down"></b>
+							</a>
+
+							<ul class="submenu">
+								<li>
+									<a href="messageList.html">
+										<i class="icon-double-angle-right"></i>
+										留言列表
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<!-- /.nav-list -->
+
+					<!-- 侧边栏缩进 -->
+					<div class="sidebar-collapse" id="sidebar-collapse">
+						<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+					</div>
+
+					<script type="text/javascript">
+						try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+					</script>
+				</div>
+
+				<!-- main容器 -->
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="index.html">首页</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);">社团管理</a>
+							</li>
+
+							<li class="active">社团列表</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+							<h1>
+								社团管理
+								<small>
+									<i class="icon-double-angle-right"></i>
+									社团列表
+								</small>
+							</h1>	
+						</div><!-- /.page-header -->
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<div class="row" style="margin-left: 10%;">
+									<div class="form-search">
+										<span style="font-size: 1.2em;">输入社团名称or学校or类型:</span>
+										<span class="input-icon">
+											<input name="search" type="text" placeholder="Search ..." class="nav-search-input"  autocomplete="off" />
+											<i class="icon-search nav-search-icon"></i>
+										</span>
+
+										<div class="btn-group">
+											<button style="height: 30px;border-radius:10px;background-color: white;" onclick="search(1)">搜索</button>
+										</div>
+									</div>
+								</div>
+								<!-- 修改点：；一个搜索栏 -->
+
+								<div class="row">
+									<div class="col-xs-12">
+										<h3 class="header smaller lighter blue">社团信息表</h3>
+										<div class="table-responsive">
+											<table id="sample-table-2" class="table table-striped table-bordered table-hover">
+												<thead>
+													<tr>
+														<!-- <th class="center">
+															<label>
+																<input type="checkbox" class="ace" />
+																<span class="lbl"></span>
+															</label>
+														</th> -->
+														<th>社团徽章</th>
+														<th>社团名称</th>
+														<th>社团学校</th>
+														<th class="hidden-480">社团类型</th>
+														<th>
+															<i class="icon-time bigger-110 hidden-480"></i>
+															创建时间
+														</th>
+														<!-- <th class="hidden-480">认证状态</th> -->
+														<th>
+															操作
+														</th>
+													</tr>
+												</thead>
+
+												<tbody>
+
+												</tbody>
+											</table>
+										</div>
+										<div id="myPage" style="text-align: center;"></div>
+									</div>
+								</div><!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+						<!--审核信息详情模态框开始-->
+									<div id="dialog" class="modal-dialog" style="position: fixed;top: 0px;left:30%;display: none;">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button class="btn btn-xs btn-info" style=" float: right;" onclick="closeDialog()">关闭</button>
+												<h4 class="modal-title" id="myModalLabel">
+													社团详情
+												</h4>
+											</div>
+											<div class="modal-body">
+												<input name="userId" id="userId" type="hidden"/>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">社团名称：</span>
+													<input id="name" class="form-control" readonly="readonly"/>
+												</div>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">社团类型：</span>
+													<input id="type" class="form-control" readonly="readonly"/>
+												</div>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">学校名称：</span>
+													<input id="schoolName" type="text" class="form-control" readonly="readonly" />
+												</div>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">社团人数：</span>
+													<input id="number" type="text" class="form-control" readonly="readonly" />
+												</div>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">创建者：</span>
+													<input id="creator" class="form-control" readonly="readonly" />
+												</div>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">电话：</span>
+													<input id="phone" class="form-control" readonly="readonly" />
+												</div>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">创建时间：</span>
+													<input id="createtime" class="form-control" readonly="readonly" />
+												</div>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">社徽：</span>
+													<img id="badge" class="img-responsive" alt="社徽" style="width:200px;height: 150px">
+												</div>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">社团简介：</span>
+													<textarea id="introduction" class="form-control" name="introduction" readonly="readonly"></textarea>
+												</div>
+											</div>
+										</div><!-- /.modal-content -->
+									</div><!-- /.modal -->
+								<!--审核信息详情模态框结束-->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+								</div><!-- /row -->
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+			</div><!-- /.main-container-inner -->
+			<div id="showmessage" style="display:none;position: absolute;width: 200px;height: 30px;line-height: 30px;top: 50%;left: 50%;color: #fff;background-color: #000;text-align: center;"></div>
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="icon-double-angle-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"script>");
+		</script>
+
+
+		<script type="text/javascript">
+			if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"script>");
+		</script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/typeahead-bs2.min.js"></script>
+
+		<script src="assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="assets/js/jquery.slimscroll.min.js"></script>
+		<script src="assets/js/jquery.easy-pie-chart.min.js"></script>
+		<script src="assets/js/jquery.sparkline.min.js"></script>
+
+		<!-- ace scripts -->
+
+		<script src="assets/js/ace-elements.min.js"></script>
+		<script src="assets/js/ace.min.js"></script>
+		<!-- inline scripts related to this page -->
+		<script type="text/javascript">
+			jQuery(function($) {
+				//开始自定义内容
+				size=4;
+				total=0;
+				isSearch=false;
+				getClubList(1,size);
+
+				// 结束自定义内容
+			})
+
+			function getClubList(index,size){
+					var url="/ClubSystem/club/getAlls";
+					var data = "indexPageNum="+index+"&size="+size;
+					$.get(url,data,function(data){
+						if (data.serviceResult) {
+							total = data.resultParm.total;
+							var clubList = data.resultParm.club;
+							if (!isSearch) {
+								myPage(total,size);
+							}
+							$("#index").text(index);
+							showClubList(clubList);
+						}
+					});
+				}
+				function showClubList(clubList) {
+					var str='';
+					for(i=0;i<clubList.length;i++){
+						str+='<tr><td><img src="/ClubSystem'+clubList[i].badge+'" style="width:100px;height:100px;"/></td>';
+						str+='<td>'+clubList[i].name+'</td><td>'+clubList[i].schoolName+'</td><td>'+clubList[i].typeName+'</td>';
+						str+='<td>'+clubList[i].createtime+'</td>';
+						str+='<td><button class="btn btn-xs btn-success" onclick="showClubDetail('+clubList[i].id+')">查看</button>&nbsp;';
+						str+='<button class="btn btn-xs btn-danger" onclick="deleteClub('+clubList[i].detailId+')">删除</button></td></tr>';
+					}
+					$("#sample-table-2 tbody").html(str);
+				}
+				function showClubDetail(clubId) {
+					var url = "/ClubSystem/club/getById";
+					var data = "clubId="+clubId;
+					$.get(url, data, function (data) {
+						if (data.serviceResult) {
+							var clubData = data.resultParm.club;
+							$("#dialog #name").val(clubData.name);
+							$("#dialog #type").val(clubData.typeName);
+							$("#dialog #schoolName").val(clubData.schoolName);
+							$("#dialog #number").val(clubData.number);
+							$("#dialog #creator").val(clubData.leader);
+							$("#dialog #phone").val(clubData.phone);
+							$("#dialog #createtime").val(clubData.createtime);
+							$("#dialog #badge").attr("src","/ClubSystem"+clubData.badge);
+							$("#dialog #introduction").val(clubData.introduce);
+							$("#dialog").show();	
+						}
+					})
+				}
+
+				function closeDialog() {
+					$("#dialog").hide();
+				}
+
+				function deleteClub(detailId) {
+					var url="/ClubSystem/club/delete"
+					var data = "detailId="+detailId;
+					$.post(url,data,function(data){
+						if(data.serviceResult){
+							$("#showmessage").html("删除成功").stop().show(500).hide(2000);
+							var index = parseInt($("#index").text());
+							if (isSearch) {
+								search(index);
+							}else{
+								getClubList(index,size);
+							}
+						}
+					});
+				}
+				function search(index){
+					if ($(".form-search input[name='search']").val()=="") {
+						isSearch=false;
+						getClubList(1,size);
+						return;
+					}
+					var data ="search="+$(".form-search input[name='search']").val()+"&indexPageNum="+index+"&size="+size;
+					var url = "/ClubSystem/club/getBySearch";
+					$.get(url,data,function (data) {
+						if (data.serviceResult) {
+							var totalCount = data.resultParm.totalCount;
+							var clubList = data.resultParm.clublist;
+							console.log(index);
+							showClubList(clubList);
+							isSearch=true;
+							myPage(totalCount,size);
+							$("#index").text(index);
+						}
+					})
+
+				}
+
+				//分页栏
+				function myPage(total,size) {
+					var str = '<button id="first" class="btn btn-xs btn-success">首页</button> <button id="prev" class="btn btn-xs btn-info">上一页</button> <span id="index" class="btn btn-xs btn-warning">1</span> <button id="next" class="btn btn-xs btn-info">下一页</button> <button id="last" class="btn btn-xs btn-success">尾页</button> <span id="total" style="vertical-align: middle;">共0页</span> <input id="inputPage" type="number" min="1" style="width: 50px;vertical-align: top;"> <button id="go" class="btn btn-xs btn-success">GO</button>';
+					$("#myPage").html(str);
+					var totalPage = Math.ceil(total/size);
+					$("#total").text("共"+totalPage+"页");
+					$("#inputPage").attr("max",totalPage);
+					$("#first").click(function(){
+						console.log(isSearch);
+						if (isSearch) {
+							search(1);
+						}else{
+							getClubList(1,size);
+						}
+					});
+					$("#prev").click(function(){
+						var page =  $("#index").text();
+						page = parseInt(page);
+						if(page==1){
+							return;
+						}
+						console.log(isSearch);
+						if (isSearch) {
+								search(page-1);
+						}else{
+								getClubList(page-1,size);
+						}
+						
+					});
+					$("#next").click(function(){
+						var page =  $("#index").text();
+						page = parseInt(page);
+						if (page==totalPage) {
+							return;
+						}
+						console.log(isSearch);
+						if (isSearch) {
+							search(page+1);
+						}else{
+							getClubList(page+1,size);
+						}
+					});
+					$("#last").click(function(){
+						var page =  $("#index").text();
+						page = parseInt(page);
+						if(page==totalPage){
+							return;
+						}
+						console.log(isSearch);
+						if (isSearch) {
+							search(totalPage);
+						}else{
+							getClubList(totalPage,size);
+						}
+					});
+					$("#go").click(function(){
+						var page =  $("#index").text();
+						var inputPage = $("#inputPage").val();
+						page = parseInt(page);
+						inputPage=parseInt(inputPage);
+						if (0<inputPage&&inputPage<total&&inputPage!=page) {
+							console.log(isSearch);
+							if (isSearch) {
+								search(inputPage);
+							}else{
+								getClubList(inputPage,size);
+							}
+						}
+					});
+				}
+		</script>
+	
+</body>
+</html>
+

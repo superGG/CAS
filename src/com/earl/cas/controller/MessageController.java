@@ -40,12 +40,27 @@ public class MessageController extends BaseController {
 	 * 得到所有留言
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> getAll() {
+	public  ResponseEntity<ResultMessage> getAll(PageInfo pageInfo) {
 		logger.debug("REST request to get all message");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Message> messageList = messageService.findAll();
+		List<Message> messageList = messageService.findAll(pageInfo);
 		result.getResultParm().put("message", messageList);
+		result.getResultParm().put("total", pageInfo.getTotalCount());
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	/**
+	 * 模糊查询所有留言内容
+	 */
+	@RequestMapping(value = "/searchAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> searchAlls(String search, PageInfo pageInfo) {
+		logger.debug("REST request to get all message");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Message> messageList = messageService.searchAlls(search,pageInfo);
+		result.getResultParm().put("message", messageList);
+		result.getResultParm().put("total", pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	

@@ -11,12 +11,23 @@ function showExpression(index){
 	var arrEp=getExpression();
 	var epAtr="<div class='expression-panel'><ul>";
 	for (var j = 0; j<arrEp.length; j++) {
-		epAtr+="<li><img src='../../images/expression/"+arrEp[j]+"'></li>";
+		epAtr+="<li><img src='"+getPath()+"/images/expression/"+arrEp[j]+"'></li>";
 	}
 	epAtr+="</ul></div>";
 	$(index).parent().after(epAtr);
 	initExpressionEvent(index);
 
+}
+//获取项目根路径
+function getPath(){
+	 var strFullPath=window.document.location.href;  
+     var strPath=window.document.location.pathname;  
+     var pos=strFullPath.indexOf(strPath);  
+     var prePath=strFullPath.substring(0,pos);  
+     var postPath=strPath.substring(0,strPath.substr(1).indexOf('/')+1);  
+     var basePath = prePath;  
+     basePath = prePath + postPath;
+     return basePath;
 }
 function getExpression(){
 	var str="";
@@ -32,7 +43,7 @@ function getExpression(){
 function initExpressionEvent(index){
 	$(index).parent().siblings(".expression-panel").find("ul li").click(function (){
 		var eindex = $(this).index();
-		var epStr="<img src='../../images/expression/"+(eindex+1)+".gif'>";
+		var epStr="<img src='"+getPath()+"/images/expression/"+(eindex+1)+".gif'>";
 		$(index).parent().siblings(".editorContent").append(epStr);
 
 	});

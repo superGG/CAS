@@ -29,5 +29,10 @@ public interface MessageService extends BaseService<Message> {
 	 */
 	Message findById(Integer id);
 
+	/*
+	 * 模糊查询所有留言内容
+	 */
+	List<Message> searchAlls(String search, PageInfo pageInfo);
+
 
 }

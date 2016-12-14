@@ -33,7 +33,6 @@ import com.earl.cas.vo.ResultMessage;
  * @author Mr.Chen
  *
  */
-
 @RestController
 @RequestMapping(value = "/club")
 public class ClubController extends BaseController{
@@ -57,6 +56,7 @@ public class ClubController extends BaseController{
 		result.setServiceResult(true);
 		List<Club> clubList = clubService.getAlls(pageInfo);
 		result.getResultParm().put("club", clubList);
+		result.getResultParm().put("total", pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	/**
