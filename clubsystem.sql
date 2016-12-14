@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-12-14 17:37:12
+Date: 2016-12-14 18:37:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -160,7 +160,8 @@ CREATE TABLE `complain` (
   `id` int(11) NOT NULL,
   `detail_id` int(11) NOT NULL COMMENT '用户id',
   `type` int(11) NOT NULL DEFAULT '1' COMMENT '1 色情  2暴力  3不够色情  4 不够暴力 5看得心情不爽 6无聊无聊就想举报别人  7其他',
-  `content` varchar(255) DEFAULT NULL COMMENT '投诉内容',
+  `content` varchar(255) NOT NULL COMMENT '投诉内容',
+  `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
