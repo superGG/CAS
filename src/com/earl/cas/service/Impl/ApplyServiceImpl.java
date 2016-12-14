@@ -116,10 +116,10 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 			member.setName(apply.getName());
 			member.setCreatetime(apply.getCreatetime()); 
 //			position = positionDao.get(apply.getPositionId()); // 根据具体职位Id获得职位
-			member.setPosition(apply.getName());
-			member.setTel(apply.getPhone());
+			member.setPositionName(apply.getPositionName());
+			member.setPhone(apply.getPhone());
 			member.setMajorClass(apply.getMajorClass());
-			member.setApplyId(apply.getId());
+			member.setId(apply.getId());
 				memberlist.add(member);
 		}
 		return memberlist;
@@ -180,7 +180,6 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		List<Member> memberlist = new ArrayList<Member>();
 		String memberName;
 		int clubId;
-		int i = 1; // 计数标记
 		Position position;
 		// 获得对应的club
 		Club club = clubDao.getClubByuserDetailId(detailId);
@@ -200,12 +199,11 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 				member.setCreatetime(apply.getCreatetime()); // userclub上的加入时间
 				if(apply.getPositionId()!=null){
 					position = positionDao.get(apply.getPositionId()); // 根据具体职位Id获得职位
-					member.setPosition(position.getName());		
+					member.setPositionName(position.getName());		
 				}
-				member.setTel(apply.getPhone());
+				member.setPhone(apply.getPhone());
 				member.setMajorClass(apply.getMajorClass());
-				member.setApplyId(apply.getId());
-				i++; // 计数器加1
+				member.setId(apply.getId());
 				if (member != null) {
 					memberlist.add(member);
 				}
