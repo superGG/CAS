@@ -16,10 +16,12 @@ function initActivityList(index){
 	var parm = "indexPageNum="+index+"&size=6&clubId="+getUrlParam("clubId");
 	$.get(url,parm,function(data){
 		if(data.serviceResult){
+			$("#more").show();
 			var activityList = data.resultParm.activity;
 			showActivityList(activityList);
 		}else{
-			alert("没有更多数据了！");
+			$("#more").hide();
+			$(".activity_list").append('<div class="noMore">'+data.resultInfo+'</div>');
 		}
 	});
 }

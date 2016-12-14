@@ -81,8 +81,9 @@ function intiWatch(){
 		$("#watch_btn").click(function() {
 			selectIndex = $(this).parent().parent().parent().index();
 			showPhotoMask();
-			var pic_src = $(this).parent().parent().children("img").attr("src");
-			$(".photo_mask_main").append('<img src=' + pic_src + ' width="800px" height="550px">');
+			var theImg = $(this).parent().parent().children("img");
+			var pic_src = theImg.attr("src");
+			$(".photo_mask_main").append('<img src=' + pic_src + ' '+getFixSize(theImg)+'>');
 		});
 	}, function() {
 		$("#" + photo + "_photo .photo_watch").remove();
@@ -90,17 +91,48 @@ function intiWatch(){
 	$("#pre_btn").click(function() {
 		if (selectIndex == 0) {} else {
 			$(".photo_mask_main img").remove();
-			var pre_src = $(".album_photo .photo_item").eq(selectIndex - 1).children(".photo_box").children("img").attr("src");
-			$(".photo_mask_main").append('<img src=' + pre_src + ' width="800px" height="550px">');
+			var preImg = $(".album_photo .photo_item").eq(selectIndex - 1).children(".photo_box").children("img");
+			var pre_src = preImg.attr("src");
+			$(".photo_mask_main").append('<img src=' + pre_src + ' '+getFixSize(preImg)+'>');
 			selectIndex = selectIndex - 1;
 		}
 	});
 	$("#next_btn").click(function() {
 		if (selectIndex == len - 1) {} else {
 			$(".photo_mask_main img").remove();
-			var next_src = $(".album_photo .photo_item").eq(selectIndex + 1).children(".photo_box").children("img").attr("src");
-			$(".photo_mask_main").append('<img src=' + next_src + ' width="800px" height="550px">');
+			var nextImg = $(".album_photo .photo_item").eq(selectIndex + 1).children(".photo_box").children("img");
+			var next_src = nextImg.attr("src");
+			$(".photo_mask_main").append('<img src=' + next_src + ' '+getFixSize(nextImg)+'>');
 			selectIndex = selectIndex + 1;
 		}
 	});
+}
+function getFixSize(which){
+	var theFixWidth;
+	var theFixHeight;
+	var parentWidth = $(".photo_mask_main").width();
+	var parentHeight = $(".photo_mask_main").height();
+	var thisImg = new Image();
+	thisImg.src = $(which).attr("src");
+	var thisWidth = thisImg.width;
+	var thisHeight = thisImg.height;
+	if(thisWidth<=thisHeight){
+		if(thisHeight<parentHeight){
+			theFixHeight = thisHeight;
+			theFixWidth = thisWidth;
+		}else{
+			theFixHeight = parentHeight-40;
+			theFixWidth = theFixHeight*thisWidth/thisHeight;
+		}
+		return "width='"+theFixWidth+"px' height='"+theFixHeight+"px'";
+	}else{
+		if(thisWidth<parentWidth){
+			theFixWidth = thisWidth;
+			theFixHeight = thisHeight;
+		}else{
+			theFixWidth = parentWidth-40;
+			theFixHeight = theFixWidth*thisHeight/thisWidth;
+		}
+		return "width='"+theFixWidth+"px' height='"+theFixHeight+"px'";
+	}
 }
