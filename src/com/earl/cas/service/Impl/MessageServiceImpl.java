@@ -100,4 +100,10 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 		return twoMessageList;
 	}
 
+	@Override
+	public List<Message> searchAlls(String search, PageInfo pageInfo) {
+		
+		return messageDao.searchAlls(search, pageInfo);
+	}
+
 }

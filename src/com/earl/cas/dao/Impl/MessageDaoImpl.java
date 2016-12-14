@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.earl.cas.commons.dao.BaseDaoImpl;
 import com.earl.cas.dao.MessageDao;
 import com.earl.cas.entity.Message;
+import com.earl.cas.vo.PageInfo;
 
 /**
  * messageDao的实现类
@@ -43,6 +44,23 @@ public class MessageDaoImpl extends BaseDaoImpl<Message> implements MessageDao {
 		List<Message> detaillist = (List<Message>) getCurrentSession()
 				.createQuery(hql).setInteger("fatherId", fatherId).list();
 		return detaillist;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Message> searchAlls(String search, PageInfo pageInfo) {
+		String hql = "from Message m where m.content like :search";
+		List<Message> list = getCurrentSession().createQuery(hql)
+				.setString("search", "%" + search + "%").setFirstResult(
+						(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
+				.setMaxResults(pageInfo.getSize()).list();
+		
+		String hql2 = "from Message m where m.content like :search";
+		List<Message> list2 = getCurrentSession().createQuery(hql2)
+				.setString("search", "%" + search + "%").list();
+		Long intValue = (long) list2.size();
+		pageInfo.setTotalCount(intValue);
+		return list;
 	}
 
 }
