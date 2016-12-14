@@ -1,22 +1,22 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost mysql
-Source Server Version : 50626
+Source Server         : superGG
+Source Server Version : 50624
 Source Host           : localhost:3306
 Source Database       : clubsystem
 
 Target Server Type    : MYSQL
-Target Server Version : 50626
+Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-12-13 17:53:59
+Date: 2016-12-14 17:37:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `activity`
+-- Table structure for activity
 -- ----------------------------
 DROP TABLE IF EXISTS `activity`;
 CREATE TABLE `activity` (
@@ -39,7 +39,7 @@ INSERT INTO `activity` VALUES ('14', '4', '【招新】计算机协会招新啦�
 INSERT INTO `activity` VALUES ('15', '5', '都是石头里出生的，为什么就不是猴子呢', '&lt;p&gt;猜书协会招新了&lt;/p&gt;\n\n&lt;p&gt;[a];nbsp;&lt;/p&gt;\n', '2016-12-13 16:57:34');
 
 -- ----------------------------
--- Table structure for `album`
+-- Table structure for album
 -- ----------------------------
 DROP TABLE IF EXISTS `album`;
 CREATE TABLE `album` (
@@ -60,10 +60,10 @@ INSERT INTO `album` VALUES ('4', '2', '春宫图', '2016-12-13 16:33:00', '/phot
 INSERT INTO `album` VALUES ('5', '4', '美好时光', '2016-12-13 16:35:42', '/photo/计算机协会/美好时光/20140517_191821.jpg');
 INSERT INTO `album` VALUES ('6', '4', '当年那日', '2016-12-13 16:37:48', '/album/001.jpg');
 INSERT INTO `album` VALUES ('7', '5', '非礼勿点', '2016-12-13 16:49:20', '/photo/大保健/非礼勿点/yezi.jpg');
-INSERT INTO `album` VALUES ('8', '2', 'xin', '2016-12-13 17:17:53', '/album/001.jpg');
+INSERT INTO `album` VALUES ('8', '2', 'xin', '2016-12-13 17:17:53', '/photo/淫乱协会/xin/DSC_0030_副本.jpg');
 
 -- ----------------------------
--- Table structure for `apply`
+-- Table structure for apply
 -- ----------------------------
 DROP TABLE IF EXISTS `apply`;
 CREATE TABLE `apply` (
@@ -89,10 +89,10 @@ CREATE TABLE `apply` (
 -- ----------------------------
 -- Records of apply
 -- ----------------------------
-INSERT INTO `apply` VALUES ('2', '2', '10', '6', '寂寞女孩', null, '', null, null, '网球、足球、篮球、羽毛球', '18320489492', null, null, '2016-12-13 16:28:11', null, '0');
+INSERT INTO `apply` VALUES ('2', '2', '10', '6', '寂寞女孩', '410654146@qq.com', '', null, null, '网球、足球、篮球、羽毛球', '18320489492', null, null, '2016-12-13 16:28:11', null, '0');
 INSERT INTO `apply` VALUES ('3', '3', '11', '2', 'Dikuni', null, '', null, null, '画画，吟诗作对，看漫画，看小说，看电影。', '18320363387', null, null, '2016-12-13 16:30:24', null, '0');
 INSERT INTO `apply` VALUES ('4', '4', '13', '8', 'Chuancy', null, '', null, null, '无', '18344094195', null, null, '2016-12-13 16:32:30', null, '0');
-INSERT INTO `apply` VALUES ('5', '2', '12', '7', '底裤泥', 'yuema@163.com', '', '9999', '汉', 'lalalala', '1643246165', '软件', 'hahahaha', '2016-12-13 16:35:28', '要理由吗', '0');
+INSERT INTO `apply` VALUES ('5', '2', '12', '7', '底裤泥', 'yuema@163.com', '\0', '9999', '汉', 'lalalala', '1643246165', '软件', 'hahahaha', '2016-12-13 16:35:28', '要理由吗', '0');
 INSERT INTO `apply` VALUES ('8', '3', '12', null, '空', '测试', '', '22', '汉', '阿拉法发掘', '11651654', '哈哈啊哈', '法定发掘', '2016-12-13 16:40:07', '不如跳舞', '1');
 INSERT INTO `apply` VALUES ('9', '2', '11', null, '梁伟栋', '534798430@qq.com', '', '22', '汉族', '打网球。', '18318858328', '软件1133班', '我爱打网球。', '2016-12-13 17:16:25', '大四了，还能加入吗？', '0');
 INSERT INTO `apply` VALUES ('12', '4', '12', null, '底裤泥', '1654684@qq.com', '', '22', '', '撸码', '1324560', '软件', '下辈子不撸码', '2016-12-13 16:53:41', '不想下辈子撸码', '0');
@@ -104,7 +104,7 @@ INSERT INTO `apply` VALUES ('17', '3', '15', null, '宋文光', '451131651@qq.co
 INSERT INTO `apply` VALUES ('18', '6', '16', null, '疯狂的石头', null, '', null, null, null, null, null, null, '2016-12-13 17:17:00', null, '0');
 
 -- ----------------------------
--- Table structure for `club`
+-- Table structure for club
 -- ----------------------------
 DROP TABLE IF EXISTS `club`;
 CREATE TABLE `club` (
@@ -132,7 +132,7 @@ INSERT INTO `club` VALUES ('5', '16', '3', '14', '猜书协会', '狂砍一条�
 INSERT INTO `club` VALUES ('6', '13', '2', '16', '手球社', '疯狂的石头', '2016-12-13 17:17:00', '我们11111111111111111111111111111111fasklfjlkjgblksvm.s,m1l;k1klslajf;lkas12', '13241111234', null, '/shehuipath/eb6050d1-2143-4faa-9e54-ffeb49403f3d.png');
 
 -- ----------------------------
--- Table structure for `club_type`
+-- Table structure for club_type
 -- ----------------------------
 DROP TABLE IF EXISTS `club_type`;
 CREATE TABLE `club_type` (
@@ -153,7 +153,23 @@ INSERT INTO `club_type` VALUES ('6', '经济类', '2016-12-13 16:22:03');
 INSERT INTO `club_type` VALUES ('7', 'IT类', '2016-12-13 16:22:23');
 
 -- ----------------------------
--- Table structure for `message`
+-- Table structure for complain
+-- ----------------------------
+DROP TABLE IF EXISTS `complain`;
+CREATE TABLE `complain` (
+  `id` int(11) NOT NULL,
+  `detail_id` int(11) NOT NULL COMMENT '用户id',
+  `type` int(11) NOT NULL DEFAULT '1' COMMENT '1 色情  2暴力  3不够色情  4 不够暴力 5看得心情不爽 6无聊无聊就想举报别人  7其他',
+  `content` varchar(255) DEFAULT NULL COMMENT '投诉内容',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of complain
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for message
 -- ----------------------------
 DROP TABLE IF EXISTS `message`;
 CREATE TABLE `message` (
@@ -179,7 +195,7 @@ INSERT INTO `message` VALUES ('34', '11', '0', '情歌丸子郑烁彬&lt;img src
 INSERT INTO `message` VALUES ('35', '16', '0', 'qqqqqqqqqqqqqqqqq&lt;div&gt;&lt;br&gt;&lt;/div&gt;', '2016-12-13 17:13:08', '0', '0');
 
 -- ----------------------------
--- Table structure for `photo`
+-- Table structure for photo
 -- ----------------------------
 DROP TABLE IF EXISTS `photo`;
 CREATE TABLE `photo` (
@@ -222,7 +238,7 @@ INSERT INTO `photo` VALUES ('28', '7', '6f88b0e903d5e7bdc84c1dae52226f7b', '/pho
 INSERT INTO `photo` VALUES ('29', '8', 'DSC_0030_副本', '/photo/淫乱协会/xin/DSC_0030_副本.jpg', '2016-12-13 17:18:00');
 
 -- ----------------------------
--- Table structure for `position`
+-- Table structure for position
 -- ----------------------------
 DROP TABLE IF EXISTS `position`;
 CREATE TABLE `position` (
@@ -248,7 +264,7 @@ INSERT INTO `position` VALUES ('10', '5', '2016-12-13 16:47:31', '执健长');
 INSERT INTO `position` VALUES ('12', '5', '2016-12-13 17:00:25', '流光使者');
 
 -- ----------------------------
--- Table structure for `school`
+-- Table structure for school
 -- ----------------------------
 DROP TABLE IF EXISTS `school`;
 CREATE TABLE `school` (
@@ -271,7 +287,7 @@ INSERT INTO `school` VALUES ('19', '深圳大学', '2016-12-13 16:21:19');
 INSERT INTO `school` VALUES ('20', '武汉大学', '2016-12-13 16:21:24');
 
 -- ----------------------------
--- Table structure for `user`
+-- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -294,7 +310,7 @@ INSERT INTO `user` VALUES ('57', 'Kellan2', 'e10adc3949ba59abbe56e057f20f883e', 
 INSERT INTO `user` VALUES ('58', '123456', 'e10adc3949ba59abbe56e057f20f883e', '2016-12-13 17:06:40');
 
 -- ----------------------------
--- Table structure for `user_details`
+-- Table structure for user_details
 -- ----------------------------
 DROP TABLE IF EXISTS `user_details`;
 CREATE TABLE `user_details` (
@@ -317,7 +333,7 @@ CREATE TABLE `user_details` (
 -- ----------------------------
 INSERT INTO `user_details` VALUES ('10', '52', '1', '寂寞女孩', '', '18320489492', '410654146@qq.com', '网球、足球、篮球、羽毛球', '运动，永无止境！！！', '/headpath/0ffef7f1-8338-4952-b718-a551bb207bf1.png', '2016-12-13 16:23:59');
 INSERT INTO `user_details` VALUES ('11', '53', '1', 'Dikuni', '', '18320363387', 'widung@163.com', '画画，吟诗作对，看漫画，看小说，看电影。', '兴趣广泛，喜欢交友。', '/headpath/5fc99d1e-3e4e-4db3-a662-c58750c214f1.jpg', '2016-12-13 16:24:28');
-INSERT INTO `user_details` VALUES ('12', '54', '1', '底裤泥', '', '16413541', '16431654@163.com', '通宵打游戏', '通宵打游戏', '/headpath/beb4f02e-856f-4de7-8099-70b9ad7ee93c.jpg', '2016-12-13 16:26:54');
+INSERT INTO `user_details` VALUES ('12', '54', '1', '底裤泥', '\0', '16413541', '16431654@163.com', '通宵打游戏', '通宵打游戏', '/headpath/beb4f02e-856f-4de7-8099-70b9ad7ee93c.jpg', '2016-12-13 16:26:54');
 INSERT INTO `user_details` VALUES ('13', '55', '1', 'Chuancy', '', '18344094195', '2430324843@qq.com', '无', '好个性的签名', '/headpath/da7f7a25-5cfa-4113-a087-0f5036c31dd6.jpg', '2016-12-13 16:28:20');
 INSERT INTO `user_details` VALUES ('14', '56', '1', '石头', '', null, null, null, null, '/headpath/5799135c-07d8-486c-9858-9b56ee15d95b.jpg', '2016-12-13 16:42:16');
 INSERT INTO `user_details` VALUES ('15', '57', '1', 'Kellan', '', '18320489492', '410654146@qq.com', '网球，运动，打代码....', '生命不熄，运动不止！！！', '/headpath/8cfebe6e-7eeb-4ee8-b9bf-bc6ea0c3d255.jpg', '2016-12-13 17:03:42');
