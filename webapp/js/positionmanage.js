@@ -47,7 +47,7 @@ function editPosition(which){
 				alert(data.resultInfo);
 			}
 		});
-		statu = 0
+		statu = 0;
 	}               
 	return false;     
 } ;

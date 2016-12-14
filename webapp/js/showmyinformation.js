@@ -1,10 +1,11 @@
 var memberId;
 $(document).ready(function(){
+	setMyJoinedClubHref();
 	initInformation();
 });
 function initInformation(){
 	var url = "/ClubSystem/apply/memberDetail";
-	var parm = "clubId="++"&detailId="+;
+	var parm = "clubId="+getUrlParam("clubId")+"&detailId="+getCookieUserData().id;
 	$.get(url,parm,function(data){
 		if(data.serviceResult){
 			var member = data.resultParm.apply;
@@ -25,7 +26,7 @@ function initInformation(){
 			$("#introduce").val(member.introduce);
 			$("#position").val(member.positionName);
 		}else{
-			
+			alert(data.resultInfo);
 		}
 	});
 }
@@ -44,7 +45,7 @@ function updateInformation(){
 	var hobby = $("#hobby").val();
 	var phone = $("#phone").val();
 	var introduce = $("#introduce").val();
-	var url = "";
+	var url = "/ClubSystem/apply/update";
 	var parm = "id="+memberId+"&name="+name+"&email="+email+"&sex="+sex+"&age="+age+"&majorClass="+majorClass+"&nation="+nation+"&hobby="+hobby+"&phone="+phone+"&introduce="+introduce;
 	$.post(url,parm,function(data){
 		if(data.serviceResult){
