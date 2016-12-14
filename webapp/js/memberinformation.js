@@ -4,7 +4,7 @@ $(document).ready(function(){
 	initMemberInformation();
 });
 function initMemberInformation(){
-	var url = "/ClubSystem/apply/memberDetail";
+	var url = "/ClubSystem/apply/getMemberDetail";
 	var parm = "applyId="+getUrlParam('applyId');
 	$.get(url,parm,function(data){
 		if(data.serviceResult){

@@ -280,14 +280,30 @@ public class ApplyController extends BaseController {
 	}
 	
 	/**
-	 * 查看成员详情
+	 * 查看成员个人详情
 	 */
 	@RequestMapping(value = "/memberDetail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> memberDetail(Integer detailId, Integer clubId) {
 		logger.debug("REST request to display club member detail");
+		if (detailId == null | clubId ==null) {
+			throw new DomainSecurityException("数据有误");
+		}
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		Apply apply = applyService.getMemberDetail(detailId,clubId);
+		result.getResultParm().put("apply", apply);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
+	
+	/**
+	 * 查看成员详情
+	 */
+	@RequestMapping(value = "/getMemberDetail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> memberDetail(Integer applyId) {
+		logger.debug("REST request to display club member detail");
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		Apply apply = applyService.getMemberDetail(applyId);
 		result.getResultParm().put("apply", apply);
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
