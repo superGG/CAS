@@ -56,6 +56,7 @@ public class ClubController extends BaseController{
 		result.setServiceResult(true);
 		List<Club> clubList = clubService.getAlls(pageInfo);
 		result.getResultParm().put("club", clubList);
+		result.getResultParm().put("total", pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	/**
@@ -103,11 +104,11 @@ public class ClubController extends BaseController{
 	 * 注销社团
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> delete(int clubId) {
+	public  ResponseEntity<ResultMessage> delete(int detailId) {
 		logger.debug("REST request to delete a club");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		clubService.delete(clubId);
+		clubService.delete(detailId);
 		result.setResultInfo("注销成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}

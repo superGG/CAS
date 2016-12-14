@@ -23,7 +23,6 @@
     background-image: -webkit-linear-gradient(top, #e9f1ef, #bceadd);
 	float:left;
 }
-/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
 .main_left::-webkit-scrollbar  
 {  
     width: 10px;  
@@ -31,14 +30,12 @@
     border:0; 
 }  
   
-/*定义滚动条轨道 内阴影+圆角*/  
 .main_left::-webkit-scrollbar-track  
 {  
     border-radius: 10px;  
     background-color:#fff;  
 }  
   
-/*定义滑块 内阴影+圆角*/  
 .main_left::-webkit-scrollbar-thumb  
 {  
     border-radius: 10px;   
@@ -110,6 +107,11 @@ ul{
 .icon-transmit-m {
 	background-image: url(../images/stream.png);
 	background-position: 1px -200px;
+}
+.icon-trash-blue-m {
+	background-image: url(../images/trash.png);
+	background-position:0 0;
+	background-size:70%;
 }
 .static_comment_box{
 	border:2px solid rgba(39, 174, 91, .6);
@@ -382,7 +384,7 @@ ul{
 	text-decoration:none;
 }
 .main_right_mid ul li a b{
-	font-family:微软雅黑；
+	font-family:微软雅黑锛�
 }
 .main_right_mid ul li a:hover{
 	background-color: rgba(150, 175, 169, 0.9);

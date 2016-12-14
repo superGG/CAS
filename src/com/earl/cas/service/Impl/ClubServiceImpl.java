@@ -261,25 +261,32 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		return club;
 	}
 
+//	public List<Club> getBySearch(String search, PageInfo pageInfo) {
+//		List<Club> clublist = null;
+//		List<Club> clublist_school = null;
+//		clublist = clubDao.getBySearch(search, pageInfo);
+//		List<School> schoollist = schoolDao.getBySearch(search);
+//		if (schoollist != null) {
+//			for (School school : schoollist) {
+//				clublist_school = clubDao.getBySchoolId(school.getId(),
+//						pageInfo);
+//				if (clublist.size() <= pageInfo.getSize()) {
+//					compare(clublist, clublist_school);
+//				}
+//			}
+//			setNumber(clublist);
+//			return setName(clublist);
+//		} else {
+//			setNumber(clublist);
+//			return setName(clublist);
+//		}
+//	}
+	
 	public List<Club> getBySearch(String search, PageInfo pageInfo) {
 		List<Club> clublist = null;
-		List<Club> clublist_school = null;
 		clublist = clubDao.getBySearch(search, pageInfo);
-		List<School> schoollist = schoolDao.getBySearch(search);
-		if (schoollist != null) {
-			for (School school : schoollist) {
-				clublist_school = clubDao.getBySchoolId(school.getId(),
-						pageInfo);
-				if (clublist.size() <= pageInfo.getSize()) {
-					compare(clublist, clublist_school);
-				}
-			}
 			setNumber(clublist);
 			return setName(clublist);
-		} else {
-			setNumber(clublist);
-			return setName(clublist);
-		}
 	}
 
 	public List<Club> getAllsByRank(PageInfo pageInfo) {
