@@ -8,8 +8,10 @@
 		<link rel="stylesheet" type="text/css" href="../../css/club_common.css">
 		<link rel="stylesheet" type="text/css" href="../../css/common.css">
 		<link href="../../css/table_style.css" rel="stylesheet" type="text/css">
-		
 		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
+		<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+		<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="../../js/additional-methods.js"></script>
 		<script type="text/javascript" src="../../js/clubinformationmanage.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 	</head>
@@ -77,6 +79,7 @@
 							<button id="update" style="margin-left:30px;margin-top:11px;">保存</button>
 							<button id="clubDelete" onclick="clubDelete()" style="margin-left:30px; ">注销社团</button>
 						</div>
+						<form id="update_club" method="post">
 						<table style="padding-left:50px;float:left;">
 							<tr>
 								<td><label for="schoolName">归属学校</label></td>
@@ -84,7 +87,7 @@
 							</tr>
 							<tr>
 								<td><label for="name">社团名称</label></td>
-								<td><input type="text" name="name" id="name" placeholder="社团名称"></td>
+								<td><input type="text" name="name" id="name" ></td>
 							</tr>
 							<tr>
 								<td><label for="type">社团类型</label></td>
@@ -116,6 +119,7 @@
 								<td><textarea rows="10" cols="50" placeholder="社团简介" name="introduce" id="introduce"></textarea></td>
 							</tr>
 						</table>
+						</form>
 			</div>
 		</div>
 		<div class="footer">
