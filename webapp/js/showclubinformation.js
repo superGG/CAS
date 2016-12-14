@@ -13,6 +13,7 @@ function initClubInformation(){
 			$("#createtime").text("创建时间："+club.createtime.split(" ")[0]);
 			$("#leader").text(club.leader);
 			$("#type").text(club.typeName);
+			$("#school").text(club.schoolName);
 			$("#number").text(club.number+"人");
 			$("#introduce").text(club.introduce);
 		}

@@ -116,3 +116,22 @@ function doUpload() {
 		 console.log("没有更改社徽");
 	 }
 }
+function clubDelete(){
+	var con;
+	con = confirm("是否注销？");
+	if(con){
+		var url = "/ClubSystem/club/delete";
+		var parm = "clubId="+getCookieUserData().id;;
+		$.post(url,parm,function(data){
+			if(data.serviceResult){
+				alert(data.resultInfo); 
+				window.location.href ="/ClubSystem/views/club/tocreateclub.html";
+			}else{
+				alert(data.resultInfo); 
+			}
+		});
+	}else{
+		return false;
+	}	
+	
+}

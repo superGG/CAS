@@ -17,12 +17,13 @@ function getMessageList(index) {
 function showMessageList(listData) {
 	var mStr = "";
 	for (var i = 0; i < listData.length; i++) {
-		mStr += "<div class='comment_item'><div class='img_radius'><img src='../.." + listData[i].headPath + "' width='100%' height='100%'></div>";
-		mStr += "<div class='item_main'><div class='item_row_one'><b>" + listData[i].userName + "</b><span>" + listData[i].createtime + "</span></div>";
-		mStr += "<div class='item_row_tow'><p>" + html_decode(listData[i].content) + "</p></div>";
-		mStr += "<div class='item_row_three'><a href='javascipt:void(0);'><i class='icon-m icon-response-m' onclick='showEditor(this)'></i><label>" + listData[i].sonSize + "</label></a>";
-		mStr += "<a href='javascipt:void(0);'><i class='icon-m icon-praise-m' onclick='giveLike(this," + listData[i].id + ")'></i><label>" + listData[i].good + "</label></a></div>";
-		mStr += "<div class='item_row_four'><div class='editor' style='display:none;'>";
+		mStr += "<div class='comment_item' id='message_"+listData[i].id+"'><div class='img_radius'><img src='../.." + listData[i].headPath + "' width='100%' height='100%'></div>";
+		mStr += "<div class='item_main'><div class='item_row_one'><b>" + listData[i].userName + "</b><span>" + listData[i].createtime.split(".")[0] + "</span></div>";
+		mStr += "<div class='item_row_tow'><p>" + html_decode(listData[i].content) + "</p></div><div class='item_row_three'>";
+		if(getCookieUserData()!=null&&getCookieUserData().id==listData[i].detailId) mStr += "<a href='javascipt:void(0);' onclick='messageDelete("+listData[i].id+")'><i class='icon-m icon-trash-blue-m' onclick=''></i></a>";
+		mStr += "<a href='javascipt:void(0);'><i class='icon-m icon-response-m' onclick='showEditor(this)'></i><label>" + listData[i].sonSize + "</label></a>";
+		mStr += "<a href='javascipt:void(0);'><i class='icon-m icon-praise-m' onclick='giveLike(this," + listData[i].id + ")'></i><label>" + listData[i].good + "</label></a>";
+		mStr += "</div><div class='item_row_four'><div class='editor' style='display:none;'>";
 		mStr += "<div class='editorContent' contenteditable='true'></div>";
 		mStr += "<div class='toolBar'><span class='expression' title='表情' onclick='showExpression(this)'></span></div>";
 		mStr += "<button class='comment_post' onclick='comment_post(this," + listData[i].id + ")'>提交评论</button>";
@@ -72,10 +73,11 @@ function post_data(commentData, fatherId, tihsClick) {
 			var mdata = data.resultParm.message;
 			var mStr = "";
 			if (fatherId == null) {
-				mStr += "<div class='comment_item'><div class='img_radius'><img src='../.." + mdata.headPath + "' width='100%' height='100%'></div>";
+				mStr += "<div class='comment_item' id='message_"+mdata.id+"'><div class='img_radius'><img src='../.." + mdata.headPath + "' width='100%' height='100%'></div>";
 				mStr += "<div class='item_main'><div class='item_row_one'><b>" + mdata.userName + "</b><span>" + mdata.createtime + "</span></div>";
 				mStr += "<div class='item_row_tow'><p>" + html_decode(mdata.content) + "</p></div>";
-				mStr += "<div class='item_row_three'><a href='javascipt:void(0);'><i class='icon-m icon-response-m' onclick='showEditor(this)'></i><label>" + mdata.sonSize + "</label></a>";
+				mStr += "<div class='item_row_three'><a href='javascipt:void(0);' onclick='messageDelete("+mdata.id+")'><i class='icon-m icon-trash-blue-m' onclick=''></i></a>";
+				mStr += "<a href='javascipt:void(0);'><i class='icon-m icon-response-m' onclick='showEditor(this)'></i><label>" + mdata.sonSize + "</label></a>";
 				mStr += "<a href='javascipt:void(0);'><i class='icon-m icon-praise-m' onclick='giveLike(this," + mdata.id + ")'></i><label>" + mdata.good + "</label></a></div>";
 				mStr += "<div class='item_row_four'><div class='editor' style='display:none;'>";
 				mStr += "<div class='editorContent' contenteditable='true'></div>";
@@ -142,5 +144,23 @@ function giveLike(thisClick,id){
 			$(thisClick).siblings("label").html(mData.good);
 		}
 	});
+}
+function messageDelete(messageId){
+	var con;
+	con = confirm("确认删除吗？");
+	if(con){
+		var url = "/ClubSystem/message/deleteById";
+		var parm = "id="+messageId;
+		$.post(url,parm,function(data){
+			if(data.serviceResult){
+				$("#message_"+messageId).remove();
+				alert(data.resultInfo);
+			}else{
+				alert(data.resultInfo);
+			}
+		});
+	}else{
+		return false;
+	}
 }
 
