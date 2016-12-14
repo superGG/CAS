@@ -125,8 +125,15 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		return memberlist;
 	}
 
-	public Apply getMemberDetail(int applyId) {
-		Apply apply = applyDao.get(applyId);
+	public Apply getMemberDetail(Integer detailId, Integer clubId) {
+		Apply apply = new Apply();
+		apply.setDetailId(detailId);
+		apply.setClubId(clubId);
+		List<Apply> list = applyDao.findByGivenCriteria(apply);
+		if (list.isEmpty()) {
+			throw new DomainSecurityException("获取成员信息失败");
+		}
+		apply = list.get(0);
 		return setPositionName(apply);
 	}
 

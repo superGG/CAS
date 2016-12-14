@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.earl.cas.commons.dao.BaseDao;
 import com.earl.cas.commons.service.BaseServiceImpl;
 import com.earl.cas.dao.ActivityDao;
+import com.earl.cas.dao.AlbumDao;
 import com.earl.cas.dao.ApplyDao;
 import com.earl.cas.dao.ClubDao;
 import com.earl.cas.dao.ClubTypeDao;
@@ -26,6 +27,7 @@ import com.earl.cas.dao.UserDetailsDao;
 import com.earl.cas.entity.Apply;
 import com.earl.cas.entity.Club;
 import com.earl.cas.entity.ClubType;
+import com.earl.cas.entity.Position;
 import com.earl.cas.entity.School;
 import com.earl.cas.entity.UserDetails;
 import com.earl.cas.exception.DomainSecurityException;
@@ -49,7 +51,10 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 
 	@Resource
 	private SchoolDao schoolDao;
-
+	
+	@Resource
+	private AlbumDao albumDao;
+	
 	@Resource
 	private ActivityDao activityDao;
 	@Resource
@@ -183,12 +188,15 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	public Club findById(Integer id) {
 		return clubDao.get(id);
 	}
-
-	public void delete(int clubId) {
+	
+	@Override
+	public void delete(int detailId) {
 		logger.info("级联删除");
+		int clubId = clubDao.getClubByuserDetailId(detailId).getId();
 		applyDao.deleteByClubId(clubId);
 		positionDao.deleteByClubId(clubId);
 		activityDao.deleteByClubId(clubId);
+		albumDao.deleteByClubId(clubId);
 		clubDao.deleteById(clubId);
 	}
 
@@ -202,9 +210,7 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 
 	public void create(Integer detailId, Club club, String schoolName,
 			String clubType) {
-		if (detailId == null) {
-			throw new DomainSecurityException("请先登录");
-		}
+		Position position = new Position();
 		UserDetails ud = userdetailsDao.get(detailId);
 		club.setLeader(ud.getName());
 		club.setDetailId(detailId);
@@ -214,7 +220,7 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 			club.setTypeId(clubtype.getId());
 			club.setSchoolId(school.getId());
 			clubDao.save(club);
-			createApply(ud,club.getId());
+			createApplyAndPosition(ud,position,club.getId());
 		} else {
 			throw new DomainSecurityException("社团已存在");
 		}
@@ -387,12 +393,21 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	}
 	/**
 	 * 创建社团时默认把自己放进社团成员里面
+	 * @param position 
 	 */
-	private void createApply(UserDetails ud,int clubId){
+	private void createApplyAndPosition(UserDetails ud,Position position, int clubId){
+		position.setName("管理员");
+		position.setClubId(clubId);
+		positionDao.save(position);
+		
 		Apply apply = new Apply();
 		apply.setClubId(clubId);
 		apply.setDetailId(ud.getId());
 		apply.setName(ud.getName());
+		apply.setPositionId(position.getId());
+//		if(ud.getMajorClass()!=null){
+//			apply.setMajorClass(ud.getMajorClass());
+//		}
 		if(ud.getPhone()!=null){
 			apply.setPhone(ud.getPhone());
 		}
@@ -405,5 +420,4 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		apply.setStatue(0);
 		applyDao.save(apply);
 	}
-
 }

@@ -8,6 +8,7 @@
 		<link href="../../css/club_activity.css" rel="stylesheet" type="text/css"> 
 		<link rel="stylesheet" type="text/css" href="../../css/club_common.css">
 		<link rel="stylesheet" type="text/css" href="../../css/common.css">
+		<link href="../../css/table_style.css" rel="stylesheet" type="text/css">
 		
 		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
@@ -58,16 +59,61 @@
 					<ul class="top_navs">
 						<li><a href="showclubinformation.html" id="clubdetailhref">社团详情</a></li>
 						<li><a href="showclubalbums.html" id="clubalbumhref">社团相册</a></li>
-						<li class="curr"><a href="showclubactivity.html" id="clubactivityhref">社团活动</a></li>
-						<li><a href="showmyinformation.html" id="myinformationhref">个人资料</a></li>
+						<li><a href="showclubactivity.html" id="clubactivityhref">社团活动</a></li>
+						<li class="curr"><a href="showmyinformation.html" id="myinformationhref">个人资料</a></li>
 					</ul>
-				</div><br>
-				<div class="activity_list">
-					
 				</div>
-				<br>
-				<div class="dot_down" id="more"></div>
+				<table style="padding-left:50px;float:left;">
+					<tr>
+						<td><label for="name">姓名</label></td>
+						<td><input type="text" name="name" id="name" placeholder="姓名" ></td>
+					</tr>
+					<tr>
+						<td><label for="sex">性别</label></td>
+						<td><input type="text" name="sex" id="sex" placeholder="性别" ></td>
+					</tr>	
+					<tr>
+						<td><label for="age">年龄</label></td>
+						<td><input type="text" name="age" id="age" placeholder="年龄" ></td>
+					</tr>	
+					<tr>
+						<td><label for="major_class">专业班级</label></td>
+						<td><input type="text" name="major_class" id="major_class" placeholder="专业班级"></td>
+					</tr>
+					<tr>
+						<td><label for="createtime">职位</label></td>
+						<td><input type="text"  name="position" id="position" readonly></td>
+					</tr>
+					<tr>
+						<td><label for="createtime">入社时间</label></td>
+						<td><input type="text" placeholder="入社时间" name="createtime" id="createtime" readonly></td>
+					</tr>							
+					<tr>
+						<td><label for="nation">民族</label></td>
+						<td><input type="text" placeholder="民族" name="nation" id="nation"></td>
+					</tr>							
+					<tr>
+						<td><label for="phone">电话</label></td>
+						<td><input type="text" placeholder="电话" name="phone" id="phone"></td>
+					</tr>							
+					<tr>
+						<td><label for="email">邮箱</label></td>
+						<td><input type="text" placeholder="email" name="email" id="email"></td>
+					</tr>	
+					<tr>
+						<td><label for="hobby">爱好</label></td>
+						<td><textarea rows="5" cols="50" placeholder="爱好" name="hobby" id="hobby"></textarea></td>
+					</tr>
+					<tr>
+						<td><label for="introduce">个人简介</label></td>
+						<td><textarea rows="5" cols="50" placeholder="个人简介" name="introduce" id="introduce"></textarea></td>
+					</tr>
+					<tr align="center" >
+						<td colspan="2"><button class="set-btn" onclick="updateInformation()" style="margin:20px 0 0 0">保存</button></td>
+					</tr>
+				</table>
 			</div>
+			
 		</div>
 		<div class="footer">
 			<p>
@@ -82,6 +128,6 @@
 		</div>
 		<script type="text/javascript" src="../../js/common.js"></script>
 		<script type="text/javascript" src="../../js/clubCommon.js"></script>
-		<script type="text/javascript" src="../../js/showclubactivity.js"></script>
+		<script type="text/javascript" src="../../js/showmyinformation.js"></script>
 	</body>
 </html>

@@ -24,6 +24,7 @@ import com.earl.cas.entity.Club;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.ApplyService;
 import com.earl.cas.service.ClubService;
+import com.earl.cas.util.FileUploadUtil;
 import com.earl.cas.vo.PageInfo;
 import com.earl.cas.vo.ResultMessage;
 
@@ -104,11 +105,11 @@ public class ClubController extends BaseController{
 	 * 注销社团
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> delete(int clubId) {
+	public  ResponseEntity<ResultMessage> delete(int detailId) {
 		logger.debug("REST request to delete a club");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		clubService.delete(clubId);
+		clubService.delete(detailId);
 		result.setResultInfo("注销成功");
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
@@ -216,12 +217,22 @@ public class ClubController extends BaseController{
 	 * 创建社团
 	 */
 	@RequestMapping(value = "/create",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> create(Integer detailId,String clubType,String schoolName,Club club) {
+	public ResponseEntity<ResultMessage> create(HttpServletRequest request,Integer detailId,String clubType,String schoolName,Club club, MultipartFile file) {
 		logger.debug("REST request to 创建社团");
 		result = new ResultMessage();
+		if (detailId == null) {
+			throw new DomainSecurityException("数据有误");
+		}
 		if(clubService.isCreated(detailId)){
 			throw new DomainSecurityException("用户已创建过社团");
 		}
+		if (file==null) {
+			throw new DomainSecurityException("文件为空");
+		} 
+		logger.info("file不为空，开始处理上传社徽");
+		String badge = FileUploadUtil.NewFileUpload(request, file,"shehuipath");
+		logger.info("上传社徽访问地址："+ badge);
+		club.setBadge(badge);
 		clubService.create(detailId,club,schoolName,clubType);
 		result.setServiceResult(true);
 		result.setResultInfo("社团创建成功");

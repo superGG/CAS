@@ -58,7 +58,7 @@ function initPhoto(index) {
 			if ($(".album_photo .photo_item").length >= data.resultParm.total) {
 				$("#more").remove();
 				$(".lwd_main_iframe .noMore:first").remove();
-				$(".lwd_main_iframe").append('<div class="noMore">没有更多数据...</div>');
+				$(".lwd_main_iframe").append('<div class="noMore">没有更多图片...</div>');
 			}
 		} else {
 			alert(data.resultInfo);

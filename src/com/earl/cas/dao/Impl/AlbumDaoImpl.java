@@ -22,6 +22,12 @@ public class AlbumDaoImpl extends BaseDaoImpl<Album> implements AlbumDao {
 		String hql = "from Album where clubId = :id";
 		return getCurrentSession().createQuery(hql).setInteger("id", id).list();
 	}
-
+	
+	public void deleteByClubId(int clubId){
+		String hql = "delete Album where clubId = :clubId";
+		getCurrentSession().createQuery(hql).setInteger("clubId", clubId)
+				.executeUpdate();
+		getCurrentSession().flush();
+	}
 
 }

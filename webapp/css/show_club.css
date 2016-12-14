@@ -54,13 +54,13 @@
 	left:0;
 }
 .clubdet_item{
-	width:100px;
+	width:80px;
 	height:30px;
 	border-right:1px solid #ccc;
 	margin-top:10px
 	display:inline-block;
 	float:left;
-	padding:0 30px;
+	padding:0 24px;
 }
 .clubdet_item>p{
 	padding:0 10px 5px 0;
