@@ -65,5 +65,22 @@ public class MessageDaoImpl extends BaseDaoImpl<Message> implements MessageDao {
 		pageInfo.setTotalCount(intValue);
 		return list;
 	}
+	
+	public List<Message> findAll(PageInfo pageInfo) {
+		String hql = "from Message order by createtime desc";
+		@SuppressWarnings("unchecked")
+		List<Message> list = getCurrentSession()
+				.createQuery(hql)
+				.setFirstResult(
+						(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
+				.setMaxResults(pageInfo.getSize()).list();
+
+		String hql2 = "select count(*) from Message";
+		Object uniqueResult = getCurrentSession().createQuery(hql2)
+				.uniqueResult();
+		Long intValue = (new Integer(uniqueResult.toString())).longValue();
+		pageInfo.setTotalCount(intValue);
+		return list;
+	}
 
 }
