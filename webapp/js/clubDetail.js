@@ -326,7 +326,6 @@ function showApplyTable(){
 	function initApplyFrameBtn(isValidate){
 		$(".apply_post").click(function(){
 			if(isValidate.checkForm()){
-				
 				var url="/ClubSystem/apply/createApply";
 				var sendData = $("#applyForm").serialize();
 				$.post(url,sendData,function(data){
@@ -340,7 +339,8 @@ function showApplyTable(){
 				$("#mask").remove();
 			}
 			else{
-				alert( isValidate.showErrors());
+				isValidate.showErrors();
+				return;
 			}
 		});
 		$(".apply_cancel").click(function(){
