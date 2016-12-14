@@ -125,7 +125,7 @@ public class ActivityDaoImpl extends BaseDaoImpl<Activity> implements
 		String hql2 = "select count(*) from Activity where title like :input";
 		Object uniqueResult = getCurrentSession().createQuery(hql2)
 				.setString("input", "%" + input + "%").uniqueResult();
-		Long intValue = (new Integer(uniqueResult.toString())).longValue();
+		Long intValue = Long.parseLong(uniqueResult.toString());
 		pageInfo.setTotalCount(intValue);
 		return list;
 	}

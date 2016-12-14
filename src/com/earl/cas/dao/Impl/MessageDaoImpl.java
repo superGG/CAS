@@ -49,7 +49,7 @@ public class MessageDaoImpl extends BaseDaoImpl<Message> implements MessageDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Message> searchAlls(String search, PageInfo pageInfo) {
-		String hql = "from Message m where m.content like :search";
+		String hql = "from Message m where m.content like :search order by createtime desc";
 		List<Message> list = getCurrentSession().createQuery(hql)
 				.setString("search", "%" + search + "%").setFirstResult(
 						(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
