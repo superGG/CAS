@@ -44,7 +44,7 @@ public class MessageController extends BaseController {
 		logger.debug("REST request to get all message");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Message> messageList = messageService.findAll(pageInfo);
+		List<Message> messageList = messageService.getAlls(pageInfo);
 		result.getResultParm().put("message", messageList);
 		result.getResultParm().put("total", pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
@@ -148,6 +148,20 @@ public class MessageController extends BaseController {
 		result.setResultInfo("更新成功");
 		result.getResultParm().put("message", message);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	/**
+	 * 获取留言详情.
+	 *@author Kellan.
+	 * @return
+	 */
+	@RequestMapping(value = "/findById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> findById(Integer id) {
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		Message message = messageService.findById(id);
+		result.getResultParm().put("message", message);
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
 	
 

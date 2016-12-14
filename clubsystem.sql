@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-12-14 17:37:12
+Date: 2016-12-14 20:23:50
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -157,16 +157,22 @@ INSERT INTO `club_type` VALUES ('7', 'IT类', '2016-12-13 16:22:23');
 -- ----------------------------
 DROP TABLE IF EXISTS `complain`;
 CREATE TABLE `complain` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `detail_id` int(11) NOT NULL COMMENT '用户id',
   `type` int(11) NOT NULL DEFAULT '1' COMMENT '1 色情  2暴力  3不够色情  4 不够暴力 5看得心情不爽 6无聊无聊就想举报别人  7其他',
-  `content` varchar(255) DEFAULT NULL COMMENT '投诉内容',
+  `content` varchar(255) NOT NULL COMMENT '投诉内容',
+  `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `status` int(11) NOT NULL DEFAULT '0' COMMENT '0 未处理  1已处理',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of complain
 -- ----------------------------
+INSERT INTO `complain` VALUES ('2', '10', '2', '该货好色', '2016-12-14 19:57:58', '0');
+INSERT INTO `complain` VALUES ('3', '10', '3', '该货好色', '2016-12-14 19:58:02', '0');
+INSERT INTO `complain` VALUES ('4', '10', '4', '该货好色', '2016-12-14 19:58:05', '0');
+INSERT INTO `complain` VALUES ('5', '10', '5', '该货好色', '2016-12-14 20:03:47', '0');
 
 -- ----------------------------
 -- Table structure for message

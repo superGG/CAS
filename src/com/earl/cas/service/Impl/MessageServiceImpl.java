@@ -102,8 +102,15 @@ public class MessageServiceImpl extends BaseServiceImpl<Message> implements
 
 	@Override
 	public List<Message> searchAlls(String search, PageInfo pageInfo) {
-		
-		return messageDao.searchAlls(search, pageInfo);
+		List<Message> list = messageDao.searchAlls(search, pageInfo);
+		return setUserName(list);
 	}
+
+	@Override
+	public List<Message> getAlls(PageInfo pageInfo) {
+		List<Message> list = messageDao.findAll(pageInfo);
+		return setUserName(list);
+	}
+	
 
 }
