@@ -235,11 +235,11 @@ function showApplyTable(){
     formStr+="<form id='applyForm' method='POST'><table>";
     formStr+="<input type='hidden' name='ClubId' value='"+clubId+"'>";
     formStr+="<input type='hidden' name='detailId' value='"+userData.id+"'>";
-    formStr+="<tr><td>社团</td><td><input type='hidden' name='clubName' value='"+clubName+"'/>"+clubName+"</td>";
+    formStr+="<tr><td>社团</td><td><input  type='hidden' name='clubName' value='"+clubName+"'/>"+clubName+"</td>";
     formStr+="<td>学校</td><td><input type='hidden' name='schoolName' value='"+schoolName+"'/>"+schoolName+"</td>";
     formStr+="<td rowspan='5'><img src='/ClubSystem"+userData.headPath+"' style='width: 100px;border:1px solid #ccc' /></td></tr>";
     formStr+="<tr><td>申请人</td><td>"+userData.name+"</td>";
-    formStr+="<td>民族</td><td><input type='text' name='nation' value='' /></td></tr>";
+    formStr+="<td>民族</td><td><input  type='text' name='nation' value='' /></td></tr>";
     formStr+="<tr><td>真实姓名</td><td><input type='text' name='name' value='' /></td><td>性别</td><td><select name='sex'><option value='1'>男</option><option value='0'>女</option></select></td></tr>";
     formStr+="<tr><td>专业班级</td><td><input type='text' name='majorClass'  value='' /></td><td>年龄</td><td><input type='text' name='age' value='' /></td></tr>";     
     formStr+="<tr><td>邮箱</td><td><input type='text' name='email' value='' /></td><td>电话</td><td><input type='text' name='phone' value='' /></td></tr>";          
@@ -250,7 +250,83 @@ function showApplyTable(){
     $("body").append(formStr);
     setFrameWH("applyFrame");
     initApplyFrameBtn();
+    
+    
+    
+  //表单验证
+    $().ready(function() {
+
+    	
+    	$( '#applyForm' ).validate({
+    		onsubmit: false,
+    		onkeyup: false, 
+    		
+    		onfocusout: function(element){
+    	        $(element).valid();
+    	    },
+    	    errorPlacement: function(error, element) {  
+    	    		 element.val('');
+        	         element.attr("placeholder",error.html());
+    	    },
+    		rules:{
+    			nation:{
+    				required:true,
+    				chinese:true
+    			},
+    			name:{
+    				required:true,
+    				chinese:true,
+    				minlength:2,
+    				maxlength: 8
+    			},
+    			majorClass:{
+    				required:true,
+    			},
+    			email:{
+    				required:true,
+    				email:true
+    			},
+    			phone:{
+    				required:true,
+    				isPhone:true
+    			},
+    			age:{
+    				required:true,
+    				age:true,
+    				
+    			},
+    			reason:{
+    				required:true
+    			}
+    		},
+    		messages:{
+    			nation:{
+    				required:"不能为空!",
+    				chinese:"只能输入汉字!"
+    			},
+    			name:{
+    				required:"不能为空!",
+    				chinese:"请输入汉字",
+    				minlength:"长度不能小于2",
+    				maxlength:"长度不能大于8"
+    			},
+    			majorClass:{
+    				required:"不能为空!"
+    			},
+    			email:{
+    				required:"不能为空!",
+    				email:"example@163.com"
+    			},
+    			reason:{
+    				required:"不能为空!",
+    			},
+
+    		}
+    	});
+    });
 }
+
+
 function initApplyFrameBtn(){
 	$(".apply_post").click(function(){
 		var url="/ClubSystem/apply/createApply";
