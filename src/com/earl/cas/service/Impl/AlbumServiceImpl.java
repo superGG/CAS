@@ -79,6 +79,17 @@ public class AlbumServiceImpl extends BaseServiceImpl<Album> implements
 	@Override
 	public List<Album> getAlls(PageInfo pageInfo) {
 		List<Album> list = albumDao.findAll(pageInfo);
+		return setName(list);
+	}
+
+	@Override
+	public List<Album> searchAll(String search, PageInfo pageInfo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	private List<Album> setName(List<Album> list){
 		List<Album> newList = new ArrayList<Album>();
 		Club club = new Club();
 		for(Album album : list){
@@ -88,5 +99,4 @@ public class AlbumServiceImpl extends BaseServiceImpl<Album> implements
 		}
 		return newList;
 	}
-
 }
