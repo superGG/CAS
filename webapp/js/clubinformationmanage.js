@@ -13,8 +13,7 @@ $(document).ready(function(){
     	    $(element).valid();
     	},
     	errorPlacement: function(error, element) {  
-    	    element.val('');
-        	element.attr("placeholder",error.html());
+    		error.appendTo(element.next());
     	},
     	rules:{
     		name:{

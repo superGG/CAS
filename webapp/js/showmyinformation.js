@@ -62,6 +62,12 @@ $(document).ready(function(){
 			reason:{
 				required:"不能为空!",
 			},
+			age:{
+				required:"不能为空!",
+			},
+			phone:{
+				required:"不能为空!",
+			}
 		}	
 	}); 
 });
