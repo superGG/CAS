@@ -27,7 +27,7 @@ public class ComplainDaoImpl extends BaseDaoImpl<Complain> implements ComplainDa
 						(pageInfo.getIndexPageNum() - 1) * pageInfo.getSize())
 				.setMaxResults(pageInfo.getSize()).list();
 
-		String hql2 = "select count(*) from Message";
+		String hql2 = "select count(*) from Complain";
 		Object uniqueResult = getCurrentSession().createQuery(hql2)
 				.uniqueResult();
 		Long intValue = (new Integer(uniqueResult.toString())).longValue();

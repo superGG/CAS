@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -41,6 +42,12 @@ public class Complain implements Serializable
 	
 	//创建时间
 	private String createtime;
+	
+	//举报状态  0为 未处理  1已处理
+	private Integer status;
+	
+	//用户名
+	private String userName;
 	
 	
 	public Complain() {
@@ -97,6 +104,24 @@ public class Complain implements Serializable
 
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
+	}
+	
+	@Column(name = "status")
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	
+	@Transient
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	@Override

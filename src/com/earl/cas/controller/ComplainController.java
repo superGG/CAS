@@ -22,7 +22,7 @@ import com.earl.cas.vo.ResultMessage;
 
 /**
  * Complain的controller.
- *@author 宋
+ *@author Kellan
  *@date 2016-11-23
  */
 @RestController
@@ -38,22 +38,22 @@ public class ComplainController extends BaseController {
 
 	/**
 	 * 查看全部举报信息
-	 * @author 祝
+	 * @author kellan
 	 */
 	@RequestMapping(value = "/getAlls", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<ResultMessage> getAll(PageInfo pageInfo) {
 		logger.debug("REST request to get all complain");
 		result = new ResultMessage();
 		result.setServiceResult(true);
-		List<Complain> complainList = complainService.findAll(pageInfo);
+		List<Complain> complainList = complainService.getAlls(pageInfo);
 		result.getResultParm().put("complainList", complainList);
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
 	/**
-	 * 根据id删除社团类型
+	 * 根据id删除举报信息
 	 * @param id
-	 * @author 祝
+	 * @author song
 	 */
 	@RequestMapping(value = "/deleteById",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> delete(Integer id) {
@@ -69,8 +69,8 @@ public class ComplainController extends BaseController {
 	
 	/**
 	 * 添加举报信息.
-	 * @param clubtype
-	 *         类型名称name必填
+	 * @param complain
+	 *         内容content必填
 	 * @author 祝
 	 * 
 	 */
@@ -92,13 +92,14 @@ public class ComplainController extends BaseController {
 	}
 	
 	/**
-	 * 更新社团类型
-	 * @param clubtype
-	 * @author 祝
+	 * 更新举报状态
+	 * @param id
+	 * @param status
+	 * @author song
 	 */
 	@RequestMapping(value = "/update",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> update(Complain complain) {
-		logger.debug("REST request to update ClubType");
+		logger.debug("REST request to update complain");
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		complainService.updateWithNotNullProperties(complain);
@@ -106,4 +107,8 @@ public class ComplainController extends BaseController {
 		result.getResultParm().put("clubtype", complainService.get(complain.getId()));
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
+	
+	
+	
+	
 }

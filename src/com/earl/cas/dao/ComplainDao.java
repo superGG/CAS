@@ -5,4 +5,5 @@ import com.earl.cas.entity.Complain;
 
 public interface ComplainDao extends BaseDao<Complain> {
 
+
 }
