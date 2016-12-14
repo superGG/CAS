@@ -1,17 +1,5 @@
 //自定义校验方法
-$().ready(function() {
-	
-	jQuery.validator.addMethod("byteRangeLength", function(value, element, param) {
-		var length = value.length;
-		for(var i = 0; i < value.length; i++){
-			if(value.charCodeAt(i) > 127){
-				length++;
-			}
-		}
-		return this.optional(element) || ( length >= param[0] && length <= param[1] );   
-	}, $.validator.format("请确保输入的值在大于2个中文字符"));
-	
-	
+$(document).ready(function() {
  	jQuery.validator.addMethod("age", function(value, element) {   
 		var age = /^(?:[1-9][0-9]?|1[01][0-9]|120)$/;
 		return this.optional(element) || (age.test(value));

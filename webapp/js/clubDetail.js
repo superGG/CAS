@@ -197,9 +197,9 @@ function showPhotoList(photoList,dataSet){
 function showBigPhoto(index,path) {
 	showMask();
 	var pStr="<div id='photoFrame'><div class='photo_close'></div><div class='bigPhoto'>";
-    pStr+="<img src='"+path+"'>";
     pStr+="<div class='bigPhoto_prev'></div><div class='bigPhoto_next'></div><div class='bigPhoto_tip'></div></div>";
     $("body").append(pStr);
+    $(".bigPhoto").append('<img src="'+path+'" '+getFixSize(path)+'>');
     setFrameWH("photoFrame");
     $("#photoFrame .photo_close").click(function(){
     	$("#photoFrame").remove();
@@ -209,14 +209,21 @@ function showBigPhoto(index,path) {
    		if (index==0) {
    			$(".bigPhoto_tip").stop(true,false).html("已经是第一张").show(300).delay(3000).hide(300);// 这个是渐渐消失 
    		}else{
-   			$(".bigPhoto img").attr("src",$(".photo_list_bd li").eq(--index).children("img").attr("src"));
+   			preImgSrc = $(".photo_list_bd li").eq(--index).children("img").attr("src");
+   			$(".bigPhoto img").attr("src",preImgSrc);
+   			$(".bigPhoto img").attr("width",getFixSize(preImgSrc).split(" ")[0].split("=")[1].split("'")[1]);
+   			$(".bigPhoto img").attr("height",getFixSize(preImgSrc).split(" ")[1].split("=")[1].split("'")[1]);
    		}
     });
     $("#photoFrame .bigPhoto_next").click(function(){
     	if (index==$(".photo_list_bd li").length-1) {
    			$(".bigPhoto_tip").stop(true,false).html("已经是最后一张").show(300).delay(1000).hide(300);// 这个是渐渐消失 
    		}else{
-   			$(".bigPhoto img").attr("src",$(".photo_list_bd li").eq(++index).children("img").attr("src"));
+   			nextImgSrc = $(".photo_list_bd li").eq(++index).children("img").attr("src");
+   			$(".bigPhoto img").attr("src",nextImgSrc);
+   			$(".bigPhoto img").attr("width",getFixSize(nextImgSrc).split(" ")[0].split("=")[1].split("'")[1]);
+   			$(".bigPhoto img").attr("height",getFixSize(nextImgSrc).split(" ")[1].split("=")[1].split("'")[1]);
+   		
    		}
     });
 }
@@ -326,7 +333,6 @@ function showApplyTable(){
 	function initApplyFrameBtn(isValidate){
 		$(".apply_post").click(function(){
 			if(isValidate.checkForm()){
-				
 				var url="/ClubSystem/apply/createApply";
 				var sendData = $("#applyForm").serialize();
 				$.post(url,sendData,function(data){
@@ -340,7 +346,8 @@ function showApplyTable(){
 				$("#mask").remove();
 			}
 			else{
-				alert( isValidate.showErrors());
+				isValidate.showErrors();
+				return;
 			}
 		});
 		$(".apply_cancel").click(function(){
@@ -369,4 +376,34 @@ function isApplyOrJoin(clubId){
 			console.log(data.resultInfo);
 		}
 	})
+}
+//计算图片大小
+function getFixSize(path){
+	var theFixWidth;
+	var theFixHeight;
+	var parentWidth = $(".bigPhoto").width();
+	var parentHeight = $(".bigPhoto").height();
+	var thisImg = new Image();
+	thisImg.src = path;
+	var thisWidth = thisImg.width;
+	var thisHeight = thisImg.height;
+	if(thisWidth<=thisHeight){
+		if(thisHeight<parentHeight){
+			theFixHeight = thisHeight;
+			theFixWidth = thisWidth;
+		}else{
+			theFixHeight = parentHeight-40;
+			theFixWidth = theFixHeight*thisWidth/thisHeight;
+		}
+		return "width='"+theFixWidth+"px' height='"+theFixHeight+"px'";
+	}else{
+		if(thisWidth<parentWidth){
+			theFixWidth = thisWidth;
+			theFixHeight = thisHeight;
+		}else{
+			theFixWidth = parentWidth-40;
+			theFixHeight = theFixWidth*thisHeight/thisWidth;
+		}
+		return "width='"+theFixWidth+"px' height='"+theFixHeight+"px'";
+	}
 }
