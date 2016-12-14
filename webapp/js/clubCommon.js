@@ -31,4 +31,5 @@ function setMyJoinedClubHref(){
 	$("#clubdetailhref").attr("href","showclubinformation.html?clubId="+getUrlParam("clubId"));
 	$("#clubalbumhref").attr("href","showclubalbums.html?clubId="+getUrlParam("clubId"));
 	$("#clubactivityhref").attr("href","showclubactivity.html?clubId="+getUrlParam("clubId"));
+	$("#myinformationhref").attr("href","showmyinformation.html?clubId="+getUrlParam("clubId"));
 }

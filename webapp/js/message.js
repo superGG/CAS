@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	getMessageList(1);
-})
+});
 
 function getMessageList(index) {
 	var url = "/ClubSystem/message/getOneMessgae";
@@ -96,7 +96,7 @@ function post_data(commentData, fatherId, tihsClick) {
 				$(tihsClick).parents(".item_row_four").siblings(".item_row_three").find(".icon-response-m").next().html(parseInt(sonSize) + 1);
 			}
 		}
-	})
+	});
 }
 
 function loadMoreMessage(index) {
@@ -112,7 +112,7 @@ function loadMoreMessage(index) {
 				$(".loadMoreMessage").attr("onclick","loadMoreMessage("+(++index)+")");
 			}
 		}
-	})
+	});
 }
 //显示更多子评论
 function showMoresMessage(thisClick){
@@ -141,6 +141,6 @@ function giveLike(thisClick,id){
 			var mData = data.resultParm.message;
 			$(thisClick).siblings("label").html(mData.good);
 		}
-	})
+	});
 }
 

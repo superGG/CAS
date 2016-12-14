@@ -211,9 +211,6 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 	public void create(Integer detailId, Club club, String schoolName,
 			String clubType) {
 		Position position = new Position();
-		if (detailId == null) {
-			throw new DomainSecurityException("请先登录");
-		}
 		UserDetails ud = userdetailsDao.get(detailId);
 		club.setLeader(ud.getName());
 		club.setDetailId(detailId);

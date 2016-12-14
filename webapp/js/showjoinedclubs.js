@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	setMyJoinedClubHref();
 	initClubList();
 });
 function showClubList(clubList){
