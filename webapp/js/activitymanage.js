@@ -14,7 +14,7 @@ function showClubActivity(index) {	var url="/ClubSystem/activity/getClubActivity
 			for (var i = 0; i <listData.length; i++) {
 				str+='<li class="activity_list_item"><div class="item_title">';
 				str+='<a href="javascript:void(0)" onclick="showDetail('+listData[i].id+')">'+html_decode(listData[i].title)+'</a></div>'
-				str+='<div class="item_time"><a href="javascript:void(0)" onclick="showDetail('+listData[i].id+')">'+listData[i].createtime+'</a></div>'
+				str+='<div class="item_time"><a href="javascript:void(0)" onclick="showDetail('+listData[i].id+')">'+listData[i].createtime.split(".")[0]+'</a></div>'
 				str+='<div class="item_btn"><a href="javascript:void(0)" onclick="changeActivity('+listData[i].id+')">修改</a><a href="javascript:void(0)" onclick="deleteActivity('+listData[i].id+')">删除</a></div>';
 			}
 			if (index==1) {
