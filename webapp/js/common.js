@@ -210,9 +210,35 @@ function showUser(){
     var str = "<div class='userImg'><img src='/ClubSystem"+userData.headPath+"'></div>";
     str += "<div class='userName'>"+userData.name+"</div>";
     str += "<div class='list'><li><a href='/ClubSystem/views/user/personalcenter.html?"+userData.name+"'>个人中心</a></li>";
+    str +="<li><a href='javaScript:showReport()'>举报中心</a></li>"
     str +="<li><a href='javaScript:loginOut()'>退出</a></li></div>"
     $(".top .login").addClass("user").removeClass("login").html(str);
   }
+}
+function showReport(){
+	$("body").append('<div class="loadingDiv"><div class="report"><table border="0"><tr><td><label for="reportSelect">举报类型</td></tr><tr><td><label><input type="radio" name="type" value="1" checked style="margin:5px 0 5px 35px;">色情</label></td></tr><tr><td><label><input type="radio" name="type" value="2" style="margin:5px 0 5px 35px;">暴力</label></td></tr><tr><td><label><input type="radio" name="type" value="3" style="margin:5px 0 5px 35px;">不够色情</label></td></tr><tr><td><label><input type="radio" name="type" value="4" style="margin:5px 0 5px 35px;">不够暴力</label></td></tr><tr><td><label><input type="radio" name="type" value="5" style="margin:5px 0 5px 35px;">看得心情不爽</label></td></tr><tr><td><label><input type="radio" name="type" value="6" style="margin:5px 0 5px 35px;">无聊无聊就想举报别人</label></td></tr><tr><td><label><input type="radio" name="type" value="7" style="margin:5px 0 5px 35px;">其他</label></td></tr><tr><td><label for="content">投诉内容</label></tr><tr><td><textarea rows="6" cols="35" placeholder="请输入投诉内容" name="content" id="content"></textarea></td></tr><tr align="center" ><td><button onclick="submit()">提交</button><button onclick="closeMask()">取消</button></td></tr></table></div></div>');	
+}
+function closeMask(){
+	$(".loadingDiv").remove();
+}
+function submit(){
+	if($("#content").val()==" "){
+		alert("投诉内容不能为空！");
+	}else{
+		var id = getCookieUserData().id;
+		var content = $("#content").val();
+		var type = $('input:radio[name="type"]:checked').val();
+		var url = "/ClubSystem/complain/save";
+		var parm = "type="+type+"&content="+content+"&detailId="+id;
+		$.post(url,parm,function(data){
+			if(data.serviceResult){
+				alert(data.resultInfo);
+				closeMask();
+			}else{
+				alert(data.resultInfo);
+			}
+		});
+	}
 }
 //删除Cookie
 function delectCookieUserData(){

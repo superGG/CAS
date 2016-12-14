@@ -191,16 +191,17 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 			logger.info("搜索结果为空");
 			return null;
 		} else {
+			
 			for (Apply apply : applylist) {
 				Member member = new Member();
 				memberName = apply.getName(); // 从申请书中获得成员名字
-				member.setId(i); // 编号
+				//member.setId(i); // 编号
 				member.setName(memberName);
 				member.setCreatetime(apply.getCreatetime()); // userclub上的加入时间
-				position = positionDao.get(apply.getPositionId()); // 根据具体职位Id获得职位
-																		// //
-																		// 提取出职位名字
-				member.setPosition(position.getName());
+				if(apply.getPositionId()!=null){
+					position = positionDao.get(apply.getPositionId()); // 根据具体职位Id获得职位
+					member.setPosition(position.getName());		
+				}
 				member.setTel(apply.getPhone());
 				member.setMajorClass(apply.getMajorClass());
 				member.setApplyId(apply.getId());
