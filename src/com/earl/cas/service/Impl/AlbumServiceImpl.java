@@ -18,6 +18,7 @@ import com.earl.cas.entity.Album;
 import com.earl.cas.entity.Club;
 import com.earl.cas.exception.DomainSecurityException;
 import com.earl.cas.service.AlbumService;
+import com.earl.cas.vo.PageInfo;
 
 /**
  * albumService实现类.
@@ -75,4 +76,27 @@ public class AlbumServiceImpl extends BaseServiceImpl<Album> implements
 		return album;
 	}
 
+	@Override
+	public List<Album> getAlls(PageInfo pageInfo) {
+		List<Album> list = albumDao.findAll(pageInfo);
+		return setName(list);
+	}
+
+	@Override
+	public List<Album> searchAll(String search, PageInfo pageInfo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	private List<Album> setName(List<Album> list){
+		List<Album> newList = new ArrayList<Album>();
+		Club club = new Club();
+		for(Album album : list){
+			club = clubDao.get(album.getClubId());
+			album.setClubName(club.getName());
+			newList.add(album);
+		}
+		return newList;
+	}
 }
