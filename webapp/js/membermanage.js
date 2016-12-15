@@ -1,5 +1,6 @@
 var applyId;
 $(document).ready(function(){
+	setPositionHref();
 	initMemberList();
 });
 function showMemberList(memberList){

@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	setPositionHref();
 	showUserData();
 	getMyCreateClub();
 	editor='';
