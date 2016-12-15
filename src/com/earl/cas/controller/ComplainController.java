@@ -105,7 +105,7 @@ public class ComplainController extends BaseController {
 		result.setServiceResult(true);
 		complainService.updateWithNotNullProperties(complain);
 		result.setResultInfo("更新成功");
-		result.getResultParm().put("clubtype", complainService.get(complain.getId()));
+		result.getResultParm().put("complain", complainService.get(complain.getId()));
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
 	
