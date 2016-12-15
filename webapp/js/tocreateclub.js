@@ -145,37 +145,36 @@ function createClub(){
 //			}
 //		});
 		if(isValidate_1.checkForm() && isValidate_2.checkForm() && isValidate_3.checkForm()){
-						var formData = new FormData($( "#uploadForm" )[0]);
-						formData.append("detailId",detaliId);
-						formData.append("schoolName",schoolName);
-						formData.append("clubType",typeName);
-						formData.append("name",name);
-						formData.append("phone",phone);
-						formData.append("introduce",introduce);
-						$.ajax({  
-							url: '/ClubSystem/club/create' ,  
-							type: 'POST',  
-							data: formData,  
-							async: false,  
-							cache: false,  
-							contentType: false,  
-							processData: false,  
-							success: function(data) {  
-								alert(data.resultInfo); 
-								if(data.serviceResult){
-									window.location.href ="/ClubSystem/views/club/clubinformationmanage.html";
-								}
-							},  
-							error: function(data) {  
-								alert(data.resultInfo);
-							}  
-						});
+			if($("#uploadImg").val().length > 0){
+				var formData = new FormData($( "#uploadForm" )[0]);
+				formData.append("detailId",detaliId);
+				formData.append("schoolName",schoolName);
+				formData.append("clubType",typeName);
+				formData.append("name",name);
+				formData.append("phone",phone);
+				formData.append("introduce",introduce);
+				$.ajax({  
+					url: '/ClubSystem/club/create' ,  
+					type: 'POST',  
+					data: formData,  
+					async: false,  
+					cache: false,  
+					contentType: false,  
+					processData: false,  
+					success: function(data) {  
+						alert(data.resultInfo); 
+						if(data.serviceResult){
+							window.location.href ="/ClubSystem/views/club/clubinformationmanage.html";
+						}
+					},  
+					error: function(data) {  
+						alert(data.resultInfo);
+					}  
+				});
+			}else{
+				alert("请上传社徽！");
+			}			
 		}
-//		else{
-//			alert(不能填写空信息);
-//			showTable();
-//		}
-//		}
 		else{
 			alert("请按照格式填写");
 			isValidate_1.showErrors();

@@ -116,10 +116,10 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 			member.setName(apply.getName());
 			member.setCreatetime(apply.getCreatetime()); 
 //			position = positionDao.get(apply.getPositionId()); // 根据具体职位Id获得职位
-			member.setPosition(apply.getName());
-			member.setTel(apply.getPhone());
+			member.setPositionName(apply.getPositionName());
+			member.setPhone(apply.getPhone());
 			member.setMajorClass(apply.getMajorClass());
-			member.setApplyId(apply.getId());
+			member.setId(apply.getId());
 				memberlist.add(member);
 		}
 		return memberlist;
@@ -180,7 +180,6 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		List<Member> memberlist = new ArrayList<Member>();
 		String memberName;
 		int clubId;
-		int i = 1; // 计数标记
 		Position position;
 		// 获得对应的club
 		Club club = clubDao.getClubByuserDetailId(detailId);
@@ -191,20 +190,20 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 			logger.info("搜索结果为空");
 			return null;
 		} else {
+			
 			for (Apply apply : applylist) {
 				Member member = new Member();
 				memberName = apply.getName(); // 从申请书中获得成员名字
-				member.setId(i); // 编号
+				//member.setId(i); // 编号
 				member.setName(memberName);
 				member.setCreatetime(apply.getCreatetime()); // userclub上的加入时间
-				position = positionDao.get(apply.getPositionId()); // 根据具体职位Id获得职位
-																		// //
-																		// 提取出职位名字
-				member.setPosition(position.getName());
-				member.setTel(apply.getPhone());
+				if(apply.getPositionId()!=null){
+					position = positionDao.get(apply.getPositionId()); // 根据具体职位Id获得职位
+					member.setPositionName(position.getName());		
+				}
+				member.setPhone(apply.getPhone());
 				member.setMajorClass(apply.getMajorClass());
-				member.setApplyId(apply.getId());
-				i++; // 计数器加1
+				member.setId(apply.getId());
 				if (member != null) {
 					memberlist.add(member);
 				}
@@ -285,4 +284,14 @@ public class ApplyServiceImpl extends BaseServiceImpl<Apply> implements
 		}
 		applyDao.delete(applyList.get(0));
 	}
+
+	@Override
+	public Apply getMemberDetail(Integer applyId) {
+		Apply apply = applyDao.get(applyId);
+		if (apply == null) {
+			throw new DomainSecurityException("获取成员信息失败");
+		}
+		return setPositionName(apply);
+	}
+	
 }

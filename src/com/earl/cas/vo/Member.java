@@ -13,10 +13,9 @@ public class Member {
 
 	private int id;// id 用来计数
 	private String name; // 成员名字
-	private int applyId;// 入社申请书的ID
-	private String position; // 职位
+	private String positionName; // 职位
 	private String majorClass; // 专业
-	private String tel;// 电话
+	private String phone;// 电话
 	private String createtime; // 入社申请
 
 	public int getId() {
@@ -35,22 +34,6 @@ public class Member {
 		this.name = name;
 	}
 
-	public int getApplyId() {
-		return applyId;
-	}
-
-	public void setApplyId(int applyId) {
-		this.applyId = applyId;
-	}
-
-	public String getPosition() {
-		return position;
-	}
-
-	public void setPosition(String position) {
-		this.position = position;
-	}
-
 	public String getMajorClass() {
 		return majorClass;
 	}
@@ -59,13 +42,6 @@ public class Member {
 		this.majorClass = majorClass;
 	}
 
-	public String getTel() {
-		return tel;
-	}
-
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
 
 	public String getCreatetime() {
 		return createtime;
@@ -73,6 +49,22 @@ public class Member {
 
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
+	}
+
+	public String getPositionName() {
+		return positionName;
+	}
+
+	public void setPositionName(String positionName) {
+		this.positionName = positionName;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 }

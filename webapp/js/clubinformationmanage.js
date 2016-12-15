@@ -13,19 +13,16 @@ $(document).ready(function(){
     	    $(element).valid();
     	},
     	errorPlacement: function(error, element) {  
-    	    element.val('');
-        	element.attr("placeholder",error.html());
+    		error.appendTo(element.next());
     	},
     	rules:{
     		name:{
     			required:true,
-    			chinese:true,
     			minlength:2,
     			maxlength: 10
     		},
     		leader:{
     			required:true,
-    			chinese:true,
     			minlength:2,
     			maxlength: 8
     		},
@@ -44,7 +41,6 @@ $(document).ready(function(){
     	messages:{
     		name:{
     			required:"不能为空!",
-    			chinese:"请输入汉字",
     			minlength:"长度不能小于2",
     			maxlength:"长度不能大于8"
     		},
@@ -54,7 +50,6 @@ $(document).ready(function(){
    			},
    			leader:{
    				required:"不能为空!",
-   				chinese:"请输入汉字",
    				minlength:"不能少于2个字"
    			},
    			introduce:{

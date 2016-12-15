@@ -113,12 +113,19 @@ public class ApplyDaoImpl extends BaseDaoImpl<Apply> implements ApplyDao {
 
 	@Override
 	public int updatePosition(Apply apply) {
-		String hql = "update Apply set positionId = :positionId where id = :id";
-		int update = getCurrentSession().createQuery(hql)
-				.setInteger("positionId", apply.getPositionId())
-				.setInteger("id", apply.getId()).executeUpdate();
+		String hql = null;
+		int update = 0;
+		if (apply.getPositionId() == null) {
+			hql = "update Apply set positionId = null where id = :id";
+			update = getCurrentSession().createQuery(hql)
+					.setInteger("id", apply.getId()).executeUpdate();
+		} else {
+			hql = "update Apply set positionId = :positionId where id = :id";
+			update = getCurrentSession().createQuery(hql)
+					.setInteger("positionId", apply.getPositionId())
+					.setInteger("id", apply.getId()).executeUpdate();
+		}
 		return update;
 	}
-	
 
 }

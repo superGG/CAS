@@ -25,14 +25,14 @@
 	position:absolute;
 }
 .stxq_details_mid{
-	width:465px;
+	width:500px;
 	height:80px;
 	background:#fff;
 	margin-top:20px;
 	border-bottom:1px solid #ccc;
 }
 .stxq_details_item{
-	width:65px;
+	width:75px;
 	height:50px;
 	border-right:1px solid #ccc;
 	margin-top:10px;
@@ -42,7 +42,7 @@
 	margin-top:14px;
 }
 .stxq_details_item p{
-	padding:5px 10px 5px 0;
+	padding:5px 0 5px 0;
 	margin:0;
 	text-align:center;
 	font-size:12px;
