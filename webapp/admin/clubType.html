@@ -62,34 +62,19 @@
 						<!-- 导航栏个人信息菜单 -->
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
-								<span class="user-info">
+								<img id="adminCover" class="nav-user-photo" src="" alt="头像" />
+								<span id="adminName" class="user-info">
 									<small>欢迎光临,</small>
-									王纸张
 								</span>
 
 								<i class="icon-caret-down"></i>
 							</a>
 
 							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-								<li>
-									<a href="#">
-										<i class="icon-cog"></i>
-										设置
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<i class="icon-user"></i>
-										个人资料
-									</a>
-								</li>
-
 								<li class="divider"></li>
 
 								<li>
-									<a href="#">
+									<a href="javascript:void(0);" id="adminOut" onclick="loginOut()">
 										<i class="icon-off"></i>
 										退出
 									</a>
@@ -397,9 +382,13 @@
 
 		<script type="text/javascript">
 			jQuery(function($) {
-				
-				
 				//开始自定义内容
+				adminData = getCookieAdminData();
+				if (adminData==null) {
+					window.location.href="/ClubSystem/admin/login.html";
+				}else{
+					showAdminData(adminData);
+				}
 				size=4;
 				total=0;
 				isSearch=false;
@@ -499,6 +488,39 @@
 						$('#sample-table-1 tbody #type'+typeId).remove();
 					}
 				})
+			}
+			function showAdminData(adminData){
+				$("#adminCover").attr("src","/ClubSystem"+adminData.headPath);
+				$("#adminName").append(adminData.name);
+			}
+			//退出登录
+			function loginOut(){
+			  delectCookieAdminData();
+			  // location.reload();
+			  window.location.href="/ClubSystem/admin/login.html";
+			}
+			//删除Cookie
+			function delectCookieAdminData(){
+			  //获取当前时间 
+			    var date=new Date(); 
+			    //将date设置为过去的时间 
+			    date.setTime(date.getTime()-3600*1000);
+			    //将userId这个cookie删除 
+			    var oldCookie = document.cookie;
+			    document.cookie=oldCookie+"; path=/ClubSystem/admin/; expires="+date.toGMTString();
+			}
+			//获取登录Cookie
+			function getCookieAdminData() {
+			  var strCookie = document.cookie;
+			  var arrCookie = strCookie.split("; ");
+			  var userData ;
+			  for (var i = 0; i < arrCookie.length; i++) {
+			    var arr = arrCookie[i].split("=");
+			    if (arr[0]=="Admin") {
+			      userData = arr[1];
+			      return JSON.parse(unescape(userData));
+			    }
+			  }
 			}
 		</script>
 </body>

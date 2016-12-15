@@ -100,25 +100,77 @@ function checkNumStr(str){
      }
     return true;
 }
+//登录提交
+function login() {
+  var url ="/ClubSystem/users/mlogin";
+  var sendData = $("#loginForm").serialize()+"&role=2";
+  console.log(sendData);
+  $.post(url,sendData,function (data) {
+    if (data.serviceResult) {
+      var userDatail = data.resultParm.userDetail;
+      setCookieAdminData(userDatail);
+      window.location.href="index.html";
+    }else{
+      $("#loginForm .login-tip").html(data.resultInfo);
+    }
+  });
+}
+//退出登录
+function loginOut(){
+  delectCookieAdminData();
+  // location.reload();
+  window.location.href="/ClubSystem/admin/login.html";
+}
+//删除Cookie
+function delectCookieAdminData(){
+  //获取当前时间 
+    var date=new Date(); 
+    //将date设置为过去的时间 
+    date.setTime(date.getTime()-3600*1000);
+    //将userId这个cookie删除 
+    var oldCookie = document.cookie;
+    document.cookie=oldCookie+"; path=/ClubSystem/admin/; expires="+date.toGMTString();
+}
+//获取登录Cookie
+function getCookieAdminData() {
+  var strCookie = document.cookie;
+  var arrCookie = strCookie.split("; ");
+  var userData ;
+  for (var i = 0; i < arrCookie.length; i++) {
+    var arr = arrCookie[i].split("=");
+    if (arr[0]=="Admin") {
+      userData = arr[1];
+      return JSON.parse(unescape(userData));
+    }
+  }
+}
+
+//设置Cookie
+function setCookieAdminData(data){
+  var date=new Date(); 
+    date.setTime(date.getTime()+3600*1000); 
+    var mCookies = JSON.stringify(data);
+    document.cookie="Admin="+escape(mCookies)+"; path=/ClubSystem/admin/; expires="+date.toGMTString();
+}
 
 </script>
 </head>
 <body>
-<form action="${ctp }/common/doLogin" method="post" onsubmit="return checkSubmit(this)">
+<form id="loginForm" method="post" onsubmit="return checkSubmit(this)">
 <dl class="admin_login">
  <dt>
   <strong>社团网申-后台管理系统</strong>
   <em>Team Management System</em>
  </dt>
  <dd class="user_icon">
-  <input type="text"   onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" name="userAccount" placeholder="账号" class="login_txtbx"/>
+  <input type="text"   onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" name="account" placeholder="账号" class="login_txtbx"/>
  </dd>
  <dd class="pwd_icon">
-  <input type="password" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" name="userPassword" placeholder="密码" class="login_txtbx"/>
+  <input type="password" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" name="password" placeholder="密码" class="login_txtbx"/>
  </dd>
 
  <dd>
-  <input type="submit" value="立即登录"  class="submit_btn"/>
+  <button  class="submit_btn" onclick="login()">立即登录</button>
  </dd>
  <dd>
   <p>© 2016 Powered by 社团网申_第12组</p>
