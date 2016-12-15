@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<meta http-equiv="content-type" content="textml; charset=utf-8">
+<meta charset="utf-8"/>
+<title>后台登录</title>
+<meta name="author" content="DeathGhost" />
+<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+<style>
+body{height:100%;background:#16a085;overflow:hidden;}
+canvas{z-index:-1;position:absolute;}
+</style>
+<script src="assets/js/jquery-1.10.2.min.js"></script>
+<script src="assets/js/Particleground.js"></script>
+<!-- 对话框 -->
+<link href="assets/css/green.css" rel="stylesheet" />
+<script src="assets/js/artDialog.min.js"></script>
+<script>
+$(document).ready(function() {
+  //粒子背景特效
+  $('body').particleground({
+    dotColor: '#5cbdaa',
+    lineColor: '#5cbdaa'
+  });
+});
+function checkSubmit(form) {
+	var userAccount = form.userAccount.value
+	var userPassword = form.userPassword.value
+    if(form.userAccount.value=='') {
+    	var a = art.dialog({
+    		id: 'dialog',
+    	    title: '温馨提醒',
+    	    content: '账户不能为空！',
+    	    okValue: '确定',
+    	    lock: true,
+    	    ok:function(){
+    	    	a.close();
+    	    	 return false;
+    	    }
+    	});
+          form.userAccount.focus();
+          return false;
+     }
+ if(form.userPassword.value==''){
+		var a = art.dialog({
+		    title: '温馨提醒',
+		    content: '密码不能为空！',
+		    okValue: '确定',
+		    lock: true,
+		    ok:function(){
+		    	a.close();
+		    	return false;
+		    }
+		});
+		form.userPassword.focus();
+		return false;
+   }
+ 
+ 	if(!checkNumStr(userAccount)){
+ 		var a = art.dialog({
+		    title: '温馨提醒',
+		    content: '账户不能存在特殊字段！',
+		    okValue: '确定',
+		    lock: true,
+		    ok:function(){
+		    	a.close();
+		    	return false;
+		    }
+		});
+ 		return false;
+ 	}
+	if(!checkNumStr(userPassword)){
+ 		var a = art.dialog({
+		    title: '温馨提醒',
+		    content: '密码不能存在特殊字段！',
+		    okValue: '确定',
+		    lock: true,
+		    ok:function(){
+		    	a.close();
+		    	return false;
+		    }
+		});
+ 		return false;
+ 	}
+   return true;
+   }
+
+function checkNumStr(str){
+	var Str=str
+    var str1="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var i=0;
+    for (i=0; i<Str.length;i++) {
+       var onechar=Str.substring(i,i+1);
+       //alert(onechar);
+       if (!(str1.indexOf(onechar)!= -1)){
+            // alert("必须是数字[0-9]、字母[a-z、A-Z]或组合!");
+             return false;
+         }
+     }
+    return true;
+}
+
+</script>
+</head>
+<body>
+<form action="${ctp }/common/doLogin" method="post" onsubmit="return checkSubmit(this)">
+<dl class="admin_login">
+ <dt>
+  <strong>社团网申-后台管理系统</strong>
+  <em>Team Management System</em>
+ </dt>
+ <dd class="user_icon">
+  <input type="text"   onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" name="userAccount" placeholder="账号" class="login_txtbx"/>
+ </dd>
+ <dd class="pwd_icon">
+  <input type="password" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" name="userPassword" placeholder="密码" class="login_txtbx"/>
+ </dd>
+
+ <dd>
+  <input type="submit" value="立即登录"  class="submit_btn"/>
+ </dd>
+ <dd>
+  <p>© 2016 Powered by 社团网申_第12组</p>
+ </dd>
+</dl>
+</form>
+</body>
+</html>

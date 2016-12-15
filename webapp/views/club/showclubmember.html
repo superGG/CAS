@@ -2,20 +2,20 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>我加入的社团-社团相册</title>
+		<title>我加入的社团-社团通讯咯</title>
 		<link rel='icon' href='../../images/titile_logo.ico' type='image/x-ico' />
 
+		<link href="../../css/table_style.css" rel="stylesheet" type="text/css"> 
 		<link rel="stylesheet" type="text/css" href="../../css/club_common.css">
 		<link rel="stylesheet" type="text/css" href="../../css/common.css">
-		<link rel="stylesheet" type="text/css" href="../../css/album.css">
-
+		
 		<script type="text/javascript" src="../../js/jquery-1.11.3.min.js"></script>
         <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
 		<div class="top">
 			<div class="logobox">
-				<img id="logo" src="../../images/logo2.png" width="150px" height="70px">
+				<img id="logo" src="../../images/logo2.png">
 			</div>
 			<div class="nav">
 				<ul>
@@ -56,14 +56,35 @@
 			<div class="lwd_main_iframe">
 				<div class="cmm_head_nav">
 					<ul class="top_navs">
-						<li><a href="showclubinformation.html">社团详情</a></li>
-						<li class="curr"><a href="showclubalbums.html">社团相册</a></li>
-						<li><a href="showclubactivity.html">社团活动</a></li>
+						<li><a href="showclubinformation.html" id="clubdetailhref">社团详情</a></li>
+						<li><a href="showclubalbums.html" id="clubalbumhref">社团相册</a></li>
+						<li><a href="showclubactivity.html" id="clubactivityhref">社团活动</a></li>
 						<li><a href="showmyinformation.html" id="myinformationhref">个人资料</a></li>
-						<li><a href="showclubmember.html" id="clubmemberhref">通讯录</a></li>
+						<li class="curr"><a href="showclubmember.html" id="clubmemberhref">通讯录</a></li>
 					</ul>
+				</div><br>
+				<div class="table_header">
+					<input type="button" class="search_btn" value="搜索" onclick="memberSearch()">
+					<input type="text" id="search" style="float:right;" placeholder="成员姓名">
 				</div>
-				
+				<table class="memberlist" style="margin-top:20px;">
+					<tr style="background:#999;color:#fff;">
+						<th>#</th>
+						<th><strong>姓名</strong></th>
+						<th><strong>职位</strong></th>
+						<th><strong>专业班级</strong></th>
+						<th><strong>电话</strong></th>
+						<th><strong>入社时间</strong></th>
+					</tr>
+					<tbody id="membertable">
+					
+					</tbody>
+				</table>
+				<br>
+				<div class="dot_down" id="more"></div>
+			</div>
+				<br>
+				<div class="dot_down" id="more"></div>
 			</div>
 		</div>
 		<div class="footer">
@@ -79,6 +100,6 @@
 		</div>
 		<script type="text/javascript" src="../../js/common.js"></script>
 		<script type="text/javascript" src="../../js/clubCommon.js"></script>
-		<script type="text/javascript" src="../../js/showclubalbums.js"></script>
+		<script type="text/javascript" src="../../js/showclubactivity.js"></script>
 	</body>
 </html>
