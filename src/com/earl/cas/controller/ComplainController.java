@@ -129,7 +129,7 @@ public class ComplainController extends BaseController {
 	 * @author kellan
 	 */
 	@RequestMapping(value = "/getByType", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<ResultMessage> getAll(Complain complain, PageInfo pageInfo) {
+	public  ResponseEntity<ResultMessage> getByType(Complain complain, PageInfo pageInfo) {
 		result = new ResultMessage();
 		result.setServiceResult(true);
 		List<Complain> complainList = complainService.getByType(complain,pageInfo);
@@ -137,5 +137,22 @@ public class ComplainController extends BaseController {
 		result.getResultParm().put("total", pageInfo.getTotalCount());
 		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
 	}
+	
+	/**
+	 * 根据状态查询举报信息
+	 * @param status 举报状态
+	 * @author kellan
+	 */
+	@RequestMapping(value = "/getByStatus", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<ResultMessage> getByStatus(Complain complain, PageInfo pageInfo) {
+		result = new ResultMessage();
+		result.setServiceResult(true);
+		List<Complain> complainList = complainService.getByStatus(complain,pageInfo);
+		result.getResultParm().put("complainList", complainList);
+		result.getResultParm().put("total", pageInfo.getTotalCount());
+		return new ResponseEntity<ResultMessage>(result,HttpStatus.OK);
+	}
+	
+	
 	
 }

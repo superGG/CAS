@@ -110,10 +110,13 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 		// 获得社团信息
 		Club club = clubDao.getClubByuserDetailId(detailId);
 		// 获得社团当前类型
+		if(club==null){
+			throw new DomainSecurityException("该用户没创建社团");	
+		}	
 		String typename = clubTypeDao.get(club.getTypeId()).getName();
 		club.setTypeName(typename);
 		// Long number = userclubDao.getNumberByclubId(club.getId());
-		// 获取社团人数
+		// 获取社团人数			
 		setNumber(club);
 		School school = schoolDao.get(club.getSchoolId());
 		club.setSchoolName(school.getName());
