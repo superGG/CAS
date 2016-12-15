@@ -265,10 +265,10 @@
 								<a href="index.html">首页</a>
 							</li>
 							<li>
-								<a href="javascript:void(0);">社团管理</a>
+								<a href="javascript:void(0);">举报管理</a>
 							</li>
 
-							<li class="active">社团列表</li>
+							<li class="active">举报列表</li>
 						</ul><!-- .breadcrumb -->
 
 					</div>
@@ -276,10 +276,10 @@
 					<div class="page-content">
 						<div class="page-header">
 							<h1>
-								社团管理
+								举报管理
 								<small>
 									<i class="icon-double-angle-right"></i>
-									社团列表
+									举报列表
 								</small>
 							</h1>	
 						</div><!-- /.page-header -->
@@ -290,18 +290,23 @@
 
 								<div class="row" style="margin-left: 10%;">
 									<div class="form-search">
-										<span style="font-size: 1.2em;">输入社团名称or学校or类型:</span>
-										<span class="input-icon">
-											<input name="search" type="text" placeholder="Search ..." class="nav-search-input"  autocomplete="off" />
-											<i class="icon-search nav-search-icon"></i>
-										</span>
-
+										<span>举报类型：</span>
 										<div class="btn-group">
-											<button style="height: 30px;border-radius:10px;background-color: white;" onclick="search(1)">搜索</button>
+											<button type="button" class="dropdown-toggle" data-toggle="dropdown" style="height: 30px;border-radius:10px;background-color: white;">全部<span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu" role="menu">
+												<li><a href="javascript:void(0);" onclick="search2(1,0)">全部</a></li>
+												<li><a href="javascript:void(0);" onclick="search2(1,1)">色情</a></li>
+												<li><a href="javascript:void(0);" onclick="search2(1,2)">暴力</a></li>
+												<li><a href="javascript:void(0);" onclick="search2(1,3)">不够色情</a></li>
+												<li><a href="javascript:void(0);" onclick="search2(1,4)">不够暴力</a></li>
+												<li><a href="javascript:void(0);" onclick="search2(1,5)">看得心情不爽</a></li>
+												<li><a href="javascript:void(0);" onclick="search2(1,6)">无聊无聊就想举报别人</a></li>
+												<li><a href="javascript:void(0);" onclick="search2(1,7)">其他</a></li>
+											</ul>
 										</div>
 									</div>
 								</div>
-								<!-- 修改点：；一个搜索栏 -->
 
 								<div class="row">
 									<div class="col-xs-12">
@@ -310,21 +315,12 @@
 											<table id="sample-table-2" class="table table-striped table-bordered table-hover">
 												<thead>
 													<tr>
-														<!-- <th class="center">
-															<label>
-																<input type="checkbox" class="ace" />
-																<span class="lbl"></span>
-															</label>
-														</th> -->
-														<th>社团徽章</th>
-														<th>社团名称</th>
-														<th>社团学校</th>
-														<th class="hidden-480">社团类型</th>
+														<th>举报类型</th>
 														<th>
 															<i class="icon-time bigger-110 hidden-480"></i>
-															创建时间
+															举报时间
 														</th>
-														<!-- <th class="hidden-480">认证状态</th> -->
+														<th>处理状态</th>
 														<th>
 															操作
 														</th>
@@ -347,46 +343,30 @@
 											<div class="modal-header">
 												<button class="btn btn-xs btn-info" style=" float: right;" onclick="closeDialog()">关闭</button>
 												<h4 class="modal-title" id="myModalLabel">
-													社团详情
+													举报详情
 												</h4>
 											</div>
 											<div class="modal-body">
 												<input name="userId" id="userId" type="hidden"/>
 												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">社团名称：</span>
-													<input id="name" class="form-control" readonly="readonly"/>
-												</div>
-												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">社团类型：</span>
+													<span class="input-group-addon">举报类型：</span>
 													<input id="type" class="form-control" readonly="readonly"/>
 												</div>
 												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">学校名称：</span>
-													<input id="schoolName" type="text" class="form-control" readonly="readonly" />
+													<span class="input-group-addon">&nbsp;举报人：</span>
+													<input id="userName" type="text" class="form-control" readonly="readonly" />
 												</div>
 												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">社团人数：</span>
-													<input id="number" type="text" class="form-control" readonly="readonly" />
+													<span class="input-group-addon">举报时间：</span>
+													<input id="createtime" type="text" class="form-control" readonly="readonly" />
 												</div>
 												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">&nbsp;创建者：</span>
-													<input id="creator" class="form-control" readonly="readonly" />
+													<span class="input-group-addon">处理状态：</span>
+													<input id="status" class="form-control" readonly="readonly" />
 												</div>
 												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">电&nbsp;&nbsp;话：</span>
-													<input id="phone" class="form-control" readonly="readonly" />
-												</div>
-												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">创建时间：</span>
-													<input id="createtime" class="form-control" readonly="readonly" />
-												</div>
-												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">社&nbsp;&nbsp;徽：</span>
-													<img id="badge" class="img-responsive" alt="社徽" style="width:200px;height: 150px">
-												</div>
-												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">社团简介：</span>
-													<textarea id="introduction" class="form-control" name="introduction" readonly="readonly"></textarea>
+													<span class="input-group-addon">举报内容：</span>
+													<input id="content" class="form-control" readonly="readonly" />
 												</div>
 											</div>
 										</div><!-- /.modal-content -->
@@ -432,56 +412,62 @@
 		<script type="text/javascript">
 			jQuery(function($) {
 				//开始自定义内容
-				size=5;
+				size=10;
 				total=0;
+				type=0;
 				isSearch=false;
-				getClubList(1,size);
+				getComplainList(1,size);
 
 				// 结束自定义内容
 			})
 
-			function getClubList(index,size){
-					var url="/ClubSystem/club/getAlls";
+			function getComplainList(index,size){
+					var url="/ClubSystem/complain/getAlls";
 					var data = "indexPageNum="+index+"&size="+size;
 					$.get(url,data,function(data){
 						if (data.serviceResult) {
 							total = data.resultParm.total;
-							var clubList = data.resultParm.club;
+							var complainList = data.resultParm.complainList;
 							if (!isSearch) {
 								myPage(total,size);
 							}
 							$("#index").text(index);
-							showClubList(clubList);
+							showComplainList(complainList);
 						}
 					});
 				}
-				function showClubList(clubList) {
+				function showComplainList(complainList) {
 					var str='';
-					for(i=0;i<clubList.length;i++){
-						str+='<tr><td><img src="/ClubSystem'+clubList[i].badge+'" style="width:100px;height:100px;"/></td>';
-						str+='<td>'+clubList[i].name+'</td><td>'+clubList[i].schoolName+'</td><td>'+clubList[i].typeName+'</td>';
-						str+='<td>'+clubList[i].createtime+'</td>';
-						str+='<td><button class="btn btn-xs btn-success" onclick="showClubDetail('+clubList[i].id+')">查看</button>&nbsp;';
-						str+='<button class="btn btn-xs btn-danger" onclick="deleteClub('+clubList[i].detailId+')">删除</button></td></tr>';
+					for(i=0;i<complainList.length;i++){
+						str+='<tr><td>'+toChinese(complainList[i].type)+'</td>';
+						str+='<td>'+complainList[i].createtime+'</td>';
+						var statusName="未处理";
+						if (complainList[i].status==1) {
+							statusName="已处理";
+						}
+						str+='<td>'+statusName+'</td>';
+						str+='<td><button class="btn btn-xs btn-success" onclick="showComplainDetail('+complainList[i].id+')">查看</button>&nbsp;';
+						str+='<button class="btn btn-xs btn-danger" onclick="deleteComplain('+complainList[i].id+')">删除</button></td></tr>';
 					}
 					$("#sample-table-2 tbody").html(str);
 				}
-				function showClubDetail(clubId) {
-					var url = "/ClubSystem/club/getById";
-					var data = "clubId="+clubId;
+				function showComplainDetail(complainId) {
+					var url = "/ClubSystem/complain/findById";
+					var data = "id="+complainId;
 					$.get(url, data, function (data) {
 						if (data.serviceResult) {
-							var clubData = data.resultParm.club;
-							$("#dialog #name").val(clubData.name);
-							$("#dialog #type").val(clubData.typeName);
-							$("#dialog #schoolName").val(clubData.schoolName);
-							$("#dialog #number").val(clubData.number);
-							$("#dialog #creator").val(clubData.leader);
-							$("#dialog #phone").val(clubData.phone);
-							$("#dialog #createtime").val(clubData.createtime);
-							$("#dialog #badge").attr("src","/ClubSystem"+clubData.badge);
-							$("#dialog #introduction").val(clubData.introduce);
-							$("#dialog").show();	
+							var complainData = data.resultParm.complain;
+							$("#dialog #type").val(toChinese(complainData.type));
+							$("#dialog #userName").val(complainData.userName);
+							$("#dialog #createtime").val(complainData.createtime);
+							var statusName="未处理";
+							if (complainData.status==1) {
+								statusName="已处理";
+							}
+							$("#dialog #status").val(statusName);
+							$("#dialog #content").val(complainData.content);
+							$("#dialog .modal-body").append('<button id="dispose" style="width: 200px;margin:auto;" class="btn btn-xs btn-ok" onclick="dispose('+complainData.id+')">处理</button>');
+							$("#dialog").show();
 						}
 					})
 				}
@@ -490,9 +476,9 @@
 					$("#dialog").hide();
 				}
 
-				function deleteClub(detailId) {
-					var url="/ClubSystem/club/delete"
-					var data = "detailId="+detailId;
+				function deleteComplain(complainId) {
+					var url="/ClubSystem/complain/deleteById"
+					var data = "id="+complainId;
 					$.post(url,data,function(data){
 						if(data.serviceResult){
 							$("#showmessage").html("删除成功").stop().show(500).hide(2000);
@@ -502,35 +488,56 @@
 								index--;
 							}
 							if (isSearch) {
-								search(index);
+								search2(index,type);
 							}else{
-								getClubList(index,size);
+								getComplainList(index,size);
 							}
 						}
 					});
 				}
-				function search(index){
-					if ($(".form-search input[name='search']").val()=="") {
+
+				function search2(index,typeId){
+					type = typeId;
+					if (type==0) {
 						isSearch=false;
-						getClubList(1,size);
+						getComplainList(1,size);
 						return;
 					}
-					var data ="search="+$(".form-search input[name='search']").val()+"&indexPageNum="+index+"&size="+size;
-					var url = "/ClubSystem/club/getBySearch";
+					var data ="type="+type+"&indexPageNum="+index+"&size="+size;
+					var url = "/ClubSystem/complain/getByType";
 					$.get(url,data,function (data) {
 						if (data.serviceResult) {
-							var totalCount = data.resultParm.totalCount;
-							var clubList = data.resultParm.clublist;
-							console.log(index);
-							showClubList(clubList);
+							var total = data.resultParm.total;
+							var complainList = data.resultParm.complainList;
+							showComplainList(complainList);
 							isSearch=true;
-							myPage(totalCount,size);
+							myPage(total,size);
 							$("#index").text(index);
 						}
 					})
 
 				}
 
+				function dispose(complainId){
+					var url = "/ClubSystem/complain/update";
+					var data  = "id="+complainId+"&status=1";
+					$.post(url, data, function (data) {
+						if (data.serviceResult) {
+							$("#showmessage").html("处理成功").stop().show(500).hide(2000);
+							$("#dialog .modal-body button").remove();
+							$("#dialog").hide();
+							var page =  $("#index").text();
+							page = parseInt(page);
+							if (isSearch) {
+								search2(page, type);
+							}else{
+								getComplainList(page, size);
+							}
+						}else{
+							$("#showmessage").html(data.resultInfo).stop().show(500).hide(2000);
+						}
+					});
+				}
 				//分页栏
 				function myPage(total,size) {
 					var str = '<button id="first" class="btn btn-xs btn-success">首页</button> <button id="prev" class="btn btn-xs btn-info">上一页</button> <span id="index" class="btn btn-xs btn-warning">1</span> <button id="next" class="btn btn-xs btn-info">下一页</button> <button id="last" class="btn btn-xs btn-success">尾页</button> <span id="total" style="vertical-align: middle;">共0页</span> <input id="inputPage" type="number" min="1" style="width: 50px;vertical-align: top;"> <button id="go" class="btn btn-xs btn-success">GO</button>';
@@ -541,9 +548,9 @@
 					$("#first").click(function(){
 						console.log(isSearch);
 						if (isSearch) {
-							search(1);
+							search2(1,type);
 						}else{
-							getClubList(1,size);
+							getComplainList(1,size);
 						}
 					});
 					$("#prev").click(function(){
@@ -554,9 +561,9 @@
 						}
 						console.log(isSearch);
 						if (isSearch) {
-								search(page-1);
+								search2(page-1,type);
 						}else{
-								getClubList(page-1,size);
+								getComplainList(page-1,size);
 						}
 						
 					});
@@ -568,9 +575,9 @@
 						}
 						console.log(isSearch);
 						if (isSearch) {
-							search(page+1);
+							search2(page+1,type);
 						}else{
-							getClubList(page+1,size);
+							getComplainList(page+1,size);
 						}
 					});
 					$("#last").click(function(){
@@ -581,9 +588,9 @@
 						}
 						console.log(isSearch);
 						if (isSearch) {
-							search(totalPage);
+							search2(totalPage,type);
 						}else{
-							getClubList(totalPage,size);
+							getComplainList(totalPage,size);
 						}
 					});
 					$("#go").click(function(){
@@ -594,12 +601,34 @@
 						if (0<inputPage&&inputPage<=total&&inputPage!=page) {
 							console.log(isSearch);
 							if (isSearch) {
-								search(inputPage);
+								search2(inputPage,type);
 							}else{
-								getClubList(inputPage,size);
+								getComplainList(inputPage,size);
 							}
 						}
 					});
+				}
+				function toChinese(typeId){
+					var typeName = '';
+					switch(typeId){
+						case 1:typeName='色情';
+							break;
+						case 2:typeName='暴力';
+							break;
+						case 3:typeName='不够色情';
+							break;
+						case 4:typeName='不够暴力';
+							break;
+						case 5:typeName='看得心情不爽';
+							break;
+						case 6:typeName='无聊无聊就想举报别人';
+							break;
+						case 7:typeName='其他';
+							break;
+						default:typeName='未知类型';
+							break;
+					}
+					return typeName;
 				}
 		</script>
 	

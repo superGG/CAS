@@ -20,14 +20,16 @@ function showExpression(index){
 }
 //获取项目根路径
 function getPath(){
-	 var strFullPath=window.document.location.href;  
-     var strPath=window.document.location.pathname;  
-     var pos=strFullPath.indexOf(strPath);  
-     var prePath=strFullPath.substring(0,pos);  
-     var postPath=strPath.substring(0,strPath.substr(1).indexOf('/')+1);  
-     var basePath = prePath;  
-     basePath = prePath + postPath;
-     return basePath;
+	 //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
+	  var curWwwPath = window.document.location.href;
+	  //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+	  var pathName = window.document.location.pathname;
+	  var pos = curWwwPath.indexOf(pathName);
+	  //获取主机地址，如： http://localhost:8083
+	  var localhostPaht = curWwwPath.substring(0, pos);
+	  //获取带"/"的项目名，如：/uimcardprj
+     var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+     return projectName;
 }
 function getExpression(){
 	var str="";
