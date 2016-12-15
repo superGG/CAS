@@ -199,12 +199,7 @@
 										相册列表
 									</a>
 								</li>
-								<li>
-									<a href="photoList.html">
-										<i class="icon-double-angle-right"></i>
-										照片列表
-									</a>
-								</li>
+								
 							</ul>
 						</li>
 
@@ -485,7 +480,7 @@
 							$("#showmessage").html("删除成功").stop().show(500).hide(2000);
 							var index = parseInt($("#index").text());
 							//当删除最后一页的最后一个时，跳转到上一页
-							if ($("#sample-table-2 tbody tr").length==1&&index!=totalPage) {
+							if ($("#sample-table-2 tbody tr").length==1&&index==totalPage) {
 								index--;
 							}
 							if (isSearch) {

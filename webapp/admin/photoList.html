@@ -33,6 +33,64 @@
 			#sample-table-2 tbody td{
 				vertical-align: inherit;
 			}
+			.photo_item {
+			    display: inline-block;
+			    width: 202px;
+			    height: 180px;
+			    padding: 0;
+			    margin: 0 10px 20px 10px;
+			    border: 1px solid #ccc;
+			    position: relative;
+			}
+			.photo_box {
+			    width: 200px;
+   				height: 150px;
+			    cursor: pointer;
+			}
+			.photo_name {
+			    float: left;
+			    height: 29px;
+			    width: 200px;
+			    text-align: center;
+			    line-height: 29px;
+			    overflow: hidden;
+			    text-overflow: ellipsis
+			}
+			.hidden_box{
+				width:200px;
+				height:30px;
+				padding:0 10px;
+				line-height:30px;
+				position:absolute;
+				bottom:28px;
+				background:rgba(0,0,0,0.7);
+				display:none;
+			}
+			.hidden_box a{
+				display:inline-block;
+				margin-top:0;
+				padding:0 4px 0 0;
+			}
+			.hidden_box a i{
+				display: inline-block;
+				margin-top:-5px;
+			}
+			.icon-trash-m {
+			    background-image: url(/ClubSystem/images/photo-scan-layer.png);
+			    background-position: -436px 0px;
+			    background-repeat: no-repeat;
+			}
+			.icon-cover-m {
+			    background-image: url(../images/photo-scan-layer.png);
+			    background-position: -418.6px -0px;
+			}
+			.icon-m {
+			    display: inline-block;
+			    font-size: 0;
+			    width: 20px;
+			    height: 18px;
+			    vertical-align: middle;
+			}
 		</style>
 	</head>
 
@@ -199,7 +257,6 @@
 										相册列表
 									</a>
 								</li>
-								
 							</ul>
 						</li>
 
@@ -247,10 +304,12 @@
 								<a href="index.html">首页</a>
 							</li>
 							<li>
-								<a href="javascript:void(0);">活动管理</a>
+								<a href="javascript:void(0);">相册管理</a>
 							</li>
-
-							<li class="active">活动列表</li>
+							<li>
+								<a href="albumList.html">相册列表</a>
+							</li>
+							<li class="active">照片列表</li>
 						</ul><!-- .breadcrumb -->
 
 					</div>
@@ -258,95 +317,66 @@
 					<div class="page-content">
 						<div class="page-header">
 							<h1>
-								活动管理
+								相册管理
 								<small>
 									<i class="icon-double-angle-right"></i>
-									活动列表
+									相册列表
+									<small>
+										<i class="icon-double-angle-right"></i>
+										照片列表
+									</small>
 								</small>
 							</h1>	
 						</div><!-- /.page-header -->
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+								<div class="row">
+									<div class="col-xs-12">
+										<h3 class="header smaller lighter blue">相册信息</h3>
+										<div style="float: left">
+											<form id="uploadForm_cover">
+												<input type="file" name="file" accept="image/*" id="cover_file" style="display:none;" onchange="updateCover()">
+											</form>
+											<img id="path" style="width: 200px;height: 150px" src="‪‪" />
+											<button onclick="$('#cover_file').click();" class="btn btn-xs btn-success">修改封面</button>
+										</div>
+										<div style="float: left">
+											<div class="input-group" >
+												<span class="input-group-addon" style="width: 100px;">名称：</span>
+												<span id="albumName" style="width: 200px;" class="form-control"></span>
+											</div>
+											<div class="input-group" >
+												<span class="input-group-addon" style="width: 100px;">创建时间：</span>
+												<span id="createtime" style="width: 200px;" class="form-control"></span>
+											</div>
+											<div class="input-group" >
+												<span class="input-group-addon" style="width: 100px;">社团名称：</span>
+												<span id="clubName" style="width: 200px;" class="form-control"></span>
+											</div>
+											<div class="input-group" >
+												<span class="input-group-addon" style="width: 100px;">照片数量：</span>
+												<span id="photoNumber" style="width: 200px;" class="form-control"></span>
+											</div>
+										</div>
+										<div id="backToAlbum" class="btn btn-xs btn-info" style="margin: 60px;" onclick="backToAlbumList()">返回相册列表</div>
+									</div>
+								</div><!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
 
 						<div class="row">
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
-
-								<div class="row" style="margin-left: 10%;">
-									<div class="form-search">
-										<span style="font-size: 1.2em;">输入活动名称:</span>
-										<span class="input-icon">
-											<input name="search" type="text" placeholder="Search ..." class="nav-search-input"  autocomplete="off" />
-											<i class="icon-search nav-search-icon"></i>
-										</span>
-
-										<div class="btn-group">
-											<button style="height: 30px;border-radius:10px;background-color: white;" onclick="search(1)">搜索</button>
-										</div>
-									</div>
-								</div>
-								<!-- 修改点：；一个搜索栏 -->
-
 								<div class="row">
 									<div class="col-xs-12">
-										<h3 class="header smaller lighter blue">活动列表</h3>
-										<div class="table-responsive">
-											<table id="sample-table-2" class="table table-striped table-bordered table-hover">
-												<thead>
-													<tr>
-														<th>活动ID</th>
-														<th>活动标题</th>
-														<th>社团名称</th>
-														<th>
-															<i class="icon-time bigger-110 hidden-480"></i>
-															创建时间
-														</th>
-														<!-- <th class="hidden-480">认证状态</th> -->
-														<th>
-															操作
-														</th>
-													</tr>
-												</thead>
-
-												<tbody>
-
-												</tbody>
-											</table>
-										</div>
+										<h3 class="header smaller lighter blue">照片信息表</h3>
+										<div id="showPhotoList" style="overflow: hidden;"></div>
 										<div id="myPage" style="text-align: center;"></div>
 									</div>
 								</div><!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
 						</div><!-- /.row -->
-						<!--审核信息详情模态框开始-->
-									<div id="dialog" class="modal-dialog" style="position: fixed;top: 0px;width:50%;left:25%;display: none;">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button class="btn btn-xs btn-info" style=" float: right;" onclick="closeDialog()">关闭</button>
-												<h4 class="modal-title" id="myModalLabel">
-													活动详情
-												</h4>
-											</div>
-											<div class="modal-body" style="overflow-y: scroll;height: 500px">
-												<input name="userId" id="userId" type="hidden"/>
-												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">活动标题：</span>
-													<input id="title" class="form-control" readonly="readonly"/>
-												</div>
-												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">社团名称：</span>
-													<input id="clubName" class="form-control" readonly="readonly"/>
-												</div>
-												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">创建时间：</span>
-													<input id="createtime" class="form-control" readonly="readonly" />
-												</div>
-												<div class="input-group" style="width:100%;margin-bottom: 5px;overflow: scroll;">
-													<div class="input-group-addon" style="width: 100%;height: 30px;display: block;border-right: 1px solid #c3c3c3;">内容</div>
-													<div id="showContent"></div>
-												</div>
-											</div>
-										</div><!-- /.modal-content -->
-									</div><!-- /.modal -->
-								<!--审核信息详情模态框结束-->
 					</div><!-- /.page-content -->
 				</div><!-- /.main-content -->
 								</div><!-- /row -->
@@ -387,96 +417,100 @@
 		<script type="text/javascript">
 			jQuery(function($) {
 				//开始自定义内容
-				size=12;
+				size=3;
 				total=0;
 				isSearch=false;
-				getActivityList(1,size);
+				albumId = window.location.search.split("?")[1].split("=")[1];
+				getAlbumDetail();
+				getPhotoList(1,size);
 
 				// 结束自定义内容
 			})
+			function getAlbumDetail(){
+				var url="/ClubSystem/album/findById";
+				var data = "id="+albumId;
+				$.get(url, data, function (data) {
+					if (data.serviceResult) {
+						var album = data.resultParm.album;
+						$("#path").attr("src","/ClubSystem"+album.path);
+						$("#albumName").text(album.name);
+						$("#createtime").text(album.createtime);
+						$("#clubName").text(album.clubName);
+						$("#photoNumber").text(album.photoNumber);
+					}
+				})
+			}
 
-			function getActivityList(index,size){
-					var url="/ClubSystem/activity/getAlls";
-					var data = "indexPageNum="+index+"&size="+size;
+			function getPhotoList(index,size){
+					var url="/ClubSystem/photo/getAlbumPhoto";
+					var data = "albumId="+albumId+"&indexPageNum="+index+"&size="+size;
 					$.get(url,data,function(data){
 						if (data.serviceResult) {
 							total = data.resultParm.total;
-							var activityList = data.resultParm.activity;
+							var photoList = data.resultParm.photoList;
 							if (!isSearch) {
 								myPage(total,size);
 							}
 							$("#index").text(index);
-							showActivityList(activityList);
+							showPhotoList(photoList);
 						}
 					});
 				}
-				function showActivityList(activityList) {
+				function showPhotoList(photoList) {
 					var str='';
-					for(i=0;i<activityList.length;i++){
-						str+='<tr id="activity'+activityList[i].id+'"><td>'+activityList[i].id+'</td>';
-						str+='<td style="max-width:450px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+activityList[i].title+'</td><td>'+activityList[i].clubName+'</td><td>'+activityList[i].createtime+'</td>';
-						str+='<td><button class="btn btn-xs btn-success" onclick="showActivityDetail('+activityList[i].id+')">查看</button>&nbsp;';
-						str+='<button class="btn btn-xs btn-danger" onclick="deleteActivity('+activityList[i].id+')">删除</button></td></tr>';
+					for(i=0;i<photoList.length;i++){
+						str+='<div id="'+photoList[i].id+'" class="photo_item" onmouseenter="showBox(this)" onmouseleave="hideBox(this)"><div class="photo_box" id="'+photoList[i].id+'"><img src="/ClubSystem'+photoList[i].path+'" width="200px" height="150px"><div class="hidden_box" id="hidden_box" style="display: none;"><a href="javascript:void(0);" onclick="photoDelete(this)" title="删除照片"><i class="icon-m icon-trash-m"></i></a></div></div><div class="photo_name"><span onclick="showInput(this)">'+photoList[i].content+'</span></div></div>';
 					}
-					$("#sample-table-2 tbody").html(str);
+					$("#showPhotoList").html(str);
 				}
-				function showActivityDetail(activityId) {
-					var url = "/ClubSystem/activity/getDetails";
-					var data = "id="+activityId;
-					$.get(url, data, function (data) {
-						if (data.serviceResult) {
-							var activity = data.resultParm.activity;
-							$("#dialog #title").val(activity.title);
-							$("#dialog #clubName").val(activity.clubName);
-							$("#dialog #createtime").val(activity.createtime);
-							$("#dialog #showContent").html(html_decode(activity.content));
-							$("#dialog").show();	
+				function showBox(which) {
+					$(which).children().children("#hidden_box").show();
+				}
+				function hideBox(which) {
+					$(which).children().children("#hidden_box").hide();
+				}
+				function updateCover() {
+					var coverFormData = new FormData($("#uploadForm_cover")[0]);
+					coverFormData.append("id", albumId);
+					$.ajax({
+						url: '/ClubSystem/album/update',
+						type: 'POST',
+						data: coverFormData,
+						async: false,
+						cache: false,
+						contentType: false,
+						processData: false,
+						success: function(data) {
+							getAlbumDetail();
+							alert(data.resultInfo);
+						},
+						error: function(data) {
+							alert(data.resultInfo);
 						}
-					})
+					});
 				}
-
-				function closeDialog() {
-					$("#dialog").hide();
-				}
-
-				function deleteActivity(activityId) {
-					var url="/ClubSystem/activity/deleteById"
-					var data = "id="+activityId;
-					$.post(url,data,function(data){
-						if(data.serviceResult){
+				function photoDelete(which) {
+					var url = "/ClubSystem/photo/delete";
+					var parm = "id=" + $(which).parent().parent().parent().attr("id");
+					$.post(url, parm, function(data) {
+						if (data.serviceResult) {
 							$("#showmessage").html("删除成功").stop().show(500).hide(2000);
 							var index = parseInt($("#index").text());
-							if (isSearch) {
-								search(index);
-							}else{
-								getActivityList(index,size);
+							console.log($("#showPhotoList").children("div").length);
+							if ($("#showPhotoList").children("div").length==1&&index==totalPage) {
+								index--;
 							}
+							getPhotoList(index,size);
+							$("#photoNumber").text(parseInt($("#photoNumber").text()) - 1);
+						} else {
+							alert(data.resultInfo);
 						}
 					});
 				}
-				function search(index){
-					if ($(".form-search input[name='search']").val()=="") {
-						isSearch=false;
-						getActivityList(1,size);
-						return;
-					}
-					var data ="input="+$(".form-search input[name='search']").val()+"&indexPageNum="+index+"&size="+size;
-					var url = "/ClubSystem/activity/searchByInput";
-					$.get(url,data,function (data) {
-						if (data.serviceResult) {
-							var total = data.resultParm.total;
-							var activityList = data.resultParm.activity;
-							console.log(index);
-							showActivityList(activityList);
-							isSearch=true;
-							myPage(total,size);
-							$("#index").text(index);
-						}else{
-							$("#sample-table-2 tbody").html("");
-						}
-					})
-				}
 
+				function backToAlbumList() {
+					window.location.href="albumList.html";
+				}
 				//分页栏
 				function myPage(total,size) {
 					var str = '<button id="first" class="btn btn-xs btn-success">首页</button> <button id="prev" class="btn btn-xs btn-info">上一页</button> <span id="index" class="btn btn-xs btn-warning">1</span> <button id="next" class="btn btn-xs btn-info">下一页</button> <button id="last" class="btn btn-xs btn-success">尾页</button> <span id="total" style="vertical-align: middle;">共0页</span> <input id="inputPage" type="number" min="1" style="width: 50px;vertical-align: top;"> <button id="go" class="btn btn-xs btn-success">GO</button>';
@@ -485,52 +519,32 @@
 					$("#total").text("共"+totalPage+"页");
 					$("#inputPage").attr("max",totalPage);
 					$("#first").click(function(){
-						console.log(isSearch);
-						if (isSearch) {
-							search(1);
-						}else{
-							getActivityList(1,size);
-						}
+						getPhotoList(1,size);
 					});
 					$("#prev").click(function(){
 						var page =  $("#index").text();
 						page = parseInt(page);
-						if(page==1){
+						if(page<=1){
 							return;
 						}
-						console.log(isSearch);
-						if (isSearch) {
-							search(page-1);
-						}else{
-							getActivityList(page-1,size);
-						}
+						getPhotoList(page-1,size);
 						
 					});
 					$("#next").click(function(){
 						var page =  $("#index").text();
 						page = parseInt(page);
-						if (page==totalPage) {
+						if (page>=totalPage) {
 							return;
 						}
-						console.log(isSearch);
-						if (isSearch) {
-							search(page+1);
-						}else{
-							getActivityList(page+1,size);
-						}
+						getPhotoList(page+1,size);
 					});
 					$("#last").click(function(){
 						var page =  $("#index").text();
 						page = parseInt(page);
-						if(page==totalPage){
+						if(page==totalPage||totalPage==0){
 							return;
 						}
-						console.log(isSearch);
-						if (isSearch) {
-							search(totalPage);
-						}else{
-							getActivityList(totalPage,size);
-						}
+						getPhotoList(totalPage,size);
 					});
 					$("#go").click(function(){
 						var page =  $("#index").text();
@@ -538,27 +552,12 @@
 						page = parseInt(page);
 						inputPage=parseInt(inputPage);
 						if (0<inputPage&&inputPage<total&&inputPage!=page) {
-							console.log(isSearch);
-							if (isSearch) {
-								search(inputPage);
-							}else{
-								getActivityList(inputPage,size);
-							}
+							getPhotoList(inputPage,size);
 						}
 					});
 				}
-				function html_decode(str) {
-				  var s = "";
-				  if (str.length == 0) {
-				    return "";
-				  }
-				  s = str.replace(/&lt;/g, "<");
-				  s = s.replace(/&gt;/g, ">");
-				  s=s.replace(/\[p\];/g,"%");
-				    s=s.replace(/\[a\];/g,"&");
-				    s=s.replace(/\[ad\];/g,"+");
-				  return s;
-				}
+
+
 		</script>
 	
 </body>
