@@ -161,6 +161,42 @@ public class UserController extends BaseController {
 		request.getSession().setAttribute("userDetailId", userDetail.getId());
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
+	
+	/**
+	 * 管理员登录.
+	 * 
+	 * @author 宋.
+	 * @param request
+	 * @param account
+	 * @param password
+	 * @param VerifyCode
+	 * @return
+	 */
+	@RequestMapping(value = "/mlogin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> mlogin(HttpServletRequest request,
+			String account, String password,  Integer role) {
+		result = new ResultMessage();
+		User user = userService.findByAccount(account);
+		if (user == null) {
+			throw new DomainSecurityException("没有该用户");
+		}
+		String password_md5 = MD5Util.md5(password);
+		if (!password_md5.equals(user.getPassword())) {
+			throw new DomainSecurityException("密码错误");
+		}
+		UserDetails userDetail = userDetailsService.getByUserId(user.getId());
+		if (role != null) {
+			if (userDetail.getRoleId() != 0) {
+				throw new DomainSecurityException("该用户不是管理员");
+			}
+		}
+		// 将用户详情存放在session中.
+		request.getSession().setAttribute("userDetail", userDetail);
+		result.setResultInfo("登录成功");
+		result.getResultParm().put("userDetail", userDetail);
+		request.getSession().setAttribute("userDetailId", userDetail.getId());
+		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
+	}
 
 	/**
 	 * 更改密码.
