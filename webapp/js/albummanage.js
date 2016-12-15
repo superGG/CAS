@@ -1,5 +1,6 @@
 var timer;
 $(document).ready(function(){
+	setPositionHref();
 	getMyCreateClub();
 });
 function initAlbumList(){

@@ -1,5 +1,6 @@
 var applyId;
 $(document).ready(function(){
+	setPositionHref();
 	initApplyList();
 });
 function showApplyList(applyList){

@@ -1,6 +1,5 @@
 $(document).ready(function(){
 	initUserLeft();
-	setPositionHref();
 });
 function initUserLeft(){
 	 var userData = getCookieUserData();
