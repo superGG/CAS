@@ -319,6 +319,7 @@
 #photoFrame .bigPhoto{
 	position: relative;
 	width: 70%;
+	padding-bottom: 37px;
 	height:500px;
 	line-height:500px;
 	margin: auto;
