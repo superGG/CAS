@@ -225,7 +225,6 @@ function validate(){
     			maxlength: 8
     		},
     		email:{
-    			required:true,
     			email:true
     		},
     		phone:{
@@ -244,7 +243,6 @@ function validate(){
     			maxlength:"长度不能大于8"
     		},
     		email:{
-    			required:"不能为空!",
     			email:"example@163.com"
    			},
    			introduce:{
