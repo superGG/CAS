@@ -66,8 +66,9 @@
 						<li class="curr"><a href="showmyinformation.html" id="myinformationhref">个人资料</a></li>
 					</ul>
 				</div>
-				<table style="padding-left:50px;float:left;">
-					<form id="form_prInfo" method="post" action="#">
+				<br>
+				<form id="form_prInfo" method="post" action="#">
+				<table style="padding-left:50px;">
 					<tr>
 						<td><label for="name">姓名</label></td>
 						<td><input type="text" name="name" id="name" ><lable style="color:red;padding-left:10px;"></lable></td>
@@ -78,11 +79,11 @@
 					</tr>	
 					<tr>
 						<td><label for="age">年龄</label></td>
-						<td><input type="text" name="age" id="age" placeholder="不能为空，1-120之间" ><label style="color:red;padding-left:10px;"></label></td>
+						<td><input type="text" name="age" id="age" ><label style="color:red;padding-left:10px;"></label></td>
 					</tr>	
 					<tr>
 						<td><label for="major_class">专业班级</label></td>
-						<td><input type="text" name="major_class" id="major_class" placeholder="不能为空" ><label style="color:red;padding-left:10px;"></label></td>
+						<td><input type="text" name="major_class" id="major_class"  ><label style="color:red;padding-left:10px;"></label></td>
 					</tr>
 					<tr>
 						<td><label for="createtime">职位</label></td>
@@ -112,11 +113,9 @@
 						<td><label for="introduce">个人简介</label></td>
 						<td><textarea rows="5" cols="50"  name="introduce" id="introduce"></textarea></td>
 					</tr>
-					</form>
-					<tr align="center" >
-						<td colspan="2"><button class="set-btn" onclick="updateInformation()" style="margin:20px 0 0 0">保存</button></td>
-					</tr>
 				</table>
+				</form>
+				<div style="margin-left:250px;"><button class="set-btn" onclick="updateInformation()" style="margin:20px 0 0 0;">保存</button></div>
 			</div>
 			
 		</div>
