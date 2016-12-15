@@ -199,7 +199,6 @@
 										相册列表
 									</a>
 								</li>
-								
 							</ul>
 						</li>
 
@@ -247,10 +246,10 @@
 								<a href="index.html">首页</a>
 							</li>
 							<li>
-								<a href="javascript:void(0);">活动管理</a>
+								<a href="javascript:void(0);">相册管理</a>
 							</li>
 
-							<li class="active">活动列表</li>
+							<li class="active">相册列表</li>
 						</ul><!-- .breadcrumb -->
 
 					</div>
@@ -258,10 +257,10 @@
 					<div class="page-content">
 						<div class="page-header">
 							<h1>
-								活动管理
+								相册管理
 								<small>
 									<i class="icon-double-angle-right"></i>
-									活动列表
+									相册列表
 								</small>
 							</h1>	
 						</div><!-- /.page-header -->
@@ -272,7 +271,7 @@
 
 								<div class="row" style="margin-left: 10%;">
 									<div class="form-search">
-										<span style="font-size: 1.2em;">输入活动名称:</span>
+										<span style="font-size: 1.2em;">输入社团名称:</span>
 										<span class="input-icon">
 											<input name="search" type="text" placeholder="Search ..." class="nav-search-input"  autocomplete="off" />
 											<i class="icon-search nav-search-icon"></i>
@@ -287,14 +286,20 @@
 
 								<div class="row">
 									<div class="col-xs-12">
-										<h3 class="header smaller lighter blue">活动列表</h3>
+										<h3 class="header smaller lighter blue">相册信息表</h3>
 										<div class="table-responsive">
 											<table id="sample-table-2" class="table table-striped table-bordered table-hover">
 												<thead>
 													<tr>
-														<th>活动ID</th>
-														<th>活动标题</th>
-														<th>社团名称</th>
+														<!-- <th class="center">
+															<label>
+																<input type="checkbox" class="ace" />
+																<span class="lbl"></span>
+															</label>
+														</th> -->
+														<th>相册封面</th>
+														<th>相册名称</th>
+														<th>所属社团</th>
 														<th>
 															<i class="icon-time bigger-110 hidden-480"></i>
 															创建时间
@@ -317,31 +322,51 @@
 							</div><!-- /.col -->
 						</div><!-- /.row -->
 						<!--审核信息详情模态框开始-->
-									<div id="dialog" class="modal-dialog" style="position: fixed;top: 0px;width:50%;left:25%;display: none;">
+									<div id="dialog" class="modal-dialog" style="position: fixed;top: 0px;left:30%;display: none;">
 										<div class="modal-content">
 											<div class="modal-header">
 												<button class="btn btn-xs btn-info" style=" float: right;" onclick="closeDialog()">关闭</button>
 												<h4 class="modal-title" id="myModalLabel">
-													活动详情
+													社团详情
 												</h4>
 											</div>
-											<div class="modal-body" style="overflow-y: scroll;height: 500px">
+											<div class="modal-body">
 												<input name="userId" id="userId" type="hidden"/>
 												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">活动标题：</span>
-													<input id="title" class="form-control" readonly="readonly"/>
+													<span class="input-group-addon">社团名称：</span>
+													<input id="name" class="form-control" readonly="readonly"/>
 												</div>
 												<div class="input-group" style="margin-bottom: 5px">
-													<span class="input-group-addon">社团名称：</span>
-													<input id="clubName" class="form-control" readonly="readonly"/>
+													<span class="input-group-addon">社团类型：</span>
+													<input id="type" class="form-control" readonly="readonly"/>
+												</div>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">学校名称：</span>
+													<input id="schoolName" type="text" class="form-control" readonly="readonly" />
+												</div>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">社团人数：</span>
+													<input id="number" type="text" class="form-control" readonly="readonly" />
+												</div>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">&nbsp;创建者：</span>
+													<input id="creator" class="form-control" readonly="readonly" />
+												</div>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">电&nbsp;&nbsp;话：</span>
+													<input id="phone" class="form-control" readonly="readonly" />
 												</div>
 												<div class="input-group" style="margin-bottom: 5px">
 													<span class="input-group-addon">创建时间：</span>
 													<input id="createtime" class="form-control" readonly="readonly" />
 												</div>
-												<div class="input-group" style="width:100%;margin-bottom: 5px;overflow: scroll;">
-													<div class="input-group-addon" style="width: 100%;height: 30px;display: block;border-right: 1px solid #c3c3c3;">内容</div>
-													<div id="showContent"></div>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">社&nbsp;&nbsp;徽：</span>
+													<img id="badge" class="img-responsive" alt="社徽" style="width:200px;height: 150px">
+												</div>
+												<div class="input-group" style="margin-bottom: 5px">
+													<span class="input-group-addon">社团简介：</span>
+													<textarea id="introduction" class="form-control" name="introduction" readonly="readonly"></textarea>
 												</div>
 											</div>
 										</div><!-- /.modal-content -->
@@ -387,69 +412,62 @@
 		<script type="text/javascript">
 			jQuery(function($) {
 				//开始自定义内容
-				size=12;
+				size=4;
 				total=0;
 				isSearch=false;
-				getActivityList(1,size);
+				getAlbumList(1,size);
 
 				// 结束自定义内容
 			})
 
-			function getActivityList(index,size){
-					var url="/ClubSystem/activity/getAlls";
+			function getAlbumList(index,size){
+					var url="/ClubSystem/album/getAlls";
 					var data = "indexPageNum="+index+"&size="+size;
 					$.get(url,data,function(data){
 						if (data.serviceResult) {
 							total = data.resultParm.total;
-							var activityList = data.resultParm.activity;
+							var albumList = data.resultParm.album;
 							if (!isSearch) {
 								myPage(total,size);
 							}
 							$("#index").text(index);
-							showActivityList(activityList);
+							showAlbumList(albumList);
 						}
 					});
 				}
-				function showActivityList(activityList) {
+				function showAlbumList(albumList) {
 					var str='';
-					for(i=0;i<activityList.length;i++){
-						str+='<tr id="activity'+activityList[i].id+'"><td>'+activityList[i].id+'</td>';
-						str+='<td style="max-width:450px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+activityList[i].title+'</td><td>'+activityList[i].clubName+'</td><td>'+activityList[i].createtime+'</td>';
-						str+='<td><button class="btn btn-xs btn-success" onclick="showActivityDetail('+activityList[i].id+')">查看</button>&nbsp;';
-						str+='<button class="btn btn-xs btn-danger" onclick="deleteActivity('+activityList[i].id+')">删除</button></td></tr>';
+					for(i=0;i<albumList.length;i++){
+						str+='<tr><td><img src="/ClubSystem'+albumList[i].path+'" style="width:100px;height:100px;"/></td>';
+						str+='<td>'+albumList[i].name+'</td><td>'+albumList[i].clubName+'</td>';
+						str+='<td>'+albumList[i].createtime+'</td>';
+						str+='<td><button class="btn btn-xs btn-success" onclick="showAlbumDetail('+albumList[i].id+')">查看</button>&nbsp;';
+						str+='<button class="btn btn-xs btn-danger" onclick="deleteAlbum('+albumList[i].id+')">删除</button></td></tr>';
 					}
 					$("#sample-table-2 tbody").html(str);
 				}
-				function showActivityDetail(activityId) {
-					var url = "/ClubSystem/activity/getDetails";
-					var data = "id="+activityId;
-					$.get(url, data, function (data) {
-						if (data.serviceResult) {
-							var activity = data.resultParm.activity;
-							$("#dialog #title").val(activity.title);
-							$("#dialog #clubName").val(activity.clubName);
-							$("#dialog #createtime").val(activity.createtime);
-							$("#dialog #showContent").html(html_decode(activity.content));
-							$("#dialog").show();	
-						}
-					})
+				function showAlbumDetail(albumId) {
+					window.location.href="photoList.html?albumId="+albumId;
 				}
 
 				function closeDialog() {
 					$("#dialog").hide();
 				}
 
-				function deleteActivity(activityId) {
-					var url="/ClubSystem/activity/deleteById"
-					var data = "id="+activityId;
-					$.post(url,data,function(data){
+				function deleteAlbum(albumId) {
+					var url="/ClubSystem/album/delete"
+					var data = "id="+albumId;
+					$.get(url,data,function(data){
 						if(data.serviceResult){
 							$("#showmessage").html("删除成功").stop().show(500).hide(2000);
 							var index = parseInt($("#index").text());
+							if ($("#sample-table-2 tbody tr").length==1&&index==totalPage) {
+								index--;
+							}
 							if (isSearch) {
 								search(index);
 							}else{
-								getActivityList(index,size);
+								getAlbumList(index,size);
 							}
 						}
 					});
@@ -457,24 +475,23 @@
 				function search(index){
 					if ($(".form-search input[name='search']").val()=="") {
 						isSearch=false;
-						getActivityList(1,size);
+						getAlbumList(1,size);
 						return;
 					}
-					var data ="input="+$(".form-search input[name='search']").val()+"&indexPageNum="+index+"&size="+size;
-					var url = "/ClubSystem/activity/searchByInput";
+					var data ="search="+$(".form-search input[name='search']").val()+"&indexPageNum="+index+"&size="+size;
+					var url = "/ClubSystem/album/searchAll";
 					$.get(url,data,function (data) {
 						if (data.serviceResult) {
 							var total = data.resultParm.total;
-							var activityList = data.resultParm.activity;
+							var albumList = data.resultParm.album;
 							console.log(index);
-							showActivityList(activityList);
+							showAlbumList(albumList);
 							isSearch=true;
 							myPage(total,size);
 							$("#index").text(index);
-						}else{
-							$("#sample-table-2 tbody").html("");
 						}
 					})
+
 				}
 
 				//分页栏
@@ -489,47 +506,47 @@
 						if (isSearch) {
 							search(1);
 						}else{
-							getActivityList(1,size);
+							getAlbumList(1,size);
 						}
 					});
 					$("#prev").click(function(){
 						var page =  $("#index").text();
 						page = parseInt(page);
-						if(page==1){
+						if(page<=1){
 							return;
 						}
 						console.log(isSearch);
 						if (isSearch) {
-							search(page-1);
+								search(page-1);
 						}else{
-							getActivityList(page-1,size);
+								getAlbumList(page-1,size);
 						}
 						
 					});
 					$("#next").click(function(){
 						var page =  $("#index").text();
 						page = parseInt(page);
-						if (page==totalPage) {
+						if (page>=totalPage) {
 							return;
 						}
 						console.log(isSearch);
 						if (isSearch) {
 							search(page+1);
 						}else{
-							getActivityList(page+1,size);
+							getAlbumList(page+1,size);
 						}
 					});
 					$("#last").click(function(){
 						var page =  $("#index").text();
 						page = parseInt(page);
-						if(page==totalPage){
+						if(page==totalPage||totalPage==0){
 							return;
 						}
 						console.log(isSearch);
 						if (isSearch) {
 							search(totalPage);
 						}else{
-							getActivityList(totalPage,size);
+							getAlbumList(totalPage,size);
 						}
 					});
 					$("#go").click(function(){
@@ -542,22 +559,10 @@
 							if (isSearch) {
 								search(inputPage);
 							}else{
-								getActivityList(inputPage,size);
+								getAlbumList(inputPage,size);
 							}
 						}
 					});
-				}
-				function html_decode(str) {
-				  var s = "";
-				  if (str.length == 0) {
-				    return "";
-				  }
-				  s = str.replace(/&lt;/g, "<");
-				  s = s.replace(/&gt;/g, ">");
-				  s=s.replace(/\[p\];/g,"%");
-				    s=s.replace(/\[a\];/g,"&");
-				    s=s.replace(/\[ad\];/g,"+");
-				  return s;
 				}
 		</script>
 	
