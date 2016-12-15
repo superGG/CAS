@@ -80,5 +80,11 @@ public class ComplainServiceImpl extends BaseServiceImpl<Complain> implements
 		List<Complain> list = complainDao.findByGivenCriteria(complain, pageInfo);
 		return setUserName(list);
 	}
+	
+	@Override
+	public List<Complain> getByStatus(Complain complain, PageInfo pageInfo) {
+		List<Complain> list = complainDao.findByGivenCriteria(complain, pageInfo);
+		return setUserName(list);
+	}
 
 }

@@ -24,5 +24,10 @@ public interface ComplainService extends BaseService<Complain> {
 	 */
 	List<Complain> getByType(Complain complain, PageInfo pageInfo);
 
+	/*
+	 * 根据状态查询
+	 */
+	List<Complain> getByStatus(Complain complain, PageInfo pageInfo);
+
 
 }
