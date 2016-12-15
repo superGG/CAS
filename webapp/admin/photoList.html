@@ -426,7 +426,7 @@
 				}else{
 					showAdminData(adminData);
 				}
-				size=3;
+				size=15;
 				total=0;
 				isSearch=false;
 				albumId = window.location.search.split("?")[1].split("=")[1];
@@ -560,13 +560,13 @@
 						var inputPage = $("#inputPage").val();
 						page = parseInt(page);
 						inputPage=parseInt(inputPage);
-						if (0<inputPage&&inputPage<=total&&inputPage!=page) {
+						if (0<inputPage&&inputPage<=totalPage&&inputPage!=page) {
 							getPhotoList(inputPage,size);
 						}
 					});
 				}
 
-				
+
 				function showAdminData(adminData){
 				$("#adminCover").attr("src","/ClubSystem"+adminData.headPath);
 				$("#adminName").append(adminData.name);

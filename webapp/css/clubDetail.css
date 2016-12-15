@@ -165,6 +165,7 @@
 }
 .activity_detail{
 	padding: 10px;
+	overflow: hidden; 
 }
 .club-activity ul{
 	width: 50%;

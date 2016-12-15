@@ -273,7 +273,7 @@
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
 
-								<div class="row" style="margin-left: 10%;">
+								<!-- <div class="row" style="margin-left: 10%;">
 									<div class="form-search">
 										<span>举报类型：</span>
 										<div class="btn-group">
@@ -290,8 +290,17 @@
 												<li><a href="javascript:void(0);" onclick="search2(1,7)">其他</a></li>
 											</ul>
 										</div>
+										<span>处理状态：</span>
+										<div class="btn-group">
+											<button type="button" class="dropdown-toggle" data-toggle="dropdown" style="height: 30px;border-radius:10px;background-color: white;">全部<span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu" role="menu">
+												<li><a href="javascript:void(0);" onclick="search2(1,0)">已处理</a></li>
+												<li><a href="javascript:void(0);" onclick="search2(1,1)">未处理</a></li>
+											</ul>
+										</div>
 									</div>
-								</div>
+								</div> -->
 
 								<div class="row">
 									<div class="col-xs-12">
@@ -300,12 +309,37 @@
 											<table id="sample-table-2" class="table table-striped table-bordered table-hover">
 												<thead>
 													<tr>
-														<th>举报类型</th>
+														<th>举报类型
+															<div class="btn-group">
+																<button id="typeBtn" type="button" class="dropdown-toggle" data-toggle="dropdown" style="height: 30px;border-radius:10px;background-color: white;"><span>全部</span><span class="caret"></span>
+															</button>
+															<ul class="dropdown-menu" role="menu">
+																<li><a href="javascript:void(0);" onclick="search2(1,0)">全部</a></li>
+																<li><a href="javascript:void(0);" onclick="search2(1,1)">色情</a></li>
+																<li><a href="javascript:void(0);" onclick="search2(1,2)">暴力</a></li>
+																<li><a href="javascript:void(0);" onclick="search2(1,3)">不够色情</a></li>
+																<li><a href="javascript:void(0);" onclick="search2(1,4)">不够暴力</a></li>
+																<li><a href="javascript:void(0);" onclick="search2(1,5)">看得心情不爽</a></li>
+																<li><a href="javascript:void(0);" onclick="search2(1,6)">无聊无聊就想举报别人</a></li>
+																<li><a href="javascript:void(0);" onclick="search2(1,7)">其他</a></li>
+															</ul>
+														</div>
+														</th>
 														<th>
 															<i class="icon-time bigger-110 hidden-480"></i>
 															举报时间
 														</th>
-														<th>处理状态</th>
+														<th>处理状态
+															<div class="btn-group">
+																<button id="statusBtn" type="button" class="dropdown-toggle" data-toggle="dropdown" style="height: 30px;border-radius:10px;background-color: white;"><span>全部</span><span class="caret"></span>
+															</button>
+															<ul class="dropdown-menu" role="menu">
+																<li><a href="javascript:void(0);" onclick="search3(1,2)">全部</a></li>
+																<li><a href="javascript:void(0);" onclick="search3(1,0)">未处理</a></li>
+																<li><a href="javascript:void(0);" onclick="search3(1,1)">已处理</a></li>
+															</ul>
+															</div>
+														</th>
 														<th>
 															操作
 														</th>
@@ -406,6 +440,7 @@
 				size=10;
 				total=0;
 				type=0;
+				status=3;
 				isSearch=false;
 				getComplainList(1,size);
 
@@ -454,16 +489,19 @@
 							var statusName="未处理";
 							if (complainData.status==1) {
 								statusName="已处理";
+								$("#dialog .modal-body").append('<button id="dispose" style="width: 200px;margin:auto;" class="btn btn-xs btn-info">已处理</button>');
+							}else{
+								$("#dialog .modal-body").append('<button id="dispose" style="width: 200px;margin:auto;" class="btn btn-xs btn-ok" onclick="dispose('+complainData.id+')">处理</button>');
 							}
 							$("#dialog #status").val(statusName);
 							$("#dialog #content").val(complainData.content);
-							$("#dialog .modal-body").append('<button id="dispose" style="width: 200px;margin:auto;" class="btn btn-xs btn-ok" onclick="dispose('+complainData.id+')">处理</button>');
 							$("#dialog").show();
 						}
 					})
 				}
 
 				function closeDialog() {
+					$("#dialog .modal-body button").remove();
 					$("#dialog").hide();
 				}
 
@@ -489,6 +527,9 @@
 
 				function search2(index,typeId){
 					type = typeId;
+					status=2;
+					$("#typeBtn span").eq(0).text(toChinese(typeId));
+					$("#statusBtn span").eq(0).text(toChinese2(status));
 					if (type==0) {
 						isSearch=false;
 						getComplainList(1,size);
@@ -506,7 +547,29 @@
 							$("#index").text(index);
 						}
 					})
-
+				}
+				function search3(index,statusId){
+					status = statusId;
+					type=0;
+					$("#statusBtn span").eq(0).text(toChinese2(statusId));
+					$("#typeBtn span").eq(0).text(toChinese(typeId));
+					if (status==2) {
+						isSearch=false;
+						getComplainList(1,size);
+						return;
+					}
+					var data ="status="+statusId+"&indexPageNum="+index+"&size="+size;
+					var url = "/ClubSystem/complain/getByStatus";
+					$.get(url,data,function (data) {
+						if (data.serviceResult) {
+							var total = data.resultParm.total;
+							var complainList = data.resultParm.complainList;
+							showComplainList(complainList);
+							isSearch=true;
+							myPage(total,size);
+							$("#index").text(index);
+						}
+					})
 				}
 
 				function dispose(complainId){
@@ -539,7 +602,11 @@
 					$("#first").click(function(){
 						console.log(isSearch);
 						if (isSearch) {
-							search2(1,type);
+							if (type!=0) {
+								search2(1,type);
+							}else{
+								search3(1,status);
+							}
 						}else{
 							getComplainList(1,size);
 						}
@@ -552,9 +619,13 @@
 						}
 						console.log(isSearch);
 						if (isSearch) {
-								search2(page-1,type);
+							if (type!=0) {
+								search2(1,type);
+							}else{
+								search3(1,status);
+							}
 						}else{
-								getComplainList(page-1,size);
+							getComplainList(page-1,size);
 						}
 						
 					});
@@ -566,7 +637,11 @@
 						}
 						console.log(isSearch);
 						if (isSearch) {
-							search2(page+1,type);
+							if (type!=0) {
+								search2(1,type);
+							}else{
+								search3(1,status);
+							}
 						}else{
 							getComplainList(page+1,size);
 						}
@@ -579,7 +654,11 @@
 						}
 						console.log(isSearch);
 						if (isSearch) {
-							search2(totalPage,type);
+							if (type!=0) {
+								search2(1,type);
+							}else{
+								search3(1,status);
+							}
 						}else{
 							getComplainList(totalPage,size);
 						}
@@ -589,19 +668,26 @@
 						var inputPage = $("#inputPage").val();
 						page = parseInt(page);
 						inputPage=parseInt(inputPage);
-						if (0<inputPage&&inputPage<=total&&inputPage!=page) {
+						if (0<inputPage&&inputPage<=totalPage&&inputPage!=page) {
 							console.log(isSearch);
 							if (isSearch) {
-								search2(inputPage,type);
+								if (type!=0) {
+								search2(1,type);
+								}else{
+									search3(1,status);
+								};
 							}else{
 								getComplainList(inputPage,size);
 							}
 						}
 					});
 				}
+
 				function toChinese(typeId){
 					var typeName = '';
 					switch(typeId){
+						case 0 :typeName='全部';
+							break;
 						case 1:typeName='色情';
 							break;
 						case 2:typeName='暴力';
@@ -616,12 +702,22 @@
 							break;
 						case 7:typeName='其他';
 							break;
-						default:typeName='未知类型';
-							break;
 					}
 					return typeName;
 				}
-				
+				function toChinese2(statusId){
+					var statusName = '';
+					switch(statusId){
+						case 0:statusName='未处理';
+							break;
+						case 1:statusName='已处理';
+							break;
+						case 2:statusName='全部';
+							break;
+					}
+					return statusName;
+				}
+
 				function showAdminData(adminData){
 				$("#adminCover").attr("src","/ClubSystem"+adminData.headPath);
 				$("#adminName").append(adminData.name);

@@ -14,8 +14,6 @@ canvas{z-index:-1;position:absolute;}
 <script src="assets/js/jquery-1.10.2.min.js"></script>
 <script src="assets/js/Particleground.js"></script>
 <!-- 对话框 -->
-<link href="assets/css/green.css" rel="stylesheet" />
-<script src="assets/js/artDialog.min.js"></script>
 <script>
 $(document).ready(function() {
   //粒子背景特效
@@ -24,67 +22,6 @@ $(document).ready(function() {
     lineColor: '#5cbdaa'
   });
 });
-function checkSubmit(form) {
-	var userAccount = form.userAccount.value
-	var userPassword = form.userPassword.value
-    if(form.userAccount.value=='') {
-    	var a = art.dialog({
-    		id: 'dialog',
-    	    title: '温馨提醒',
-    	    content: '账户不能为空！',
-    	    okValue: '确定',
-    	    lock: true,
-    	    ok:function(){
-    	    	a.close();
-    	    	 return false;
-    	    }
-    	});
-          form.userAccount.focus();
-          return false;
-     }
- if(form.userPassword.value==''){
-		var a = art.dialog({
-		    title: '温馨提醒',
-		    content: '密码不能为空！',
-		    okValue: '确定',
-		    lock: true,
-		    ok:function(){
-		    	a.close();
-		    	return false;
-		    }
-		});
-		form.userPassword.focus();
-		return false;
-   }
- 
- 	if(!checkNumStr(userAccount)){
- 		var a = art.dialog({
-		    title: '温馨提醒',
-		    content: '账户不能存在特殊字段！',
-		    okValue: '确定',
-		    lock: true,
-		    ok:function(){
-		    	a.close();
-		    	return false;
-		    }
-		});
- 		return false;
- 	}
-	if(!checkNumStr(userPassword)){
- 		var a = art.dialog({
-		    title: '温馨提醒',
-		    content: '密码不能存在特殊字段！',
-		    okValue: '确定',
-		    lock: true,
-		    ok:function(){
-		    	a.close();
-		    	return false;
-		    }
-		});
- 		return false;
- 	}
-   return true;
-   }
 
 function checkNumStr(str){
 	var Str=str
@@ -100,18 +37,20 @@ function checkNumStr(str){
      }
     return true;
 }
+
 //登录提交
 function login() {
   var url ="/ClubSystem/users/mlogin";
   var sendData = $("#loginForm").serialize()+"&role=2";
-  console.log(sendData);
   $.post(url,sendData,function (data) {
     if (data.serviceResult) {
       var userDatail = data.resultParm.userDetail;
       setCookieAdminData(userDatail);
-      window.location.href="index.html";
+      setTimeout(function () {
+         window.location.href="index.html";
+      },500);
     }else{
-      $("#loginForm .login-tip").html(data.resultInfo);
+      alert(data.resultInfo);
     }
   });
 }
@@ -156,7 +95,7 @@ function setCookieAdminData(data){
 </script>
 </head>
 <body>
-<form id="loginForm" method="post" onsubmit="return checkSubmit(this)">
+<form id="loginForm">
 <dl class="admin_login">
  <dt>
   <strong>社团网申-后台管理系统</strong>
@@ -170,7 +109,7 @@ function setCookieAdminData(data){
  </dd>
 
  <dd>
-  <button  class="submit_btn" onclick="login()">立即登录</button>
+  <div  class="submit_btn" style="margin: auto;text-align: center;line-height: 42px;cursor: pointer;" onclick="login()">立即登录</div>
  </dd>
  <dd>
   <p>© 2016 Powered by 社团网申_第12组</p>

@@ -563,7 +563,7 @@
 						var inputPage = $("#inputPage").val();
 						page = parseInt(page);
 						inputPage=parseInt(inputPage);
-						if (0<inputPage&&inputPage<=total&&inputPage!=page) {
+						if (0<inputPage&&inputPage<=totalPage&&inputPage!=page) {
 							console.log(isSearch);
 							if (isSearch) {
 								search(inputPage);
@@ -573,7 +573,7 @@
 						}
 					});
 				}
-				
+
 				function showAdminData(adminData){
 				$("#adminCover").attr("src","/ClubSystem"+adminData.headPath);
 				$("#adminName").append(adminData.name);
