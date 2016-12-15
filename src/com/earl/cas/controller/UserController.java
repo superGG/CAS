@@ -135,7 +135,7 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ResultMessage> login(HttpServletRequest request,
-			String account, String password, String verifyCode) {
+			String account, String password, String verifyCode, Integer role) {
 		result = new ResultMessage();
 		if (!checkVerifyCode(request, verifyCode)) {
 			throw new DomainSecurityException("验证码错误");
@@ -149,8 +149,10 @@ public class UserController extends BaseController {
 			throw new DomainSecurityException("密码错误");
 		}
 		UserDetails userDetail = userDetailsService.getByUserId(user.getId());
-		if (userDetail == null) {
-			throw new DomainSecurityException("没有该用户详情");
+		if (role != null) {
+			if (userDetail.getRoleId() != 0) {
+				throw new DomainSecurityException("该用户不是管理员");
+			}
 		}
 		// 将用户详情存放在session中.
 		request.getSession().setAttribute("userDetail", userDetail);
@@ -159,17 +161,22 @@ public class UserController extends BaseController {
 		request.getSession().setAttribute("userDetailId", userDetail.getId());
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * 更改密码.
-	 *@author 宋.
-	 * @param detailId 用户详情id
-	 * @param oldPassword 旧密码
-	 * @param newPassword 新密码
+	 * 
+	 * @author 宋.
+	 * @param detailId
+	 *            用户详情id
+	 * @param oldPassword
+	 *            旧密码
+	 * @param newPassword
+	 *            新密码
 	 * @return
 	 */
-	@RequestMapping(value="/updatePassword" , method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResultMessage> updatePassword(Integer detailId, String oldPassword,String newPassword){
+	@RequestMapping(value = "/updatePassword", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResultMessage> updatePassword(Integer detailId,
+			String oldPassword, String newPassword) {
 		result = new ResultMessage();
 		UserDetails userDetail = userDetailsService.get(detailId);
 		User user = userService.get(userDetail.getUserId());
@@ -178,7 +185,7 @@ public class UserController extends BaseController {
 		}
 		user.setPassword(MD5Util.md5(newPassword));
 		userService.updateWithNotNullProperties(user);
-		result.setServiceResult(true);	
+		result.setServiceResult(true);
 		result.setResultInfo("更新成功");
 		return new ResponseEntity<ResultMessage>(result, HttpStatus.OK);
 	}
