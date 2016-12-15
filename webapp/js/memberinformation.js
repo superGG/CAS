@@ -1,6 +1,7 @@
 var memberId;
 var detailId;
 $(document).ready(function(){
+	setPositionHref();
 	initMemberInformation();
 });
 function initMemberInformation(){

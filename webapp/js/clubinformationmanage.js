@@ -1,6 +1,7 @@
 var clubId;
 var isValidate;
 $(document).ready(function(){
+	setPositionHref();
 	initClubInformation();
 	uploadImg();
 	updateClub();

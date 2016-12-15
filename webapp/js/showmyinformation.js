@@ -82,9 +82,9 @@ function initInformation(){
 			$("#name").val(member.name);
 			$("#email").val(member.email);
 			if(member.sex){
-				$("#sex").val("男");
+				 $("#male").attr("checked",true);
 			}else{
-				$("#sex").val("女");
+				 $("#female").attr("checked",true);
 			}
 			$("#age").val(member.age);
 			$("#major_class").val(member.majorClass);
@@ -104,11 +104,10 @@ function updateInformation(){
 	
 	var name = $("#name").val();
 	var email = $("#email").val();
-	var sex;
-	if($("#sex").val()=="男"){
-		sex = 1;
+	if($('input:radio[name="sex"]:checked').attr("id")=="male"){
+		var sex = 1;
 	}else{
-		sex = 0;
+		var sex = 0;
 	}
 	var age = $("#age").val();
 	var majorClass = $("#major_class").val();

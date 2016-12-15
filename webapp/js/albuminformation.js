@@ -2,6 +2,7 @@ var index = 0;
 var albumId;
 $(document).ready(function() {
 	index = 1;
+	setPositionHref();
 	initAlbumInformation();
 
 	morePhoto(index);
