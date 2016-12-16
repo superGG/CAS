@@ -1,6 +1,5 @@
 /.settings/
 /.externalToolBuilders
-/.project
 /*.iml
 /*.log.* 
 /*.log
@@ -8,5 +7,3 @@
 /.mymetadata
 /bin
 /webapp/WEB-INF/classes/
-/resources/applicationContext.xml
-/resources/db.properties

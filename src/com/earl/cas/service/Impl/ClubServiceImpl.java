@@ -184,7 +184,6 @@ public class ClubServiceImpl extends BaseServiceImpl<Club> implements
 			setNumber(club);
 			clublist.add(club);
 		}
-		
 		return setName(clublist);
 	}
 
