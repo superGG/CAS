@@ -3,6 +3,5 @@
 /*.log.* 
 /*.log
 /.classpath
-/.mymetadata
 /bin
 /webapp/WEB-INF/classes/

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="ClubSystem"
+  id="myeclipse.1479105973609"
+  context-root="/ClubSystem"
+  j2ee-spec="6.0"
+  archive="ClubSystem.war">
+  <attributes>
+    <attribute name="webrootdir" value="webapp" />
+  </attributes>
+</project-module>
+
