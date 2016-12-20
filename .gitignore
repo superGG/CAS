@@ -1,4 +1,6 @@
 /.externalToolBuilders
+/.settings
+/.mymetadata
 /*.iml
 /*.log.* 
 /*.log
